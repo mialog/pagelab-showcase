@@ -1,0 +1,499 @@
+/* ============================================
+   PageLab Design Tokens - Base
+   브랜드 프로젝트에서 그대로 복사해서 사용
+   Responsive.json + PLtokens.json 통합
+   ============================================ */
+
+:root {
+  /* ----------------------------------------
+     Device Breakpoints
+     PC: 1200px ~ / Tablet: 640px ~ 1199px / Mobile: 280px ~ 639px
+     ---------------------------------------- */
+  --pl-device-pc-min: 1200px;
+  --pl-device-tablet-min: 640px;
+  --pl-device-tablet-max: 1199px;
+  --pl-device-mobile-max: 639px;
+
+  /* ----------------------------------------
+     Spacing (PC 기준)
+     ---------------------------------------- */
+  --pl-spacing-1: 2px;
+  --pl-spacing-2: 4px;
+  --pl-spacing-3: 8px;
+  --pl-spacing-4: 12px;
+  --pl-spacing-5: 16px;
+  --pl-spacing-6: 20px;
+  --pl-spacing-7: 24px;
+  --pl-spacing-8: 32px;
+  --pl-spacing-9: 40px;
+  --pl-spacing-10: 48px;
+  --pl-spacing-11: 60px;
+  --pl-spacing-12: 68px;
+  --pl-spacing-13: 80px;
+  --pl-spacing-14: 100px;
+  --pl-spacing-15: 120px;
+
+  /* ----------------------------------------
+     Border Width
+     ---------------------------------------- */
+  --pl-border-1: 1px;
+  --pl-border-2: 2px;
+  --pl-border-3: 3px;
+  --pl-border-4: 4px;
+
+  /* ----------------------------------------
+     Border Radius
+     ---------------------------------------- */
+  --pl-radius-1: 4px;
+  --pl-radius-2: 10px;
+  --pl-radius-3: 18px;
+  --pl-radius-4: 24px;
+  --pl-radius-5: 32px;
+  --pl-radius-6: 40px;
+  --pl-radius-7: 60px;
+  --pl-radius-circle: 999px;
+
+  /* ----------------------------------------
+     Layout (PC 기준)
+     ---------------------------------------- */
+  --pl-container-compact: 600px;
+  --pl-container-narrow: 960px;
+  --pl-container-default: 1280px;
+  --pl-container-wide: 1400px;
+  --pl-layout-padding: 40px;
+  --pl-layout-body-top: 32px;
+  --pl-layout-body-bottom: 100px;
+  --pl-device-min-height: 960px;
+
+  /* ----------------------------------------
+     Typography - Font Family
+     ---------------------------------------- */
+  --pl-font-main: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  --pl-font-point: 'ONE Mobile Title', sans-serif;
+  --pl-font-ja: 'Noto Sans JP', sans-serif;
+  --pl-font-zh-tw: 'Noto Sans TC', sans-serif;
+  --pl-font-zh-cn: 'Noto Sans SC', sans-serif;
+  --pl-font-kids: 'Hakgyoansim Dunggeunmiso TTF', sans-serif;
+
+  /* ----------------------------------------
+     Typography - Font Size (PC 기준)
+     ---------------------------------------- */
+  --pl-font-size-display-lg: 56px;
+  --pl-font-size-display-md: 48px;
+  --pl-font-size-display-sm: 38px;
+  --pl-font-size-header-lg: 34px;
+  --pl-font-size-header-md: 30px;
+  --pl-font-size-header-sm: 26px;
+  --pl-font-size-title-lg: 24px;
+  --pl-font-size-title-md: 22px;
+  --pl-font-size-title-sm: 20px;
+  --pl-font-size-body-lg: 20px;
+  --pl-font-size-body-md: 18px;
+  --pl-font-size-body-sm: 16px;
+  --pl-font-size-label-lg: 19px;
+  --pl-font-size-label-md: 17px;
+  --pl-font-size-label-sm: 14px;
+
+  /* ----------------------------------------
+     Typography - Font Weight
+     ---------------------------------------- */
+  --pl-font-weight-light: 300;
+  --pl-font-weight-default: 500;
+  --pl-font-weight-bold: 700;
+
+  /* ----------------------------------------
+     Typography - Line Height
+     ---------------------------------------- */
+  --pl-line-height-title: 1.36;    /* 136% */
+  --pl-line-height-default: 1.44;  /* 144% */
+  --pl-line-height-body: 1.68;     /* 168% */
+
+  /* ----------------------------------------
+     Typography - Letter Spacing
+     ---------------------------------------- */
+  --pl-letter-spacing-narrow: -1px;
+  --pl-letter-spacing-normal: 0px;
+  --pl-letter-spacing-wide: 4px;
+
+  /* ----------------------------------------
+     Core Colors - Neutral
+     ---------------------------------------- */
+  --pl-neutral-0: #ffffff;
+  --pl-neutral-5: #f1f4f8;
+  --pl-neutral-10: #e3e8ed;
+  --pl-neutral-20: #d4dce2;
+  --pl-neutral-30: #c6cfd6;
+  --pl-neutral-40: #aab6bf;
+  --pl-neutral-50: #8c97a0;
+  --pl-neutral-60: #6a747c;
+  --pl-neutral-70: #545d64;
+  --pl-neutral-80: #394046;
+  --pl-neutral-90: #202427;
+  --pl-neutral-100: #0b0d11;
+
+  /* ----------------------------------------
+     Core Colors - Blue (Accent)
+     ---------------------------------------- */
+  --pl-blue-5: #f3f6ff;
+  --pl-blue-10: #dae3ff;
+  --pl-blue-20: #b7c8ff;
+  --pl-blue-30: #8eabff;
+  --pl-blue-40: #628aff;
+  --pl-blue-50: #416df0;
+  --pl-blue-60: #2856e0;
+  --pl-blue-70: #1942bc;
+  --pl-blue-80: #0e2f91;
+  --pl-blue-90: #082271;
+
+  /* ----------------------------------------
+     Core Colors - Lightblue (Brand)
+     ---------------------------------------- */
+  --pl-lightblue-5: #edf8fc;
+  --pl-lightblue-10: #d1eefa;
+  --pl-lightblue-20: #b4e6fb;
+  --pl-lightblue-30: #8ddaf9;
+  --pl-lightblue-40: #57c7f3;
+  --pl-lightblue-50: #15b1f1;
+  --pl-lightblue-60: #049edc;
+  --pl-lightblue-70: #007daf;
+  --pl-lightblue-80: #045f84;
+  --pl-lightblue-90: #06435b;
+
+  /* ----------------------------------------
+     Core Colors - Green
+     ---------------------------------------- */
+  --pl-green-5: #ecf8f2;
+  --pl-green-10: #daf1e5;
+  --pl-green-20: #b5e3cb;
+  --pl-green-30: #8fd5b0;
+  --pl-green-40: #6ac796;
+  --pl-green-50: #45b97c;
+  --pl-green-60: #269e5f;
+  --pl-green-70: #167d46;
+  --pl-green-80: #145e37;
+  --pl-green-90: #0a4325;
+
+  /* ----------------------------------------
+     Core Colors - Yellow
+     ---------------------------------------- */
+  --pl-yellow-5: #fff8e7;
+  --pl-yellow-10: #fff1d0;
+  --pl-yellow-20: #fee3a0;
+  --pl-yellow-30: #fed571;
+  --pl-yellow-40: #feca4a;
+  --pl-yellow-50: #fdb913;
+  --pl-yellow-60: #d89a00;
+  --pl-yellow-70: #a37402;
+  --pl-yellow-80: #6b4d03;
+  --pl-yellow-90: #503800;
+
+  /* ----------------------------------------
+     Core Colors - Orange
+     ---------------------------------------- */
+  --pl-orange-5: #fef1e9;
+  --pl-orange-10: #fde3d3;
+  --pl-orange-20: #fac7a6;
+  --pl-orange-30: #f8ab7a;
+  --pl-orange-40: #f58f4d;
+  --pl-orange-50: #f37321;
+  --pl-orange-60: #da6113;
+  --pl-orange-70: #a54d16;
+  --pl-orange-80: #6e330d;
+  --pl-orange-90: #482815;
+
+  /* ----------------------------------------
+     Core Colors - Red
+     ---------------------------------------- */
+  --pl-red-5: #fef5f5;
+  --pl-red-10: #fcddde;
+  --pl-red-20: #f9b8ba;
+  --pl-red-30: #f68d91;
+  --pl-red-40: #f4686d;
+  --pl-red-50: #e04d52;
+  --pl-red-60: #c9383d;
+  --pl-red-70: #a32428;
+  --pl-red-80: #7e0a0e;
+  --pl-red-90: #560406;
+
+  /* ----------------------------------------
+     Core Colors - Pink
+     ---------------------------------------- */
+  --pl-pink-5: #fff3fb;
+  --pl-pink-10: #ffe2f5;
+  --pl-pink-20: #ffc7ec;
+  --pl-pink-30: #ffa6d8;
+  --pl-pink-40: #fd80cb;
+  --pl-pink-50: #fc60b4;
+  --pl-pink-60: #de4397;
+  --pl-pink-70: #ac3a77;
+  --pl-pink-80: #832759;
+  --pl-pink-90: #5b143a;
+
+  /* ----------------------------------------
+     Core Colors - Violet
+     ---------------------------------------- */
+  --pl-violet-5: #f6f2fc;
+  --pl-violet-10: #eae2fb;
+  --pl-violet-20: #ddd2f8;
+  --pl-violet-30: #cebaf7;
+  --pl-violet-40: #b58df9;
+  --pl-violet-50: #9b6bf4;
+  --pl-violet-60: #8054d3;
+  --pl-violet-70: #6943af;
+  --pl-violet-80: #503485;
+  --pl-violet-90: #392362;
+
+  /* ----------------------------------------
+     Semantic Colors - Text
+     ---------------------------------------- */
+  --pl-text-primary: #0b0d11;
+  --pl-text-secondary: #394046;
+  --pl-text-tertiary: #6a747c;
+  --pl-text-lowest: #8c97a0;
+  --pl-text-invert: #ffffff;
+  --pl-text-disabled: #0b0d113d;
+  --pl-text-brand: #15b1f1;
+  --pl-text-brand-dark: #06435b;
+  --pl-text-brand-light: #8ddaf9;
+  --pl-text-accent: #416df0;
+  --pl-text-accent-dark: #082271;
+  --pl-text-accent-light: #b7c8ff;
+  --pl-text-positive: #45b97c;
+  --pl-text-positive-dark: #167d46;
+  --pl-text-positive-light: #8fd5b0;
+  --pl-text-caution: #fdb913;
+  --pl-text-caution-dark: #a37402;
+  --pl-text-caution-light: #fed571;
+  --pl-text-negative: #e04d52;
+  --pl-text-negative-dark: #7e0a0e;
+  --pl-text-negative-light: #f68d91;
+  --pl-text-link: #9b6bf4;
+  --pl-text-link-sub: #8c97a0;
+
+  /* ----------------------------------------
+     Semantic Colors - Background
+     ---------------------------------------- */
+  --pl-bg-default: #ffffff;
+  --pl-bg-invert: #0b0d11;
+  --pl-bg-neutral: #e3e8ed;
+  --pl-bg-neutral-dark: #d4dce2;
+  --pl-bg-neutral-darker: #8c97a0;
+  --pl-bg-disabled: #8c98a13d;
+  --pl-bg-skeleton: #d4dce2;
+  --pl-bg-scrollbar: #d4dce2;
+  --pl-bg-overlay: #ffffffcc;
+  --pl-bg-dim: #0b0d1199;
+  --pl-bg-toast: #0b0d11cc;
+  --pl-bg-brand: #15b1f1;
+  --pl-bg-brand-dark: #007daf;
+  --pl-bg-brand-light: #edf8fc;
+  --pl-bg-accent: #416df0;
+  --pl-bg-accent-dark: #0e2f91;
+  --pl-bg-accent-light: #dae3ff;
+  --pl-bg-positive: #45b97c;
+  --pl-bg-positive-dark: #167d46;
+  --pl-bg-positive-light: #ecf8f2;
+  --pl-bg-caution: #fdb913;
+  --pl-bg-caution-dark: #a37402;
+  --pl-bg-caution-light: #fff8e7;
+  --pl-bg-negative: #e04d52;
+  --pl-bg-negative-dark: #a32428;
+  --pl-bg-negative-light: #fef5f5;
+
+  /* ----------------------------------------
+     Semantic Colors - Border
+     ---------------------------------------- */
+  --pl-border-default: #c6cfd6;
+  --pl-border-light: #d4dce2;
+  --pl-border-dark: #8c97a0;
+  --pl-border-darker: #6a747c;
+  --pl-border-black: #0b0d11;
+  --pl-border-invert: #ffffff;
+  --pl-border-disabled: #0b0d113d;
+  --pl-border-brand: #15b1f1;
+  --pl-border-brand-dark: #045f84;
+  --pl-border-brand-light: #8ddaf9;
+  --pl-border-accent: #416df0;
+  --pl-border-accent-dark: #0e2f91;
+  --pl-border-accent-light: #8eabff;
+  --pl-border-positive: #45b97c;
+  --pl-border-positive-dark: #167d46;
+  --pl-border-positive-light: #8fd5b0;
+  --pl-border-caution: #fdb913;
+  --pl-border-caution-dark: #a37402;
+  --pl-border-caution-light: #fee3a0;
+  --pl-border-negative: #e04d52;
+  --pl-border-negative-dark: #7e0a0e;
+  --pl-border-negative-light: #f68d91;
+
+  /* ----------------------------------------
+     Semantic Colors - Icon
+     ---------------------------------------- */
+  --pl-icon-primary: #0b0d11;
+  --pl-icon-secondary: #394046;
+  --pl-icon-tertiary: #6a747c;
+  --pl-icon-lowest: #8c97a0;
+  --pl-icon-invert: #ffffff;
+  --pl-icon-disabled: #0b0d113d;
+  --pl-icon-brand: #15b1f1;
+  --pl-icon-brand-dark: #06435b;
+  --pl-icon-brand-light: #8ddaf9;
+  --pl-icon-accent: #416df0;
+  --pl-icon-accent-dark: #082271;
+  --pl-icon-accent-light: #b7c8ff;
+  --pl-icon-positive: #45b97c;
+  --pl-icon-positive-dark: #167d46;
+  --pl-icon-positive-light: #8fd5b0;
+  --pl-icon-caution: #fdb913;
+  --pl-icon-caution-dark: #a37402;
+  --pl-icon-caution-light: #fed571;
+  --pl-icon-negative: #e04d52;
+  --pl-icon-negative-dark: #7e0a0e;
+  --pl-icon-negative-light: #f68d91;
+  --pl-icon-link: #9b6bf4;
+  --pl-icon-link-sub: #8c97a0;
+
+  /* ----------------------------------------
+     Static Colors (고정 컬러)
+     ---------------------------------------- */
+  --pl-static-red: #e04d52;
+  --pl-static-orange: #f37321;
+  --pl-static-yellow: #fdb913;
+  --pl-static-green: #45b97c;
+  --pl-static-lightblue: #15b1f1;
+  --pl-static-blue: #416df0;
+  --pl-static-violet: #9b6bf4;
+  --pl-static-pink: #fc60b4;
+  --pl-static-gray: #8c97a0;
+
+  /* ----------------------------------------
+     Alpha Colors (Interaction Overlays)
+     버튼 상태용 투명도 컬러
+     ---------------------------------------- */
+  /* Brand Alpha (lightblue #15b1f1 = rgb(21, 177, 241)) */
+  --pl-alpha-brand-12: rgba(21, 177, 241, 0.12);
+  --pl-alpha-brand-24: rgba(21, 177, 241, 0.24);
+
+  /* Black Alpha */
+  --pl-alpha-black-12: rgba(11, 13, 17, 0.12);
+  --pl-alpha-black-24: rgba(11, 13, 17, 0.24);
+
+  /* White Alpha */
+  --pl-alpha-white-12: rgba(255, 255, 255, 0.12);
+  --pl-alpha-white-24: rgba(255, 255, 255, 0.24);
+}
+
+/* ============================================
+   Tablet (640px ~ 1199px)
+   Responsive.json ta 모드 값 적용
+   ============================================ */
+@media (max-width: 1199px) {
+  :root {
+    /* Spacing */
+    --pl-spacing-4: 10px;
+    --pl-spacing-5: 14px;
+    --pl-spacing-6: 18px;
+    --pl-spacing-7: 22px;
+    --pl-spacing-8: 30px;
+    --pl-spacing-9: 36px;
+    --pl-spacing-10: 44px;
+    --pl-spacing-11: 52px;
+    --pl-spacing-12: 60px;
+    --pl-spacing-14: 92px;
+    --pl-spacing-15: 112px;
+
+    /* Border Radius */
+    --pl-radius-2: 8px;
+    --pl-radius-3: 16px;
+    --pl-radius-5: 28px;
+    --pl-radius-6: 34px;
+    --pl-radius-7: 52px;
+
+    /* Layout */
+    --pl-layout-padding: 32px;
+    --pl-layout-body-top: 20px;
+    --pl-layout-body-bottom: 60px;
+    --pl-device-min-height: 880px;
+
+    /* Font Size - Responsive.json ta 값 */
+    --pl-font-size-display-lg: 44px;
+    --pl-font-size-display-md: 40px;
+    --pl-font-size-display-sm: 34px;
+    --pl-font-size-header-lg: 32px;
+    --pl-font-size-header-md: 28px;
+    --pl-font-size-header-sm: 24px;
+    --pl-font-size-title-lg: 22px;
+    --pl-font-size-title-md: 20px;
+    --pl-font-size-title-sm: 18px;
+    --pl-font-size-label-lg: 18px;
+    --pl-font-size-label-md: 16px;
+
+    /* Letter Spacing */
+    --pl-letter-spacing-wide: 4px;
+  }
+}
+
+/* ============================================
+   Mobile (~ 639px)
+   Responsive.json mo 모드 값 적용
+   ============================================ */
+@media (max-width: 639px) {
+  :root {
+    /* Spacing */
+    --pl-spacing-2: 3px;
+    --pl-spacing-3: 6px;
+    --pl-spacing-4: 8px;
+    --pl-spacing-5: 12px;
+    --pl-spacing-6: 16px;
+    --pl-spacing-7: 20px;
+    --pl-spacing-8: 24px;
+    --pl-spacing-9: 32px;
+    --pl-spacing-10: 40px;
+    --pl-spacing-11: 48px;
+    --pl-spacing-12: 52px;
+    --pl-spacing-13: 60px;
+    --pl-spacing-14: 80px;
+    --pl-spacing-15: 100px;
+
+    /* Border */
+    --pl-border-2: 1px;
+    --pl-border-3: 2px;
+    --pl-border-4: 3px;
+
+    /* Border Radius */
+    --pl-radius-2: 8px;
+    --pl-radius-3: 16px;
+    --pl-radius-4: 20px;
+    --pl-radius-5: 24px;
+    --pl-radius-6: 30px;
+    --pl-radius-7: 48px;
+
+    /* Layout */
+    --pl-layout-padding: 20px;
+    --pl-layout-body-top: 16px;
+    --pl-layout-body-bottom: 48px;
+    --pl-device-min-height: 800px;
+
+    /* Font Size - Responsive.json mo 값 */
+    --pl-font-size-display-lg: 30px;
+    --pl-font-size-display-md: 30px;
+    --pl-font-size-display-sm: 28px;
+    --pl-font-size-header-lg: 28px;
+    --pl-font-size-header-md: 24px;
+    --pl-font-size-header-sm: 22px;
+    --pl-font-size-title-lg: 20px;
+    --pl-font-size-title-md: 18px;
+    --pl-font-size-title-sm: 16px;
+    --pl-font-size-body-lg: 18px;
+    --pl-font-size-body-md: 16px;
+    --pl-font-size-body-sm: 16px;
+    --pl-font-size-label-lg: 17px;
+    --pl-font-size-label-md: 15px;
+
+    /* Line Height */
+    --pl-line-height-body: 1.6;
+
+    /* Letter Spacing */
+    --pl-letter-spacing-wide: 3px;
+  }
+}

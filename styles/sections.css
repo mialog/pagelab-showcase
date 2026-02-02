@@ -1,0 +1,6108 @@
+/* ============================================
+   PageLab Section Styles
+   Figma 디자인 스펙 기반 구현
+   ============================================ */
+
+/* ============================================
+   Common Section Styles
+   ============================================ */
+
+/* Common Section Layout Tokens (Figma 기반 일관된 레이아웃) */
+:root {
+  /* Layout Tokens */
+  --pl-layout-body-top: 32px;           /* 섹션 상단 패딩 */
+  --pl-layout-body-bottom: 100px;       /* 섹션 하단 패딩 */
+  --pl-layout-hor-padding: 40px;        /* 섹션 좌우 패딩 */
+
+  /* Spacing Tokens */
+  --pl-spacing-title-gap: 68px;         /* Section Title과 Content 사이 간격 (spacing-12) */
+
+  /* Device Tokens */
+  --pl-device-width-default: 1920px;    /* 기본 디바이스 너비 */
+  --pl-device-min-width: 1200px;        /* 최소 디바이스 너비 */
+
+  /* Legacy tokens (backward compatibility) */
+  --pl-section-padding-top: var(--pl-layout-body-top);
+  --pl-section-padding-bottom: var(--pl-layout-body-bottom);
+  --pl-section-title-gap: var(--pl-spacing-title-gap);
+}
+
+/* Common Section Base Styles */
+.pl-section {
+  /* 최소한의 공통 레이아웃 - 각 섹션은 필요시 오버라이드 */
+  container-type: inline-size;
+  container-name: section;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-hor-padding, 40px); /* 기본 좌우 패딩 */
+}
+
+.pl-section__container {
+  /* Container 공통 스타일 */
+  width: 100%;
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+}
+
+/* NOTE: Label and Button styles moved to components.css */
+
+/* ============================================
+   Hero Section - Type A (Split Left)
+   Figma 스펙: 1920x960, gap 60px, padding 0 40px
+   ============================================ */
+.pl-hero {
+  min-height: var(--pl-device-min-height);
+  display: flex;
+  align-items: center;
+}
+
+.pl-hero--split {
+  background: var(--pl-bg-default);
+}
+
+.pl-hero--split .pl-hero__container {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-11);
+  width: 100%;
+  max-width: 1840px; /* 1920 - 80px (padding) */
+}
+
+.pl-hero--split .pl-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-10);
+  padding-top: var(--pl-spacing-14);
+  padding-bottom: var(--pl-spacing-5);
+  flex-shrink: 0;
+  max-width: 704px; /* Figma: width 704px */
+}
+
+.pl-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-8);
+  align-items: flex-start;
+}
+
+/* Split 레이아웃에서 라벨은 콘텐츠 너비에 맞춤 */
+.pl-hero--split .pl-label {
+  align-self: flex-start;
+}
+
+/* Figma: 56px/500, line-height 76.2px (136%), color #0B0D11 */
+.pl-hero__title {
+  font-size: var(--pl-font-size-display-lg);
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+  letter-spacing: var(--pl-letter-spacing-normal);
+  margin: 0;
+}
+
+/* Figma: 20px/500, line-height 28.8px (144%), color #394046 */
+.pl-hero__desc {
+  font-size: var(--pl-font-size-body-lg);
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-default);
+  margin: 0;
+}
+
+.pl-hero__actions {
+  display: flex;
+  gap: var(--pl-spacing-5);
+  flex-wrap: wrap;
+}
+
+/* Figma: 720x720, radius 18px */
+.pl-hero__visual {
+  position: relative;
+  width: 720px;
+  height: 720px;
+  border-radius: var(--pl-radius-3);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pl-hero__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hero Split - Reverse (우측 텍스트) */
+.pl-hero--split-reverse .pl-hero__container {
+  flex-direction: row-reverse;
+}
+
+/* ============================================
+   Hero Section - Type B (Center Aligned)
+   중앙 정렬형
+   ============================================ */
+.pl-hero--center {
+  text-align: center;
+  background: var(--pl-bg-default);
+}
+
+.pl-hero--center .pl-hero__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-10); /* Figma: spacing-10 = 48px */
+  padding: var(--pl-spacing-13) 0 0 0; /* 위 여백 */
+}
+
+.pl-hero--center .pl-hero__content {
+  max-width: 1200px; /* Figma: text area 1200px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-10);
+}
+
+.pl-hero--center .pl-hero__text {
+  align-items: center;
+  gap: var(--pl-spacing-8);
+}
+
+.pl-hero--center .pl-hero__actions {
+  justify-content: center;
+}
+
+.pl-hero--center .pl-hero__visual {
+  width: 100%;
+  max-width: 100%; /* Figma: full width 1920px */
+  height: auto;
+  aspect-ratio: 1920 / 392; /* Figma: 1920x392 (~5:1) */
+  border-radius: var(--pl-radius-3); /* Figma: 18px */
+}
+
+/* ============================================
+   Hero Section - Type C (Full Visual)
+   전면 비주얼 + 오버레이
+   ============================================ */
+.pl-hero--full {
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+}
+
+.pl-hero--full .pl-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.pl-hero--full .pl-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-hero--full .pl-hero__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 13, 17, 0.80); /* Figma: alpha-black-80 */
+}
+
+.pl-hero--full .pl-hero__container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: inherit;
+  padding: var(--pl-spacing-15) 0;
+}
+
+.pl-hero--full .pl-hero__content {
+  max-width: 1200px; /* Figma: text area 1200px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-10);
+}
+
+.pl-hero--full .pl-hero__text {
+  align-items: center;
+  gap: var(--pl-spacing-8);
+}
+
+.pl-hero--full .pl-hero__title {
+  color: #b7c8ff; /* Figma: light blue for dark bg */
+}
+
+.pl-hero--full .pl-hero__desc {
+  color: var(--pl-text-invert); /* Figma: solid white, no opacity */
+}
+
+.pl-hero--full .pl-hero__actions {
+  justify-content: center;
+}
+
+/* ============================================
+   Hero Responsive - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-section {
+    padding: 0 32px; /* Tablet: Figma 32px 좌우 패딩 */
+  }
+
+  .pl-hero--split .pl-hero__content {
+    max-width: 50%;
+  }
+
+  .pl-hero__visual {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 720 / 400; /* Figma: 720x400 (1.8:1) */
+  }
+
+  /* Tablet 폰트 사이즈 */
+  .pl-hero__title {
+    font-size: 44px; /* Ta: display-lg */
+  }
+
+  .pl-hero__desc {
+    font-size: var(--pl-font-size-body-md); /* Figma Tablet: 18px */
+  }
+
+  .pl-label {
+    font-size: var(--pl-font-size-body-md); /* Ta: label-lg */
+  }
+
+  .pl-btn {
+    font-size: var(--pl-font-size-body-md); /* Ta: label-lg */
+  }
+
+  /* Hero Type B (Center) Tablet */
+  .pl-hero--center .pl-hero__visual {
+    aspect-ratio: 720 / 400; /* Figma Tablet: 720x400 (1.8:1) */
+    border-radius: var(--pl-radius-2); /* Figma Tablet: 16px */
+  }
+}
+
+/* ============================================
+   Hero Responsive - Tablet Portrait & Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 900px) {
+  .pl-hero--split .pl-hero__container {
+    flex-direction: column;
+  }
+
+  .pl-hero--split .pl-hero__content {
+    max-width: 100%;
+    padding: var(--pl-spacing-9) 0 var(--pl-spacing-4) 0; /* Ta: spacing-9 top */
+  }
+
+  .pl-hero--split .pl-hero__visual {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    aspect-ratio: 720 / 400; /* Figma: 720x400 (1.8:1) */
+  }
+
+  .pl-hero--split-reverse .pl-hero__container {
+    flex-direction: column;
+  }
+}
+
+/* ============================================
+   Hero Responsive - Mobile (Container Query)
+   Figma 스펙: 360x816, padding 0 20px, gap 48px
+   text gap: var(--pl-spacing-7), title: 30px, desc: 16px, label: 17px
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-section {
+    padding: 0 20px; /* Mo: layout-padding 20px 좌우 패딩 */
+  }
+
+  /* Type A (Split) 모바일 */
+  .pl-hero--split {
+    min-height: auto;
+    padding-bottom: 0;
+    overflow: hidden; /* 이미지 아래 여백 방지 */
+  }
+
+  .pl-hero--split .pl-hero__container {
+    gap: var(--pl-spacing-10); /* Figma: 48px */
+    align-items: flex-start;
+    align-content: flex-start;
+    padding-top: 80px; /* 라벨 위 여백 */
+    padding-bottom: 0;
+  }
+
+  .pl-hero--split .pl-hero__content {
+    padding: 0;
+    gap: var(--pl-spacing-7);
+  }
+
+  /* Figma 모바일: text gap 16px */
+  .pl-hero__text {
+    gap: var(--pl-spacing-5);
+  }
+
+  /* Figma 모바일: title 30px */
+  .pl-hero__title {
+    font-size: var(--pl-font-size-header-md); /* Mo: display-lg */
+    line-height: 1.36;
+  }
+
+  /* Figma 모바일: desc 16px */
+  .pl-hero__desc {
+    font-size: var(--pl-font-size-body-sm); /* Mo: body-sm */
+    line-height: 1.44;
+  }
+
+  /* Figma 모바일: label 17px */
+  .pl-label {
+    font-size: var(--pl-font-size-label-md); /* Mo: label-lg */
+    padding: var(--pl-spacing-2) var(--pl-spacing-3);
+  }
+
+  /* Figma 모바일: button Medium size */
+  .pl-btn {
+    font-size: 15px; /* Figma Mobile: 15px */
+    padding: var(--comp-btn-medium-padding-ver) var(--comp-btn-medium-padding-hor);
+    gap: var(--comp-btn-medium-gap);
+  }
+
+  .pl-hero__actions {
+    width: auto;
+  }
+
+  .pl-hero__actions .pl-btn {
+    width: auto;
+  }
+
+  .pl-hero--split .pl-hero__visual {
+    max-width: none;
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+    aspect-ratio: 360 / 200; /* Figma 모바일 비주얼 비율 */
+    border-radius: 0;
+    display: block;
+  }
+
+  .pl-hero--split .pl-hero__visual img {
+    display: block; /* inline 이미지의 하단 여백 제거 */
+  }
+
+  /* Type B (Center) 모바일 - Figma: 360x794 */
+  .pl-hero--center {
+    min-height: auto; /* 모바일에서 min-height 제거 */
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .pl-hero--center .pl-hero__container {
+    padding: var(--pl-spacing-4) 0 0 0; /* Figma: content starts 12px from top */
+    gap: var(--pl-spacing-9); /* Figma: 40px gap between content and image */
+  }
+
+  .pl-hero--center .pl-hero__visual {
+    border-radius: var(--pl-radius-2); /* Figma: 16px */
+    margin-left: -20px;
+    margin-right: -20px;
+    width: calc(100% + 40px);
+    max-width: none;
+    aspect-ratio: 360 / 200; /* Figma: 360x200 */
+    display: block;
+  }
+
+  .pl-hero--center .pl-hero__visual img {
+    display: block; /* inline 이미지의 하단 여백 제거 */
+  }
+
+  .pl-hero--center .pl-hero__content {
+    gap: var(--pl-spacing-8); /* Figma: 32px gap between text and button */
+    padding-top: 100px; /* Figma: 100px top padding before label */
+  }
+
+  .pl-hero--center .pl-hero__text {
+    gap: var(--pl-spacing-5); /* Figma: gap between label, title, desc */
+  }
+
+  /* Type C (Full) 모바일 */
+  .pl-hero--full {
+    min-height: 100vh; /* 모바일에서도 전체 높이 유지 */
+  }
+
+  .pl-hero--full .pl-hero__container {
+    padding: var(--pl-spacing-13) 20px 40px 20px;
+    min-height: 100vh;
+  }
+
+  .pl-hero--full .pl-hero__content {
+    gap: var(--pl-spacing-6);
+  }
+
+  .pl-hero--full .pl-hero__text {
+    gap: var(--pl-spacing-4);
+  }
+}
+
+/* ============================================
+   Intro Section - Type A (Textblock)
+   Figma 스펙: 1920x330, bg #f6f2fc (violet-5)
+   center aligned text block
+   ============================================ */
+.pl-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-intro--textblock {
+  background: var(--pl-violet-5);
+  padding: var(--pl-spacing-12) var(--pl-layout-padding);
+}
+
+.pl-intro__container {
+  max-width: 1840px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Section Title Component (재사용 가능) */
+.pl-section-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-5);
+}
+
+/* Figma: 17px/700, line-height 144%, color violet-50 (#9b6bf4) */
+.pl-section-title__label {
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-static-violet);
+  text-align: center;
+}
+
+.pl-section-title__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+}
+
+/* Figma: 38px/700, line-height 136%, color neutral-100 (#0b0d11) */
+.pl-section-title__heading {
+  font-size: var(--pl-font-size-display-sm);
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-title);
+  color: var(--pl-text-primary);
+  text-align: center;
+  margin: 0;
+}
+
+/* Figma: 20px/500, line-height 144%, color neutral-80 (#394046) */
+.pl-section-title__desc {
+  font-size: var(--pl-font-size-body-lg);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+/* Figma: 16px/500, line-height 168%, color neutral-50 (#8c97a0) */
+.pl-section-title__note {
+  font-size: var(--pl-font-size-body-sm);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-lowest);
+  text-align: center;
+  margin: 0;
+  margin-top: var(--pl-spacing-2);
+}
+
+/* ============================================
+   Intro Responsive - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-intro--textblock {
+    padding: var(--pl-spacing-11) var(--pl-layout-padding);
+  }
+
+  .pl-section-title__label {
+    font-size: var(--pl-font-size-label-md);
+  }
+
+  .pl-section-title__heading {
+    font-size: var(--pl-font-size-display-sm);
+  }
+
+  .pl-section-title__desc {
+    font-size: var(--pl-font-size-body-lg);
+  }
+}
+
+/* ============================================
+   Intro Responsive - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-intro--textblock {
+    padding: var(--pl-spacing-10) 20px;
+  }
+
+  .pl-section-title {
+    gap: var(--pl-spacing-4);
+    padding-top: var(--pl-spacing-8); /* Figma: 32px internal top padding */
+  }
+
+  .pl-section-title__label {
+    font-size: var(--pl-font-size-label-sm);
+  }
+
+  .pl-section-title__heading {
+    font-size: var(--pl-font-size-header-md);
+  }
+
+  .pl-section-title__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-section-title__note {
+    font-size: var(--pl-font-size-label-sm);
+  }
+}
+
+/* ============================================
+   Intro Section - Type B (Textgrid)
+   Figma 스펙: 1920x523, bg #ffffff
+   section title + stats grid
+   ============================================ */
+.pl-intro--textgrid {
+  background: var(--pl-bg-default);
+  padding: var(--pl-spacing-12) var(--pl-layout-padding);
+}
+
+.pl-intro--textgrid .pl-intro__container {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-11);
+}
+
+/* Section Title - Brand Color Variant */
+.pl-section-title--brand .pl-section-title__label {
+  color: var(--pl-text-brand);
+}
+
+/* Stats Grid Component */
+.pl-stats-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.pl-stats-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-2);
+  padding: var(--pl-spacing-3) var(--pl-spacing-11);
+}
+
+/* Figma: 56px/700, color blue-50 (#416df0) */
+.pl-stats-grid__number {
+  font-size: var(--pl-font-size-display-lg);
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-title);
+  color: var(--pl-text-accent);
+  text-align: center;
+}
+
+/* Figma: 20px/500, color neutral-60 (#6a747c) */
+.pl-stats-grid__label {
+  font-size: var(--pl-font-size-body-lg);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-tertiary);
+  text-align: center;
+}
+
+/* Figma: 1px vertical line, color neutral-20 (#d4dce2), height 96px */
+.pl-stats-grid__divider {
+  width: 1px;
+  height: 96px;
+  background: var(--pl-border-light);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Stats Grid Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-intro--textgrid .pl-intro__container {
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-stats-grid__item {
+    padding: var(--pl-spacing-3) var(--pl-spacing-9);
+  }
+
+  .pl-stats-grid__number {
+    font-size: var(--pl-font-size-display-md);
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  .pl-stats-grid__label {
+    font-size: var(--pl-font-size-body-md);
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  .pl-stats-grid__divider {
+    height: 80px;
+  }
+}
+
+/* ============================================
+   Stats Grid Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-intro--textgrid {
+    padding: var(--pl-spacing-10) 20px;
+  }
+
+  .pl-intro--textgrid .pl-intro__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-stats-grid {
+    flex-direction: column;
+    gap: var(--pl-spacing-6);
+    width: 100%;
+  }
+
+  .pl-stats-grid__item {
+    padding: var(--pl-spacing-5) 0;
+    width: 100%;
+  }
+
+  .pl-stats-grid__number {
+    font-size: var(--pl-font-size-display-sm);
+  }
+
+  .pl-stats-grid__label {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-stats-grid__divider {
+    width: 100%;
+    height: 1px;
+    max-width: 200px;
+  }
+}
+
+/* ============================================
+   Intro Section - Type C (Img)
+   Figma 스펙: 1920x998, bg #ffffff
+   section title + full-width image
+   header top: 32px, gap: var(--pl-spacing-12), img: 600px, bottom: 100px
+   ============================================ */
+.pl-intro--img {
+  background: var(--pl-bg-default);
+  padding: 0;
+  padding-bottom: var(--pl-spacing-14); /* 100px */
+  flex-direction: column;
+}
+
+.pl-intro__header {
+  padding: var(--pl-spacing-8) var(--pl-layout-padding); /* top: 32px */
+  padding-bottom: var(--pl-spacing-12); /* gap: var(--pl-spacing-12) */
+  display: flex;
+  justify-content: center;
+}
+
+/* Figma: 1920x600 full-width image */
+.pl-intro__image {
+  width: 100%;
+  height: 600px;
+  background: var(--pl-bg-neutral);
+  overflow: hidden;
+}
+
+.pl-intro__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-intro__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-intro__image--placeholder::after {
+  content: 'Image';
+  font-size: var(--pl-font-size-title-lg);
+  color: var(--pl-text-lowest);
+}
+
+/* ============================================
+   Intro Img Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-intro--img {
+    padding-bottom: var(--pl-spacing-13); /* 80px */
+  }
+
+  .pl-intro__header {
+    padding: var(--pl-spacing-7) var(--pl-layout-padding);
+    padding-bottom: var(--pl-spacing-11);
+  }
+
+  .pl-intro__image {
+    height: 480px;
+  }
+}
+
+/* ============================================
+   Intro Img Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-intro--img {
+    padding-bottom: var(--pl-spacing-11); /* 48px */
+  }
+
+  .pl-intro__header {
+    padding: var(--pl-spacing-5) 20px; /* Figma: top 16px */
+    padding-bottom: var(--pl-spacing-9);
+  }
+
+  .pl-intro__image {
+    height: 280px;
+  }
+}
+
+/* ============================================
+   About/Feature Section - Type A (List)
+   Figma 스펙: 1920x733, bg #f6f2fc (violet-5)
+   section title + 3x2 list card grid
+   ============================================ */
+.pl-about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-about--list {
+  background: var(--pl-violet-5); /* Figma: #f6f2fc */
+  padding: var(--pl-spacing-12) var(--pl-layout-padding) var(--pl-spacing-14);
+}
+
+.pl-about__container {
+  max-width: var(--pl-container-wide);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-11);
+}
+
+/* List Card Grid - 3 columns */
+.pl-list-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--pl-spacing-5);
+  width: 100%;
+}
+
+/* List Card Component */
+.pl-list-card {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-7);
+  padding: var(--pl-spacing-5);
+  background: var(--pl-bg-default);
+  border: 1px solid #fff; /* Figma: stroke #ffffff */
+  border-radius: var(--pl-radius-3);
+}
+
+/* Figma: 106x106, radius 10px, bg yellow-5 */
+.pl-list-card__image {
+  width: 106px;
+  height: 106px;
+  flex-shrink: 0;
+  background: var(--pl-yellow-5);
+  border-radius: var(--pl-radius-2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-list-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-list-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+/* Figma: 22px/700, color neutral-100 */
+.pl-list-card__title {
+  font-size: var(--pl-font-size-title-md); /* Figma: 22px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-primary);
+  margin: 0;
+}
+
+/* Figma: 16px/500, color neutral-60 */
+.pl-list-card__desc {
+  font-size: var(--pl-font-size-body-sm);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-tertiary);
+  margin: 0;
+}
+
+/* ============================================
+   About List Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--list {
+    padding: var(--pl-spacing-11) var(--pl-layout-padding) var(--pl-spacing-13);
+  }
+
+  .pl-about__container {
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-list-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-list-card {
+    gap: var(--pl-spacing-5);
+    padding: var(--pl-spacing-4);
+  }
+
+  .pl-list-card__image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pl-list-card__title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-list-card__desc {
+    font-size: var(--pl-font-size-label-sm);
+  }
+}
+
+/* ============================================
+   About List Responsive - Mobile
+   Figma: padding 16px 20px 48px, gap 52px
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--list {
+    padding: var(--pl-spacing-5) 20px var(--pl-spacing-10);
+  }
+
+  .pl-about__container {
+    gap: 52px;
+  }
+
+  .pl-list-grid {
+    grid-template-columns: 1fr;
+    gap: var(--pl-spacing-4);
+    width: 100%;
+  }
+
+  .pl-list-card {
+    gap: var(--pl-spacing-4);
+    padding: var(--pl-spacing-4);
+    width: 100%;
+  }
+
+  .pl-list-card__image {
+    width: 64px;
+    height: 64px;
+  }
+
+  .pl-list-card__title {
+    font-size: var(--pl-font-size-title-sm);
+  }
+
+  .pl-list-card__desc {
+    font-size: var(--pl-font-size-label-sm);
+    line-height: var(--pl-line-height-default);
+  }
+}
+
+/* ============================================
+   About/Feature Section - Type B (Card Grid)
+   Figma 스펙: 1920x1364, bg #ffffff
+   section title + 2 rows of cards
+   Row 1: 3 large cards (image top)
+   Row 2: 4 small cards (text top)
+   ============================================ */
+.pl-about--grid {
+  background: var(--pl-bg-default);
+  padding: var(--pl-spacing-11) var(--pl-layout-padding) var(--pl-spacing-14);
+}
+
+.pl-about--grid .pl-about__container {
+  max-width: var(--pl-container-wide);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-10);
+}
+
+/* Card Grid Container */
+.pl-card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-7);
+}
+
+/* Row 1: Large Cards - 3 columns */
+.pl-card-grid__row--large {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--pl-spacing-7);
+}
+
+/* Row 2: Small Cards - 4 columns */
+.pl-card-grid__row--small {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--pl-spacing-7);
+}
+
+/* Grid Card Component - Large (Image Top) */
+.pl-grid-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--pl-bg-default);
+  border-radius: var(--pl-radius-3); /* Figma: 18px */
+  overflow: hidden;
+}
+
+.pl-grid-card__image {
+  width: 100%;
+  aspect-ratio: 420 / 336; /* Figma: 420x336 */
+  background: var(--pl-bg-default);
+  border-radius: var(--pl-radius-3); /* Figma: 18px */
+  overflow: hidden;
+}
+
+.pl-grid-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-grid-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+  padding: var(--pl-spacing-5) 12px; /* Figma: 16px vertical, 12px horizontal (396px in 420px card) */
+}
+
+.pl-grid-card__title {
+  font-size: var(--pl-font-size-title-md); /* Figma: 22px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-primary); /* Figma: #0b0d11 */
+  margin: 0;
+}
+
+.pl-grid-card__desc {
+  font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-secondary); /* Figma: #394046 */
+  margin: 0;
+}
+
+/* Grid Card - Small Variant (Text Top) */
+.pl-grid-card--small {
+  flex-direction: column;
+  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 - only small cards have border */
+}
+
+.pl-grid-card--small .pl-grid-card__content {
+  order: -1; /* Text on top */
+  padding: var(--pl-spacing-5) 20px var(--pl-spacing-4); /* Figma: 20px horizontal (286px in 326px card) */
+}
+
+.pl-grid-card--small .pl-grid-card__image {
+  aspect-ratio: 326 / 261; /* Figma: 326x260.8 */
+  border-radius: 0 0 var(--pl-radius-3) var(--pl-radius-3); /* Bottom only */
+}
+
+/* Grid Card - Interaction States (Image Top) */
+.pl-grid-card {
+  cursor: pointer;
+}
+
+.pl-grid-card__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 13, 17, 0); /* Figma: #0b0d11 */
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+.pl-grid-card__image {
+  position: relative;
+}
+
+.pl-grid-card:hover .pl-grid-card__image::after {
+  background: rgba(11, 13, 17, 0.12); /* Figma: hovered 12% */
+}
+
+.pl-grid-card:active .pl-grid-card__image::after {
+  background: rgba(11, 13, 17, 0.12); /* Figma: pressed 12% */
+}
+
+/* Grid Card - Interaction States (Text Top / Small) */
+.pl-grid-card--small {
+  position: relative;
+}
+
+.pl-grid-card--small::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  border-radius: inherit;
+  transition: background 0.2s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pl-grid-card--small:hover {
+  background-color: transparent; /* Override image-top hover */
+}
+
+.pl-grid-card--small:hover::before {
+  background: rgba(255, 255, 255, 0.12); /* Figma: hovered 12% */
+}
+
+.pl-grid-card--small:active::before {
+  background: rgba(255, 255, 255, 0.24); /* Figma: pressed 24% */
+}
+
+/* ============================================
+   About Type B Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--grid {
+    padding: var(--pl-spacing-10) var(--pl-layout-padding) var(--pl-spacing-12);
+  }
+
+  .pl-card-grid__row--large {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-card-grid__row--small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-grid-card__title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-grid-card__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+}
+
+/* ============================================
+   About Type B Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--grid {
+    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
+  }
+
+  .pl-card-grid__row--large,
+  .pl-card-grid__row--small {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-grid-card {
+    border-radius: var(--pl-radius-2); /* Figma Mobile: 16px */
+  }
+
+  .pl-grid-card__image {
+    aspect-ratio: 320 / 200;
+    border-radius: var(--pl-radius-2); /* Figma Mobile: 16px */
+  }
+
+  .pl-grid-card--small .pl-grid-card__image {
+    aspect-ratio: 320 / 180;
+    border-radius: 0 0 var(--pl-radius-2) var(--pl-radius-2); /* Bottom only */
+  }
+
+  .pl-grid-card__content {
+    padding: var(--pl-spacing-4);
+  }
+
+  .pl-grid-card__title {
+    font-size: var(--pl-font-size-title-sm);
+  }
+
+  .pl-grid-card__desc {
+    font-size: var(--pl-font-size-label-md);
+  }
+}
+
+/* ============================================
+   About/Feature Section - Type C (Card Slide)
+   Figma 스펙: 1920x763, bg #ffffff
+   section title + horizontal loop animation cards
+   Card: 330x330, gap 24px
+   ============================================ */
+.pl-about--slide {
+  background: var(--pl-bg-default);
+  padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+  overflow: hidden;
+}
+
+.pl-about--slide .pl-about__container {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  gap: var(--pl-spacing-12);
+}
+
+/* Section Title in Card Slide */
+.pl-about--slide .pl-section-title {
+  padding: var(--pl-spacing-10) var(--pl-layout-padding) 0; /* Figma: 40px internal top padding */
+}
+
+/* Card Track Container */
+.pl-card-track {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Card Track Inner - Animated */
+.pl-card-track__inner {
+  display: flex;
+  gap: var(--pl-spacing-6); /* Figma: 24px */
+  width: max-content;
+  animation: card-slide 30s linear infinite;
+}
+
+/* Pause animation on hover */
+.pl-card-track:hover .pl-card-track__inner {
+  animation-play-state: paused;
+}
+
+/* Loop Animation */
+@keyframes card-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Slide Card Component (Box Style) */
+.pl-slide-card {
+  width: 330px;
+  height: 330px;
+  flex-shrink: 0;
+  position: relative;
+  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 */
+  border-radius: var(--pl-radius-3); /* Figma: 18px */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Background Image */
+.pl-slide-card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.pl-slide-card__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark Overlay - 32% */
+.pl-slide-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 13, 17, 0.32); /* Figma: #0b0d11 at 32% */
+  z-index: 2;
+  transition: background 0.2s ease;
+}
+
+/* Hover - +12% overlay (44% total) */
+.pl-slide-card:hover .pl-slide-card__overlay {
+  background: rgba(11, 13, 17, 0.44);
+}
+
+/* Active - +24% overlay (56% total) */
+.pl-slide-card:active .pl-slide-card__overlay {
+  background: rgba(11, 13, 17, 0.56);
+}
+
+/* Card Content */
+.pl-slide-card__content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--pl-spacing-6); /* Figma: 24px */
+  gap: var(--pl-spacing-2);
+}
+
+/* Figma: 30px/700, white */
+.pl-slide-card__title {
+  font-size: var(--pl-font-size-header-md); /* 30px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-invert); /* white */
+  margin: 0;
+}
+
+/* Figma: 18px/400, white */
+.pl-slide-card__desc {
+  font-size: var(--pl-font-size-body-md); /* 18px */
+  font-weight: 400;
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-invert); /* white */
+  margin: 0;
+}
+
+/* ============================================
+   Card Slide Responsive - Tablet
+   Figma 스펙: 720px, card 330x330
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--slide {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-10); /* Figma: 20px top */
+  }
+
+  .pl-about--slide .pl-about__container {
+    gap: var(--pl-spacing-11); /* Figma: 60px */
+  }
+
+  .pl-about--slide .pl-section-title {
+    padding-top: var(--pl-spacing-9); /* Figma: 36px internal top padding */
+  }
+
+  .pl-slide-card {
+    width: 330px;
+    height: 330px;
+  }
+
+  .pl-slide-card__content {
+    padding: var(--pl-spacing-6); /* Figma: 22px */
+  }
+
+  .pl-slide-card__title {
+    font-size: var(--pl-font-size-header-sm); /* Figma: 28px */
+  }
+
+  .pl-slide-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: 400;
+  }
+}
+
+/* ============================================
+   Card Slide Responsive - Mobile
+   Figma 스펙: 360px, card 240x240
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--slide {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-8); /* Figma: 16px top */
+  }
+
+  .pl-about--slide .pl-about__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-about--slide .pl-section-title {
+    padding-top: var(--pl-spacing-8); /* Figma: 32px internal top padding */
+  }
+
+  .pl-card-track__inner {
+    gap: var(--pl-spacing-5); /* Figma: 20px */
+  }
+
+  .pl-slide-card {
+    width: 240px;
+    height: 240px;
+    border-radius: var(--pl-radius-2); /* Figma: 16px */
+  }
+
+  .pl-slide-card__content {
+    padding: var(--pl-spacing-5); /* Figma: 20px */
+    gap: var(--pl-spacing-2);
+  }
+
+  .pl-slide-card__title {
+    font-size: var(--pl-font-size-title-lg); /* Figma: 24px */
+  }
+
+  .pl-slide-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: 400;
+    line-height: var(--pl-line-height-body);
+  }
+}
+
+/* ============================================
+   About/Feature Section - Type D (Card Swipe)
+   Figma 스펙: 1920x937, bg #ffffff
+   section title + manual swipe cards
+   Card: 360x504, gap 24px, radius 32px
+   ============================================ */
+.pl-about--swipe {
+  background: var(--pl-bg-default);
+  padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+}
+
+.pl-about--swipe .pl-about__container {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  gap: var(--pl-spacing-12);
+}
+
+/* Section Title in Card Swipe */
+.pl-about--swipe .pl-section-title {
+  padding: var(--pl-spacing-10) var(--pl-layout-padding) 0;
+}
+
+/* Swipe Container */
+.pl-swipe-container {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Swipe Controls (Left Side) */
+.pl-swipe-controls {
+  position: absolute;
+  left: 0;
+  top: var(--pl-spacing-8); /* Same as track padding-top */
+  width: 212px;
+  height: 466px; /* Match card A height (largest) */
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 110; /* Above card ::after overlay (100) */
+  display: flex;
+  align-items: flex-start;
+  padding-top: var(--pl-spacing-8); /* Figma: 32px from card top */
+  padding-left: 48px; /* Figma: 48px from left */
+  gap: var(--pl-spacing-3);
+  pointer-events: none; /* Allow clicks to pass through gradient */
+}
+
+.pl-swipe-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-neutral-20);
+  background: var(--pl-bg-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  pointer-events: auto;
+  position: relative;
+  z-index: 102; /* Above card ::after overlay (100) */
+}
+
+.pl-swipe-btn:hover {
+  background: var(--pl-neutral-10);
+}
+
+.pl-swipe-btn:active {
+  background: var(--pl-neutral-20);
+}
+
+.pl-swipe-btn svg {
+  width: 32px;
+  height: 32px;
+  color: var(--pl-text-primary);
+}
+
+/* Card Swipe Track */
+.pl-swipe-track {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pl-swipe-track::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-swipe-track__inner {
+  display: flex;
+  gap: var(--pl-spacing-6); /* Figma: 24px */
+  padding: var(--pl-spacing-8) var(--pl-layout-padding);
+  padding-left: 236px; /* 212px gradient + 24px gap */
+  width: max-content;
+}
+
+/* Swipe Card Component */
+.pl-swipe-card {
+  width: 360px;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: var(--pl-radius-4); /* Figma: 32px */
+  overflow: hidden;
+  background: var(--pl-bg-default);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* medium */
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+/* Hover/Press: Large shadow */
+.pl-swipe-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.pl-swipe-card:active {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Interaction Overlay for all cards */
+.pl-swipe-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+
+/* Card Type 1: Full Image with Top Overlay (img fill) */
+.pl-swipe-card--full {
+  height: 466px; /* Figma PC: 466px */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Figma: hover = accent 12%, pressed = accent 24% */
+.pl-swipe-card--full:hover::after {
+  background: rgba(21, 178, 241, 0.12);
+}
+
+.pl-swipe-card--full:active::after {
+  background: rgba(21, 178, 241, 0.24);
+}
+
+.pl-swipe-card__image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.pl-swipe-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-swipe-card__content {
+  position: relative;
+  z-index: 101; /* Above ::after overlay */
+  padding: var(--pl-spacing-10); /* Figma: 40px */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-swipe-card__title {
+  font-size: var(--pl-font-size-header-sm); /* Figma PC: 26px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: 1.44; /* Figma: 37.44px / 26px */
+  color: var(--pl-text-primary);
+  margin: 0;
+}
+
+.pl-swipe-card__desc {
+  font-size: var(--pl-font-size-title-sm); /* Figma PC: 20px */
+  font-weight: var(--pl-font-weight-medium);
+  line-height: 1.68; /* Figma: 33.6px / 20px */
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+.pl-swipe-card__btn {
+  position: relative;
+  z-index: 101; /* Above ::after overlay */
+  margin-top: auto;
+  padding: 0 var(--pl-spacing-11);
+  padding-bottom: var(--pl-spacing-10);
+  display: flex;
+  justify-content: center;
+}
+
+.pl-swipe-card__btn .pl-btn {
+  width: 240px; /* Figma: 240px */
+  height: 48px; /* Figma: 48px */
+}
+
+.pl-swipe-card__btn .pl-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Card Type 2: Full Image with Bottom Overlay (blur) */
+.pl-swipe-card--overlay {
+  height: 452px; /* Figma PC: 452px */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Figma: hover = white 12%, pressed = white 24% */
+.pl-swipe-card--overlay:hover::after {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pl-swipe-card--overlay:active::after {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__overlay-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 197px;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 2; /* Below content but above image */
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 101; /* Above ::after overlay */
+  padding: var(--pl-spacing-8); /* Figma: 32px */
+  padding-bottom: var(--pl-spacing-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__title {
+  font-size: var(--pl-font-size-title-lg); /* Figma PC: 24px */
+  line-height: 1.44; /* Figma: 34.56px / 24px */
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__desc {
+  font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
+  font-weight: var(--pl-font-weight-medium);
+  line-height: 1.68; /* Figma: 26.88px / 16px */
+  margin-bottom: var(--pl-spacing-3);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__link {
+  position: relative;
+  z-index: 101;
+  align-self: flex-end;
+  font-size: var(--pl-font-size-label-sm); /* 14px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-1);
+  padding: var(--pl-spacing-1) var(--pl-spacing-2);
+  border-radius: var(--pl-radius-1);
+  transition: background 0.2s;
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__link:hover {
+  background: rgba(21, 178, 241, 0.08);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Card Type 3: Top Image + Bottom Content (textbox) */
+.pl-swipe-card--split {
+  height: 463px; /* Figma PC: 463px */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Figma: hover = white 12%, pressed = white 24% */
+.pl-swipe-card--split:hover::after {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pl-swipe-card--split:active::after {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.pl-swipe-card--split .pl-swipe-card__image {
+  position: relative;
+  height: 257px;
+  flex-shrink: 0;
+}
+
+.pl-swipe-card--split .pl-swipe-card__content {
+  position: relative;
+  z-index: 101; /* Above ::after overlay */
+  padding: var(--pl-spacing-8);
+  padding-bottom: var(--pl-spacing-7);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-swipe-card--split .pl-swipe-card__title {
+  font-size: var(--pl-font-size-title-md); /* Figma PC: 22px */
+  line-height: 1.44; /* Figma: 31.68px / 22px */
+}
+
+.pl-swipe-card--split .pl-swipe-card__desc {
+  font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
+  font-weight: var(--pl-font-weight-medium);
+  line-height: 1.68; /* Figma: 26.88px / 16px */
+  margin-bottom: var(--pl-spacing-3);
+}
+
+.pl-swipe-card--split .pl-swipe-card__link {
+  position: relative;
+  z-index: 101;
+  align-self: flex-end;
+  font-size: var(--pl-font-size-label-sm); /* 14px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-2);
+  padding: var(--pl-spacing-2) var(--pl-spacing-3);
+  border-radius: var(--pl-radius-1);
+  transition: background 0.2s;
+}
+
+.pl-swipe-card--split .pl-swipe-card__link:hover {
+  background: rgba(21, 178, 241, 0.08);
+}
+
+.pl-swipe-card--split .pl-swipe-card__link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================
+   Card Swipe Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--swipe {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-10);
+  }
+
+  .pl-about--swipe .pl-about__container {
+    gap: var(--pl-spacing-11);
+  }
+
+  .pl-about--swipe .pl-section-title {
+    padding-top: var(--pl-spacing-9);
+  }
+
+  .pl-swipe-controls {
+    display: none; /* Hide swipe buttons on tablet, use touch */
+  }
+
+  .pl-swipe-track__inner {
+    padding-left: var(--pl-layout-padding); /* Reset to normal padding without buttons */
+  }
+
+  .pl-swipe-card {
+    width: 280px;
+    border-radius: 24px; /* Figma tablet/mobile: 24px */
+  }
+
+  /* Card A (full): 280x392 */
+  .pl-swipe-card--full {
+    height: 392px;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-md); /* Figma: 22px */
+    line-height: 1.44;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+    line-height: 1.68;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__btn .pl-btn {
+    width: 176px;
+    height: 48px;
+  }
+
+  /* Card B (overlay): 280x392 */
+  .pl-swipe-card--overlay {
+    height: 392px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__overlay-bg {
+    height: 167px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-sm); /* Figma: 20px */
+    line-height: 1.44;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  }
+
+  /* Card C (split): 280x409 */
+  .pl-swipe-card--split {
+    height: 409px;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__image {
+    height: 200px; /* Figma: 200px */
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-lg); /* Figma: 24px */
+    line-height: 1.44;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  }
+
+  .pl-swipe-card__content {
+    padding: var(--pl-spacing-8);
+  }
+}
+
+/* ============================================
+   Card Swipe Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--swipe {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-8);
+  }
+
+  .pl-about--swipe .pl-about__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-about--swipe .pl-section-title {
+    padding-top: var(--pl-spacing-8);
+  }
+
+  .pl-swipe-controls {
+    display: none; /* Hide swipe buttons on mobile */
+  }
+
+  .pl-swipe-track__inner {
+    padding: 0 20px;
+    gap: var(--pl-spacing-4);
+  }
+
+  .pl-swipe-card {
+    width: 280px;
+    border-radius: 24px; /* Figma: 24px */
+  }
+
+  /* Card A (full): 280x392 - same as tablet */
+  .pl-swipe-card--full {
+    height: 392px;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-md);
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__btn .pl-btn {
+    width: 176px;
+    height: 48px;
+  }
+
+  /* Card B (overlay): 280x392 */
+  .pl-swipe-card--overlay {
+    height: 392px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__overlay-bg {
+    height: 167px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-sm);
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  /* Card C (split): 280x409 */
+  .pl-swipe-card--split {
+    height: 409px;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__image {
+    height: 200px;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-lg);
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-swipe-card__content {
+    padding: var(--pl-spacing-6);
+  }
+
+  .pl-swipe-card__btn {
+    padding: 0 var(--pl-spacing-6);
+    padding-bottom: var(--pl-spacing-6);
+  }
+}
+
+/* ============================================
+   About/Feature - Type E Tab
+   탭 네비게이션 + 이미지 콘텐츠
+   Figma 스펙: 1920x1052, bg #ffffff
+   ============================================ */
+.pl-about--tab {
+  background: var(--pl-bg-default);
+  padding: var(--pl-spacing-5) 0 var(--pl-spacing-13);
+}
+
+.pl-about--tab .pl-about__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-12);
+}
+
+.pl-about--tab .pl-section-title {
+  padding-top: var(--pl-spacing-10);
+}
+
+/* Tab Container */
+.pl-tab-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8);
+  width: 100%;
+  max-width: var(--pl-container-default);
+  padding: 0 var(--pl-layout-padding);
+}
+
+/* Tab Navigation */
+.pl-tab-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pl-spacing-3);
+  padding: var(--pl-spacing-2);
+}
+
+.pl-tab-btn {
+  padding: var(--pl-spacing-2) var(--pl-spacing-5);
+  font-family: var(--pl-font-main);
+  font-size: var(--pl-font-size-title-sm);
+  font-weight: var(--pl-font-weight-medium);
+  color: var(--pl-text-accent);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-accent-light);
+  border-radius: var(--pl-radius-2);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.pl-tab-btn:hover {
+  background: var(--pl-blue-5);
+}
+
+.pl-tab-btn.is-active {
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-accent);
+  border-color: var(--pl-bg-accent);
+}
+
+/* Tab Content */
+.pl-tab-content {
+  width: 100%;
+}
+
+.pl-tab-panel {
+  display: none;
+}
+
+.pl-tab-panel.is-active {
+  display: block;
+}
+
+.pl-tab-panel__image {
+  width: 100%;
+  aspect-ratio: 1280 / 600;
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-5); /* Figma: 24px */
+  overflow: hidden;
+}
+
+.pl-tab-panel__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
+   Type E Tab Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--tab {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+  }
+
+  .pl-about--tab .pl-about__container {
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-about--tab .pl-section-title {
+    padding-top: var(--pl-spacing-9);
+  }
+
+  .pl-tab-container {
+    gap: var(--pl-spacing-6);
+    max-width: none;
+  }
+
+  .pl-tab-nav {
+    flex-wrap: wrap;
+    gap: var(--pl-spacing-4); /* Figma: 10px */
+  }
+
+  .pl-tab-btn {
+    font-size: var(--pl-font-size-title-sm);
+    padding: var(--pl-spacing-2) var(--pl-spacing-4);
+    border-radius: 8px; /* Figma: 8px */
+  }
+
+  .pl-tab-panel__image {
+    aspect-ratio: 640 / 400;
+  }
+}
+
+/* ============================================
+   Type E Tab Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--tab {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-9);
+  }
+
+  .pl-about--tab .pl-about__container {
+    gap: var(--pl-spacing-8);
+  }
+
+  .pl-about--tab .pl-section-title {
+    padding-top: var(--pl-spacing-8);
+  }
+
+  .pl-tab-container {
+    gap: var(--pl-spacing-5);
+    max-width: none;
+  }
+
+  .pl-tab-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--pl-spacing-2);
+  }
+
+  .pl-tab-btn {
+    font-size: var(--pl-font-size-body-sm);
+    padding: var(--pl-spacing-1) var(--pl-spacing-4);
+    border-radius: var(--pl-radius-2);
+  }
+
+  .pl-tab-panel__image {
+    aspect-ratio: 320 / 360;
+    border-radius: var(--pl-radius-4);
+  }
+}
+
+/* ============================================
+   Type E Tab - Style B (Pill Style)
+   ============================================ */
+.pl-tab-nav--style-b {
+  background: var(--pl-violet-50);
+  border-radius: var(--pl-radius-5); /* Figma: 32px */
+  padding: var(--pl-spacing-3) var(--pl-spacing-4); /* Figma: 12px 16px */
+  gap: var(--pl-spacing-3); /* Figma: 12px */
+}
+
+.pl-tab-nav--style-b .pl-tab-btn {
+  color: var(--pl-text-invert);
+  background: transparent;
+  border: none;
+  border-radius: var(--pl-radius-circle);
+}
+
+.pl-tab-nav--style-b .pl-tab-btn:hover {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-tab-nav--style-b .pl-tab-btn.is-active {
+  color: var(--pl-violet-50);
+  background: var(--pl-neutral-0);
+}
+
+/* Style B - Tablet */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-tab-nav--style-b {
+    border-radius: var(--pl-radius-4);
+  }
+
+  .pl-tab-nav--style-b .pl-tab-btn {
+    font-size: var(--pl-font-size-title-sm);
+    border-radius: var(--pl-radius-circle);
+  }
+}
+
+/* Mobile Navigation - Hidden by default */
+.pl-tab-nav-mobile {
+  display: none;
+}
+
+/* Desktop Navigation - Shown by default */
+.pl-tab-nav--desktop {
+  display: flex;
+}
+
+/* Mobile: Two row structure for both styles */
+@container section (max-width: 639px) /* Mo */ {
+  /* Hide desktop nav on mobile */
+  .pl-tab-nav--desktop {
+    display: none;
+  }
+
+  /* ========== Style A Mobile ========== */
+  .pl-tab-nav-mobile--style-a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px between rows */
+  }
+
+  .pl-tab-nav-row-a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px */
+  }
+
+  .pl-tab-nav-mobile--style-a .pl-tab-btn {
+    font-family: var(--pl-font-main);
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: var(--pl-font-weight-medium);
+    color: var(--pl-text-accent);
+    background: var(--pl-bg-default);
+    border: 1px solid var(--pl-border-accent-light);
+    border-radius: var(--pl-radius-2); /* Figma: 10px */
+    padding: var(--pl-spacing-3) var(--pl-spacing-6); /* Figma button padding */
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .pl-tab-nav-mobile--style-a .pl-tab-btn:hover {
+    background: var(--pl-blue-5);
+  }
+
+  .pl-tab-nav-mobile--style-a .pl-tab-btn.is-active {
+    font-weight: var(--pl-font-weight-bold);
+    color: var(--pl-text-invert);
+    background: var(--pl-bg-accent);
+    border-color: var(--pl-bg-accent);
+  }
+
+  /* ========== Style B Mobile ========== */
+  /* Show mobile nav structure */
+  .pl-tab-nav-mobile--style-b {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px between rows */
+  }
+
+  /* Each row is a separate pill */
+  .pl-tab-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px */
+    background: var(--pl-violet-50);
+    border-radius: 999px;
+    padding: var(--pl-spacing-3) var(--pl-spacing-3); /* Figma: 8px horizontal padding */
+    width: 320px; /* Figma: 320px */
+    height: 41px; /* Figma: 41px */
+    box-sizing: border-box;
+  }
+
+  /* Second row: narrower (230px) */
+  .pl-tab-nav-row--narrow {
+    width: 230px; /* Figma: 230px */
+  }
+
+  /* Row 1 buttons: flexible width */
+  .pl-tab-nav-mobile--style-b .pl-tab-btn {
+    font-family: var(--pl-font-main);
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: var(--pl-font-weight-medium);
+    color: var(--pl-text-invert);
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    height: 29px; /* Figma: 29px */
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1; /* Flexible: fill available space */
+    box-sizing: border-box;
+  }
+
+  /* Row 2 buttons: fixed 101px width */
+  .pl-tab-nav-row--narrow .pl-tab-btn {
+    flex: 0 0 101px; /* Figma: 101px fixed */
+    width: 101px;
+  }
+
+  .pl-tab-nav-mobile--style-b .pl-tab-btn:hover {
+    background: var(--pl-alpha-white-12);
+  }
+
+  .pl-tab-nav-mobile--style-b .pl-tab-btn.is-active {
+    font-weight: var(--pl-font-weight-bold);
+    color: var(--pl-violet-50);
+    background: var(--pl-neutral-0);
+  }
+}
+
+/* ============================================
+   Type F - Image Section
+   Figma 스펙: 섹션 타이틀 + 단일 이미지
+   ============================================ */
+.pl-about--image .pl-about__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8); /* Figma: 32px */
+  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+}
+
+.pl-about-image {
+  width: 100%;
+  max-width: var(--pl-container-default); /* Figma: 1280px */
+}
+
+.pl-about-image__wrapper {
+  width: 100%;
+  aspect-ratio: 1280 / 600; /* Figma: 1280x600 */
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-5); /* Figma: 24px */
+  overflow: hidden;
+}
+
+.pl-about-image__wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Type F - Tablet */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--image .pl-about__container {
+    gap: var(--pl-spacing-6);
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0;
+  }
+
+  .pl-about-image__wrapper {
+    aspect-ratio: 640 / 400; /* Figma: 640x400 */
+    border-radius: var(--pl-radius-5); /* Figma: 24px */
+  }
+}
+
+/* Type F - Mobile */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--image .pl-about__container {
+    gap: 52px; /* Figma: 52px */
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  }
+
+  .pl-about-image__wrapper {
+    aspect-ratio: 320 / 360; /* Figma: 320x360 */
+    border-radius: var(--pl-radius-4); /* Figma: 20px */
+  }
+}
+
+/* ============================================
+   Review Section - Type A Highlight
+   Figma 스펙: 1920x845, bg #ffffff
+   대표 후기 강조 + 수평 카드 리스트
+   ============================================ */
+.pl-review {
+  background: var(--pl-bg-default);
+}
+
+.pl-review__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-12); /* Figma: title to cards gap */
+  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+}
+
+/* Star Icons */
+.pl-star {
+  width: 48px;
+  height: 48px;
+  color: var(--pl-yellow-50);
+}
+
+.pl-star-sm {
+  width: 24px;
+  height: 24px;
+  color: var(--pl-yellow-50);
+}
+
+/* Highlight Title Area */
+.pl-review-highlight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8); /* Figma: stars to text gap */
+  padding-top: 68px; /* Figma: space above stars */
+  text-align: center;
+}
+
+.pl-review-highlight__stars {
+  display: flex;
+  justify-content: center;
+  gap: 0; /* Figma: no gap between stars */
+}
+
+.pl-review-highlight__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-5);
+}
+
+.pl-review-highlight__quote {
+  font-size: var(--pl-font-size-display-md); /* Figma: 48px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: 1.36; /* Figma: 65.28px / 48px */
+  color: var(--pl-blue-50); /* Figma: #416df0 */
+  margin: 0;
+}
+
+.pl-review-highlight__desc {
+  font-size: var(--pl-font-size-title-sm); /* Figma: 20px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.44; /* Figma: 28.8px / 20px */
+  color: var(--pl-text-secondary); /* Figma: #394046 */
+  margin: 0;
+}
+
+/* Review Cards List - Marquee Container */
+.pl-review-list {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+}
+
+/* Review Cards Track - Animated */
+.pl-review-track {
+  display: flex;
+  gap: var(--pl-spacing-7); /* Figma: 24px between cards */
+  width: max-content;
+  animation: reviewMarquee 30s linear infinite;
+}
+
+.pl-review-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes reviewMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Review Card */
+.pl-review-card {
+  flex: 0 0 300px; /* Figma: 300px width */
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-7);
+  padding: var(--pl-spacing-9) 24px 24px 24px; /* Figma: approx padding */
+  background: rgba(255, 255, 255, 0.8); /* Figma: 80% opacity */
+  border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
+  border-radius: 18px; /* Figma: 18px */
+}
+
+.pl-review-card__stars {
+  display: flex;
+  gap: var(--pl-spacing-3); /* Figma: 8px gap between small stars */
+}
+
+.pl-review-card__content {
+  font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68; /* Figma: 30.24px / 18px */
+  color: var(--pl-text-primary); /* Figma: #0b0d11 */
+  margin: 0;
+  flex: 1;
+}
+
+.pl-review-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-review-card__name {
+  font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-secondary); /* Figma: #394046 */
+}
+
+.pl-review-card__info {
+  font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-tertiary); /* Figma: #6a747c */
+}
+
+/* Review Type A - Tablet */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-review__container {
+    gap: var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0;
+  }
+
+  .pl-star {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pl-review-highlight__quote {
+    font-size: 36px;
+  }
+
+  .pl-review-highlight__desc {
+    font-size: var(--pl-font-size-body-md);
+  }
+
+  .pl-review-card {
+    flex: 0 0 280px;
+    padding: var(--pl-spacing-8) 20px 20px 20px;
+  }
+
+  .pl-review-card__content {
+    font-size: var(--pl-font-size-body-sm);
+  }
+}
+
+/* Review Type A - Mobile */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-review__container {
+    gap: 52px; /* Figma: title to cards gap */
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  }
+
+  .pl-star {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pl-star-sm {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pl-review-highlight {
+    padding-top: 52px; /* Figma: star top space */
+    gap: var(--pl-spacing-7); /* Figma: stars to text gap */
+  }
+
+  .pl-review-highlight__quote {
+    font-size: var(--pl-font-size-title-lg);
+  }
+
+  .pl-review-highlight__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-review-track {
+    gap: var(--pl-spacing-6); /* Figma: 20px between cards */
+    animation-duration: 20s;
+  }
+
+  .pl-review-card {
+    flex: 0 0 300px; /* Figma: 300px width */
+    padding: var(--pl-spacing-7) 16px 16px 16px;
+    border-radius: 16px; /* Figma: 16px */
+  }
+
+  .pl-review-card__content {
+    font-size: 15px;
+  }
+
+  .pl-review-card__name,
+  .pl-review-card__info {
+    font-size: var(--pl-font-size-label-sm);
+  }
+}
+
+/* ============================================
+   Review Section - Type B Card Grid
+   Figma 스펙: 1920x1112, bg #ffffff
+   섹션 타이틀 + 카드 그리드 (2행: 4+3)
+   ============================================ */
+.pl-review--grid {
+  background: var(--pl-bg-default);
+}
+
+.pl-review--grid .pl-review__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-12); /* Figma: title to grid gap */
+  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+}
+
+/* Review Card Grid */
+.pl-review-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-7); /* Figma: 24px between rows */
+  width: 100%;
+  max-width: var(--pl-container-wide); /* Figma: container width */
+  padding: 0 var(--pl-layout-padding);
+}
+
+.pl-review-grid__row {
+  display: flex;
+  justify-content: center;
+  gap: var(--pl-spacing-7); /* Figma: 24px between cards */
+}
+
+/* Row 1: 4 cards */
+.pl-review-grid__row--first {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Row 2: 3 cards centered */
+.pl-review-grid__row--second {
+  width: auto;
+}
+
+/* Review Card - Type B */
+.pl-review-card--grid {
+  flex: 0 0 300px; /* Figma: 300px width */
+  height: 341px; /* Figma: 341px height */
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-7);
+  padding: var(--pl-spacing-9) 24px; /* Figma: 40px top/bottom, 24px left/right */
+  background: rgba(255, 255, 255, 0.8); /* Figma: 80% opacity */
+  border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
+  border-radius: 18px; /* Figma: 18px */
+}
+
+/* Reviewer Info */
+.pl-review-card__reviewer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4); /* Figma: gap between photo and name */
+}
+
+.pl-review-card__photo {
+  width: 60px; /* Figma: 60px */
+  height: 60px;
+  border-radius: 50%;
+  background: var(--pl-neutral-10);
+  overflow: hidden;
+}
+
+.pl-review-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-review-card__user {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-review-card__user-name {
+  font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: 1.68;
+  color: var(--pl-text-secondary); /* Figma: #394046 */
+}
+
+.pl-review-card__user-info {
+  font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68;
+  color: var(--pl-text-tertiary); /* Figma: #6a747c */
+}
+
+/* Stars in Type B Card */
+.pl-review-card--grid .pl-review-card__stars {
+  display: flex;
+  gap: var(--pl-spacing-3);
+}
+
+/* Review Text in Type B */
+.pl-review-card--grid .pl-review-card__content {
+  font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68; /* Figma: 30.24px / 18px */
+  color: var(--pl-text-primary); /* Figma: #0b0d11 */
+  margin: 0;
+  flex: 1;
+}
+
+/* Review Type B - Tablet */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-review--grid .pl-review__container {
+    gap: var(--pl-spacing-11); /* Figma: title to grid gap */
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  }
+
+  .pl-review-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--pl-spacing-7); /* Figma: 22px between cards */
+    max-width: none;
+    padding: 0; /* No side padding - cards fill container width */
+  }
+
+  .pl-review-grid__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--pl-spacing-7);
+  }
+
+  .pl-review-card--grid {
+    flex: 0 0 calc(50% - 11px); /* 2 cards per row with 22px gap */
+    max-width: 317px;
+    height: 327px;
+    padding: var(--pl-spacing-9) var(--pl-spacing-7);
+    border-radius: 16px;
+  }
+
+  /* Last card full width when odd number */
+  .pl-review-grid__row .pl-review-card--grid:last-child:nth-child(odd) {
+    flex: 0 0 100%;
+    max-width: 656px;
+    height: 267px;
+  }
+
+  .pl-review-card__photo {
+    width: 60px; /* Figma: same as PC */
+    height: 60px;
+  }
+
+  .pl-review-card__user-name,
+  .pl-review-card__user-info {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  }
+
+  .pl-review-card--grid .pl-review-card__content {
+    font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  }
+}
+
+/* Review Type B - Mobile */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-review--grid .pl-review__container {
+    gap: 52px;
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  }
+
+  .pl-review-grid {
+    gap: var(--pl-spacing-6);
+    padding: 0; /* No side padding - cards fill container width */
+  }
+
+  .pl-review-grid__row {
+    flex-direction: column;
+    gap: var(--pl-spacing-6);
+    width: 100%;
+  }
+
+  .pl-review-card--grid {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 304px; /* Enough height for text with bottom margin */
+    padding: var(--pl-spacing-8) 20px;
+    border-radius: 16px;
+  }
+
+  .pl-review-card__photo {
+    width: 60px; /* Figma: 60px same as PC */
+    height: 60px;
+  }
+
+  .pl-review-card__reviewer {
+    gap: var(--pl-spacing-3);
+  }
+
+  .pl-review-card__user-name,
+  .pl-review-card__user-info {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  }
+
+  .pl-review-card--grid .pl-review-card__stars {
+    gap: var(--pl-spacing-3); /* Figma: 6px */
+  }
+
+  .pl-review-card--grid .pl-review-card__content {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  }
+}
+
+/* ============================================
+   Review Section - Type C Card Slider
+   Figma 스펙: 1920x731, bg #ffffff
+   섹션 타이틀 + 가로 슬라이더 카드
+   ============================================ */
+.pl-review--slider {
+  background: var(--pl-bg-default);
+}
+
+.pl-review--slider .pl-review__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-12); /* Figma: title to slider gap */
+  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+}
+
+/* Review Slider */
+.pl-review-slider {
+  width: 100%;
+  overflow: hidden; /* Hide overflow for seamless loop */
+  padding: 0 40px;
+  /* Gradient fade on both sides (like Type A) */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+}
+
+.pl-review-slider__track {
+  display: flex;
+  gap: var(--pl-spacing-7); /* Figma: 24px between cards */
+  width: max-content;
+  animation: reviewSliderLoop 30s linear infinite;
+}
+
+.pl-review-slider:hover .pl-review-slider__track {
+  animation-play-state: paused;
+}
+
+@keyframes reviewSliderLoop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 12px)); /* Half of track + half gap */
+  }
+}
+
+/* Review Card - Type C (Slider) */
+.pl-review-card--slider {
+  flex: 0 0 300px; /* Figma: 300px width */
+  min-width: 260px; /* Figma: min-width */
+  height: 333px; /* Figma: 333px height */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pl-spacing-7); /* Figma: spacing-7 = 24px */
+  padding: var(--pl-spacing-9) 24px 32px 24px; /* Figma: spacing-9, spacing-7, spacing-8, spacing-7 */
+  background: rgba(255, 255, 255, 0.8); /* Figma: 80% opacity */
+  border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
+  border-radius: 18px; /* Figma: 18px */
+}
+
+/* Stars in Type C Card */
+.pl-review-card--slider .pl-review-card__stars {
+  display: flex;
+  gap: var(--pl-spacing-3);
+}
+
+/* Review Text in Type C */
+.pl-review-card--slider .pl-review-card__content {
+  font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68; /* Figma: 30.24px / 18px */
+  color: var(--pl-text-primary); /* Figma: #0b0d11 */
+  margin: 0;
+  flex: 1;
+}
+
+/* Reviewer in Type C - at bottom */
+.pl-review-card--slider .pl-review-card__reviewer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+}
+
+.pl-review-card--slider .pl-review-card__photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--pl-neutral-10);
+  overflow: hidden;
+}
+
+.pl-review-card--slider .pl-review-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-review-card--slider .pl-review-card__user {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-review-card--slider .pl-review-card__user-name {
+  font-size: var(--pl-font-size-body-sm);
+  font-weight: var(--pl-font-weight-bold);
+  line-height: 1.68;
+  color: var(--pl-text-secondary);
+}
+
+.pl-review-card--slider .pl-review-card__user-info {
+  font-size: var(--pl-font-size-body-sm);
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68;
+  color: var(--pl-text-tertiary);
+}
+
+/* Review Type C - Tablet */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-review--slider .pl-review__container {
+    gap: var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0;
+  }
+
+  .pl-review-slider {
+    padding: 0 32px;
+  }
+
+  .pl-review-slider__track {
+    gap: var(--pl-spacing-7);
+  }
+
+  .pl-review-card--slider {
+    flex: 0 0 280px;
+    height: 320px;
+    gap: var(--pl-spacing-7);
+    padding: var(--pl-spacing-9) var(--pl-spacing-7) 28px var(--pl-spacing-7); /* 28px: 토큰 없음 */
+    border-radius: 16px;
+  }
+
+  .pl-review-card--slider .pl-review-card__content {
+    font-size: var(--pl-font-size-label-md);
+  }
+}
+
+/* Review Type C - Mobile */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-review--slider .pl-review__container {
+    gap: 52px;
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  }
+
+  .pl-review-slider {
+    padding: 0 20px;
+  }
+
+  .pl-review-slider__track {
+    gap: var(--pl-spacing-5);
+  }
+
+  .pl-review-card--slider {
+    flex: 0 0 280px;
+    height: 304px;
+    gap: var(--pl-spacing-6);
+    padding: var(--pl-spacing-8) 20px 24px 20px;
+    border-radius: 16px;
+  }
+
+  .pl-review-card--slider .pl-review-card__stars {
+    gap: var(--pl-spacing-3);
+  }
+
+  .pl-review-card--slider .pl-review-card__content {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-review-card--slider .pl-review-card__reviewer {
+    gap: var(--pl-spacing-3);
+  }
+}
+
+/* ============================================
+   Benefit Section
+   ============================================ */
+
+/* ----- PC (Default) ----- */
+.pl-benefit {
+  width: 100%;
+  background: var(--pl-bg-default);
+}
+
+.pl-benefit__container {
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+}
+
+/* Section Title Spacing */
+.pl-benefit .pl-section-title {
+  margin-bottom: var(--pl-spacing-9);
+}
+
+/* Benefit Grid Layout */
+.pl-benefit__grid {
+  display: grid;
+  gap: var(--pl-spacing-2); /* 4px - narrow spacing */
+  margin-bottom: var(--pl-spacing-9);
+  align-items: center;
+  position: relative; /* For absolute positioned plus icons */
+}
+
+/* Grid Variations - simple repeat columns */
+.pl-benefit__grid--4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pl-benefit__grid--3col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pl-benefit__grid--2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Small Benefit Card */
+.pl-benefit__card--small {
+  background: var(--pl-blue-5); /* #edf8fc from Figma */
+  padding: var(--pl-spacing-8) var(--pl-spacing-10); /* 32px 40px from Figma */
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3); /* 12px from Figma */
+  position: relative;
+  text-align: center;
+}
+
+/* First card - top-left radius */
+.pl-benefit__card--small:first-child {
+  border-top-left-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Last card in 4-column layout - top-right radius */
+.pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7) {
+  border-top-right-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Last card in 3-column layout - top-right radius */
+.pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5) {
+  border-top-right-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Last card in 2-column layout - top-right radius */
+.pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+  border-top-right-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Card Icon - Absolute positioned */
+.pl-benefit__card-icon {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: var(--pl-bg-brand);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pl-benefit__card-icon svg {
+  color: var(--pl-static-white);
+}
+
+.pl-benefit__card-icon--top-right {
+  top: var(--pl-spacing-8); /* 32px from Figma */
+  right: var(--pl-spacing-4); /* 16px from Figma */
+}
+
+.pl-benefit__card-icon--bottom-left {
+  bottom: var(--pl-spacing-4); /* 16px from Figma */
+  left: var(--pl-spacing-4); /* 16px from Figma */
+}
+
+/* Plus Icon Between Cards - Absolutely positioned to overlap */
+.pl-benefit__plus-icon {
+  position: absolute;
+  top: 32%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  background: var(--pl-bg-brand);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.pl-benefit__plus-icon svg {
+  color: var(--pl-static-white);
+}
+
+/* Positioning for 4-column layout */
+.pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(2) {
+  left: 25%;
+}
+
+.pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(4) {
+  left: 50%;
+}
+
+.pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(6) {
+  left: 75%;
+}
+
+/* Positioning for 3-column layout */
+.pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(2) {
+  left: 33.333%;
+}
+
+.pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(4) {
+  left: 66.666%;
+}
+
+/* Positioning for 2-column layout */
+.pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(2) {
+  left: 50%;
+}
+
+/* Card Text Block - Center aligned */
+.pl-benefit__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2); /* 8px */
+  text-align: center;
+}
+
+.pl-benefit__card-title {
+  font-size: var(--pl-font-size-title-lg); /* 24px from Figma */
+  font-weight: var(--pl-font-weight-bold); /* 700 */
+  line-height: var(--pl-line-height-default); /* 1.44 */
+  color: var(--pl-text-primary); /* #0b0d11 */
+  text-align: center;
+}
+
+.pl-benefit__card-sub {
+  font-size: var(--pl-font-size-label-sm); /* 14px from Figma */
+  font-weight: var(--pl-font-weight-default); /* 500 */
+  line-height: var(--pl-line-height-default); /* 1.44 */
+  color: var(--pl-text-secondary); /* #394046 */
+  text-align: center;
+}
+
+/* Card Image */
+.pl-benefit__card-image {
+  width: 100%;
+  height: 112px; /* from Figma */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.pl-benefit__card-image img {
+  max-width: 190px; /* from Figma */
+  max-height: 95px; /* from Figma */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Card Note */
+.pl-benefit__card-note {
+  font-size: var(--pl-font-size-label-sm); /* 14px from Figma */
+  font-weight: var(--pl-font-weight-default); /* 500 */
+  line-height: var(--pl-line-height-default); /* 1.44 */
+  color: var(--pl-text-tertiary); /* #6a747c */
+  text-align: center;
+}
+
+/* Large Benefit Banner */
+.pl-benefit__card--large {
+  grid-column: 1 / -1;
+  background: var(--pl-bg-brand);
+  border-bottom-left-radius: var(--pl-radius-5); /* 20px */
+  border-bottom-right-radius: var(--pl-radius-5); /* 20px */
+  padding: var(--pl-spacing-9) var(--pl-spacing-10);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pl-spacing-10);
+  min-height: 176px;
+}
+
+.pl-benefit__card--large .pl-benefit__card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-benefit__card--large .pl-benefit__card-title {
+  font-size: var(--pl-font-size-title-lg);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-static-white);
+  line-height: var(--pl-line-height-title);
+  text-align: left;
+}
+
+.pl-benefit__card--large .pl-benefit__card-sub {
+  font-size: var(--pl-font-size-body-md);
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-static-white);
+  line-height: var(--pl-line-height-body);
+  text-align: left;
+}
+
+.pl-benefit__card--large .pl-benefit__card-image {
+  width: 224px;
+  height: 112px;
+  flex-shrink: 0;
+  border-radius: var(--pl-radius-4); /* 12px */
+  overflow: hidden;
+}
+
+/* CTA Button */
+.pl-benefit__cta {
+  display: flex;
+  justify-content: center;
+}
+
+/* ----- Tablet (max-width: 1199px) ----- */
+@media (max-width: 1199px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+  }
+
+  .pl-benefit__grid {
+    gap: var(--pl-spacing-2);
+    margin-bottom: var(--pl-spacing-8);
+  }
+
+  /* Hide plus icons on tablet and reset grid */
+  .pl-benefit__plus-icon {
+    display: none;
+  }
+
+  /* All grids -> 2col on tablet */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7) var(--pl-spacing-8);
+    gap: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  /* Tablet radius adjustments */
+  /* Reset all desktop radius explicitly with individual corner properties */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__card--large {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Reset desktop-specific radius rules */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: 0 !important;
+  }
+
+  /* 4 cards layout (2x2 grid + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__grid--4col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 3 cards layout (2 cards in row 1, 1 full-width card in row 2, banner in row 3) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Third card (적립) - position 5 in DOM (Plus icon is at 4) - Full width */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .pl-benefit__grid--3col .pl-benefit__card--large {
+    grid-column: 1 / -1 !important;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 2 cards layout (2 cards + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+}
+
+/* ----- Mobile (max-width: 639px) ----- */
+@media (max-width: 639px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+    padding-left: var(--pl-layout-padding) !important;
+    padding-right: var(--pl-layout-padding) !important;
+  }
+
+  .pl-benefit__grid {
+    gap: 0; /* Remove gap, plus-icon handles spacing */
+    margin-bottom: var(--pl-spacing-7);
+  }
+
+  /* Show plus icons on mobile - position between cards in gap space */
+  .pl-benefit__plus-icon {
+    display: flex;
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    margin: -12.5px 0; /* (28px - 3px) / 2 = 12.5px overlap each side for 3px visible gap */
+    justify-self: center; /* Center in grid cell */
+    background: var(--pl-bg-brand);
+  }
+
+  .pl-benefit__plus-icon svg {
+    color: var(--pl-static-white);
+  }
+
+  /* Reset PC left positioning for all plus icons on mobile */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(6),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(2) {
+    left: auto;
+  }
+
+  /* 4 cards: show 3 plus icons (hide 4th - position 8) */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(8) {
+    display: none;
+  }
+
+  /* 3 cards: show 2 plus icons (hide 3rd - position 6) */
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(6) {
+    display: none;
+  }
+
+  /* 2 cards: show 1 plus icon (hide 2nd - position 4) */
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(4) {
+    display: none;
+  }
+
+  /* All grids -> 1col on mobile */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card-title {
+    font-size: var(--pl-font-size-body-lg);
+  }
+
+  .pl-benefit__card-image {
+    height: 96px;
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7);
+    flex-direction: column;
+    gap: var(--pl-spacing-6);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-text {
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-sm);
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-label-lg);
+    text-align: center;
+  }
+
+  /* Mobile radius adjustments - 1 column layout */
+  /* Reset all small card radius */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset desktop-specific radius rules for mobile */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* First card gets both top corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset 2nd, 3rd, 4th card radius for mobile 1-column layout */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Banner card gets bottom corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--large,
+  .pl-benefit__grid--3col .pl-benefit__card--large,
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-image {
+    width: 100%;
+    max-width: 224px;
+    margin: 0 auto;
+  }
+}
+
+/* ----- Container Query ----- */
+@container section (max-width: 1199px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+  }
+
+  .pl-benefit__grid {
+    gap: var(--pl-spacing-2);
+    margin-bottom: var(--pl-spacing-8);
+  }
+
+  /* Hide plus icons on tablet and reset grid */
+  .pl-benefit__plus-icon {
+    display: none;
+  }
+
+  /* All grids -> 2col on tablet */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7) var(--pl-spacing-8);
+    gap: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  /* Tablet radius adjustments */
+  /* Reset all desktop radius explicitly with individual corner properties */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__card--large {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Reset desktop-specific radius rules */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: 0 !important;
+  }
+
+  /* 4 cards layout (2x2 grid + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__grid--4col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 3 cards layout (2 cards in row 1, 1 full-width card in row 2, banner in row 3) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Third card (적립) - position 5 in DOM (Plus icon is at 4) - Full width */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .pl-benefit__grid--3col .pl-benefit__card--large {
+    grid-column: 1 / -1 !important;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 2 cards layout (2 cards + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+}
+
+@container section (max-width: 639px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+    padding-left: var(--pl-layout-padding) !important;
+    padding-right: var(--pl-layout-padding) !important;
+  }
+
+  .pl-benefit__grid {
+    gap: 0; /* Remove gap, plus-icon handles spacing */
+    margin-bottom: var(--pl-spacing-7);
+  }
+
+  /* Show plus icons on mobile - position between cards in gap space */
+  .pl-benefit__plus-icon {
+    display: flex;
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    margin: -12.5px 0; /* (28px - 3px) / 2 = 12.5px overlap each side for 3px visible gap */
+    justify-self: center; /* Center in grid cell */
+    background: var(--pl-bg-brand);
+  }
+
+  .pl-benefit__plus-icon svg {
+    color: var(--pl-static-white);
+  }
+
+  /* Reset PC left positioning for all plus icons on mobile */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(6),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(2) {
+    left: auto;
+  }
+
+  /* 4 cards: show 3 plus icons (hide 4th - position 8) */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(8) {
+    display: none;
+  }
+
+  /* 3 cards: show 2 plus icons (hide 3rd - position 6) */
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(6) {
+    display: none;
+  }
+
+  /* 2 cards: show 1 plus icon (hide 2nd - position 4) */
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(4) {
+    display: none;
+  }
+
+  /* All grids -> 1col on mobile */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card-title {
+    font-size: var(--pl-font-size-body-lg);
+  }
+
+  .pl-benefit__card-image {
+    height: 96px;
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7);
+    flex-direction: column;
+    gap: var(--pl-spacing-6);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-text {
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-sm);
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-label-lg);
+    text-align: center;
+  }
+
+  /* Mobile radius adjustments - 1 column layout */
+  /* Reset all small card radius */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset desktop-specific radius rules for mobile */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* First card gets both top corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset 2nd, 3rd, 4th card radius for mobile 1-column layout */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Banner card gets bottom corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--large,
+  .pl-benefit__grid--3col .pl-benefit__card--large,
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-image {
+    width: 100%;
+    max-width: 224px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================
+   Benefit Section - Type B (Image)
+   Figma: 1920x1160, bg #ffffff
+   Simple layout: section title + image + CTA
+   ============================================ */
+.pl-benefit--img {
+  background: var(--pl-bg-default);
+  padding: var(--pl-spacing-8) 0 var(--pl-spacing-13);
+}
+
+.pl-benefit--img .pl-benefit__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-9);
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+}
+
+.pl-benefit--img .pl-section-title {
+  padding-top: var(--pl-spacing-6);
+}
+
+/* Benefit Image */
+.pl-benefit__image {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 1280 / 600;
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-4); /* Figma: 24px */
+  overflow: hidden;
+}
+
+.pl-benefit__image img,
+.pl-benefit__image picture {
+  width: 100%;
+  height: 100%;
+}
+
+.pl-benefit__image picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
+   Benefit Type B - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-benefit--img {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-10);
+  }
+
+  .pl-benefit--img .pl-benefit__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-benefit--img .pl-section-title {
+    padding-top: var(--pl-spacing-5);
+  }
+
+  .pl-benefit__image {
+    aspect-ratio: 640 / 400;
+    border-radius: var(--pl-radius-4); /* Figma: 24px */
+  }
+}
+
+/* ============================================
+   Benefit Type B - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-benefit--img {
+    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+  }
+
+  .pl-benefit--img .pl-benefit__container {
+    gap: var(--pl-spacing-9); /* Figma: ~52px */
+  }
+
+  .pl-benefit--img .pl-section-title {
+    padding-top: var(--pl-spacing-8);
+  }
+
+  .pl-benefit__image {
+    aspect-ratio: 320 / 360;
+    border-radius: var(--pl-radius-4); /* Figma: 20px (mobile token) */
+  }
+}
+
+/* ============================================
+   Step Section - Type A (Image)
+   Figma: 1920x781, bg #ffffff
+   3 step images with arrows
+   ============================================ */
+.pl-step {
+  width: 100%;
+  background: var(--pl-bg-default);
+  /* Container query support */
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-step--img {
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom); /* 32px 0 100px */
+}
+
+.pl-step__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-section-title-gap); /* 68px - consistent with other sections */
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+}
+
+.pl-step--img .pl-section-title {
+  padding-top: var(--pl-spacing-6);
+}
+
+/* Step Items Container */
+.pl-step__items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pl-spacing-5); /* Figma: 20px */
+  max-width: 1400px; /* Figma: 1400px container width on PC */
+  width: 100%;
+  margin: 0 auto; /* Center container */
+}
+
+/* Step Item */
+.pl-step__item {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-5);
+}
+
+.pl-step__item--last {
+  gap: 0;
+}
+
+/* Step Image */
+.pl-step__image {
+  width: 320px; /* Figma: 320x320px */
+  height: 320px;
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-6); /* Figma: 32px */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pl-step__image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pl-step__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Step Arrow */
+.pl-step__arrow {
+  width: 48px; /* Figma: 48x48px */
+  height: 48px;
+  color: var(--pl-text-tertiary);
+  flex-shrink: 0;
+}
+
+.pl-step__arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   Step Type A - Tablet (Container Query)
+   Figma: 2+1 grid layout (2 top, 1 bottom center)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-step--img {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+  }
+
+  .pl-step__container {
+    gap: var(--pl-spacing-9);
+    padding: 0 var(--pl-spacing-8); /* Figma: 32px left/right margin */
+  }
+
+  .pl-step__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    row-gap: var(--pl-spacing-4); /* Figma: ~18px vertical gap */
+    column-gap: var(--pl-spacing-4); /* Figma: ~18px horizontal gap */
+    max-width: 656px; /* Figma: container width for 2 items */
+  }
+
+  .pl-step__item {
+    gap: var(--pl-spacing-5); /* Figma: 20px gap */
+    flex: 0 0 auto;
+    max-width: 316px; /* Figma: 260px image + 56px spacing/arrow */
+  }
+
+  .pl-step__item:nth-child(1),
+  .pl-step__item:nth-child(2) {
+    /* First row: 2 items side by side */
+  }
+
+  .pl-step__item:nth-child(3) {
+    /* Second row: 1 item centered */
+    margin: 0 auto;
+    width: 278px; /* Figma: 260px image + 18px arrow space */
+  }
+
+  .pl-step__image {
+    width: 260px; /* Figma: 260x260px tablet size */
+    height: 260px;
+    border-radius: 28px; /* Figma: 28px */
+  }
+
+  .pl-step__arrow {
+    width: 48px; /* Figma: 48x48px */
+    height: 48px;
+  }
+
+  .pl-step__item--last .pl-step__arrow {
+    display: none;
+  }
+}
+
+/* ============================================
+   Step Type A - Mobile (Container Query)
+   Figma: vertical layout, 320x320 images
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-step--img {
+    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+  }
+
+  .pl-step__container {
+    gap: var(--pl-spacing-8);
+    padding: 0 var(--pl-spacing-6); /* Figma: 20px left/right margin */
+  }
+
+  .pl-step__items {
+    flex-direction: column;
+    gap: var(--pl-spacing-4); /* Figma: 16px */
+  }
+
+  .pl-step__item {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-3);
+  }
+
+  .pl-step__image {
+    width: 320px;
+    height: 320px;
+    max-width: 100%;
+    border-radius: 24px; /* Figma: 24px */
+  }
+
+  .pl-step__arrow {
+    width: 40px;
+    height: 40px;
+    transform: rotate(90deg);
+  }
+
+  .pl-step__item--last .pl-step__arrow {
+    display: none;
+  }
+}
+
+/* ============================================
+   Step Section - Type B (Text Card)
+   Figma: 1920x828, bg #ffffff
+   4 step cards with text + thumbnail
+   ============================================ */
+.pl-step--text {
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom); /* 32px 0 100px */
+}
+
+.pl-step--text .pl-step__container {
+  gap: var(--pl-section-title-gap); /* 68px gap between section title and items */
+  max-width: 1840px; /* Figma: 1840px (1920px - 40px*2) */
+}
+
+.pl-step--text .pl-section-title {
+  padding-top: var(--pl-spacing-6);
+}
+
+/* Step Text Items Container */
+.pl-step-text__items {
+  display: flex;
+  align-items: center; /* Center arrows with cards */
+  justify-content: center;
+  gap: var(--pl-spacing-5); /* Figma: 16px */
+  max-width: 1400px; /* Figma: 1400px container width on PC */
+  width: 100%;
+  margin: 0 auto; /* Center container */
+}
+
+/* Step Text Card */
+.pl-step-text__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Figma: left-aligned */
+  gap: var(--pl-spacing-5); /* Figma: 16px between label, thumb, content */
+  width: 284px; /* Figma: 284px card width */
+  flex-shrink: 0; /* Prevent shrinking */
+  padding: 0 var(--pl-spacing-3); /* Figma: 8px left/right padding */
+}
+
+/* Step Label Badge */
+.pl-step-text__label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--pl-spacing-1) var(--pl-spacing-3);
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-medium);
+  color: var(--pl-text-brand);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-text-brand);
+  border-radius: var(--pl-radius-1);
+}
+
+/* Step Thumbnail */
+.pl-step-text__thumb {
+  width: 268px; /* Figma: 268x202px */
+  height: 202px;
+  background: var(--pl-bg-default); /* White background */
+  border-radius: var(--pl-radius-2);
+  overflow: hidden;
+}
+
+.pl-step-text__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Step Text Content */
+.pl-step-text__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3); /* Figma: 8px between title and desc */
+  padding: 0 var(--pl-spacing-3); /* Figma: 8px left/right padding inside text container */
+  width: 268px; /* Figma: same as thumbnail width */
+}
+
+.pl-step-text__title {
+  font-size: var(--pl-font-size-title-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+.pl-step-text__desc {
+  font-size: var(--pl-font-size-body-lg);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+/* Step Arrow */
+.pl-step-text__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; /* Figma: 48x48px */
+  height: 48px;
+  color: var(--pl-text-tertiary);
+  flex-shrink: 0;
+}
+
+.pl-step-text__arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   Step Type B - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-step--text {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+  }
+
+  .pl-step--text .pl-step__container {
+    padding: 0 var(--pl-spacing-8); /* Figma: 32px left/right margin */
+  }
+
+  .pl-step-text__items {
+    display: grid;
+    grid-template-columns: 284px 48px 284px; /* Figma: card, arrow, card */
+    grid-template-rows: 370px 370px; /* Figma: card height 370px */
+    gap: var(--pl-spacing-5); /* Figma: 16px row & column gap */
+    justify-content: center;
+    align-items: center; /* Center all items vertically in cells */
+  }
+
+  /* Explicit grid placement for correct layout */
+  .pl-step-text__item:nth-child(1) { grid-row: 1; grid-column: 1; } /* Card 1 */
+  .pl-step-text__arrow:nth-child(2) { grid-row: 1; grid-column: 2; } /* Arrow 1 */
+  .pl-step-text__item:nth-child(3) { grid-row: 1; grid-column: 3; } /* Card 2 */
+  .pl-step-text__arrow:nth-child(4) { display: none; } /* Hide Arrow 2 */
+  .pl-step-text__item:nth-child(5) { grid-row: 2; grid-column: 1; } /* Card 3 */
+  .pl-step-text__arrow:nth-child(6) { grid-row: 2; grid-column: 2; } /* Arrow 3 */
+  .pl-step-text__item:nth-child(7) { grid-row: 2; grid-column: 3; } /* Card 4 */
+
+  .pl-step-text__item {
+    width: 284px; /* Figma: 284px */
+    align-self: stretch; /* Card takes full cell height */
+  }
+
+  .pl-step-text__thumb {
+    width: 268px; /* Figma: 268x202px */
+    height: 202px;
+    border-radius: var(--pl-radius-2);
+  }
+
+  .pl-step-text__title {
+    font-size: 22px; /* Figma: 22px */
+  }
+
+  .pl-step-text__desc {
+    font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  }
+
+  .pl-step-text__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ============================================
+   Step Type B - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-step--text {
+    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+  }
+
+  .pl-step--text .pl-step__container {
+    padding: 0 var(--pl-spacing-6); /* Figma: 20px left/right margin */
+  }
+
+  .pl-step-text__items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-5); /* Figma: 16px gap between cards and arrows */
+    width: 100%; /* Fill container width */
+    max-width: none;
+  }
+
+  .pl-step-text__item {
+    width: 100%; /* Fill container width for natural alignment */
+    max-width: 320px; /* Cap at Figma container width */
+  }
+
+  .pl-step-text__thumb {
+    width: 100%; /* Fill card width */
+    max-width: 272px; /* Figma: 272x202px */
+    height: 202px;
+    border-radius: var(--pl-radius-2);
+  }
+
+  .pl-step-text__content {
+    width: 100%; /* Fill card width */
+    max-width: 272px;
+  }
+
+  .pl-step-text__title {
+    font-size: 20px; /* Figma: 20px */
+  }
+
+  .pl-step-text__desc {
+    font-size: 16px; /* Figma: 16px */
+  }
+
+  /* Show all arrows in mobile (override tablet hide) */
+  .pl-step-text__arrow {
+    display: flex;
+    transform: rotate(90deg); /* Arrow pointing down */
+    margin-top: 0;
+  }
+
+  /* Force show Arrow 2 (between card 2-3) - override tablet hide with higher specificity */
+  .pl-step--text .pl-step-text__items .pl-step-text__arrow:nth-child(4) {
+    display: flex;
+  }
+}
+
+/* ============================================
+   Step Type B - Text Only (이미지 없는 버전)
+   ============================================ */
+
+/* PC Base */
+.pl-step--textonly {
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom); /* 32px 0 100px */
+}
+
+.pl-step--textonly .pl-step__container {
+  gap: var(--pl-section-title-gap); /* 68px gap between section title and items */
+  max-width: 1840px; /* Figma: 1840px (1920px - 40px*2) */
+}
+
+.pl-step--textonly .pl-section-title {
+  padding-top: var(--pl-spacing-6);
+}
+
+/* Step Text Only Items Container */
+.pl-step-textonly__items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pl-spacing-5); /* Figma: 16px */
+  max-width: 1400px; /* Figma: 1400px container width on PC */
+  width: 100%;
+  margin: 0 auto; /* Center container */
+}
+
+/* Step Text Only Card */
+.pl-step-textonly__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Figma: left-aligned */
+  gap: var(--pl-spacing-5); /* Figma: 16px between label and content */
+  width: 284px; /* Figma: 284px card width */
+  height: 273px; /* Figma: 273px card height */
+  padding: 40px 20px 60px; /* Figma: 40px top, 20px left/right, 60px bottom */
+  background: #edf8fc; /* Figma: light blue background */
+  border-radius: 18px; /* Figma: 18px border radius */
+}
+
+/* Step Text Only Label Badge */
+.pl-step-textonly__label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--pl-spacing-1) var(--pl-spacing-3);
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-medium);
+  color: var(--pl-text-brand);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-text-brand);
+  border-radius: var(--pl-radius-1);
+}
+
+/* Step Text Only Content */
+.pl-step-textonly__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3); /* Figma: 8px between title and desc */
+  padding: 0 var(--pl-spacing-2); /* Figma: 8px left/right padding */
+  width: 100%; /* Full width of parent */
+}
+
+.pl-step-textonly__title {
+  font-size: var(--pl-font-size-title-sm); /* 24px */
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+.pl-step-textonly__desc {
+  font-size: var(--pl-font-size-body-lg); /* 20px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+/* Step Text Only Arrow */
+.pl-step-textonly__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; /* Figma: 48x48px */
+  height: 48px;
+  color: var(--pl-text-tertiary);
+  flex-shrink: 0;
+}
+
+.pl-step-textonly__arrow svg {
+  width: 48px;
+  height: 48px;
+}
+
+/* ============================================
+   Step Type B Text Only - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-step--textonly {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+  }
+
+  .pl-step-textonly__items {
+    display: grid;
+    grid-template-columns: 284px 48px 284px; /* Figma: card, arrow, card */
+    grid-template-rows: auto auto; /* Auto height for rows */
+    gap: var(--pl-spacing-5); /* Figma: 16px row & column gap */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Explicit grid placement for 4-item layout */
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(1) { grid-row: 1; grid-column: 1; }
+  .pl-step--textonly-4 .pl-step-textonly__arrow:nth-child(2) { grid-row: 1; grid-column: 2; }
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(3) { grid-row: 1; grid-column: 3; }
+  .pl-step--textonly-4 .pl-step-textonly__arrow:nth-child(4) { display: none; }
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(5) { grid-row: 2; grid-column: 1; }
+  .pl-step--textonly-4 .pl-step-textonly__arrow:nth-child(6) { grid-row: 2; grid-column: 2; }
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(7) { grid-row: 2; grid-column: 3; }
+
+  /* 3-item layout */
+  .pl-step--textonly-3 .pl-step-textonly__items {
+    grid-template-columns: 284px 48px 284px 48px 284px;
+    grid-template-rows: auto;
+  }
+
+  /* 2-item layout */
+  .pl-step--textonly-2 .pl-step-textonly__items {
+    grid-template-columns: 284px 48px 284px;
+    grid-template-rows: auto;
+  }
+}
+
+/* ============================================
+   Step Type B Text Only - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-step--textonly {
+    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+  }
+
+  .pl-step-textonly__items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-5); /* Figma: 16px gap */
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .pl-step-textonly__item {
+    width: 284px;
+  }
+
+  .pl-step-textonly__arrow {
+    display: flex;
+    transform: rotate(90deg); /* Arrow pointing down */
+  }
+
+  /* Force show Arrow 2 (between card 2-3) - override tablet hide */
+  .pl-step--textonly-4 .pl-step-textonly__items .pl-step-textonly__arrow:nth-child(4) {
+    display: flex;
+  }
+}
+
+/* ============================================
+   FAQ Section
+   Accordion-style Q&A section
+   Figma: 1920x870, bg #ffffff
+   ============================================ */
+.pl-faq {
+  width: 100%;
+  background: var(--pl-bg-default);
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom);
+  /* Container query support */
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-faq__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-section-title-gap); /* 68px */
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pl-faq__items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 960px; /* Figma: 960px */
+}
+
+/* Accordion Item */
+.pl-faq__item {
+  border-bottom: 1px solid var(--pl-border-light);
+}
+
+/* Accordion Header (Question) */
+.pl-faq__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pl-spacing-6) var(--pl-spacing-2); /* 24px 8px - Figma spec */
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.pl-faq__header:hover {
+  background: var(--pl-bg-neutral);
+}
+
+.pl-faq__question {
+  font-size: var(--pl-font-size-label-md); /* 19px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-default);
+  margin: 0;
+  padding-right: var(--pl-spacing-4);
+}
+
+.pl-faq__icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s;
+  color: var(--pl-text-secondary);
+}
+
+.pl-faq__item.is-open .pl-faq__icon {
+  transform: rotate(180deg);
+}
+
+/* Accordion Content (Answer) */
+.pl-faq__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.pl-faq__answer {
+  margin: var(--pl-spacing-5) var(--pl-spacing-2) var(--pl-spacing-5); /* 20px 8px 20px - Figma spec */
+  padding: var(--pl-spacing-8) var(--pl-spacing-6); /* 32px 24px - Figma spec */
+  background: var(--pl-bg-default); /* Figma: white background */
+  border: 1px solid #c6d0d7; /* Figma: answer box border */
+  border-radius: var(--pl-radius-3); /* 18px */
+}
+
+.pl-faq__answer-title {
+  font-size: var(--pl-font-size-label-sm); /* 17px */
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-default);
+  margin: 0 0 var(--pl-spacing-4) 0; /* 16px bottom - Figma spec */
+}
+
+.pl-faq__answer-text {
+  font-size: var(--pl-font-size-body-sm); /* 16px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body); /* 168% - Figma spec */
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ============================================
+   FAQ Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-faq {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11); /* 20px 0 60px */
+  }
+
+  .pl-faq__container {
+    gap: var(--pl-spacing-9); /* 42px - Figma: 60px between title and items */
+    padding: 0 var(--pl-spacing-8); /* 32px horizontal padding - Figma spec */
+  }
+
+  .pl-faq__items {
+    max-width: 100%;
+  }
+
+  .pl-faq__header {
+    padding: 22px var(--pl-spacing-2); /* 22px 8px - Figma spec */
+  }
+
+  .pl-faq__question {
+    font-size: 18px; /* Figma spec */
+    line-height: 25.92px; /* Figma spec */
+  }
+
+  .pl-faq__icon {
+    width: 32px; /* Figma spec */
+    height: 32px;
+  }
+
+  .pl-faq__answer {
+    margin: 18px var(--pl-spacing-2) var(--pl-spacing-5); /* 18px 8px 20px - Figma spec */
+    padding: 30px 22px; /* 30px 22px - Figma spec */
+    border-radius: 16px; /* Figma spec */
+  }
+
+  .pl-faq__answer-title {
+    font-size: 16px; /* Figma spec */
+    line-height: 23.04px; /* Figma spec */
+    margin: 0 0 14px 0; /* 14px bottom gap - Figma spec */
+  }
+
+  .pl-faq__answer-text {
+    font-size: 16px; /* Figma spec */
+    line-height: 26.88px; /* Figma spec */
+  }
+}
+
+/* ============================================
+   FAQ Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-faq {
+    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9); /* 16px 0 52px */
+  }
+
+  .pl-faq__container {
+    gap: var(--pl-spacing-8); /* 32px - Figma: 52px between title and items */
+    padding: 0 var(--pl-spacing-5); /* 20px horizontal padding - Figma spec */
+  }
+
+  .pl-faq__header {
+    padding: var(--pl-spacing-5) 6px; /* 20px 6px - Figma spec */
+  }
+
+  .pl-faq__question {
+    font-size: 17px; /* Figma spec */
+    line-height: 24.48px; /* Figma spec */
+  }
+
+  .pl-faq__icon {
+    width: 32px; /* Figma spec */
+    height: 32px;
+  }
+
+  .pl-faq__answer {
+    margin: 16px 6px var(--pl-spacing-4); /* 16px 6px 16px - Figma spec */
+    padding: 24px var(--pl-spacing-5); /* 24px 20px - Figma spec */
+    border-radius: 16px; /* Figma spec */
+  }
+
+  .pl-faq__answer-title {
+    font-size: 15px; /* Figma spec */
+    line-height: 21.6px; /* Figma spec */
+    margin: 0 0 12px 0; /* 12px bottom gap - Figma spec */
+  }
+
+  .pl-faq__answer-text {
+    font-size: 16px; /* Figma spec */
+    line-height: 26.88px; /* Figma spec */
+  }
+}
+
+/* ============================================
+   Caution Section (ETC - 유의사항)
+   Figma: 1920x475, bg #ffffff
+   ============================================ */
+.pl-caution {
+  width: 100%;
+  background: var(--pl-bg-default);
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom);
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-caution__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 68px; /* Figma: section title to list gap */
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+}
+
+.pl-caution .pl-section-title {
+  padding-top: var(--pl-spacing-10); /* Figma: 40px internal top padding */
+}
+
+/* Caution List */
+.pl-caution__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Figma: ~12px gap between items */
+  width: 880px; /* Figma: 880px */
+  max-width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pl-caution__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.pl-caution__bullet {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 12px; /* Figma: bullet container width */
+  height: 27px; /* Match text line-height */
+  flex-shrink: 0;
+}
+
+.pl-caution__bullet::before {
+  content: '';
+  width: 4px; /* Figma: 4x4 circle */
+  height: 4px;
+  background: var(--pl-text-tertiary); /* #8c98a1 */
+  border-radius: 50%;
+}
+
+.pl-caution__text {
+  font-size: 19px; /* Figma: 19px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 27.36px; /* Figma: 27.36px */
+  color: var(--pl-text-secondary); /* #394046 */
+}
+
+/* ============================================
+   Caution Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-caution {
+    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+  }
+
+  .pl-caution__container {
+    gap: var(--pl-spacing-9);
+    padding: 0 var(--pl-spacing-8);
+  }
+
+  .pl-caution .pl-section-title {
+    padding-top: var(--pl-spacing-9); /* Figma: 36px internal top padding */
+  }
+
+  .pl-caution__list {
+    width: 100%;
+    max-width: 656px;
+  }
+
+  .pl-caution__text {
+    font-size: 17px;
+    line-height: 24.48px;
+  }
+}
+
+/* ============================================
+   Caution Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-caution {
+    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+  }
+
+  .pl-caution__container {
+    gap: var(--pl-spacing-8);
+    padding: 0 var(--pl-spacing-6);
+  }
+
+  .pl-caution .pl-section-title {
+    padding-top: var(--pl-spacing-8); /* Figma: 32px internal top padding */
+  }
+
+  .pl-caution__list {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .pl-caution__bullet {
+    height: 23px; /* Match mobile text line-height */
+  }
+
+  .pl-caution__text {
+    font-size: 16px;
+    line-height: 23.04px;
+  }
+}
+
+/* ============================================
+   CTA Section - Type A Finish (마무리형)
+   Figma: 1920x293, bg #dae3ff
+   ============================================ */
+.pl-cta--finish {
+  width: 100%;
+  background: #dae3ff; /* Figma: light blue */
+  padding: 100px 0; /* Figma: 100px top/bottom */
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-cta__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px; /* Figma: 1280px content width */
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+  gap: 60px; /* Figma: gap between text and buttons */
+}
+
+.pl-cta__text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Figma: 12px between title and desc */
+  flex: 1;
+  max-width: 900px;
+}
+
+.pl-cta__title {
+  font-size: 38px; /* Figma: 38px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: 1.36; /* Figma: 51.68px / 38px */
+  color: var(--pl-text-primary); /* #0b0d11 */
+  margin: 0;
+}
+
+.pl-cta__desc {
+  font-size: 20px; /* Figma: 20px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.44; /* Figma: 28.8px / 20px */
+  color: var(--pl-text-tertiary); /* #6a747c */
+  margin: 0;
+}
+
+.pl-cta__buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Figma: 8px between buttons */
+  flex-shrink: 0;
+}
+
+.pl-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 156px; /* Figma: 156px */
+  height: 59px; /* Figma: 59px */
+  padding: 0 24px;
+  font-size: 19px; /* Figma: 19px */
+  font-weight: var(--pl-font-weight-medium);
+  line-height: 1.44;
+  text-decoration: none;
+  border-radius: 999px; /* Pill shape */
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.pl-cta__btn--outline {
+  color: var(--pl-text-brand); /* #15b2f1 */
+  background: var(--pl-bg-default); /* white */
+  border: 1px solid var(--pl-text-brand);
+}
+
+.pl-cta__btn--outline:hover {
+  background: var(--pl-blue-5);
+}
+
+.pl-cta__btn--filled {
+  color: var(--pl-bg-default); /* white */
+  background: var(--pl-text-brand); /* #15b2f1 */
+  border: 1px solid var(--pl-text-brand);
+}
+
+.pl-cta__btn--filled:hover {
+  background: var(--pl-blue-60);
+  border-color: var(--pl-blue-60);
+}
+
+/* ============================================
+   CTA Finish Responsive - Tablet
+   Figma: 720x376, padding 92px top/bottom
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-cta--finish {
+    padding: 92px 0; /* Figma: 92px top/bottom */
+  }
+
+  .pl-cta__container {
+    flex-direction: column;
+    align-items: center;
+    gap: 52px; /* Figma: gap between text and buttons */
+    padding: 0 var(--pl-spacing-8); /* 32px */
+  }
+
+  .pl-cta__text {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    gap: 10px; /* Figma: gap between title and desc */
+  }
+
+  .pl-cta__title {
+    font-size: 34px; /* Figma: 34px */
+  }
+
+  .pl-cta__desc {
+    font-size: 18px; /* Figma: 18px */
+  }
+
+  .pl-cta__btn {
+    min-width: 156px; /* Figma: 156px */
+    height: 58px; /* Figma: 58px */
+    font-size: 18px; /* Figma: 18px */
+  }
+}
+
+/* ============================================
+   CTA Finish Responsive - Mobile
+   Figma: 360x371, padding 80px top/bottom
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-cta--finish {
+    padding: 80px 0; /* Figma: 80px top/bottom */
+  }
+
+  .pl-cta__container {
+    gap: 48px; /* Figma: gap between text and buttons */
+    padding: 0 var(--pl-spacing-6); /* 20px */
+  }
+
+  .pl-cta__text {
+    gap: 8px; /* Figma: gap between title and desc */
+  }
+
+  .pl-cta__title {
+    font-size: 28px; /* Figma: 28px */
+  }
+
+  .pl-cta__desc {
+    font-size: 16px; /* Figma: 16px */
+  }
+
+  .pl-cta__buttons {
+    flex-direction: row; /* Figma: horizontal buttons */
+    width: 100%;
+    gap: 6px; /* Figma: gap between buttons */
+  }
+
+  .pl-cta__btn {
+    flex: 1;
+    min-width: auto;
+    height: 56px; /* Figma: 56px */
+    font-size: 17px; /* Figma: 17px */
+  }
+}
+
+/* ============================================
+   CTA Section - Type B Floating (플로팅 버튼형)
+   Figma: 1920x1011, floating buttons over image
+   Uses same structure as About Image section
+   ============================================ */
+.pl-cta--floating {
+  position: relative;
+  width: 100%;
+  background: var(--pl-bg-default);
+  container-type: inline-size;
+  container-name: section;
+}
+
+/* Use same container structure as About Image section */
+.pl-cta-floating__bg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8); /* Same as .pl-about--image: 32px */
+  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+}
+
+/* Use same image styles as About Image section */
+.pl-cta-floating__bg .pl-about-image {
+  width: 100%;
+  max-width: var(--pl-container-default); /* 1280px */
+}
+
+.pl-cta-floating__bg .pl-about-image__wrapper {
+  width: 100%;
+  aspect-ratio: 1280 / 300; /* Half height for floating CTA visibility */
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-5); /* 24px */
+  overflow: hidden;
+}
+
+.pl-cta-floating__bg .pl-about-image__wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating Buttons Container */
+.pl-cta-floating__buttons {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 600px;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Floating Button */
+.pl-cta-floating__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  height: 67px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.pl-cta-floating__btn:hover {
+  opacity: 0.9;
+}
+
+.pl-cta-floating__label {
+  font-size: 19px;
+  font-weight: var(--pl-font-weight-bold);
+  color: #ffffff;
+}
+
+.pl-cta-floating__icon {
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+}
+
+/* Green Gradient Button */
+.pl-cta-floating__btn--green {
+  background: linear-gradient(135deg, #42e6ba 0%, #18c493 100%);
+}
+
+/* Blue Gradient Button */
+.pl-cta-floating__btn--blue {
+  background: linear-gradient(135deg, #577eff 0%, #142cc6 100%);
+}
+
+/* Single Button Variant - PC */
+.pl-cta-floating__buttons--single {
+  width: 300px; /* Figma: 300px for single button */
+}
+
+.pl-cta-floating__buttons--single .pl-cta-floating__btn {
+  flex: none;
+  width: 100%;
+}
+
+/* ============================================
+   CTA Floating Responsive - Tablet
+   Figma: 720x719, full-width buttons at bottom
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-cta-floating__bg {
+    gap: var(--pl-spacing-6);
+    padding: var(--pl-layout-body-top) var(--pl-spacing-8) 0 var(--pl-spacing-8); /* Side padding for title */
+  }
+
+  .pl-cta-floating__bg .pl-about-image {
+    width: calc(100% + var(--pl-spacing-8) * 2); /* Full width - cancel side padding */
+    max-width: none;
+    margin-left: calc(var(--pl-spacing-8) * -1);
+    margin-right: calc(var(--pl-spacing-8) * -1);
+  }
+
+  .pl-cta-floating__bg .pl-about-image__wrapper {
+    aspect-ratio: 720 / 400; /* Figma: 720x400 */
+    border-radius: 0; /* No border-radius on tablet */
+  }
+
+  /* Full-width squared buttons at bottom */
+  .pl-cta-floating__buttons {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: calc(100% + var(--pl-spacing-8) * 2);
+    margin-left: calc(var(--pl-spacing-8) * -1);
+    margin-right: calc(var(--pl-spacing-8) * -1);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .pl-cta-floating__btn {
+    height: 62px; /* Figma: 62px */
+    border-radius: 0; /* Squared corners */
+  }
+
+  .pl-cta-floating__label {
+    font-size: 18px; /* Figma: 18px */
+  }
+
+  /* Single button - full width on tablet */
+  .pl-cta-floating__buttons--single {
+    width: calc(100% + var(--pl-spacing-8) * 2);
+  }
+}
+
+/* ============================================
+   CTA Floating Responsive - Mobile
+   Figma: 360x640, full-width buttons at bottom
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-cta-floating__bg {
+    gap: 52px;
+    padding: var(--pl-layout-body-top) var(--pl-spacing-6) 0 var(--pl-spacing-6); /* 20px side padding for title */
+  }
+
+  .pl-cta-floating__bg .pl-about-image {
+    width: calc(100% + var(--pl-spacing-6) * 2); /* Full width - cancel side padding */
+    max-width: none;
+    margin-left: calc(var(--pl-spacing-6) * -1);
+    margin-right: calc(var(--pl-spacing-6) * -1);
+  }
+
+  .pl-cta-floating__bg .pl-about-image__wrapper {
+    aspect-ratio: 360 / 360; /* Figma: 360x360 (1:1) */
+    border-radius: 0;
+  }
+
+  /* Full-width squared buttons at bottom */
+  .pl-cta-floating__buttons {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: calc(100% + var(--pl-spacing-6) * 2);
+    max-width: none;
+    margin-left: calc(var(--pl-spacing-6) * -1);
+    margin-right: calc(var(--pl-spacing-6) * -1);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .pl-cta-floating__btn {
+    height: 56px; /* Figma: 56px */
+    border-radius: 0;
+  }
+
+  .pl-cta-floating__label {
+    font-size: 17px; /* Figma: 17px */
+  }
+
+  .pl-cta-floating__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Single button - full width on mobile */
+  .pl-cta-floating__buttons--single {
+    width: calc(100% + var(--pl-spacing-6) * 2);
+  }
+}
+
+/* ============================================
+   CTA Section - Floating B (플로팅 버튼 B)
+   Figma: Container with text + buttons
+   ============================================ */
+.pl-cta-floating-b {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-sizing: border-box;
+  height: 99px; /* Figma: 99px */
+  padding: 0 20px 0 40px;
+  background: #edf8fc;
+  border: 2px solid #8ddaf9;
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.pl-cta-floating-b__text {
+  font-size: 22px;
+  font-weight: var(--pl-font-weight-bold);
+  color: #416df0;
+  white-space: nowrap;
+}
+
+.pl-cta-floating-b__buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pl-cta-floating-b__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 360px;
+  height: 59px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.pl-cta-floating-b__btn:hover {
+  opacity: 0.9;
+}
+
+.pl-cta-floating-b__label {
+  font-size: 19px;
+  font-weight: var(--pl-font-weight-bold);
+  color: #ffffff;
+}
+
+.pl-cta-floating-b__icon {
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+}
+
+/* Purple Button */
+.pl-cta-floating-b__btn--purple {
+  background: #9b6bf4;
+}
+
+/* Cyan Button */
+.pl-cta-floating-b__btn--cyan {
+  background: #15b2f1;
+}
+
+/* Single Button Variant */
+.pl-cta-floating-b--single .pl-cta-floating-b__btn {
+  min-width: 360px;
+}
+
+/* ============================================
+   CTA Floating B Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-cta-floating-b {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px; /* Figma: text-button gap 22px */
+    width: 100%;
+    height: auto;
+    padding: 22px 18px 30px 18px; /* Figma: top 22, sides 18, bottom 30 */
+    border-radius: 0;
+    border-width: 2px 0 0 0; /* Top border only */
+    border-style: solid;
+    border-color: #8ddaf9;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .pl-cta-floating-b__text {
+    font-size: 20px; /* Figma: 20px */
+    text-align: center;
+    white-space: normal;
+  }
+
+  .pl-cta-floating-b__buttons {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .pl-cta-floating-b__btn {
+    flex: 1;
+    min-width: auto;
+    height: 58px; /* Figma: 58px */
+  }
+
+  .pl-cta-floating-b__label {
+    font-size: 18px; /* Figma: 18px */
+  }
+
+  .pl-cta-floating-b--single .pl-cta-floating-b__btn {
+    min-width: auto;
+  }
+}
+
+/* ============================================
+   CTA Floating B Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-cta-floating-b {
+    width: 100%;
+    padding: 20px 16px 24px 16px; /* Figma: top 20, sides 16, bottom 24 */
+    gap: 20px; /* Figma: text-button gap 20px */
+  }
+
+  .pl-cta-floating-b__text {
+    font-size: 18px; /* Figma: 18px */
+  }
+
+  .pl-cta-floating-b__buttons {
+    flex-direction: row; /* Figma: horizontal layout */
+    gap: 6px; /* Figma: 6px */
+  }
+
+  .pl-cta-floating-b__btn {
+    flex: 1;
+    min-width: auto;
+    height: 56px; /* Figma: 56px */
+    border-radius: 999px; /* Figma: pill shape */
+  }
+
+  .pl-cta-floating-b__label {
+    font-size: 17px; /* Figma: 17px */
+  }
+
+  .pl-cta-floating-b__icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+/* ============================================
+   GNB (Global Navigation Bar)
+   Figma: 1920x74, bg #ffffff
+   ============================================ */
+.pl-gnb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 74px;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* Scrolled State - Figma: bg #ffffff 80% opacity */
+.pl-gnb.is-scrolled {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(11, 13, 17, 0.08);
+}
+
+.pl-gnb__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  height: 50px;
+  padding: 0 var(--pl-spacing-6);
+}
+
+.pl-gnb__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.pl-gnb__logo svg {
+  height: 31px;
+  width: auto;
+}
+
+.pl-gnb__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.pl-gnb__menu-item {
+  font-size: 17px;
+  font-weight: 500;
+  color: #0b0d11;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.pl-gnb__menu-item:hover {
+  color: #15b2f1;
+}
+
+.pl-gnb__menu-item:focus {
+  color: #15b2f1;
+  outline: none;
+}
+
+.pl-gnb__menu-item:active {
+  color: #15b2f1;
+  font-weight: 700;
+  background: rgba(21, 178, 241, 0.12);
+}
+
+.pl-gnb__menu-item.is-active {
+  color: #15b2f1;
+  font-weight: 700;
+  background: rgba(21, 178, 241, 0.12);
+}
+
+.pl-gnb__menu-item.is-disabled {
+  color: rgba(11, 13, 17, 0.24);
+  pointer-events: none;
+}
+
+.pl-gnb__mobile-menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+
+.pl-gnb__mobile-menu:hover {
+  background: rgba(11, 13, 17, 0.08);
+}
+
+.pl-gnb__mobile-menu:focus {
+  background: rgba(11, 13, 17, 0.08);
+  outline: none;
+}
+
+.pl-gnb__mobile-menu:active {
+  background: rgba(11, 13, 17, 0.12);
+}
+
+.pl-gnb__mobile-menu svg {
+  stroke: #0b0d11;
+}
+
+/* Mobile Menu Overlay */
+.pl-gnb__mobile-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  z-index: 1001;
+  flex-direction: column;
+}
+
+.pl-gnb__mobile-overlay.is-open {
+  display: flex;
+}
+
+.pl-gnb__mobile-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 20px;
+  min-height: 56px;
+}
+
+.pl-gnb__mobile-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+
+.pl-gnb__mobile-close:hover {
+  background: rgba(11, 13, 17, 0.08);
+}
+
+.pl-gnb__mobile-close:focus {
+  background: rgba(11, 13, 17, 0.08);
+  outline: none;
+}
+
+.pl-gnb__mobile-close:active {
+  background: rgba(11, 13, 17, 0.12);
+}
+
+.pl-gnb__mobile-close svg {
+  stroke: #0b0d11;
+}
+
+.pl-gnb__mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  gap: 24px;
+}
+
+.pl-gnb__mobile-nav-item {
+  font-size: 15px;
+  font-weight: 500;
+  color: #0b0d11;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.pl-gnb__mobile-nav-item:hover {
+  color: #15b2f1;
+}
+
+.pl-gnb__mobile-nav-item:focus {
+  color: #15b2f1;
+  outline: none;
+}
+
+.pl-gnb__mobile-nav-item:active {
+  color: #15b2f1;
+  font-weight: 700;
+  background: rgba(21, 178, 241, 0.12);
+}
+
+.pl-gnb__mobile-nav-item.is-active {
+  color: #15b2f1;
+  font-weight: 700;
+  background: rgba(21, 178, 241, 0.12);
+}
+
+.pl-gnb__mobile-nav-item.is-disabled {
+  color: rgba(11, 13, 17, 0.24);
+  pointer-events: none;
+}
+
+
+/* ============================================
+   Navigation Content Section
+   Figma: Section title + full width image
+   ============================================ */
+.pl-nav-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8);
+  padding: var(--pl-layout-body-top) 0 100px 0; /* Figma: 100px bottom padding on PC */
+  background: #ffffff;
+}
+
+.pl-nav-content__container {
+  width: 100%;
+  max-width: var(--pl-container-default);
+  padding: 0 var(--pl-spacing-10);
+}
+
+.pl-nav-content__image {
+  width: 100%;
+  aspect-ratio: 1920 / 422;
+  background: var(--pl-neutral-10);
+  overflow: hidden;
+}
+
+.pl-nav-content__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ============================================
+   Footer
+   Figma: 1920x546, bg #ffffff, border-top #c6d0d7
+   ============================================ */
+.pl-footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #c6d0d7;
+}
+
+.pl-footer__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1400px;
+  padding: 40px 40px 48px 40px;
+}
+
+.pl-footer__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 32px;
+}
+
+/* Footer Info (Left) */
+.pl-footer__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.pl-footer__category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pl-footer__category-link {
+  font-size: 17px;
+  font-weight: 500;
+  color: #6a747c;
+  text-decoration: none;
+  letter-spacing: 0.32px;
+  transition: color 0.2s;
+}
+
+.pl-footer__category-link:hover {
+  color: #0b0d11;
+}
+
+.pl-footer__category-link--bold {
+  font-weight: 700;
+  color: #0b0d11;
+}
+
+.pl-footer__business {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pl-footer__logo svg {
+  height: 44px;
+  width: auto;
+}
+
+.pl-footer__company-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0b0d11;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.32px;
+}
+
+.pl-footer__company-toggle svg {
+  display: none; /* PC에서 숨김 - Tablet/Mobile에서만 표시 */
+  stroke: #6a747c;
+  transition: transform 0.2s;
+}
+
+.pl-footer__company-toggle.is-open svg {
+  transform: rotate(180deg);
+}
+
+.pl-footer__address {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pl-footer__address p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6a747c;
+  letter-spacing: 0.32px;
+  line-height: 20px;
+}
+
+/* Footer Contact (Right) */
+.pl-footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 280px;
+}
+
+.pl-footer__call {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-footer__call-label {
+  font-size: 19px;
+  font-weight: 700;
+  color: #394046;
+}
+
+.pl-footer__call-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: #394046;
+}
+
+.pl-footer__call-time {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6a747c;
+  letter-spacing: 0.32px;
+}
+
+.pl-footer__sns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pl-footer__sns-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #e8eff4;
+}
+
+.pl-footer__sns-icon--instagram { background: url('../images/footer/footer_sns_instagram.png') center/contain no-repeat; }
+.pl-footer__sns-icon--kakao { background: url('../images/footer/footer_sns_kakao.png') center/contain no-repeat; }
+.pl-footer__sns-icon--blog { background: url('../images/footer/footer_sns_blog.png') center/contain no-repeat; }
+.pl-footer__sns-icon--youtube { background: url('../images/footer/footer_sns_youtube.png') center/contain no-repeat; }
+.pl-footer__sns-icon--place { background: url('../images/footer/footer_sns_place.png') center/contain no-repeat; }
+
+/* Footer Bottom */
+.pl-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 32px 0;
+  border-top: 1px solid #c6d0d7;
+}
+
+.pl-footer__marks {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pl-footer__mark-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pl-footer__mark .pl-footer__mark-icon {
+  background-image: url('../images/footer/footer_mark_eprivacy.png');
+}
+
+.pl-footer__isms .pl-footer__mark-icon {
+  background-image: url('../images/footer/footer_mark_isms.png');
+}
+
+.pl-footer__isms {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pl-footer__isms-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-footer__isms-text p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6a747c;
+  letter-spacing: 0.32px;
+}
+
+.pl-footer__isms-text strong {
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.pl-footer__sites {
+  display: flex;
+  gap: 24px;
+}
+
+.pl-footer__dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 240px;
+  height: 52px;
+  padding: 0 16px;
+  background: #ffffff;
+  border: 1px solid #c6d0d7;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0b0d11;
+  cursor: pointer;
+}
+
+.pl-footer__dropdown svg {
+  stroke: #6a747c;
+  transition: transform 0.2s;
+}
+
+/* Dropdown Hover State */
+.pl-footer__dropdown:hover {
+  border-color: #6a747c;
+}
+
+/* Dropdown Opened State */
+.pl-footer__dropdown.is-open {
+  border-color: #6a747c;
+  border-radius: 4px 4px 0 0;
+}
+
+.pl-footer__dropdown.is-open svg {
+  transform: rotate(180deg);
+}
+
+/* Dropdown List */
+.pl-footer__dropdown-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #6a747c;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 176px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.pl-footer__dropdown.is-open + .pl-footer__dropdown-list {
+  display: block;
+}
+
+.pl-footer__dropdown-item {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0b0d11;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.pl-footer__dropdown-item:hover {
+  background: #e3e8ed;
+}
+
+/* Dropdown List Scrollbar */
+.pl-footer__dropdown-list::-webkit-scrollbar {
+  width: 11px;
+}
+
+.pl-footer__dropdown-list::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.pl-footer__dropdown-list::-webkit-scrollbar-thumb {
+  background: #d4dce2;
+  border-radius: 99px;
+  border: 4px solid #ffffff;
+}
+
+/* Dropdown Wrapper for positioning */
+.pl-footer__dropdown-wrapper {
+  position: relative;
+}
+
+.pl-footer__dropdowns {
+  display: flex;
+  gap: 24px;
+}
+
+.pl-footer__app-btn {
+  display: none; /* PC에서는 숨김, Mobile에서만 표시 */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
+  background: #ffffff;
+  border: 1px solid #15b2f1;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #15b2f1;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.pl-footer__app-btn:hover {
+  background: rgba(21, 178, 241, 0.08);
+}
+
+/* Footer Copyright */
+.pl-footer__copyright {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8c98a1;
+  letter-spacing: 0.32px;
+  padding-top: 24px;
+}
+
+
+/* ============================================
+   GNB Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-gnb {
+    height: 60px;
+  }
+
+  .pl-gnb__container {
+    max-width: none;
+    padding: 0 var(--pl-spacing-8);
+  }
+
+  .pl-gnb__nav {
+    display: none;
+  }
+
+  .pl-gnb__mobile-menu {
+    display: flex;
+  }
+
+  .pl-gnb__mobile-overlay-header {
+    padding: 3px var(--pl-spacing-8);
+    min-height: 56px;
+  }
+
+  .pl-nav-content {
+    padding: var(--pl-layout-body-top) 0 60px 0; /* Figma: 60px bottom padding on Tablet */
+  }
+
+  .pl-nav-content__container {
+    padding: 0 var(--pl-spacing-8);
+  }
+
+  .pl-nav-content__image {
+    aspect-ratio: 720 / 400; /* Figma: 720x400 */
+  }
+
+  .pl-footer__container {
+    padding: 32px;
+  }
+
+  .pl-footer__top {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Tablet/Mobile: 순서 재배치 - 카테고리 > 고객센터 > 사업자정보 */
+  .pl-footer__info {
+    display: contents; /* 자식 요소들이 부모 flex에 직접 참여 */
+  }
+
+  .pl-footer__category {
+    order: 1;
+  }
+
+  .pl-footer__contact {
+    order: 2;
+    min-width: auto;
+  }
+
+  .pl-footer__business {
+    order: 3;
+  }
+
+  /* Company Info Collapsible - Tablet/Mobile */
+  .pl-footer__company-toggle svg {
+    display: block; /* Tablet/Mobile에서 화살표 표시 */
+  }
+
+  .pl-footer__address {
+    display: none;
+  }
+
+  .pl-footer__address.is-open {
+    display: flex;
+  }
+
+  .pl-footer__bottom {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .pl-footer__sites {
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+  }
+
+  .pl-footer__dropdowns {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .pl-footer__dropdown-wrapper {
+    width: 100%;
+  }
+
+  .pl-footer__dropdown {
+    width: 100%;
+  }
+}
+
+
+/* ============================================
+   GNB Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-gnb {
+    height: 66px; /* Figma: 66px */
+  }
+
+  .pl-gnb__container {
+    padding: 0 var(--pl-spacing-6);
+  }
+
+  .pl-gnb__logo svg {
+    height: 24px;
+  }
+
+  .pl-gnb__mobile-overlay-header {
+    padding: 3px var(--pl-spacing-6);
+    min-height: 56px;
+  }
+
+  .pl-nav-content {
+    gap: var(--pl-spacing-6);
+    padding: var(--pl-layout-body-top) 0 48px 0; /* Figma: 48px bottom padding */
+  }
+
+  .pl-nav-content__container {
+    padding: 0 var(--pl-spacing-6);
+  }
+
+  .pl-nav-content__image {
+    aspect-ratio: 1 / 1; /* Figma: 360x360 */
+  }
+
+  .pl-footer__container {
+    padding: 24px 20px 32px 20px;
+  }
+
+  .pl-footer__category {
+    gap: 12px 16px;
+  }
+
+  .pl-footer__category-link {
+    font-size: 14px;
+  }
+
+  .pl-footer__call-label {
+    font-size: 16px;
+  }
+
+  .pl-footer__call-number {
+    font-size: 20px;
+  }
+
+  .pl-footer__sns {
+    gap: 12px;
+  }
+
+  .pl-footer__sns-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pl-footer__marks {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .pl-footer__isms {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .pl-footer__isms-text {
+    flex: 1;
+  }
+
+  .pl-footer__isms-text p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .pl-footer__sites {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .pl-footer__app-btn {
+    display: flex;
+    max-width: 320px;
+  }
+
+  .pl-footer__dropdowns {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .pl-footer__dropdown-wrapper {
+    width: 240px;
+  }
+
+  .pl-footer__dropdown {
+    width: 100%;
+  }
+
+  /* Mobile: Business section spacing */
+  .pl-footer__business {
+    gap: 24px;
+  }
+
+  .pl-footer__company {
+    margin-bottom: -16px; /* 24px - 8px = 16px 감소하여 address와의 간격을 8px로 */
+  }
+}

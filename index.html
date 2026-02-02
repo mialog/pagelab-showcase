@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageLab - Section Showcase</title>
+  <link rel="stylesheet" href="./tokens/base.css">
+  <link rel="stylesheet" href="./tokens/campaign.css">
+  <link rel="stylesheet" href="./styles/sections.css">
+  <link rel="stylesheet" href="./styles/showcase.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="showcase">
+    <!-- Header -->
+    <header class="showcase__header">
+      <div class="showcase__header-inner">
+        <div class="showcase__logo">
+          <span>PageLab</span>
+        </div>
+        <nav class="showcase__nav">
+          <a href="index.html" class="showcase__nav-link is-active">섹션 갤러리</a>
+          <a href="guide.html" class="showcase__nav-link">조합 가이드</a>
+          <a href="tokens.html" class="showcase__nav-link">토큰</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="showcase__main">
+      <!-- Sidebar -->
+      <aside class="showcase__sidebar">
+        <div class="sidebar__section">
+          <h3 class="sidebar__title">섹션 타입</h3>
+          <ul class="sidebar__list">
+            <li class="sidebar__item is-active" data-filter="all">
+              전체 <span class="sidebar__count">27</span>
+            </li>
+            <li class="sidebar__item" data-filter="hero">
+              메인 비주얼 (Hero) <span class="sidebar__count">3</span>
+            </li>
+            <li class="sidebar__item" data-filter="intro">
+              인트로 (Intro) <span class="sidebar__count">3</span>
+            </li>
+            <li class="sidebar__item" data-filter="about">
+              콘텐츠 설명 (About) <span class="sidebar__count">7</span>
+            </li>
+            <li class="sidebar__item" data-filter="review">
+              고객 후기 (Review) <span class="sidebar__count">3</span>
+            </li>
+            <li class="sidebar__item" data-filter="benefit">
+              혜택 안내 (Benefit) <span class="sidebar__count">2</span>
+            </li>
+            <li class="sidebar__item" data-filter="step">
+              이용 방법 (Step) <span class="sidebar__count">2</span>
+            </li>
+            <li class="sidebar__item" data-filter="etc">
+              부가 정보 (ETC) <span class="sidebar__count">2</span>
+            </li>
+            <li class="sidebar__item" data-filter="cta">
+              전환 유도 (CTA) <span class="sidebar__count">3</span>
+            </li>
+            <li class="sidebar__item" data-filter="footer">
+              네비게이션 (Navigation) <span class="sidebar__count">1</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <div class="showcase__content">
+        <div class="content__header">
+          <div class="content__header-top">
+            <h1 class="content__title">섹션 갤러리</h1>
+            <div class="content__search">
+              <svg class="content__search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+              <input type="text" class="content__search-input" placeholder="섹션 검색..." id="searchInput">
+            </div>
+          </div>
+          <p class="content__desc">프로모션 페이지에 사용할 수 있는 섹션들입니다. 클릭하면 상세 페이지로 이동합니다.</p>
+        </div>
+
+        <!-- Section Gallery -->
+        <div class="section-gallery" id="sectionGallery">
+
+          <!-- ==================== 메인 비주얼 ==================== -->
+          <div class="section-divider" data-category="hero">
+            <h2 class="section-divider__title">메인 비주얼 (Hero)<span class="section-divider__count">3</span></h2>
+          </div>
+
+          <a href="sections/hero/type-a-split.html" class="section-card" data-type="hero" data-layout="split">
+            <div class="section-card__preview">
+              <img src="images/showcase/hero A.png" alt="Hero Type A Preview">
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">메인 비주얼</span>
+                <h3 class="section-card__name">좌우 분할형</h3>
+              </div>
+              <p class="section-card__desc">좌측 텍스트 + 우측 비주얼. 설명이 필요한 서비스, 제품 소개, 앱/서비스 런칭에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/hero/type-b-center.html" class="section-card" data-type="hero" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/hero B.png" alt="Hero Type B Preview">
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">메인 비주얼</span>
+                <h3 class="section-card__name">중앙 정렬형</h3>
+              </div>
+              <p class="section-card__desc">중앙 정렬형. 임팩트 있는 첫인상, 이벤트, 신규 런칭에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/hero/type-c-full.html" class="section-card" data-type="hero" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/hero C.png" alt="Hero Type C Preview">
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">메인 비주얼</span>
+                <h3 class="section-card__name">전면 배경형</h3>
+              </div>
+              <p class="section-card__desc">전면 비주얼 + 오버레이. 시즌 이벤트, 캠페인, 브랜드 감성 강조에 적합</p>
+            </div>
+          </a>
+
+          <!-- ==================== 인트로 ==================== -->
+          <div class="section-divider" data-category="intro">
+            <h2 class="section-divider__title">인트로 (Intro)<span class="section-divider__count">3</span></h2>
+          </div>
+
+          <a href="sections/intro/type-a-textblock.html" class="section-card" data-type="intro" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/intro A.png" alt="Intro Type A Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">인트로</span>
+                <h3 class="section-card__name">텍스트 블록형</h3>
+              </div>
+              <p class="section-card__desc">텍스트 블록형 (BG 이미지 옵션). 슬로건, 선언, 질문형 메시지에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/intro/type-b-textgrid.html" class="section-card" data-type="intro" data-layout="grid">
+            <div class="section-card__preview">
+              <img src="images/showcase/intro B.png" alt="Intro Type B Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">인트로</span>
+                <h3 class="section-card__name">통계 강조형</h3>
+              </div>
+              <p class="section-card__desc">텍스트 그리드 숫자 강조. 성과, 통계, 신뢰도 표현에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/intro/type-c-img.html" class="section-card" data-type="intro" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/intro C.png" alt="Intro Type C Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">인트로</span>
+                <h3 class="section-card__name">이미지 중심형</h3>
+              </div>
+              <p class="section-card__desc">이미지 중심. 비주얼 임팩트, 분위기 전달에 적합</p>
+            </div>
+          </a>
+
+          <!-- ==================== About/Feature ==================== -->
+          <div class="section-divider" data-category="about">
+            <h2 class="section-divider__title">콘텐츠 설명 (About)<span class="section-divider__count">6</span></h2>
+          </div>
+
+          <a href="sections/about/type-a-list.html" class="section-card" data-type="about" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/about A.png" alt="About Type A Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">콘텐츠 설명</span>
+                <h3 class="section-card__name">목록형</h3>
+              </div>
+              <p class="section-card__desc">여러 항목 한눈에, 이벤트 목록, 특징 나열, 혜택 비교</p>
+            </div>
+          </a>
+
+          <a href="sections/about/type-b-grid.html" class="section-card" data-type="about" data-layout="grid">
+            <div class="section-card__preview">
+              <img src="images/showcase/about B.png" alt="About Type B Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">콘텐츠 설명</span>
+                <h3 class="section-card__name">카드 그리드형</h3>
+              </div>
+              <p class="section-card__desc">단일 기능/서비스 설명, 좌우 또는 상하 배치</p>
+            </div>
+          </a>
+
+          <a href="sections/about/type-c-card-slide.html" class="section-card" data-type="about" data-layout="slider">
+            <div class="section-card__preview">
+              <img src="images/showcase/about C.png" alt="About Type C Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">콘텐츠 설명</span>
+                <h3 class="section-card__name">슬라이드형</h3>
+              </div>
+              <p class="section-card__desc">루프 애니메이션</p>
+            </div>
+          </a>
+
+          <a href="sections/about/type-d-card-swipe.html" class="section-card" data-type="about" data-layout="slider">
+            <div class="section-card__preview">
+              <img src="images/showcase/about D.png" alt="About Type D Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">콘텐츠 설명</span>
+                <h3 class="section-card__name">스와이프형</h3>
+              </div>
+              <p class="section-card__desc">여러 기능/특징 나열, 그리드 또는 슬라이드</p>
+            </div>
+          </a>
+
+          <a href="sections/about/type-e-tab.html" class="section-card" data-type="about" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/about E.png" alt="About Type E Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">콘텐츠 설명</span>
+                <h3 class="section-card__name">탭 전환형</h3>
+              </div>
+              <p class="section-card__desc">정보가 많을 때, 카테고리별 분류, 비교 콘텐츠</p>
+            </div>
+          </a>
+
+          <a href="sections/about/type-f-image.html" class="section-card" data-type="about" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/about F.png" alt="About Type F Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">콘텐츠 설명</span>
+                <h3 class="section-card__name">미디어형</h3>
+              </div>
+              <p class="section-card__desc">단일 이미지 / 영상 삽입 시</p>
+            </div>
+          </a>
+
+          <!-- ==================== Review ==================== -->
+          <div class="section-divider" data-category="review">
+            <h2 class="section-divider__title">고객 후기 (Review)<span class="section-divider__count">3</span></h2>
+          </div>
+
+          <a href="sections/review/type-a-highlight.html" class="section-card" data-type="review" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/review A.png" alt="Review Type A Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">고객 후기</span>
+                <h3 class="section-card__name">대표 후기형</h3>
+              </div>
+              <p class="section-card__desc">핵심 후기 1개 또는 숫자 강조. 신뢰도 강조, 대표 후기/평점 부각에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/review/type-b-card-grid.html" class="section-card" data-type="review" data-layout="grid">
+            <div class="section-card__preview">
+              <img src="images/showcase/review B.png" alt="Review Type B Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">고객 후기</span>
+                <h3 class="section-card__name">그리드형</h3>
+              </div>
+              <p class="section-card__desc">여러 후기를 한눈에. 다양한 후기 노출, 신뢰도 양적 증명에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/review/type-c-card-slider.html" class="section-card" data-type="review" data-layout="slider">
+            <div class="section-card__preview">
+              <img src="images/showcase/review C.png" alt="Review Type C Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">고객 후기</span>
+                <h3 class="section-card__name">슬라이더형</h3>
+              </div>
+              <p class="section-card__desc">후기가 많을 때 공간 효율적. 모바일 최적화, 영상 후기에 적합</p>
+            </div>
+          </a>
+
+          <!-- ==================== Benefit ==================== -->
+          <div class="section-divider" data-category="benefit">
+            <h2 class="section-divider__title">혜택 안내 (Benefit)<span class="section-divider__count">2</span></h2>
+          </div>
+
+          <a href="sections/benefit/type-a-plus.html" class="section-card" data-type="benefit" data-layout="grid">
+            <div class="section-card__preview">
+              <img src="images/showcase/benefit A.png" alt="Benefit Type A Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">혜택 안내</span>
+                <h3 class="section-card__name">리워드형 (Type A)</h3>
+              </div>
+              <p class="section-card__desc">리워드 카드형. 적립/할인 등 혜택 강조, 결합 강조에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/benefit/type-b-img.html" class="section-card" data-type="benefit" data-layout="grid">
+            <div class="section-card__preview">
+              <img src="images/showcase/benefit B.png" alt="Benefit Type B Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">혜택 안내</span>
+                <h3 class="section-card__name">이미지형 (Type B)</h3>
+              </div>
+              <p class="section-card__desc">이미지 카드형. 할인 상품/이벤트 상품 나열, 이미지로 다양한 대응 가능</p>
+            </div>
+          </a>
+
+          <!-- ==================== Step ==================== -->
+          <div class="section-divider" data-category="step">
+            <h2 class="section-divider__title">이용 방법 (Step)<span class="section-divider__count">2</span></h2>
+          </div>
+
+          <a href="sections/step/type-a-img.html" class="section-card" data-type="step" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/step A.png" alt="Step Type A Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">이용 방법</span>
+                <h3 class="section-card__name">스텝 이미지형 (Type A)</h3>
+              </div>
+              <p class="section-card__desc">이미지 스텝. 단계별 프로세스를 이미지와 함께 안내할 때 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/step/type-b-text.html" class="section-card" data-type="step" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/step B.png" alt="Step Type B Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">이용 방법</span>
+                <h3 class="section-card__name">스텝 텍스트형 (Type B)</h3>
+              </div>
+              <p class="section-card__desc">텍스트 스텝. 단계별 프로세스를 텍스트 중심으로 안내할 때 적합</p>
+            </div>
+          </a>
+
+          <!-- ==================== ETC ==================== -->
+          <div class="section-divider" data-category="etc">
+            <h2 class="section-divider__title">부가 정보 (ETC)<span class="section-divider__count">2</span></h2>
+          </div>
+
+          <a href="sections/faq/index.html" class="section-card" data-type="etc" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/etc A.png" alt="FAQ Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">부가 정보</span>
+                <h3 class="section-card__name">자주 묻는 질문</h3>
+              </div>
+              <p class="section-card__desc">자주 묻는 질문. 아코디언 형태로 질문/답변 정리에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/etc/caution.html" class="section-card" data-type="etc" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/etc B.png" alt="Caution Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">부가 정보</span>
+                <h3 class="section-card__name">유의사항</h3>
+              </div>
+              <p class="section-card__desc">유의사항. 주의사항, 약관, 안내문구 표시에 적합</p>
+            </div>
+          </a>
+
+          <!-- ==================== CTA ==================== -->
+          <div class="section-divider" data-category="cta">
+            <h2 class="section-divider__title">전환 유도 (CTA)<span class="section-divider__count">3</span></h2>
+          </div>
+
+          <a href="sections/cta/type-a-finish.html" class="section-card" data-type="cta" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/cta A.png" alt="CTA Type A Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">전환 유도</span>
+                <h3 class="section-card__name">마무리형</h3>
+              </div>
+              <p class="section-card__desc">마무리 CTA 섹션. 페이지 하단에서 최종 행동 유도에 적합</p>
+            </div>
+          </a>
+
+          <a href="sections/cta/type-b-floating.html" class="section-card" data-type="cta" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/cta B.png" alt="CTA Type B Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">전환 유도</span>
+                <h3 class="section-card__name">플로팅 버튼 A</h3>
+              </div>
+              <p class="section-card__desc">플로팅 버튼 Style A (하단 고정형). 버튼 1개 또는 2개 선택 가능</p>
+            </div>
+          </a>
+
+          <a href="sections/cta/type-c-floating-b.html" class="section-card" data-type="cta" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/cta C.png" alt="CTA Type C Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">전환 유도</span>
+                <h3 class="section-card__name">플로팅 버튼 B</h3>
+              </div>
+              <p class="section-card__desc">플로팅 버튼 Style B (하단 고정형). 버튼 1개 또는 2개 선택 가능</p>
+            </div>
+          </a>
+
+          <!-- ==================== Navigation/Footer ==================== -->
+          <div class="section-divider" data-category="footer">
+            <h2 class="section-divider__title">네비게이션 (Navigation)<span class="section-divider__count">1</span></h2>
+          </div>
+
+          <a href="sections/navigation/type-a-gnb-footer.html" class="section-card" data-type="footer" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/nav A.png" alt="GNB/Footer Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">네비게이션</span>
+                <h3 class="section-card__name">GNB / Footer</h3>
+              </div>
+              <p class="section-card__desc">헤더(GNB)와 푸터가 합쳐진 네비게이션 섹션. 상단 로고/메뉴, 하단 회사정보/저작권 표시</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/gallery.js"></script>
+</body>
+</html>

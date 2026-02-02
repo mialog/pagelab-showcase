@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTA - Type A Finish | PageLab</title>
+  <link rel="stylesheet" href="./../../tokens/base.css">
+  <link rel="stylesheet" href="./../../tokens/campaign.css">
+  <link rel="stylesheet" href="./../../styles/components.css">
+  <link rel="stylesheet" href="./../../styles/sections.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--pl-font-main);
+      background: var(--pl-neutral-10);
+      min-height: 100vh;
+    }
+
+    /* Preview Header */
+    .preview-header {
+      background: var(--pl-bg-default);
+      border-bottom: 1px solid var(--pl-border-light);
+      padding: var(--pl-spacing-4) var(--pl-spacing-7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .preview-header__left {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-5);
+    }
+
+    .preview-header__back {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      font-size: var(--pl-font-size-label-md);
+      color: var(--pl-text-tertiary);
+      text-decoration: none;
+      padding: var(--pl-spacing-2) var(--pl-spacing-3);
+      border-radius: var(--pl-radius-1);
+      transition: all 0.2s;
+    }
+
+    .preview-header__back:hover {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-neutral);
+    }
+
+    .preview-header__info {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-3);
+    }
+
+    .preview-header__tag {
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-static-red);
+      background: var(--pl-red-5);
+      padding: 3px 10px;
+      border-radius: var(--pl-radius-1);
+    }
+
+    .preview-header__title {
+      font-size: var(--pl-font-size-body-md);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-text-primary);
+    }
+
+    /* Device Switcher */
+    .device-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .device-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .device-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .device-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    .device-btn__size {
+      color: var(--pl-text-lowest);
+      font-weight: var(--pl-font-weight-default);
+    }
+
+    /* Preview Container */
+    .preview-container {
+      padding-top: 60px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 80px var(--pl-spacing-7) var(--pl-spacing-7);
+    }
+
+    .preview-frame {
+      background: var(--pl-bg-default);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      border-radius: var(--pl-radius-3);
+      overflow: hidden;
+      transition: width 0.3s ease;
+      width: 1920px;
+      max-width: 100%;
+      height: fit-content;
+    }
+
+    .preview-frame[data-device="pc"] {
+      width: 1920px;
+    }
+
+    .preview-frame[data-device="tablet"] {
+      width: 720px;
+    }
+
+    .preview-frame[data-device="mobile"] {
+      width: 360px;
+    }
+
+    /* Section Content */
+    .preview-content {
+      width: 100%;
+      container-type: inline-size;
+      container-name: section;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Preview Header -->
+  <header class="preview-header">
+    <div class="preview-header__left">
+      <a href="../../index.html" class="preview-header__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        갤러리
+      </a>
+      <div class="preview-header__info">
+        <span class="preview-header__tag">전환 유도</span>
+        <h1 class="preview-header__title">마무리형 (Type A)</h1>
+      </div>
+    </div>
+
+    <div class="device-switcher">
+      <button class="device-btn is-active" data-device="pc">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        PC
+        <span class="device-btn__size">1920</span>
+      </button>
+      <button class="device-btn" data-device="tablet">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        Tablet
+        <span class="device-btn__size">720</span>
+      </button>
+      <button class="device-btn" data-device="mobile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        Mobile
+        <span class="device-btn__size">360</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Preview Container -->
+  <div class="preview-container">
+    <div class="preview-frame" data-device="pc">
+      <div class="preview-content">
+
+        <!-- ========== CTA Section Type A: Finish ========== -->
+        <section class="pl-cta pl-cta--finish">
+          <div class="pl-cta__container">
+            <div class="pl-cta__text">
+              <h2 class="pl-cta__title">사용자의 시선을 끄는 마무리 문구</h2>
+              <p class="pl-cta__desc">보조 문구 전달하고 싶은 메시지 및 부가 설명</p>
+            </div>
+            <div class="pl-cta__buttons">
+              <a href="#" class="pl-cta__btn pl-cta__btn--outline">버튼 레이블</a>
+              <a href="#" class="pl-cta__btn pl-cta__btn--filled">버튼 레이블</a>
+            </div>
+          </div>
+        </section>
+        <!-- ========== //CTA Section Type A: Finish ========== -->
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Device Switcher
+    const deviceBtns = document.querySelectorAll('.device-btn');
+    const previewFrame = document.querySelector('.preview-frame');
+
+    deviceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        deviceBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const device = btn.dataset.device;
+        previewFrame.dataset.device = device;
+      });
+    });
+  </script>
+
+</body>
+</html>

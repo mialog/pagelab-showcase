@@ -1,0 +1,375 @@
+/* ============================================
+   PageLab Component Styles
+   재사용 가능한 UI 컴포넌트
+   Figma Component 변수 기반
+   ============================================ */
+
+/* ============================================
+   CSS Variables - Component Tokens
+   Component.json 값 기반
+   ============================================ */
+:root {
+  /* Button Sizing */
+  --comp-btn-radius: 999px;
+  --comp-btn-max-width: 400px;
+  --comp-btn-group-max-width: 480px;
+
+  /* Large Button */
+  --comp-btn-large-padding-hor: 32px;
+  --comp-btn-large-padding-ver: 16px;
+  --comp-btn-large-gap: 8px;
+
+  /* Medium Button */
+  --comp-btn-medium-padding-hor: 24px;
+  --comp-btn-medium-padding-ver: 12px;
+  --comp-btn-medium-gap: 6px;
+
+  /* Small Button */
+  --comp-btn-small-padding-hor: 20px;
+  --comp-btn-small-padding-ver: 8px;
+  --comp-btn-small-gap: 4px;
+
+  /* XSmall Button */
+  --comp-btn-xsmall-padding-hor: 14px;
+  --comp-btn-xsmall-padding-ver: 6px;
+  --comp-btn-xsmall-gap: 4px;
+
+  /* Ghost Button */
+  --comp-btn-ghost-radius: 8px;
+  --comp-btn-ghost-large-padding-hor: 16px;
+  --comp-btn-ghost-large-padding-ver: 16px;
+  --comp-btn-ghost-medium-padding-hor: 10px;
+  --comp-btn-ghost-medium-padding-ver: 12px;
+  --comp-btn-ghost-small-padding-hor: 8px;
+  --comp-btn-ghost-small-padding-ver: 10px;
+  --comp-btn-ghost-xsmall-padding-hor: 6px;
+  --comp-btn-ghost-xsmall-padding-ver: 4px;
+
+  /* Icon Button */
+  --comp-btn-ic-radius: 999px;
+  --comp-btn-ic-large-padding: 16px;
+  --comp-btn-ic-medium-padding: 12px;
+  --comp-btn-ic-small-padding: 8px;
+
+  /* Icon Ghost Button */
+  --comp-btn-ic-ghost-radius: 8px;
+  --comp-btn-ic-ghost-large-padding: 8px;
+  --comp-btn-ic-ghost-medium-padding: 4px;
+  --comp-btn-ic-ghost-small-padding: 2px;
+}
+
+/* ============================================
+   Label / Badge Component
+   ============================================ */
+.pl-label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--pl-spacing-2) var(--pl-spacing-4);
+  font-size: var(--pl-font-size-label-lg);
+  font-weight: var(--pl-font-weight-default);
+  border-radius: var(--pl-radius-1);
+  line-height: var(--pl-line-height-default);
+}
+
+.pl-label--filled {
+  background: var(--pl-bg-brand);
+  color: var(--pl-text-invert);
+}
+
+.pl-label--outline {
+  background: transparent;
+  border: var(--pl-border-1) solid var(--pl-border-brand);
+  color: var(--pl-text-brand);
+}
+
+.pl-label--light {
+  background: var(--pl-bg-brand-light);
+  color: var(--pl-text-brand);
+}
+
+/* ============================================
+   Button Component Base
+   ============================================ */
+.pl-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--comp-btn-medium-gap);
+  padding: var(--comp-btn-medium-padding-ver) var(--comp-btn-medium-padding-hor);
+  font-family: var(--pl-font-main);
+  font-size: var(--pl-font-size-label-lg);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  border-radius: var(--comp-btn-radius);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  max-width: var(--comp-btn-max-width);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Overlay Layer for Button States */
+.pl-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+.pl-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ============================================
+   Button Variants
+   ============================================ */
+
+/* Primary Button */
+.pl-btn--primary {
+  background: var(--pl-bg-brand);
+  color: var(--pl-text-invert);
+}
+
+.pl-btn--primary::before {
+  background: transparent;
+}
+
+.pl-btn--primary:hover::before {
+  background: var(--pl-alpha-brand-12);
+}
+
+.pl-btn--primary:active::before {
+  background: var(--pl-alpha-brand-24);
+}
+
+.pl-btn--primary:focus-visible {
+  outline: 2px solid var(--pl-border-brand);
+  outline-offset: 2px;
+}
+
+/* Secondary Button */
+.pl-btn--secondary {
+  background: var(--pl-bg-neutral);
+  color: var(--pl-text-primary);
+}
+
+.pl-btn--secondary::before {
+  background: transparent;
+}
+
+.pl-btn--secondary:hover::before {
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-btn--secondary:active::before {
+  background: var(--pl-alpha-black-24);
+}
+
+.pl-btn--secondary:focus-visible {
+  outline: 2px solid var(--pl-border-default);
+  outline-offset: 2px;
+}
+
+/* Outline Button */
+.pl-btn--outline {
+  background: transparent;
+  border: var(--pl-border-2) solid var(--pl-border-brand);
+  color: var(--pl-text-brand);
+}
+
+.pl-btn--outline::before {
+  background: transparent;
+}
+
+.pl-btn--outline:hover::before {
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-btn--outline:active::before {
+  background: var(--pl-alpha-black-24);
+}
+
+.pl-btn--outline:focus-visible {
+  outline: 2px solid var(--pl-border-brand);
+  outline-offset: 2px;
+}
+
+/* Ghost Button */
+.pl-btn--ghost {
+  background: transparent;
+  color: var(--pl-text-primary);
+  border-radius: var(--comp-btn-ghost-radius);
+}
+
+.pl-btn--ghost::before {
+  background: transparent;
+}
+
+.pl-btn--ghost:hover::before {
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-btn--ghost:active::before {
+  background: var(--pl-alpha-black-24);
+}
+
+.pl-btn--ghost:focus-visible {
+  outline: 2px solid var(--pl-border-default);
+  outline-offset: 2px;
+}
+
+/* Secondary Light Button (for dark backgrounds) */
+.pl-btn--secondary-light {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--pl-text-primary);
+}
+
+.pl-btn--secondary-light::before {
+  background: transparent;
+}
+
+.pl-btn--secondary-light:hover::before {
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-btn--secondary-light:active::before {
+  background: var(--pl-alpha-black-24);
+}
+
+.pl-btn--secondary-light:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Button Sizes
+   ============================================ */
+
+/* Large Button */
+.pl-btn--large {
+  padding: var(--comp-btn-large-padding-ver) var(--comp-btn-large-padding-hor);
+  gap: var(--comp-btn-large-gap);
+  font-size: var(--pl-font-size-body-lg);
+}
+
+/* Medium Button (default) */
+.pl-btn--medium {
+  padding: var(--comp-btn-medium-padding-ver) var(--comp-btn-medium-padding-hor);
+  gap: var(--comp-btn-medium-gap);
+}
+
+/* Small Button */
+.pl-btn--small {
+  padding: var(--comp-btn-small-padding-ver) var(--comp-btn-small-padding-hor);
+  gap: var(--comp-btn-small-gap);
+  font-size: var(--pl-font-size-label-md);
+}
+
+/* XSmall Button */
+.pl-btn--xsmall {
+  padding: var(--comp-btn-xsmall-padding-ver) var(--comp-btn-xsmall-padding-hor);
+  gap: var(--comp-btn-xsmall-gap);
+  font-size: var(--pl-font-size-label-sm);
+}
+
+/* Full Width Button */
+.pl-btn--full {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ============================================
+   Icon Button
+   ============================================ */
+.pl-btn__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.pl-btn--icon-only {
+  padding: var(--comp-btn-ic-medium-padding);
+  border-radius: var(--comp-btn-ic-radius);
+}
+
+.pl-btn--icon-only.pl-btn--large {
+  padding: var(--comp-btn-ic-large-padding);
+}
+
+.pl-btn--icon-only.pl-btn--small {
+  padding: var(--comp-btn-ic-small-padding);
+}
+
+.pl-btn--icon-only.pl-btn--ghost {
+  padding: var(--comp-btn-ic-ghost-medium-padding);
+  border-radius: var(--comp-btn-ic-ghost-radius);
+}
+
+.pl-btn--icon-only.pl-btn--ghost.pl-btn--large {
+  padding: var(--comp-btn-ic-ghost-large-padding);
+}
+
+.pl-btn--icon-only.pl-btn--ghost.pl-btn--small {
+  padding: var(--comp-btn-ic-ghost-small-padding);
+}
+
+/* ============================================
+   Button Group
+   ============================================ */
+.pl-btn-group {
+  display: flex;
+  gap: var(--pl-spacing-3);
+  flex-wrap: wrap;
+  max-width: var(--comp-btn-group-max-width);
+}
+
+.pl-btn-group--full {
+  width: 100%;
+  max-width: 100%;
+}
+
+.pl-btn-group--center {
+  justify-content: center;
+}
+
+.pl-btn-group--end {
+  justify-content: flex-end;
+}
+
+/* ============================================
+   Button Loading State
+   ============================================ */
+.pl-btn--loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.pl-btn--loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-right-color: transparent;
+  animation: pl-btn-spin 0.6s linear infinite;
+}
+
+@keyframes pl-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

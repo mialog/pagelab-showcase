@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation - GNB/Footer | PageLab</title>
+  <link rel="stylesheet" href="./../../tokens/base.css">
+  <link rel="stylesheet" href="./../../tokens/campaign.css">
+  <link rel="stylesheet" href="./../../styles/components.css">
+  <link rel="stylesheet" href="./../../styles/sections.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="./../../scripts/components.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--pl-font-main);
+      background: var(--pl-neutral-10);
+      min-height: 100vh;
+    }
+
+    /* Preview Header */
+    .preview-header {
+      background: var(--pl-bg-default);
+      border-bottom: 1px solid var(--pl-border-light);
+      padding: var(--pl-spacing-4) var(--pl-spacing-7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .preview-header__left {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-5);
+    }
+
+    .preview-header__back {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      font-size: var(--pl-font-size-label-md);
+      color: var(--pl-text-tertiary);
+      text-decoration: none;
+      padding: var(--pl-spacing-2) var(--pl-spacing-3);
+      border-radius: var(--pl-radius-1);
+      transition: all 0.2s;
+    }
+
+    .preview-header__back:hover {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-neutral);
+    }
+
+    .preview-header__info {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-3);
+    }
+
+    .preview-header__tag {
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-static-purple);
+      background: var(--pl-purple-5);
+      padding: 3px 10px;
+      border-radius: var(--pl-radius-1);
+    }
+
+    .preview-header__title {
+      font-size: var(--pl-font-size-body-md);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-text-primary);
+    }
+
+    .preview-header__right {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-4);
+    }
+
+    /* Device Switcher */
+    .device-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .device-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .device-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .device-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    .device-btn__size {
+      color: var(--pl-text-lowest);
+      font-weight: var(--pl-font-weight-default);
+    }
+
+    /* Preview Container */
+    .preview-container {
+      padding-top: 60px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 80px var(--pl-spacing-7) var(--pl-spacing-7);
+    }
+
+    .preview-frame {
+      background: var(--pl-bg-default);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      border-radius: var(--pl-radius-3);
+      overflow: hidden;
+      transition: width 0.3s ease;
+      width: 1920px;
+      max-width: 100%;
+      height: calc(100vh - 100px);
+    }
+
+    .preview-frame[data-device="pc"] {
+      width: 1920px;
+    }
+
+    .preview-frame[data-device="tablet"] {
+      width: 720px;
+    }
+
+    .preview-frame[data-device="mobile"] {
+      width: 360px;
+    }
+
+    /* Section Content */
+    .preview-content {
+      width: 100%;
+      container-type: inline-size;
+      container-name: section;
+      position: relative;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Preview Header -->
+  <header class="preview-header">
+    <div class="preview-header__left">
+      <a href="../../index.html" class="preview-header__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        갤러리
+      </a>
+      <div class="preview-header__info">
+        <span class="preview-header__tag">네비게이션</span>
+        <h1 class="preview-header__title">GNB / Footer</h1>
+      </div>
+    </div>
+
+    <div class="preview-header__right">
+      <!-- Device Switcher -->
+      <div class="device-switcher">
+        <button class="device-btn is-active" data-device="pc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          PC
+          <span class="device-btn__size">1920</span>
+        </button>
+        <button class="device-btn" data-device="tablet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Tablet
+          <span class="device-btn__size">720</span>
+        </button>
+        <button class="device-btn" data-device="mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Mobile
+          <span class="device-btn__size">360</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Preview Container -->
+  <div class="preview-container">
+    <div class="preview-frame" data-device="pc">
+      <div class="preview-content">
+
+        <!-- ========== GNB (Header) ========== -->
+        <header class="pl-gnb">
+          <div class="pl-gnb__container">
+            <!-- Logo -->
+            <a href="#" class="pl-gnb__logo">
+              <svg width="156" height="31" viewBox="0 0 156 31" fill="none">
+                <text x="0" y="22" font-family="Pretendard Variable" font-weight="700" font-size="20" fill="#0b0d11">LOGO</text>
+              </svg>
+            </a>
+            <!-- Menu -->
+            <nav class="pl-gnb__nav">
+              <a href="#" class="pl-gnb__menu-item">메뉴 명</a>
+              <a href="#" class="pl-gnb__menu-item">메뉴 명</a>
+              <a href="#" class="pl-gnb__menu-item">메뉴 명</a>
+              <a href="#" class="pl-gnb__menu-item">메뉴 명</a>
+              <a href="#" class="pl-gnb__menu-item">메뉴 명</a>
+            </nav>
+            <!-- Mobile Menu Button (hidden on PC) -->
+            <button class="pl-gnb__mobile-menu" aria-label="메뉴 열기" onclick="toggleMobileMenu()">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Mobile Menu Overlay (Tablet/Mobile only) -->
+        <div class="pl-gnb__mobile-overlay" id="mobileMenuOverlay">
+          <div class="pl-gnb__mobile-overlay-header">
+            <a href="#" class="pl-gnb__logo">
+              <svg width="156" height="31" viewBox="0 0 156 31" fill="none">
+                <text x="0" y="22" font-family="Pretendard Variable" font-weight="700" font-size="20" fill="#0b0d11">LOGO</text>
+              </svg>
+            </a>
+            <button class="pl-gnb__mobile-close" aria-label="메뉴 닫기" onclick="toggleMobileMenu()">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <nav class="pl-gnb__mobile-nav">
+            <a href="#" class="pl-gnb__mobile-nav-item">메뉴 명</a>
+            <a href="#" class="pl-gnb__mobile-nav-item">메뉴 명</a>
+            <a href="#" class="pl-gnb__mobile-nav-item">메뉴 명</a>
+            <a href="#" class="pl-gnb__mobile-nav-item">메뉴 명</a>
+            <a href="#" class="pl-gnb__mobile-nav-item">메뉴 명</a>
+          </nav>
+        </div>
+
+        <!-- ========== Content Section ========== -->
+        <section class="pl-nav-content">
+          <div class="pl-nav-content__container">
+            <!-- Section Title -->
+            <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+          </div>
+          <!-- Full Width Image -->
+          <div class="pl-nav-content__image">
+            <img src="./../../images/about/about_f_img.png" alt="Content Image" onerror="this.style.display='none'">
+          </div>
+        </section>
+
+        <!-- ========== Footer ========== -->
+        <footer class="pl-footer">
+          <div class="pl-footer__container">
+            <!-- Top: Info + Contact -->
+            <div class="pl-footer__top">
+              <!-- Left: Info -->
+              <div class="pl-footer__info">
+                <!-- Category Links -->
+                <nav class="pl-footer__category">
+                  <a href="#" class="pl-footer__category-link pl-footer__category-link--bold">개인정보 처리방침</a>
+                  <a href="#" class="pl-footer__category-link">이용약관</a>
+                  <a href="#" class="pl-footer__category-link">운영 정책</a>
+                  <a href="#" class="pl-footer__category-link">고객센터</a>
+                  <a href="#" class="pl-footer__category-link">회사소개</a>
+                  <a href="#" class="pl-footer__category-link">법적고지</a>
+                </nav>
+                <!-- Business Info -->
+                <div class="pl-footer__business">
+                  <div class="pl-footer__logo">
+                    <img src="./../../images/footer/footer_logo.png" alt="대교 로고" width="120" height="44">
+                  </div>
+                  <div class="pl-footer__company">
+                    <button class="pl-footer__company-toggle" onclick="toggleCompanyInfo(this)">
+                      <span>(주) 대교</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="pl-footer__address" id="companyAddress">
+                    <p>서울시 관악구 보라매로 3길 23(보라매동 729-1) 대교타워</p>
+                    <p>대표이사: 강호준 · 사업자등록번호: 112-81-41114 · 통신판매신고번호: 제2013-서울관악-0478호</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Right: Contact -->
+              <div class="pl-footer__contact">
+                <div class="pl-footer__call">
+                  <p class="pl-footer__call-label">대교 고객센터 대표번호</p>
+                  <p class="pl-footer__call-number">080-223-0909</p>
+                  <p class="pl-footer__call-time">평일 오전 9:00부터 오후 18:00까지</p>
+                </div>
+                <div class="pl-footer__sns">
+                  <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--instagram" aria-label="Instagram"></a>
+                  <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--kakao" aria-label="KakaoTalk"></a>
+                  <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--blog" aria-label="Blog"></a>
+                  <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--youtube" aria-label="YouTube"></a>
+                  <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--place" aria-label="Place"></a>
+                </div>
+              </div>
+            </div>
+            <!-- Bottom: Certifications + Sites -->
+            <div class="pl-footer__bottom">
+              <div class="pl-footer__marks">
+                <div class="pl-footer__mark">
+                  <div class="pl-footer__mark-icon"></div>
+                </div>
+                <div class="pl-footer__isms">
+                  <div class="pl-footer__mark-icon"></div>
+                  <div class="pl-footer__isms-text">
+                    <p><strong>인증범위</strong> 대교 온라인 서비스 운영(마카다미아, 어린이TV, 뉴이프플러스)</p>
+                    <p><strong>유효기간</strong> 2025.04.06 ~ 2028.04.05</p>
+                  </div>
+                </div>
+              </div>
+              <div class="pl-footer__sites">
+                <a href="#" class="pl-footer__app-btn">
+                  <span>서비스명 앱 다운로드</span>
+                </a>
+                <div class="pl-footer__dropdowns">
+                  <div class="pl-footer__dropdown-wrapper">
+                    <div class="pl-footer__dropdown" onclick="toggleDropdown(this)">
+                      <span>대교 브랜드 사이트</span>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </div>
+                    <div class="pl-footer__dropdown-list">
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트1</a>
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트2</a>
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트3</a>
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트4</a>
+                    </div>
+                  </div>
+                  <div class="pl-footer__dropdown-wrapper">
+                    <div class="pl-footer__dropdown" onclick="toggleDropdown(this)">
+                      <span>대교 브랜드 사이트</span>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </div>
+                    <div class="pl-footer__dropdown-list">
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트1</a>
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트2</a>
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트3</a>
+                      <a href="#" class="pl-footer__dropdown-item">대교 관계 사이트4</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Copyright -->
+            <p class="pl-footer__copyright">Copyright © DAEKYO. All Rights Reserved</p>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Device Switcher
+    const deviceBtns = document.querySelectorAll('.device-btn');
+    const previewFrame = document.querySelector('.preview-frame');
+
+    deviceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        deviceBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const device = btn.dataset.device;
+        previewFrame.dataset.device = device;
+      });
+    });
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const overlay = document.getElementById('mobileMenuOverlay');
+      overlay.classList.toggle('is-open');
+    }
+
+    // Footer Dropdown Toggle
+    function toggleDropdown(element) {
+      // Close other dropdowns
+      document.querySelectorAll('.pl-footer__dropdown.is-open').forEach(dropdown => {
+        if (dropdown !== element) {
+          dropdown.classList.remove('is-open');
+        }
+      });
+      // Toggle current dropdown
+      element.classList.toggle('is-open');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.pl-footer__dropdown-wrapper')) {
+        document.querySelectorAll('.pl-footer__dropdown.is-open').forEach(dropdown => {
+          dropdown.classList.remove('is-open');
+        });
+      }
+    });
+
+    // Company Info Toggle (Tablet/Mobile only)
+    function toggleCompanyInfo(button) {
+      button.classList.toggle('is-open');
+      const address = document.getElementById('companyAddress');
+      address.classList.toggle('is-open');
+    }
+
+    // GNB Scroll State - detect scroll on preview-content
+    const previewContent = document.querySelector('.preview-content');
+    const gnb = document.querySelector('.pl-gnb');
+
+    if (previewContent && gnb) {
+      previewContent.addEventListener('scroll', () => {
+        if (previewContent.scrollTop > 0) {
+          gnb.classList.add('is-scrolled');
+        } else {
+          gnb.classList.remove('is-scrolled');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

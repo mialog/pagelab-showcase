@@ -1,0 +1,90 @@
+/* ============================================
+   PageLab Design Tokens - Campaign
+   브랜드 프로젝트에서 이 파일의 값만 수정해서 사용
+   ============================================ */
+
+:root {
+  /* ----------------------------------------
+     Campaign Colors (기본값)
+     브랜드별로 이 값들만 수정
+     ---------------------------------------- */
+  --pl-campaign-primary: #9b6bf4;
+  --pl-campaign-secondary: #fd80cb;
+  --pl-campaign-bg: #f6f2fc;
+
+  /* 추가 캠페인 색상 (필요시 확장) */
+  --pl-campaign-accent: #9b6bf4;
+  --pl-campaign-text: #0b0d11;
+  --pl-campaign-text-light: #ffffff;
+}
+
+/* ============================================
+   Campaign Modes (시즌/컨셉별)
+   data-campaign 속성으로 전환
+   예: <body data-campaign="spring">
+   ============================================ */
+
+/* Spring */
+[data-campaign="spring"] {
+  --pl-campaign-primary: #FF9BAC;
+  --pl-campaign-secondary: #FFE4E8;
+  --pl-campaign-bg: #FFF0F3;
+  --pl-campaign-accent: #FF6B8A;
+  --pl-campaign-text: #5C2D3D;
+  --pl-campaign-text-light: #ffffff;
+}
+
+/* Summer */
+[data-campaign="summer"] {
+  --pl-campaign-primary: #00B4D8;
+  --pl-campaign-secondary: #90E0EF;
+  --pl-campaign-bg: #F0FAFF;
+  --pl-campaign-accent: #0077B6;
+  --pl-campaign-text: #023E58;
+  --pl-campaign-text-light: #ffffff;
+}
+
+/* Autumn */
+[data-campaign="autumn"] {
+  --pl-campaign-primary: #E07B39;
+  --pl-campaign-secondary: #F4A460;
+  --pl-campaign-bg: #FFF8F0;
+  --pl-campaign-accent: #C45D1E;
+  --pl-campaign-text: #5C3317;
+  --pl-campaign-text-light: #ffffff;
+}
+
+/* Winter */
+[data-campaign="winter"] {
+  --pl-campaign-primary: #5B7FA3;
+  --pl-campaign-secondary: #A5C4D4;
+  --pl-campaign-bg: #F5F9FC;
+  --pl-campaign-accent: #34506D;
+  --pl-campaign-text: #1E3A50;
+  --pl-campaign-text-light: #ffffff;
+}
+
+/* ============================================
+   Brand Mode Examples (브랜드별 예시)
+   실제 프로젝트에서 브랜드명으로 변경
+   ============================================ */
+
+/* Brand Red - 레드 계열 브랜드 예시 */
+[data-campaign="brand-red"] {
+  --pl-campaign-primary: #E53935;
+  --pl-campaign-secondary: #FFCDD2;
+  --pl-campaign-bg: #FFF5F5;
+  --pl-campaign-accent: #C62828;
+  --pl-campaign-text: #3E1F1F;
+  --pl-campaign-text-light: #ffffff;
+}
+
+/* Brand Green - 그린 계열 브랜드 예시 */
+[data-campaign="brand-green"] {
+  --pl-campaign-primary: #43A047;
+  --pl-campaign-secondary: #C8E6C9;
+  --pl-campaign-bg: #F1F8F2;
+  --pl-campaign-accent: #2E7D32;
+  --pl-campaign-text: #1B3D1C;
+  --pl-campaign-text-light: #ffffff;
+}

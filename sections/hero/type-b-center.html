@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero - Type B Center | PageLab</title>
+  <link rel="stylesheet" href="./../../tokens/base.css">
+  <link rel="stylesheet" href="./../../tokens/campaign.css">
+  <link rel="stylesheet" href="./../../styles/components.css">
+  <link rel="stylesheet" href="./../../styles/sections.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="./../../scripts/components.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--pl-font-main);
+      background: var(--pl-neutral-10);
+      min-height: 100vh;
+    }
+
+    /* Preview Header */
+    .preview-header {
+      background: var(--pl-bg-default);
+      border-bottom: 1px solid var(--pl-border-light);
+      padding: var(--pl-spacing-4) var(--pl-spacing-7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .preview-header__left {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-5);
+    }
+
+    .preview-header__back {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      font-size: var(--pl-font-size-label-md);
+      color: var(--pl-text-tertiary);
+      text-decoration: none;
+      padding: var(--pl-spacing-2) var(--pl-spacing-3);
+      border-radius: var(--pl-radius-1);
+      transition: all 0.2s;
+    }
+
+    .preview-header__back:hover {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-neutral);
+    }
+
+    .preview-header__info {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-3);
+    }
+
+    .preview-header__tag {
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-text-brand);
+      background: var(--pl-bg-brand-light);
+      padding: 3px 10px;
+      border-radius: var(--pl-radius-1);
+    }
+
+    .preview-header__title {
+      font-size: var(--pl-font-size-body-md);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-text-primary);
+    }
+
+    /* Device Switcher */
+    .device-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .device-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .device-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .device-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    .device-btn__size {
+      color: var(--pl-text-lowest);
+      font-weight: var(--pl-font-weight-default);
+    }
+
+    /* Preview Container */
+    .preview-container {
+      padding-top: 60px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 80px var(--pl-spacing-7) var(--pl-spacing-7);
+    }
+
+    .preview-frame {
+      background: var(--pl-bg-default);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      border-radius: var(--pl-radius-3);
+      overflow: hidden;
+      transition: width 0.3s ease;
+      width: 1920px;
+      max-width: 100%;
+      height: fit-content; /* 콘텐츠 높이에 맞춤 */
+    }
+
+    .preview-frame[data-device="pc"] {
+      width: 1920px;
+    }
+
+    .preview-frame[data-device="tablet"] {
+      width: 720px;
+    }
+
+    .preview-frame[data-device="mobile"] {
+      width: 360px;
+    }
+
+    /* Section Content */
+    .preview-content {
+      width: 100%;
+      container-type: inline-size;
+      container-name: section;
+    }
+
+    /* Type B 스타일 오버라이드 - Figma 스펙 */
+    .pl-hero--center {
+      background: #0E2F91;
+    }
+
+    .pl-hero--center .pl-hero__title {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .pl-hero--center .pl-hero__desc {
+      color: #fff;
+    }
+
+    .pl-hero--center .pl-btn--outline {
+      border-color: #fff;
+      color: #fff;
+    }
+
+    /* White overlay for dark background */
+    .pl-hero--center .pl-btn--outline::before {
+      background: transparent;
+    }
+
+    .pl-hero--center .pl-btn--outline:hover::before {
+      background: var(--pl-alpha-white-12);
+    }
+
+    .pl-hero--center .pl-btn--outline:active::before {
+      background: var(--pl-alpha-white-24);
+    }
+
+    /* Visual - 와이드 이미지 */
+    .pl-hero__visual {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 18px;
+    }
+
+    .pl-hero__visual img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preview Header -->
+  <header class="preview-header">
+    <div class="preview-header__left">
+      <a href="../../index.html" class="preview-header__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        갤러리
+      </a>
+      <div class="preview-header__info">
+        <span class="preview-header__tag">Hero</span>
+        <h1 class="preview-header__title">중앙 정렬형 (Type B)</h1>
+      </div>
+    </div>
+
+    <div class="device-switcher">
+      <button class="device-btn is-active" data-device="pc">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        PC
+        <span class="device-btn__size">1920</span>
+      </button>
+      <button class="device-btn" data-device="tablet">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        Tablet
+        <span class="device-btn__size">720</span>
+      </button>
+      <button class="device-btn" data-device="mobile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        Mobile
+        <span class="device-btn__size">360</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Preview Container -->
+  <div class="preview-container">
+    <div class="preview-frame" data-device="pc">
+      <div class="preview-content">
+        <!--
+          ========================================
+          Hero - Type B Center Aligned
+          피그마 디자인 그대로 구현
+          ========================================
+        -->
+        <section class="pl-section pl-hero pl-hero--center">
+          <div class="pl-section__container pl-hero__container">
+
+            <!-- Content -->
+            <div class="pl-hero__content">
+              <div class="pl-hero__text">
+                <span class="pl-label pl-label--filled">label</span>
+                <h1 class="pl-hero__title">헤드라인 텍스트는 최대 2줄까지<br>페이지랩으로 프로모션을 쉽게</h1>
+                <p class="pl-hero__desc">인간이라 초고가 입주부터, 겹치기 알아봄 무용단을 서던 하지 두다. 맏이로써 재미있기 수정한 요일을 해당하다. 백 되새기는 사용된 파편화된 몇 규모라고 보려, 싶는 아는 창고에 싶다.</p>
+              </div>
+              <div class="pl-hero__actions">
+                <a href="#" class="pl-btn pl-btn--outline">버튼 레이블</a>
+              </div>
+            </div>
+
+            <!-- Visual -->
+            <div class="pl-hero__visual">
+              <img class="responsive-img"
+                   src="./../../images/hero/hero-b-banner_pc.png"
+                   data-pc="../../images/hero/hero-b-banner_pc.png"
+                   data-tabmo="../../images/hero/hero-b-banner_tabmo.png"
+                   alt="Hero Banner">
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Device Switcher
+    const deviceBtns = document.querySelectorAll('.device-btn');
+    const previewFrame = document.querySelector('.preview-frame');
+    const responsiveImgs = document.querySelectorAll('.responsive-img');
+
+    function updateImages(device) {
+      responsiveImgs.forEach(img => {
+        if (device === 'pc') {
+          img.src = img.dataset.pc;
+        } else {
+          img.src = img.dataset.tabmo;
+        }
+      });
+    }
+
+    deviceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        deviceBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        // Update frame width
+        const device = btn.dataset.device;
+        previewFrame.dataset.device = device;
+
+        // Update responsive images
+        updateImages(device);
+      });
+    });
+  </script>
+
+</body>
+</html>

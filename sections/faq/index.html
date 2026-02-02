@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ | PageLab</title>
+  <link rel="stylesheet" href="./../../tokens/base.css">
+  <link rel="stylesheet" href="./../../tokens/campaign.css">
+  <link rel="stylesheet" href="./../../styles/components.css">
+  <link rel="stylesheet" href="./../../styles/sections.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="./../../scripts/components.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--pl-font-main);
+      background: var(--pl-neutral-10);
+      min-height: 100vh;
+      overflow-y: scroll; /* Always show scrollbar to prevent layout shift */
+    }
+
+    /* Preview Header */
+    .preview-header {
+      background: var(--pl-bg-default);
+      border-bottom: 1px solid var(--pl-border-light);
+      padding: var(--pl-spacing-4) var(--pl-spacing-7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .preview-header__left {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-5);
+    }
+
+    .preview-header__back {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      font-size: var(--pl-font-size-label-md);
+      color: var(--pl-text-tertiary);
+      text-decoration: none;
+      padding: var(--pl-spacing-2) var(--pl-spacing-3);
+      border-radius: var(--pl-radius-1);
+      transition: all 0.2s;
+    }
+
+    .preview-header__back:hover {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-neutral);
+    }
+
+    .preview-header__info {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-3);
+    }
+
+    .preview-header__tag {
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-static-orange);
+      background: var(--pl-orange-5);
+      padding: 3px 10px;
+      border-radius: var(--pl-radius-1);
+    }
+
+    .preview-header__title {
+      font-size: var(--pl-font-size-body-md);
+      font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-text-primary);
+    }
+
+    /* Device Switcher */
+    .device-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .device-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .device-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .device-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    .device-btn__size {
+      color: var(--pl-text-lowest);
+      font-weight: var(--pl-font-weight-default);
+    }
+
+    /* Preview Container */
+    .preview-container {
+      padding-top: 60px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 80px var(--pl-spacing-7) var(--pl-spacing-7);
+    }
+
+    /* Preview Frame */
+    .preview-frame {
+      background: var(--pl-bg-default);
+      border-radius: var(--pl-radius-3);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s;
+    }
+
+    .preview-frame[data-device="pc"] {
+      width: 1920px;
+    }
+
+    .preview-frame[data-device="tablet"] {
+      width: 720px;
+    }
+
+    .preview-frame[data-device="mobile"] {
+      width: 360px;
+    }
+
+    .preview-content {
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preview Header -->
+  <header class="preview-header">
+    <div class="preview-header__left">
+      <a href="../../index.html" class="preview-header__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        갤러리
+      </a>
+      <div class="preview-header__info">
+        <span class="preview-header__tag">부가 정보</span>
+        <h1 class="preview-header__title">FAQ</h1>
+      </div>
+    </div>
+
+    <div class="device-switcher">
+      <button class="device-btn is-active" data-device="pc">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        PC
+        <span class="device-btn__size">1920</span>
+      </button>
+      <button class="device-btn" data-device="tablet">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        Tablet
+        <span class="device-btn__size">720</span>
+      </button>
+      <button class="device-btn" data-device="mobile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        Mobile
+        <span class="device-btn__size">360</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Preview Frame -->
+  <main class="preview-container">
+    <div class="preview-frame" data-device="pc">
+      <div class="preview-content">
+
+        <!-- ========== FAQ Section ========== -->
+        <section class="pl-faq">
+          <div class="pl-faq__container">
+
+            <!-- Section Title -->
+            <div class="pl-section-title">
+              <div class="pl-section-title__text">
+                <h2 class="pl-section-title__heading">자주 묻는 질문</h2>
+              </div>
+            </div>
+
+            <!-- FAQ Items -->
+            <div class="pl-faq__items">
+
+              <!-- FAQ Item 1 -->
+              <div class="pl-faq__item">
+                <button class="pl-faq__header" aria-expanded="false">
+                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div class="pl-faq__content">
+                  <div class="pl-faq__answer">
+                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
+                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
+해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Item 2 -->
+              <div class="pl-faq__item is-open">
+                <button class="pl-faq__header" aria-expanded="true">
+                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div class="pl-faq__content">
+                  <div class="pl-faq__answer">
+                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
+                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
+해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Item 3 -->
+              <div class="pl-faq__item">
+                <button class="pl-faq__header" aria-expanded="false">
+                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div class="pl-faq__content">
+                  <div class="pl-faq__answer">
+                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
+                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
+해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Item 4 -->
+              <div class="pl-faq__item">
+                <button class="pl-faq__header" aria-expanded="false">
+                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div class="pl-faq__content">
+                  <div class="pl-faq__answer">
+                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
+                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
+해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Item 5 -->
+              <div class="pl-faq__item">
+                <button class="pl-faq__header" aria-expanded="false">
+                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div class="pl-faq__content">
+                  <div class="pl-faq__answer">
+                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
+                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
+해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+        <!-- ========== //FAQ Section ========== -->
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Device Switcher
+    const deviceBtns = document.querySelectorAll('.device-btn');
+    const previewFrame = document.querySelector('.preview-frame');
+
+    deviceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        deviceBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const device = btn.dataset.device;
+        previewFrame.setAttribute('data-device', device);
+      });
+    });
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.pl-faq__item');
+
+    faqItems.forEach(item => {
+      const header = item.querySelector('.pl-faq__header');
+      const content = item.querySelector('.pl-faq__content');
+
+      header.addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+
+        // Close all other items with smooth animation
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('is-open')) {
+            const otherContent = otherItem.querySelector('.pl-faq__content');
+            otherContent.style.maxHeight = otherContent.scrollHeight + 'px';
+            setTimeout(() => {
+              otherContent.style.maxHeight = '0';
+            }, 10);
+            otherItem.classList.remove('is-open');
+            otherItem.querySelector('.pl-faq__header').setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle current item with precise height
+        if (isOpen) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          setTimeout(() => {
+            content.style.maxHeight = '0';
+          }, 10);
+          item.classList.remove('is-open');
+          header.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('is-open');
+          header.setAttribute('aria-expanded', 'true');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

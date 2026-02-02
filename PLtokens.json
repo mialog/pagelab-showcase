@@ -1,0 +1,1530 @@
+{
+  "Responsive": {
+    "Spacing2": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 3
+    },
+    "Spacing3": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 6
+    },
+    "Spacing5": {
+      "Pc": 16,
+      "Ta": 14,
+      "Mo": 12
+    },
+    "Spacing7": {
+      "Pc": 24,
+      "Ta": 22,
+      "Mo": 20
+    },
+    "Border1": {
+      "Pc": 1,
+      "Ta": 1,
+      "Mo": 1
+    },
+    "Border2": {
+      "Pc": 2,
+      "Ta": 2,
+      "Mo": 1
+    },
+    "Border3": {
+      "Pc": 3,
+      "Ta": 3,
+      "Mo": 2
+    },
+    "Border4": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 3
+    },
+    "Radius1": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 4
+    },
+    "Radius2": {
+      "Pc": 10,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "Radius3": {
+      "Pc": 18,
+      "Ta": 16,
+      "Mo": 16
+    },
+    "Radius4": {
+      "Pc": 24,
+      "Ta": 24,
+      "Mo": 20
+    },
+    "Radius0Circle": {
+      "Pc": 999,
+      "Ta": 999,
+      "Mo": 999
+    },
+    "Radius5": {
+      "Pc": 32,
+      "Ta": 28,
+      "Mo": 24
+    },
+    "Radius6": {
+      "Pc": 40,
+      "Ta": 34,
+      "Mo": 30
+    },
+    "Spacing8": {
+      "Pc": 32,
+      "Ta": 30,
+      "Mo": 24
+    },
+    "Spacing9": {
+      "Pc": 40,
+      "Ta": 36,
+      "Mo": 32
+    },
+    "Spacing10": {
+      "Pc": 48,
+      "Ta": 44,
+      "Mo": 40
+    },
+    "Spacing11": {
+      "Pc": 60,
+      "Ta": 52,
+      "Mo": 48
+    },
+    "Spacing12": {
+      "Pc": 68,
+      "Ta": 60,
+      "Mo": 52
+    },
+    "Spacing13": {
+      "Pc": 80,
+      "Ta": 80,
+      "Mo": 60
+    },
+    "Spacing14": {
+      "Pc": 100,
+      "Ta": 92,
+      "Mo": 80
+    },
+    "Spacing15": {
+      "Pc": 120,
+      "Ta": 112,
+      "Mo": 100
+    },
+    "Spacing1": {
+      "Pc": 2,
+      "Ta": 2,
+      "Mo": 2
+    },
+    "Spacing6": {
+      "Pc": 20,
+      "Ta": 18,
+      "Mo": 16
+    },
+    "Spacing4": {
+      "Pc": 12,
+      "Ta": 10,
+      "Mo": 8
+    },
+    "Radius7": {
+      "Pc": 60,
+      "Ta": 52,
+      "Mo": 48
+    },
+    "DeviceMinWidth": {
+      "Pc": 1200,
+      "Ta": 640,
+      "Mo": 280
+    },
+    "DeviceMaxWidth": {
+      "Pc": 9999,
+      "Ta": 1199,
+      "Mo": 639
+    },
+    "DeviceMinHeight": {
+      "Pc": 960,
+      "Ta": 880,
+      "Mo": 800
+    },
+    "LayoutContainerMaxWidthDefault": {
+      "Pc": 1280,
+      "Ta": 1280,
+      "Mo": 1280
+    },
+    "LayoutContainerMaxWidthNarrow": {
+      "Pc": 960,
+      "Ta": 960,
+      "Mo": 960
+    },
+    "LayoutContainerMaxWidthWide": {
+      "Pc": 1400,
+      "Ta": 1400,
+      "Mo": 1400
+    },
+    "LayoutHorPadding": {
+      "Pc": 40,
+      "Ta": 32,
+      "Mo": 20
+    },
+    "LayoutBodyTop": {
+      "Pc": 32,
+      "Ta": 20,
+      "Mo": 16
+    },
+    "LayoutBodyBottom": {
+      "Pc": 100,
+      "Ta": 60,
+      "Mo": 48
+    },
+    "FontFamilyMain": {
+      "Pc": "Pretendard Variable",
+      "Ta": "Pretendard Variable",
+      "Mo": "Pretendard Variable"
+    },
+    "FontFamilyPoint": {
+      "Pc": "ONE Mobile Title",
+      "Ta": "ONE Mobile Title",
+      "Mo": "ONE Mobile Title"
+    },
+    "FontFamilyJaJP": {
+      "Pc": "Noto Sans JP",
+      "Ta": "Noto Sans JP",
+      "Mo": "Noto Sans JP"
+    },
+    "FontFamilyZhTW": {
+      "Pc": "Noto Sans TC",
+      "Ta": "Noto Sans TC",
+      "Mo": "Noto Sans TC"
+    },
+    "FontFamilyZhCN": {
+      "Pc": "Noto Sans SC",
+      "Ta": "Noto Sans SC",
+      "Mo": "Noto Sans SC"
+    },
+    "FontFamilyKids": {
+      "Pc": "Hakgyoansim Dunggeunmiso TTF",
+      "Ta": "Hakgyoansim Dunggeunmiso TTF",
+      "Mo": "Hakgyoansim Dunggeunmiso TTF"
+    },
+    "FontSizeHeaderSmall": {
+      "Pc": 26,
+      "Ta": 24,
+      "Mo": 22
+    },
+    "FontSizeHeaderMedium": {
+      "Pc": 30,
+      "Ta": 28,
+      "Mo": 24
+    },
+    "FontSizeHeaderLarge": {
+      "Pc": 34,
+      "Ta": 32,
+      "Mo": 28
+    },
+    "FontSizeBodySmall": {
+      "Pc": 16,
+      "Ta": 16,
+      "Mo": 16
+    },
+    "FontSizeLabelSmall": {
+      "Pc": 14,
+      "Ta": 14,
+      "Mo": 14
+    },
+    "FontSizeLabelLarge": {
+      "Pc": 19,
+      "Ta": 18,
+      "Mo": 17
+    },
+    "FontSizeDisplayMedium": {
+      "Pc": 48,
+      "Ta": 40,
+      "Mo": 30
+    },
+    "FontSizeTitleMedium": {
+      "Pc": 22,
+      "Ta": 20,
+      "Mo": 18
+    },
+    "FontSizeLabelMedium": {
+      "Pc": 17,
+      "Ta": 16,
+      "Mo": 15
+    },
+    "FontSizeBodyMedium": {
+      "Pc": 18,
+      "Ta": 18,
+      "Mo": 16
+    },
+    "FontSizeBodyLarge": {
+      "Pc": 20,
+      "Ta": 20,
+      "Mo": 18
+    },
+    "FontSizeDisplaySmall": {
+      "Pc": 38,
+      "Ta": 34,
+      "Mo": 28
+    },
+    "FontSizeTitleLarge": {
+      "Pc": 24,
+      "Ta": 22,
+      "Mo": 20
+    },
+    "FontSizeTitleSmall": {
+      "Pc": 20,
+      "Ta": 18,
+      "Mo": 16
+    },
+    "FontSizeDisplayLarge": {
+      "Pc": 56,
+      "Ta": 44,
+      "Mo": 30
+    },
+    "FontWeightLight": {
+      "Pc": "Light",
+      "Ta": "Light",
+      "Mo": "Light"
+    },
+    "FontWeightDefault": {
+      "Pc": "Medium",
+      "Ta": "Medium",
+      "Mo": "Medium"
+    },
+    "FontWeightBold": {
+      "Pc": "Bold",
+      "Ta": "Bold",
+      "Mo": "Bold"
+    },
+    "FontLetterspacingWide": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 3
+    },
+    "FontLetterspacingNarrow": {
+      "Pc": -1,
+      "Ta": -1,
+      "Mo": -1
+    },
+    "FontLetterspacingNormal": {
+      "Pc": 0,
+      "Ta": 0,
+      "Mo": 0
+    },
+    "FontLineheightBody": {
+      "Pc": 168,
+      "Ta": 168,
+      "Mo": 160
+    },
+    "FontLineheightDefault": {
+      "Pc": 144,
+      "Ta": 144,
+      "Mo": 144
+    },
+    "FontLineheightTitle": {
+      "Pc": 136,
+      "Ta": 136,
+      "Mo": 136
+    },
+    "DeviceDeviceDefault": {
+      "Pc": 1920,
+      "Ta": 720,
+      "Mo": 360
+    },
+    "LayoutContainerMaxWidthCompact": {
+      "Pc": 600,
+      "Ta": 600,
+      "Mo": 600
+    },
+    "LayoutCardImgWidthDefault": {
+      "Pc": 1280,
+      "Ta": 640,
+      "Mo": 320
+    },
+    "LayoutCardImgHeightDefault": {
+      "Pc": 600,
+      "Ta": 400,
+      "Mo": 360
+    },
+    "LayoutCardImgWidthWide": {
+      "Pc": 1920,
+      "Ta": 720,
+      "Mo": 360
+    }
+  },
+  "CoreColor": {
+    "AlphaBlack8": {
+      "Mode1": "#0b0d1114"
+    },
+    "AlphaGreen8": {
+      "Mode1": "#45b97c14"
+    },
+    "AlphaGreen32": {
+      "Mode1": "#45b97c51"
+    },
+    "AlphaViolet32": {
+      "Mode1": "#9b6bf451"
+    },
+    "AlphaWhite8": {
+      "Mode1": "#ffffff14"
+    },
+    "Pink60": {
+      "Mode1": "#de4397"
+    },
+    "Pink10": {
+      "Mode1": "#ffe2f5"
+    },
+    "Neutral80": {
+      "Mode1": "#394046"
+    },
+    "Violet40": {
+      "Mode1": "#b58df9"
+    },
+    "Lightblue80": {
+      "Mode1": "#045f84"
+    },
+    "Lightblue60": {
+      "Mode1": "#049edc"
+    },
+    "Lightblue50": {
+      "Mode1": "#15b1f1"
+    },
+    "Lightblue20": {
+      "Mode1": "#b4e6fb"
+    },
+    "Lightblue10": {
+      "Mode1": "#d1eefa"
+    },
+    "Neutral60": {
+      "Mode1": "#6a747c"
+    },
+    "Lightblue5": {
+      "Mode1": "#edf8fc"
+    },
+    "Blue70": {
+      "Mode1": "#1942bc"
+    },
+    "Blue60": {
+      "Mode1": "#2856e0"
+    },
+    "Blue50": {
+      "Mode1": "#416df0"
+    },
+    "Neutral50": {
+      "Mode1": "#8c97a0"
+    },
+    "Green90": {
+      "Mode1": "#0a4325"
+    },
+    "Green70": {
+      "Mode1": "#167d46"
+    },
+    "Green60": {
+      "Mode1": "#269e5f"
+    },
+    "Green50": {
+      "Mode1": "#45b97c"
+    },
+    "Neutral40": {
+      "Mode1": "#aab6bf"
+    },
+    "Green20": {
+      "Mode1": "#b5e3cb"
+    },
+    "Green10": {
+      "Mode1": "#daf1e5"
+    },
+    "Green5": {
+      "Mode1": "#ecf8f2"
+    },
+    "Yellow70": {
+      "Mode1": "#a37402"
+    },
+    "Yellow50": {
+      "Mode1": "#fdb913"
+    },
+    "Yellow30": {
+      "Mode1": "#fed571"
+    },
+    "Lightblue70": {
+      "Mode1": "#007daf"
+    },
+    "Yellow20": {
+      "Mode1": "#fee3a0"
+    },
+    "Yellow5": {
+      "Mode1": "#fff8e7"
+    },
+    "Blue30": {
+      "Mode1": "#8eabff"
+    },
+    "Orange80": {
+      "Mode1": "#6e330d"
+    },
+    "Orange50": {
+      "Mode1": "#f37321"
+    },
+    "Orange40": {
+      "Mode1": "#f58f4d"
+    },
+    "Orange30": {
+      "Mode1": "#f8ab7a"
+    },
+    "AlphaGray60": {
+      "Mode1": "#8c98a199"
+    },
+    "Orange20": {
+      "Mode1": "#fac7a6"
+    },
+    "Blue90": {
+      "Mode1": "#082271"
+    },
+    "Red90": {
+      "Mode1": "#560406"
+    },
+    "Red80": {
+      "Mode1": "#7e0a0e"
+    },
+    "AlphaLightblue80": {
+      "Mode1": "#15b2f1cc"
+    },
+    "AlphaBlue96": {
+      "Mode1": "#416df0f4"
+    },
+    "Violet70": {
+      "Mode1": "#6943af"
+    },
+    "AlphaPink8": {
+      "Mode1": "#fc60b414"
+    },
+    "AlphaBlue32": {
+      "Mode1": "#416df051"
+    },
+    "AlphaBlue24": {
+      "Mode1": "#416df03d"
+    },
+    "AlphaYellow8": {
+      "Mode1": "#fdb91314"
+    },
+    "AlphaYellow32": {
+      "Mode1": "#fdb91351"
+    },
+    "AlphaBlue12": {
+      "Mode1": "#416df01e"
+    },
+    "AlphaPink80": {
+      "Mode1": "#fc60b4cc"
+    },
+    "AlphaPink60": {
+      "Mode1": "#fc60b499"
+    },
+    "Violet20": {
+      "Mode1": "#ddd2f8"
+    },
+    "Yellow60": {
+      "Mode1": "#d89a00"
+    },
+    "AlphaPink32": {
+      "Mode1": "#fc60b451"
+    },
+    "AlphaPink24": {
+      "Mode1": "#fc60b43d"
+    },
+    "Pink5": {
+      "Mode1": "#fff3fb"
+    },
+    "AlphaGray80": {
+      "Mode1": "#8c98a1cc"
+    },
+    "AlphaBlue8": {
+      "Mode1": "#416df014"
+    },
+    "Violet50": {
+      "Mode1": "#9b6bf4"
+    },
+    "Red30": {
+      "Mode1": "#f68d91"
+    },
+    "AlphaGray32": {
+      "Mode1": "#8c98a151"
+    },
+    "Blue80": {
+      "Mode1": "#0e2f91"
+    },
+    "AlphaViolet80": {
+      "Mode1": "#9b6bf4cc"
+    },
+    "AlphaViolet60": {
+      "Mode1": "#9b6bf499"
+    },
+    "Blue20": {
+      "Mode1": "#b7c8ff"
+    },
+    "Red50": {
+      "Mode1": "#e04d52"
+    },
+    "AlphaViolet24": {
+      "Mode1": "#9b6bf43d"
+    },
+    "AlphaViolet12": {
+      "Mode1": "#9b6bf41e"
+    },
+    "AlphaViolet8": {
+      "Mode1": "#9b6bf414"
+    },
+    "AlphaLightblue96": {
+      "Mode1": "#15b2f1f4"
+    },
+    "AlphaYellow24": {
+      "Mode1": "#fdb9133d"
+    },
+    "Red10": {
+      "Mode1": "#fcddde"
+    },
+    "Pink20": {
+      "Mode1": "#ffc7ec"
+    },
+    "Violet30": {
+      "Mode1": "#cebaf7"
+    },
+    "Green40": {
+      "Mode1": "#6ac796"
+    },
+    "AlphaGray8": {
+      "Mode1": "#8c98a114"
+    },
+    "Yellow90": {
+      "Mode1": "#503800"
+    },
+    "Red40": {
+      "Mode1": "#f4686d"
+    },
+    "AlphaLightblue60": {
+      "Mode1": "#15b2f199"
+    },
+    "AlphaYellow80": {
+      "Mode1": "#fdb913cc"
+    },
+    "Neutral10": {
+      "Mode1": "#e3e8ed"
+    },
+    "AlphaYellow60": {
+      "Mode1": "#fdb91399"
+    },
+    "AlphaLightblue32": {
+      "Mode1": "#15b2f151"
+    },
+    "Green80": {
+      "Mode1": "#145e37"
+    },
+    "AlphaLightblue8": {
+      "Mode1": "#15b2f114"
+    },
+    "Pink30": {
+      "Mode1": "#ffa6d8"
+    },
+    "Neutral100": {
+      "Mode1": "#0b0d11"
+    },
+    "AlphaGreen12": {
+      "Mode1": "#45b97c1e"
+    },
+    "AlphaBlue80": {
+      "Mode1": "#416df0cc"
+    },
+    "AlphaGreen96": {
+      "Mode1": "#45b97cf4"
+    },
+    "Lightblue40": {
+      "Mode1": "#57c7f3"
+    },
+    "AlphaLightblue12": {
+      "Mode1": "#15b2f11e"
+    },
+    "Pink80": {
+      "Mode1": "#832759"
+    },
+    "AlphaRed8": {
+      "Mode1": "#e14d5214"
+    },
+    "AlphaGreen80": {
+      "Mode1": "#45b97ccc"
+    },
+    "Pink70": {
+      "Mode1": "#ac3a77"
+    },
+    "Pink50": {
+      "Mode1": "#fc60b4"
+    },
+    "AlphaGray96": {
+      "Mode1": "#8c98a1f4"
+    },
+    "Orange10": {
+      "Mode1": "#fde3d3"
+    },
+    "AlphaBlack80": {
+      "Mode1": "#0b0d11cc"
+    },
+    "AlphaGreen60": {
+      "Mode1": "#45b97c99"
+    },
+    "Yellow40": {
+      "Mode1": "#feca4a"
+    },
+    "AlphaRed60": {
+      "Mode1": "#e14d5299"
+    },
+    "Neutral70": {
+      "Mode1": "#545d64"
+    },
+    "AlphaOrange96": {
+      "Mode1": "#f37321f4"
+    },
+    "Neutral20": {
+      "Mode1": "#d4dce2"
+    },
+    "AlphaBlack32": {
+      "Mode1": "#0b0d1151"
+    },
+    "Blue10": {
+      "Mode1": "#dae3ff"
+    },
+    "AlphaGreen24": {
+      "Mode1": "#45b97c3d"
+    },
+    "AlphaRed96": {
+      "Mode1": "#e14d52f4"
+    },
+    "AlphaGray12": {
+      "Mode1": "#8c98a11e"
+    },
+    "Violet60": {
+      "Mode1": "#8054d3"
+    },
+    "AlphaYellow12": {
+      "Mode1": "#fdb9131e"
+    },
+    "AlphaOrange80": {
+      "Mode1": "#f37321cc"
+    },
+    "Green30": {
+      "Mode1": "#8fd5b0"
+    },
+    "AlphaOrange60": {
+      "Mode1": "#f3732199"
+    },
+    "Orange5": {
+      "Mode1": "#fef1e9"
+    },
+    "Neutral0": {
+      "Mode1": "#ffffff"
+    },
+    "Orange70": {
+      "Mode1": "#a54d16"
+    },
+    "AlphaOrange32": {
+      "Mode1": "#f3732151"
+    },
+    "AlphaYellow96": {
+      "Mode1": "#fdb913f4"
+    },
+    "AlphaOrange12": {
+      "Mode1": "#f373211e"
+    },
+    "Red5": {
+      "Mode1": "#fef5f5"
+    },
+    "AlphaOrange8": {
+      "Mode1": "#f3732114"
+    },
+    "Red70": {
+      "Mode1": "#a32428"
+    },
+    "AlphaGray24": {
+      "Mode1": "#8c98a13d"
+    },
+    "AlphaWhite12": {
+      "Mode1": "#ffffff1e"
+    },
+    "Blue5": {
+      "Mode1": "#f3f6ff"
+    },
+    "AlphaBlack12": {
+      "Mode1": "#0b0d111e"
+    },
+    "AlphaRed32": {
+      "Mode1": "#e14d5251"
+    },
+    "Blue40": {
+      "Mode1": "#628aff"
+    },
+    "Pink40": {
+      "Mode1": "#fd80cb"
+    },
+    "Red60": {
+      "Mode1": "#c9383d"
+    },
+    "AlphaRed80": {
+      "Mode1": "#e14d52cc"
+    },
+    "AlphaPink12": {
+      "Mode1": "#fc60b41e"
+    },
+    "Violet80": {
+      "Mode1": "#503485"
+    },
+    "Yellow10": {
+      "Mode1": "#fff1d0"
+    },
+    "AlphaRed24": {
+      "Mode1": "#e14d523d"
+    },
+    "AlphaBlack24": {
+      "Mode1": "#0b0d113d"
+    },
+    "Yellow80": {
+      "Mode1": "#6b4d03"
+    },
+    "Red20": {
+      "Mode1": "#f9b8ba"
+    },
+    "Lightblue90": {
+      "Mode1": "#06435b"
+    },
+    "Neutral90": {
+      "Mode1": "#202427"
+    },
+    "Orange90": {
+      "Mode1": "#482815"
+    },
+    "AlphaBlack60": {
+      "Mode1": "#0b0d1199"
+    },
+    "AlphaWhite24": {
+      "Mode1": "#ffffff3d"
+    },
+    "AlphaWhite80": {
+      "Mode1": "#ffffffcc"
+    },
+    "Neutral5": {
+      "Mode1": "#f1f4f8"
+    },
+    "Neutral30": {
+      "Mode1": "#c6cfd6"
+    },
+    "AlphaLightblue24": {
+      "Mode1": "#15b2f13d"
+    },
+    "AlphaBlack96": {
+      "Mode1": "#0b0d11f4"
+    },
+    "Violet5": {
+      "Mode1": "#f6f2fc"
+    },
+    "AlphaWhite96": {
+      "Mode1": "#fffffff4"
+    },
+    "AlphaViolet96": {
+      "Mode1": "#9b6bf4f4"
+    },
+    "Orange60": {
+      "Mode1": "#da6113"
+    },
+    "AlphaWhite32": {
+      "Mode1": "#ffffff51"
+    },
+    "Violet10": {
+      "Mode1": "#eae2fb"
+    },
+    "AlphaBlue60": {
+      "Mode1": "#416df099"
+    },
+    "AlphaPink96": {
+      "Mode1": "#fc60b4f4"
+    },
+    "Pink90": {
+      "Mode1": "#5b143a"
+    },
+    "AlphaWhite60": {
+      "Mode1": "#ffffff99"
+    },
+    "Lightblue30": {
+      "Mode1": "#8ddaf9"
+    },
+    "AlphaRed12": {
+      "Mode1": "#e14d521e"
+    },
+    "Violet90": {
+      "Mode1": "#392362"
+    },
+    "AlphaOrange24": {
+      "Mode1": "#f373213d"
+    },
+    "AlphaWhite48": {
+      "Mode1": "#ffffff7a"
+    },
+    "AlphaBlack48": {
+      "Mode1": "#0b0d117a"
+    },
+    "AlphaRed48": {
+      "Mode1": "#e14d527a"
+    },
+    "AlphaOrange48": {
+      "Mode1": "#f373217a"
+    },
+    "AlphaYellow48": {
+      "Mode1": "#fdb9137a"
+    },
+    "AlphaGreen48": {
+      "Mode1": "#45b97c7a"
+    },
+    "AlphaLightblue48": {
+      "Mode1": "#15b2f17a"
+    },
+    "AlphaBlue48": {
+      "Mode1": "#416df07a"
+    },
+    "AlphaViolet48": {
+      "Mode1": "#9b6bf47a"
+    },
+    "AlphaPink48": {
+      "Mode1": "#fc60b47a"
+    },
+    "AlphaGray48": {
+      "Mode1": "#8c98a17a"
+    }
+  },
+  "SementicColor": {
+    "StaticOrange": {
+      "Mode1": "#f37321"
+    },
+    "BackgroundNegativeDark": {
+      "Mode1": "#a32428"
+    },
+    "TextLinkSub": {
+      "Mode1": "#8c97a0"
+    },
+    "TextLink": {
+      "Mode1": "#9b6bf4"
+    },
+    "TextAccentLight": {
+      "Mode1": "#b7c8ff"
+    },
+    "TextAccentDark": {
+      "Mode1": "#082271"
+    },
+    "BackgroundBrandLight": {
+      "Mode1": "#edf8fc"
+    },
+    "TextAccent": {
+      "Mode1": "#416df0"
+    },
+    "TextPositiveLight": {
+      "Mode1": "#8fd5b0"
+    },
+    "TextPositiveDark": {
+      "Mode1": "#167d46"
+    },
+    "TextCautionLight": {
+      "Mode1": "#fed571"
+    },
+    "TextCaution": {
+      "Mode1": "#fdb913"
+    },
+    "TextNegativeLight": {
+      "Mode1": "#f68d91"
+    },
+    "TextNegativeDark": {
+      "Mode1": "#7e0a0e"
+    },
+    "BackgroundBrandDark": {
+      "Mode1": "#007daf"
+    },
+    "TextBrandLight": {
+      "Mode1": "#8ddaf9"
+    },
+    "TextDisabled": {
+      "Mode1": "#0b0d113d"
+    },
+    "TextInvert": {
+      "Mode1": "#ffffff"
+    },
+    "TextLowest": {
+      "Mode1": "#8c97a0"
+    },
+    "TextTertiary": {
+      "Mode1": "#6a747c"
+    },
+    "TextSecondary": {
+      "Mode1": "#394046"
+    },
+    "TextPrimary": {
+      "Mode1": "#0b0d11"
+    },
+    "BackgroundBrand": {
+      "Mode1": "#15b1f1"
+    },
+    "ScaleColorPositiveDefault": {
+      "Mode1": "#45b97c"
+    },
+    "BorderAccentLight": {
+      "Mode1": "#8eabff"
+    },
+    "TextCautionDark": {
+      "Mode1": "#a37402"
+    },
+    "BorderAccentDark": {
+      "Mode1": "#0e2f91"
+    },
+    "BackgroundDisabled": {
+      "Mode1": "#8c98a13d"
+    },
+    "BorderAccent": {
+      "Mode1": "#416df0"
+    },
+    "TextBrand": {
+      "Mode1": "#15b1f1"
+    },
+    "ScaleColorCautionLighter": {
+      "Mode1": "#fee3a0"
+    },
+    "BorderPositiveLight": {
+      "Mode1": "#8fd5b0"
+    },
+    "BorderDisabled": {
+      "Mode1": "#0b0d113d"
+    },
+    "BorderCautionLight": {
+      "Mode1": "#fee3a0"
+    },
+    "BorderNegativeLight": {
+      "Mode1": "#f68d91"
+    },
+    "StaticRed": {
+      "Mode1": "#e04d52"
+    },
+    "BackgroundNeutralDarker": {
+      "Mode1": "#8c97a0"
+    },
+    "ScaleColorCautionLight": {
+      "Mode1": "#fed571"
+    },
+    "BorderNegativeDark": {
+      "Mode1": "#7e0a0e"
+    },
+    "BorderBrandDark": {
+      "Mode1": "#045f84"
+    },
+    "BorderBlack": {
+      "Mode1": "#0b0d11"
+    },
+    "BorderDarker": {
+      "Mode1": "#6a747c"
+    },
+    "BorderDefault": {
+      "Mode1": "#c6cfd6"
+    },
+    "ScaleColorCautionLightest": {
+      "Mode1": "#fff8e7"
+    },
+    "BackgroundToast": {
+      "Mode1": "#0b0d11cc"
+    },
+    "BackgroundDim": {
+      "Mode1": "#0b0d1199"
+    },
+    "BackgroundNeutral": {
+      "Mode1": "#e3e8ed"
+    },
+    "BackgroundAccentDark": {
+      "Mode1": "#0e2f91"
+    },
+    "BackgroundCautionDark": {
+      "Mode1": "#a37402"
+    },
+    "BorderNegative": {
+      "Mode1": "#e04d52"
+    },
+    "BackgroundAccent": {
+      "Mode1": "#416df0"
+    },
+    "BorderPositive": {
+      "Mode1": "#45b97c"
+    },
+    "ScaleColorNeutralDarkest": {
+      "Mode1": "#0b0d11"
+    },
+    "BackgroundPositiveLight": {
+      "Mode1": "#ecf8f2"
+    },
+    "TextBrandDark": {
+      "Mode1": "#06435b"
+    },
+    "BorderCaution": {
+      "Mode1": "#fdb913"
+    },
+    "ScaleColorAccentLighter": {
+      "Mode1": "#b7c8ff"
+    },
+    "BackgroundSkeleton": {
+      "Mode1": "#d4dce2"
+    },
+    "BorderBrand": {
+      "Mode1": "#15b1f1"
+    },
+    "StaticPink": {
+      "Mode1": "#fc60b4"
+    },
+    "ScaleColorNeutralLight": {
+      "Mode1": "#c6cfd6"
+    },
+    "BackgroundCautionLight": {
+      "Mode1": "#fff8e7"
+    },
+    "ScaleColorAccentLight": {
+      "Mode1": "#8eabff"
+    },
+    "ScaleColorAccentDefault": {
+      "Mode1": "#416df0"
+    },
+    "ScaleColorAccentDark": {
+      "Mode1": "#1942bc"
+    },
+    "ScaleColorAccentDarker": {
+      "Mode1": "#0e2f91"
+    },
+    "BorderInvert": {
+      "Mode1": "#ffffff"
+    },
+    "BackgroundInvert": {
+      "Mode1": "#0b0d11"
+    },
+    "ScaleColorPositiveLightest": {
+      "Mode1": "#ecf8f2"
+    },
+    "ScaleColorBrandLighter": {
+      "Mode1": "#d1eefa"
+    },
+    "BorderDark": {
+      "Mode1": "#8c97a0"
+    },
+    "ScaleColorPositiveLighter": {
+      "Mode1": "#daf1e5"
+    },
+    "ScaleColorPositiveLight": {
+      "Mode1": "#8fd5b0"
+    },
+    "ScaleColorPositiveDark": {
+      "Mode1": "#269e5f"
+    },
+    "ScaleColorBrandDarker": {
+      "Mode1": "#045f84"
+    },
+    "ScaleColorNegativeLightest": {
+      "Mode1": "#fef5f5"
+    },
+    "ScaleColorPositiveDarker": {
+      "Mode1": "#167d46"
+    },
+    "BackgroundCaution": {
+      "Mode1": "#fdb913"
+    },
+    "ScaleColorPositiveDarkest": {
+      "Mode1": "#0a4325"
+    },
+    "BorderPositiveDark": {
+      "Mode1": "#167d46"
+    },
+    "BackgroundOverlay": {
+      "Mode1": "#ffffffcc"
+    },
+    "ScaleColorCautionDark": {
+      "Mode1": "#d89a00"
+    },
+    "ScaleColorCautionDarkest": {
+      "Mode1": "#503800"
+    },
+    "ScaleColorNegativeDefault": {
+      "Mode1": "#e04d52"
+    },
+    "ScaleColorNegativeDarker": {
+      "Mode1": "#7e0a0e"
+    },
+    "ScaleColorNegativeDarkest": {
+      "Mode1": "#560406"
+    },
+    "BorderBrandLight": {
+      "Mode1": "#8ddaf9"
+    },
+    "ScaleColorBrandDefault": {
+      "Mode1": "#15b1f1"
+    },
+    "TextPositive": {
+      "Mode1": "#45b97c"
+    },
+    "TextNegative": {
+      "Mode1": "#e04d52"
+    },
+    "BackgroundPositive": {
+      "Mode1": "#45b97c"
+    },
+    "ScaleColorCautionDefault": {
+      "Mode1": "#fdb913"
+    },
+    "BackgroundAccentLight": {
+      "Mode1": "#dae3ff"
+    },
+    "ScaleColorCautionDarker": {
+      "Mode1": "#a37402"
+    },
+    "ScaleColorBrandDark": {
+      "Mode1": "#007daf"
+    },
+    "ScaleColorNeutralDark": {
+      "Mode1": "#6a747c"
+    },
+    "ScaleColorBrandDarkest": {
+      "Mode1": "#06435b"
+    },
+    "BackgroundScrollbar": {
+      "Mode1": "#d4dce2"
+    },
+    "ScaleColorNegativeDark": {
+      "Mode1": "#a32428"
+    },
+    "ScaleColorNeutralWhite": {
+      "Mode1": "#ffffff"
+    },
+    "ScaleColorBrandLight": {
+      "Mode1": "#8ddaf9"
+    },
+    "ScaleColorNeutralLighter": {
+      "Mode1": "#d4dce2"
+    },
+    "StaticGray": {
+      "Mode1": "#8c97a0"
+    },
+    "ScaleColorAccentDarkest": {
+      "Mode1": "#082271"
+    },
+    "BorderCautionDark": {
+      "Mode1": "#a37402"
+    },
+    "BackgroundNeutralDark": {
+      "Mode1": "#d4dce2"
+    },
+    "BackgroundPositiveDark": {
+      "Mode1": "#167d46"
+    },
+    "ScaleColorNeutralDefault": {
+      "Mode1": "#8c97a0"
+    },
+    "StaticBlue": {
+      "Mode1": "#416df0"
+    },
+    "ScaleColorNegativeLighter": {
+      "Mode1": "#fcddde"
+    },
+    "BackgroundNegative": {
+      "Mode1": "#e04d52"
+    },
+    "StaticViolet": {
+      "Mode1": "#9b6bf4"
+    },
+    "ScaleColorNegativeLight": {
+      "Mode1": "#f68d91"
+    },
+    "BackgroundDefault": {
+      "Mode1": "#ffffff"
+    },
+    "BorderLight": {
+      "Mode1": "#d4dce2"
+    },
+    "BackgroundNegativeLight": {
+      "Mode1": "#fef5f5"
+    },
+    "StaticGreen": {
+      "Mode1": "#45b97c"
+    },
+    "ScaleColorNeutralLightest": {
+      "Mode1": "#e3e8ed"
+    },
+    "ScaleColorAccentLightest": {
+      "Mode1": "#dae3ff"
+    },
+    "ScaleColorNeutralDarker": {
+      "Mode1": "#394046"
+    },
+    "StaticLightblue": {
+      "Mode1": "#15b1f1"
+    },
+    "ScaleColorBrandLightest": {
+      "Mode1": "#edf8fc"
+    },
+    "StaticYellow": {
+      "Mode1": "#fdb913"
+    },
+    "IconPrimary": {
+      "Mode1": "#0b0d11"
+    },
+    "IconSecondary": {
+      "Mode1": "#394046"
+    },
+    "IconTertiary": {
+      "Mode1": "#6a747c"
+    },
+    "IconLowest": {
+      "Mode1": "#8c97a0"
+    },
+    "IconInvert": {
+      "Mode1": "#ffffff"
+    },
+    "IconDisabled": {
+      "Mode1": "#0b0d113d"
+    },
+    "IconBrand": {
+      "Mode1": "#15b1f1"
+    },
+    "IconBrandDark": {
+      "Mode1": "#06435b"
+    },
+    "IconBrandLight": {
+      "Mode1": "#8ddaf9"
+    },
+    "IconNegative": {
+      "Mode1": "#e04d52"
+    },
+    "IconNegativeDark": {
+      "Mode1": "#7e0a0e"
+    },
+    "IconNegativeLight": {
+      "Mode1": "#f68d91"
+    },
+    "IconCaution": {
+      "Mode1": "#fdb913"
+    },
+    "IconCautionDark": {
+      "Mode1": "#a37402"
+    },
+    "IconCautionLight": {
+      "Mode1": "#fed571"
+    },
+    "IconPositive": {
+      "Mode1": "#45b97c"
+    },
+    "IconPositiveDark": {
+      "Mode1": "#167d46"
+    },
+    "IconPositiveLight": {
+      "Mode1": "#8fd5b0"
+    },
+    "IconAccent": {
+      "Mode1": "#416df0"
+    },
+    "IconAccentDark": {
+      "Mode1": "#082271"
+    },
+    "IconAccentLight": {
+      "Mode1": "#b7c8ff"
+    },
+    "IconLink": {
+      "Mode1": "#9b6bf4"
+    },
+    "IconLinkSub": {
+      "Mode1": "#8c97a0"
+    }
+  },
+  "PLONLY": {
+    "CampaignCampaignPrimary": {
+      "Pc": "#9b6bf4",
+      "Ta": "#45b97c",
+      "Mo": "#45b97c"
+    },
+    "CampaignCampaignSecondary": {
+      "Pc": "#fd80cb",
+      "Ta": "#15b1f1",
+      "Mo": "#15b1f1"
+    },
+    "CampaignCampaignBg": {
+      "Pc": "#f6f2fc",
+      "Ta": "#ecf8f2",
+      "Mo": "#ecf8f2"
+    }
+  },
+  "Component": {
+    "Buttonradius": {
+      "Pc": 999,
+      "Ta": 999,
+      "Mo": 999
+    },
+    "ButtonlargePaddingHor": {
+      "Pc": 32,
+      "Ta": 32,
+      "Mo": 32
+    },
+    "ButtonlargePaddingVer": {
+      "Pc": 16,
+      "Ta": 16,
+      "Mo": 16
+    },
+    "ButtonlargeGap": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "ButtonmediumPaddingHor": {
+      "Pc": 24,
+      "Ta": 24,
+      "Mo": 24
+    },
+    "ButtonmediumPaddingVer": {
+      "Pc": 12,
+      "Ta": 12,
+      "Mo": 12
+    },
+    "ButtonmediumGap": {
+      "Pc": 6,
+      "Ta": 6,
+      "Mo": 6
+    },
+    "ButtonsmallPaddingHor": {
+      "Pc": 20,
+      "Ta": 20,
+      "Mo": 20
+    },
+    "ButtonsmallPaddingVer": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "ButtonsmallGap": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 4
+    },
+    "ButtonghostRadius": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "ButtonicLargePadding": {
+      "Pc": 16,
+      "Ta": 16,
+      "Mo": 16
+    },
+    "ButtonicMediumPadding": {
+      "Pc": 12,
+      "Ta": 12,
+      "Mo": 12
+    },
+    "ButtonicSmallPadding": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "ButtonbtnIcRadius": {
+      "Pc": 999,
+      "Ta": 999,
+      "Mo": 999
+    },
+    "ButtonicGhostLargePadding": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "ButtonicGhostMediumPadding": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 4
+    },
+    "ButtonicGhostSmallPadding": {
+      "Pc": 2,
+      "Ta": 2,
+      "Mo": 2
+    },
+    "ButtonghostSmallPaddingVer": {
+      "Pc": 10,
+      "Ta": 10,
+      "Mo": 10
+    },
+    "ButtonghostLargePaddingHor": {
+      "Pc": 16,
+      "Ta": 16,
+      "Mo": 16
+    },
+    "ButtonghostLargePaddingVer": {
+      "Pc": 16,
+      "Ta": 16,
+      "Mo": 16
+    },
+    "ButtonghostMediumPaddingHor": {
+      "Pc": 10,
+      "Ta": 10,
+      "Mo": 10
+    },
+    "ButtonghostMediumPaddingVer": {
+      "Pc": 12,
+      "Ta": 12,
+      "Mo": 12
+    },
+    "ButtonghostSmallPaddingHor": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "ButtonxsmallPaddingVer": {
+      "Pc": 6,
+      "Ta": 6,
+      "Mo": 6
+    },
+    "ButtonxsmallGap": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 4
+    },
+    "ButtonxsmallPaddingHor": {
+      "Pc": 14,
+      "Ta": 14,
+      "Mo": 14
+    },
+    "ButtonghostXsmallPaddingVer": {
+      "Pc": 4,
+      "Ta": 4,
+      "Mo": 4
+    },
+    "ButtonghostXsmallPaddingHor": {
+      "Pc": 6,
+      "Ta": 6,
+      "Mo": 6
+    },
+    "Buttonmax width": {
+      "Pc": 400,
+      "Ta": 400,
+      "Mo": 400
+    },
+    "Buttongroup max width": {
+      "Pc": 480,
+      "Ta": 480,
+      "Mo": 480
+    },
+    "ButtonbtnIcGhostRadius": {
+      "Pc": 8,
+      "Ta": 8,
+      "Mo": 8
+    },
+    "ButtonimgWidthDefault": {
+      "Pc": 1280,
+      "Ta": 1280,
+      "Mo": 1280
+    },
+    "ButtonimgHeightDefault": {
+      "Pc": 600,
+      "Ta": 600,
+      "Mo": 600
+    }
+  }
+}
