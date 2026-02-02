@@ -171,6 +171,8 @@ button {
 /* Scroll Spy - Current visible section indicator */
 .sidebar__item.is-current {
   position: relative;
+  color: var(--pl-text-brand);
+  font-weight: var(--pl-font-weight-bold);
 }
 
 .sidebar__item.is-current::before {
