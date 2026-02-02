@@ -168,6 +168,23 @@ button {
   font-weight: var(--pl-font-weight-bold);
 }
 
+/* Scroll Spy - Current visible section indicator */
+.sidebar__item.is-current {
+  position: relative;
+}
+
+.sidebar__item.is-current::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: var(--pl-bg-brand);
+  border-radius: 0 2px 2px 0;
+}
+
 .sidebar__count {
   font-size: var(--pl-font-size-label-sm);
   color: var(--pl-text-lowest);

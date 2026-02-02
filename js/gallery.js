@@ -163,4 +163,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial filter and count update
   filterCards();
+
+  // ============================================
+  // Scroll Spy - Highlight current section in sidebar
+  // ============================================
+  const sectionDividers = document.querySelectorAll('.section-divider');
+
+  function updateScrollSpy() {
+    // Only update if viewing "all" sections
+    if (currentType !== 'all') return;
+
+    const scrollPosition = window.scrollY + 150; // Offset for header
+    let currentCategory = null;
+
+    // Find the current visible section divider
+    sectionDividers.forEach(divider => {
+      if (divider.style.display === 'none') return;
+
+      const dividerTop = divider.offsetTop;
+      if (scrollPosition >= dividerTop) {
+        currentCategory = divider.dataset.category;
+      }
+    });
+
+    // Update sidebar active state
+    if (currentCategory) {
+      sidebarItems.forEach(item => {
+        if (item.dataset.filter === currentCategory) {
+          item.classList.add('is-current');
+        } else {
+          item.classList.remove('is-current');
+        }
+      });
+    } else {
+      // At the top, highlight "All"
+      sidebarItems.forEach(item => {
+        if (item.dataset.filter === 'all') {
+          item.classList.add('is-current');
+        } else {
+          item.classList.remove('is-current');
+        }
+      });
+    }
+  }
+
+  // Throttle scroll event
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) return;
+    scrollTimeout = setTimeout(() => {
+      updateScrollSpy();
+      scrollTimeout = null;
+    }, 100);
+  });
+
+  // Initial scroll spy update
+  updateScrollSpy();
 });
