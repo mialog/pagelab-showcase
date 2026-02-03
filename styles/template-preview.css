@@ -242,6 +242,17 @@ body {
   container-name: section;
 }
 
+/* GNB Sticky - 스크롤 시 따라다니기 */
+.template-section--gnb {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.template-section--gnb .pl-gnb {
+  position: relative; /* sticky 부모에서 상대 위치 */
+}
+
 /* Mobile Overlay - 프레임 내에서만 표시되도록 오버라이드 */
 .template-preview__frame .pl-gnb__mobile-overlay {
   position: absolute;

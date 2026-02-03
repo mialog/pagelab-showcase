@@ -4533,6 +4533,10 @@
   transition: max-height 0.3s ease-in-out;
 }
 
+.pl-faq__item.is-open .pl-faq__content {
+  max-height: 500px; /* 충분한 높이로 확장 */
+}
+
 .pl-faq__answer {
   margin: var(--pl-spacing-5) var(--pl-spacing-2) var(--pl-spacing-5); /* 20px 8px 20px - Figma spec */
   padding: var(--pl-spacing-8) var(--pl-spacing-6); /* 32px 24px - Figma spec */
