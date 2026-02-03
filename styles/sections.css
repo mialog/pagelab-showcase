@@ -290,6 +290,11 @@
    Hero Responsive - Tablet Portrait & Mobile (Container Query)
    ============================================ */
 @container section (max-width: 900px) {
+  .pl-hero--split {
+    min-height: auto; /* 기본 880px 오버라이드 */
+    align-items: flex-start; /* 기본 center 오버라이드 */
+  }
+
   .pl-hero--split .pl-hero__container {
     flex-direction: column;
   }
@@ -297,6 +302,11 @@
   .pl-hero--split .pl-hero__content {
     max-width: 100%;
     padding: var(--pl-spacing-9) 0 var(--pl-spacing-4) 0; /* Ta: spacing-9 top */
+  }
+
+  .pl-hero--split .pl-hero__actions {
+    justify-content: center;
+    width: 100%;
   }
 
   .pl-hero--split .pl-hero__visual {
@@ -326,6 +336,7 @@
     min-height: auto;
     padding-bottom: 0;
     overflow: hidden; /* 이미지 아래 여백 방지 */
+    align-items: flex-start; /* 기본 center 오버라이드 - 상단 정렬 */
   }
 
   .pl-hero--split .pl-hero__container {
@@ -379,9 +390,16 @@
     width: auto;
   }
 
+  /* Type A (Split) 모바일 - 버튼 중앙 정렬 */
+  .pl-hero--split .pl-hero__actions {
+    justify-content: center;
+    width: 100%;
+  }
+
   .pl-hero--split .pl-hero__visual {
     max-width: none;
     width: calc(100% + 40px);
+    height: auto; /* 기본 720px 오버라이드 */
     margin-left: -20px;
     margin-right: -20px;
     aspect-ratio: 360 / 200; /* Figma 모바일 비주얼 비율 */
@@ -428,22 +446,22 @@
     gap: var(--pl-spacing-5); /* Figma: gap between label, title, desc */
   }
 
-  /* Type C (Full) 모바일 */
+  /* Type C (Full) 모바일 - Figma: 360x800 */
   .pl-hero--full {
-    min-height: 100vh; /* 모바일에서도 전체 높이 유지 */
+    min-height: 800px; /* Figma 모바일 높이 */
   }
 
   .pl-hero--full .pl-hero__container {
     padding: var(--pl-spacing-13) 20px 40px 20px;
-    min-height: 100vh;
+    min-height: 800px; /* Figma 모바일 높이 */
   }
 
   .pl-hero--full .pl-hero__content {
-    gap: var(--pl-spacing-6);
+    gap: var(--pl-spacing-13); /* Figma: 60px (text↔button) */
   }
 
   .pl-hero--full .pl-hero__text {
-    gap: var(--pl-spacing-4);
+    gap: var(--pl-spacing-8); /* Figma: 32px (label↔heading, heading↔desc) */
   }
 }
 
@@ -523,6 +541,30 @@
   text-align: center;
   margin: 0;
   margin-top: var(--pl-spacing-2);
+}
+
+/* ============================================
+   Section Title - Dark Mode Variant
+   부모가 다크모드일 때 자동으로 화이트 텍스트 적용
+   ============================================ */
+.pl-section-title--dark .pl-section-title__label,
+[data-theme="dark"] .pl-section-title__label {
+  color: var(--pl-text-brand-light);
+}
+
+.pl-section-title--dark .pl-section-title__heading,
+[data-theme="dark"] .pl-section-title__heading {
+  color: var(--pl-text-invert);
+}
+
+.pl-section-title--dark .pl-section-title__desc,
+[data-theme="dark"] .pl-section-title__desc {
+  color: var(--pl-text-invert);
+}
+
+.pl-section-title--dark .pl-section-title__note,
+[data-theme="dark"] .pl-section-title__note {
+  color: var(--pl-text-lowest);
 }
 
 /* ============================================
@@ -5319,7 +5361,8 @@
   text-decoration: none;
 }
 
-.pl-gnb__logo svg {
+.pl-gnb__logo svg,
+.pl-gnb__logo img {
   height: 31px;
   width: auto;
 }
@@ -5399,26 +5442,44 @@
 /* Mobile Menu Overlay */
 .pl-gnb__mobile-overlay {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile browsers */
   background: #ffffff;
   z-index: 1001;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .pl-gnb__mobile-overlay.is-open {
   display: flex;
 }
 
+/* 프리뷰 컨테이너: transform으로 fixed 포지션의 containing block 생성 */
+.preview-content {
+  transform: translateZ(0);
+}
+
+/* 프리뷰 컨테이너 내 오버레이: fixed 포지션이 preview-content 기준으로 동작 */
+.preview-content .pl-gnb__mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+}
+
 .pl-gnb__mobile-overlay-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 3px 20px;
-  min-height: 56px;
+  padding: 0 var(--pl-spacing-6);
+  height: 74px; /* GNB와 동일한 높이 */
 }
 
 .pl-gnb__mobile-close {
@@ -5460,9 +5521,10 @@
 }
 
 .pl-gnb__mobile-nav-item {
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 500;
-  color: #0b0d11;
+  line-height: 1.44;
+  color: var(--pl-text-primary);
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 10px;
@@ -5493,6 +5555,74 @@
 .pl-gnb__mobile-nav-item.is-disabled {
   color: rgba(11, 13, 17, 0.24);
   pointer-events: none;
+}
+
+/* ============================================
+   GNB Dark Variant (White text/logo on dark background)
+   Figma: dark=on 변형
+   ============================================ */
+.pl-gnb--dark {
+  background: transparent;
+}
+
+.pl-gnb--dark.is-scrolled {
+  background: var(--pl-alpha-black-12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__logo svg text,
+.pl-gnb--dark .pl-gnb__logo svg path {
+  fill: var(--pl-text-invert);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item {
+  color: var(--pl-text-invert);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item:focus {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item:active {
+  color: var(--pl-text-invert);
+  font-weight: 700;
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item.is-active {
+  color: var(--pl-text-invert);
+  font-weight: 700;
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item.is-disabled {
+  color: var(--pl-alpha-white-24);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu {
+  color: var(--pl-text-invert);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu svg {
+  stroke: var(--pl-text-invert);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu:hover {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu:focus {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu:active {
+  background: var(--pl-alpha-white-24);
 }
 
 
@@ -5546,7 +5676,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 1400px;
-  padding: 40px 40px 48px 40px;
+  padding: 40px 40px var(--pl-spacing-15) 40px; /* bottom: spacing-15 */
 }
 
 .pl-footer__top {
@@ -5880,6 +6010,55 @@
   padding-top: 24px;
 }
 
+/* ============================================
+   Footer Dark Variant
+   Figma: dark=on 변형 - bg #394046
+   ============================================ */
+.pl-footer--dark {
+  background: var(--pl-bg-invert);
+  border-top-color: var(--pl-text-lowest);
+}
+
+.pl-footer--dark .pl-footer__category-link {
+  color: var(--pl-text-lowest);
+}
+
+.pl-footer--dark .pl-footer__category-link--bold {
+  color: var(--pl-text-invert);
+}
+
+.pl-footer--dark .pl-footer__company-toggle {
+  color: var(--pl-text-invert);
+}
+
+.pl-footer--dark .pl-footer__address p {
+  color: var(--pl-text-invert);
+}
+
+.pl-footer--dark .pl-footer__call-label {
+  color: var(--pl-text-invert);
+}
+
+.pl-footer--dark .pl-footer__call-number {
+  color: var(--pl-text-invert);
+}
+
+.pl-footer--dark .pl-footer__call-time {
+  color: var(--pl-text-lowest);
+}
+
+.pl-footer--dark .pl-footer__isms-text p {
+  color: var(--pl-text-tertiary);
+}
+
+.pl-footer--dark .pl-footer__isms-text strong {
+  color: var(--pl-text-tertiary);
+}
+
+.pl-footer--dark .pl-footer__copyright {
+  color: var(--pl-text-lowest);
+}
+
 
 /* ============================================
    GNB Responsive - Tablet
@@ -5903,8 +6082,8 @@
   }
 
   .pl-gnb__mobile-overlay-header {
-    padding: 3px var(--pl-spacing-8);
-    min-height: 56px;
+    padding: 0 var(--pl-spacing-8);
+    height: 60px; /* 태블릿 GNB와 동일 */
   }
 
   .pl-nav-content {
@@ -5920,7 +6099,7 @@
   }
 
   .pl-footer__container {
-    padding: 32px;
+    padding: 32px 32px var(--pl-spacing-15) 32px; /* bottom: spacing-15 */
   }
 
   .pl-footer__top {
@@ -5998,13 +6177,14 @@
     padding: 0 var(--pl-spacing-6);
   }
 
-  .pl-gnb__logo svg {
+  .pl-gnb__logo svg,
+  .pl-gnb__logo img {
     height: 24px;
   }
 
   .pl-gnb__mobile-overlay-header {
-    padding: 3px var(--pl-spacing-6);
-    min-height: 56px;
+    padding: 0 var(--pl-spacing-6);
+    height: 66px; /* 모바일 GNB와 동일 */
   }
 
   .pl-nav-content {
@@ -6021,7 +6201,7 @@
   }
 
   .pl-footer__container {
-    padding: 24px 20px 32px 20px;
+    padding: 24px 20px var(--pl-spacing-15) 20px; /* bottom: spacing-15 */
   }
 
   .pl-footer__category {

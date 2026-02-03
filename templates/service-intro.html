@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서비스 소개 템플릿 | PageLab</title>
+  <link rel="stylesheet" href="../tokens/base.css">
+  <link rel="stylesheet" href="../tokens/campaign.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/sections.css">
+  <link rel="stylesheet" href="../styles/template-preview.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="../scripts/components.js"></script>
+</head>
+<body>
+  <!-- Preview Header -->
+  <header class="template-preview__header">
+    <div class="template-preview__header-left">
+      <a href="../guide.html" class="template-preview__back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>조합 가이드</span>
+      </a>
+      <div class="template-preview__info">
+        <span class="template-preview__tag">템플릿</span>
+        <h1 class="template-preview__title">서비스 소개</h1>
+      </div>
+    </div>
+    <div class="device-switcher">
+      <button class="device-btn is-active" data-device="pc">PC</button>
+      <button class="device-btn" data-device="tablet">Tablet</button>
+      <button class="device-btn" data-device="mobile">Mobile</button>
+    </div>
+  </header>
+
+  <!-- Section Navigation -->
+  <nav class="template-preview__nav">
+    <ul class="template-preview__nav-list" id="sectionNav"></ul>
+  </nav>
+
+  <!-- Preview Container -->
+  <div class="template-preview__container">
+    <div class="template-preview__frame" data-device="pc" id="previewFrame">
+      <div class="template-preview__content" id="sectionContainer">
+        <div class="template-preview__loading">섹션 로딩 중...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/template-loader.js"></script>
+  <script>
+    const loader = new TemplateLoader('service-intro');
+    loader.init();
+  </script>
+</body>
+</html>

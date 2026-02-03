@@ -1,0 +1,198 @@
+/* ============================================
+   PageLab - Guide Page Styles
+   ============================================ */
+
+/* Guide Main */
+.guide {
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.guide__header {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.guide__title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--pl-text-default);
+  margin-bottom: 12px;
+}
+
+.guide__desc {
+  font-size: 16px;
+  color: var(--pl-text-low);
+  line-height: 1.6;
+}
+
+/* Template Cards Grid */
+.guide__templates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* Template Card */
+.guide__template-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--pl-bg-white);
+  border: 1px solid var(--pl-border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.guide__template-card:hover {
+  border-color: var(--pl-border-brand);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+/* Template Preview Image */
+.guide__template-preview {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  overflow: hidden;
+}
+
+.guide__template-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder when no image */
+.guide__template-preview::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23adb5bd" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>') no-repeat center;
+  background-size: contain;
+  opacity: 0.5;
+}
+
+.guide__template-preview img:not([src=""]) ~ ::after,
+.guide__template-preview img[src]:not([src=""]) + ::after {
+  display: none;
+}
+
+/* Template Info */
+.guide__template-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.guide__template-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--pl-text-default);
+  margin: 0;
+}
+
+.guide__template-desc {
+  font-size: 14px;
+  color: var(--pl-text-low);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Section Tags */
+.guide__template-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.guide__template-section-tag {
+  display: inline-flex;
+  padding: 4px 10px;
+  background: var(--pl-bg-neutral);
+  color: var(--pl-text-low);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 100px;
+}
+
+/* Use Case */
+.guide__template-usecase {
+  font-size: 13px;
+  color: var(--pl-text-lowest);
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--pl-border-light);
+}
+
+.guide__template-usecase strong {
+  color: var(--pl-text-low);
+  font-weight: 600;
+}
+
+/* Loading State */
+.guide__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--pl-text-low);
+  font-size: 14px;
+}
+
+/* Error State */
+.guide__error {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--pl-text-low);
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .guide {
+    padding: 32px 24px;
+  }
+
+  .guide__templates {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  .guide {
+    padding: 24px 20px; /* Mo: 공통 20px 좌우 여백 */
+  }
+
+  .guide__header {
+    margin-bottom: 32px;
+  }
+
+  .guide__title {
+    font-size: 24px;
+  }
+
+  .guide__templates {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .guide__template-preview {
+    height: 180px;
+  }
+
+  .guide__template-info {
+    padding: 20px;
+  }
+}
