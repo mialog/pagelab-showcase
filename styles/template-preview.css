@@ -296,11 +296,42 @@ body {
   position: relative; /* sticky 부모에서 상대 위치 */
 }
 
+/* Dark GNB - 투명 배경으로 히어로 위에 오버레이 */
+.template-section--gnb:has(.pl-gnb--dark) {
+  background: transparent !important;
+}
+
+/* Dark GNB - 다음 섹션(히어로)을 GNB 뒤로 올림 */
+.template-section--gnb:has(.pl-gnb--dark) + .template-section {
+  margin-top: -74px; /* GNB 높이 PC */
+}
+
+/* Tablet: GNB 높이 60px */
+@container section (max-width: 1199px) {
+  .template-section--gnb:has(.pl-gnb--dark) + .template-section {
+    margin-top: -60px;
+  }
+}
+
+/* Mobile: GNB 높이 60px */
+@container section (max-width: 639px) {
+  .template-section--gnb:has(.pl-gnb--dark) + .template-section {
+    margin-top: -60px;
+  }
+}
+
 /* Tablet/Mobile 프레임에서 GNB 스티키 */
 .template-preview__frame[data-device="tablet"] .template-section--gnb,
 .template-preview__frame[data-device="mobile"] .template-section--gnb {
   position: sticky;
   top: 0;
+  background: transparent;
+}
+
+/* Tablet/Mobile 프레임에서 일반 GNB는 흰 배경 유지 */
+.template-preview__frame[data-device="tablet"] .template-section--gnb:not(:has(.pl-gnb--dark)),
+.template-preview__frame[data-device="mobile"] .template-section--gnb:not(:has(.pl-gnb--dark)) {
+  background: white;
 }
 
 /* Floating CTA - 뷰포트 하단 고정 */
@@ -320,9 +351,10 @@ body:has(.pl-gnb__mobile-overlay.is-open) .template-section--floating {
   pointer-events: none;
 }
 
-/* PC: 사이드바 너비만큼 왼쪽 여백 */
+/* PC: 사이드바 너비만큼 왼쪽 여백 + 하단 여백 */
 .template-section--floating.is-pc {
   left: 220px;
+  padding-bottom: 60px; /* Floating B 하단 여백 */
 }
 
 /* Floating CTA 버튼 스타일 오버라이드 */
@@ -364,7 +396,7 @@ body:has(.pl-gnb__mobile-overlay.is-open) .template-section--floating {
   bottom: auto;
   left: auto;
   transform: none;
-  margin: 0 auto 60px auto; /* 하단 여백 60px */
+  margin: 0 auto; /* 좌우 중앙 정렬 */
 }
 
 /* Tablet/Mobile 모드: 전체 너비 */

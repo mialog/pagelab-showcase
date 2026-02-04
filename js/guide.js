@@ -18,13 +18,13 @@ const TEMPLATE_DATA = {
         { type: "about", variant: "type-a-list" },
         { type: "about", variant: "type-b-grid" },
         { type: "review", variant: "type-b-card-grid" },
-        { type: "cta", variant: "type-a-finish" },
-        { type: "faq", variant: "index" }
+        { type: "faq", variant: "index" },
+        { type: "cta", variant: "type-a-finish" }
       ]
     },
     {
       id: "product-detail",
-      name: "제품 상세",
+      name: "제품 소개",
       description: "제품의 특징과 혜택을 상세히 안내하는 페이지",
       thumbnail: "images/templates/product-detail.png",
       useCase: "신제품 출시, 제품 상세, 기능 안내",
@@ -32,8 +32,8 @@ const TEMPLATE_DATA = {
         { type: "hero", variant: "type-b-center" },
         { type: "intro", variant: "type-a-textblock" },
         { type: "about", variant: "type-e-tab" },
+        { type: "about", variant: "type-d-card-swipe", cardType: "card-c" },
         { type: "benefit", variant: "type-a-plus" },
-        { type: "step", variant: "type-a-img" },
         { type: "review", variant: "type-c-card-slider" },
         { type: "cta", variant: "type-a-finish" }
       ]
@@ -47,10 +47,11 @@ const TEMPLATE_DATA = {
       sections: [
         { type: "hero", variant: "type-c-full" },
         { type: "intro", variant: "type-c-img" },
+        { type: "about", variant: "type-c-card-slide" },
         { type: "benefit", variant: "type-b-img" },
         { type: "step", variant: "type-b-text" },
         { type: "faq", variant: "index" },
-        { type: "cta", variant: "type-a-finish" }
+        { type: "etc", variant: "caution" }
       ]
     }
   ],
@@ -63,18 +64,19 @@ const TEMPLATE_DATA = {
     step: "이용 방법",
     cta: "전환 유도",
     faq: "FAQ",
+    etc: "유의사항",
     navigation: "네비게이션"
   }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderTemplateCards(TEMPLATE_DATA.templates, TEMPLATE_DATA.sectionLabels);
+  renderTemplateCards(TEMPLATE_DATA.templates);
 });
 
 /**
  * Render template cards
  */
-function renderTemplateCards(templates, sectionLabels) {
+function renderTemplateCards(templates) {
   const container = document.getElementById('templateList');
 
   container.innerHTML = templates.map(template => `
@@ -86,11 +88,6 @@ function renderTemplateCards(templates, sectionLabels) {
       <div class="guide__template-info">
         <h3 class="guide__template-name">${template.name}</h3>
         <p class="guide__template-desc">${template.description}</p>
-        <div class="guide__template-sections">
-          ${template.sections.map(s => `
-            <span class="guide__template-section-tag">${sectionLabels[s.type] || s.type}</span>
-          `).join('')}
-        </div>
         <p class="guide__template-usecase">
           <strong>추천:</strong> ${template.useCase}
         </p>

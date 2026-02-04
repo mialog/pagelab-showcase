@@ -65,14 +65,14 @@ class TemplateLoader {
     const container = document.getElementById('sectionContainer');
     container.innerHTML = ''; // Remove loading indicator
 
-    // 1. Load GNB first
-    await this.loadGnbFooter(container, 'gnb');
+    // 1. Load GNB first (with dark option if specified)
+    await this.loadGnbFooter(container, 'gnb', this.template.darkGnb);
 
     // 2. Load all template sections
     for (let i = 0; i < this.template.sections.length; i++) {
       const section = this.template.sections[i];
       try {
-        const html = await this.extractSectionFromOriginal(section.type, section.variant);
+        const html = await this.extractSectionFromOriginal(section.type, section.variant, section.cardType);
 
         if (html) {
           // Adjust image paths
@@ -95,8 +95,8 @@ class TemplateLoader {
       }
     }
 
-    // 3. Load Footer last
-    await this.loadGnbFooter(container, 'footer');
+    // 3. Load Footer last (with dark option if specified)
+    await this.loadGnbFooter(container, 'footer', this.template.darkFooter);
 
     // 4. Load Floating CTA if specified
     if (this.template.floatingCta) {
@@ -151,8 +151,11 @@ class TemplateLoader {
 
   /**
    * Load GNB or Footer from navigation section
+   * @param {HTMLElement} container - Container element
+   * @param {string} type - 'gnb' or 'footer'
+   * @param {boolean} dark - Whether to use dark theme
    */
-  async loadGnbFooter(container, type) {
+  async loadGnbFooter(container, type, dark = false) {
     try {
       const path = '../sections/navigation/type-a-gnb-footer.html';
       const response = await fetch(path);
@@ -168,6 +171,22 @@ class TemplateLoader {
         // Also get mobile overlay
         const overlay = doc.querySelector('.pl-gnb__mobile-overlay');
         if (element) {
+          // Add dark class if specified
+          if (dark) {
+            element.classList.add('pl-gnb--dark');
+            // Update logo to dark version
+            const logo = element.querySelector('#gnbLogo');
+            if (logo && logo.dataset.dark) {
+              logo.src = logo.dataset.dark;
+            }
+            // Also update mobile overlay logo
+            if (overlay) {
+              const overlayLogo = overlay.querySelector('.pl-gnb__logo img');
+              if (overlayLogo && logo && logo.dataset.dark) {
+                overlayLogo.src = logo.dataset.dark;
+              }
+            }
+          }
           const adjustedHtml = this.adjustImagePaths(element.outerHTML + (overlay ? overlay.outerHTML : ''));
           const wrapper = document.createElement('div');
           wrapper.className = 'template-section template-section--gnb';
@@ -177,6 +196,15 @@ class TemplateLoader {
       } else if (type === 'footer') {
         element = doc.querySelector('.pl-footer');
         if (element) {
+          // Add dark class if specified
+          if (dark) {
+            element.classList.add('pl-footer--dark');
+            // Update logo to dark version
+            const logo = element.querySelector('#footerLogo');
+            if (logo && logo.dataset.dark) {
+              logo.src = logo.dataset.dark;
+            }
+          }
           const adjustedHtml = this.adjustImagePaths(element.outerHTML);
           const wrapper = document.createElement('div');
           wrapper.className = 'template-section template-section--footer';
@@ -192,7 +220,7 @@ class TemplateLoader {
   /**
    * Extract section markup from original file
    */
-  async extractSectionFromOriginal(type, variant) {
+  async extractSectionFromOriginal(type, variant, cardType = null) {
     const path = `../sections/${type}/${variant}.html`;
 
     try {
@@ -204,6 +232,14 @@ class TemplateLoader {
       // Parse HTML and extract section content
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
+
+      // If cardType is specified, find the specific card type section
+      if (cardType) {
+        const cardTypeSection = doc.querySelector(`.card-type-section[data-card-type="${cardType}"] > section`);
+        if (cardTypeSection) {
+          return cardTypeSection.outerHTML;
+        }
+      }
 
       // Find section element within preview-content
       const section = doc.querySelector('.preview-content > section') ||
@@ -224,7 +260,8 @@ class TemplateLoader {
                               doc.querySelector('.pl-benefit') ||
                               doc.querySelector('.pl-step') ||
                               doc.querySelector('.pl-cta') ||
-                              doc.querySelector('.pl-faq');
+                              doc.querySelector('.pl-faq') ||
+                              doc.querySelector('.pl-caution');
 
       return fallbackSection ? fallbackSection.outerHTML : '';
 
@@ -288,6 +325,7 @@ class TemplateLoader {
   initSectionScripts() {
     this.initFaqAccordion();
     this.initTabs();
+    this.initSwipeCarousel();
     this.initResponsiveImages();
     this.initMobileMenu();
     this.initFooterToggle();
@@ -448,24 +486,59 @@ class TemplateLoader {
    * Initialize tab functionality
    */
   initTabs() {
-    const tabContainers = document.querySelectorAll('.pl-tab');
+    const tabContainers = document.querySelectorAll('.pl-tab-container');
 
     tabContainers.forEach(container => {
-      const tabs = container.querySelectorAll('.pl-tab__button');
-      const panels = container.querySelectorAll('.pl-tab__panel');
+      const tabs = container.querySelectorAll('.pl-tab-btn');
+      const panels = container.querySelectorAll('.pl-tab-panel');
 
-      tabs.forEach((tab, index) => {
+      tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-          // Remove active state from all
+          const targetTab = tab.dataset.tab;
+
+          // Remove active state from all tabs and panels in this container
           tabs.forEach(t => t.classList.remove('is-active'));
           panels.forEach(p => p.classList.remove('is-active'));
 
-          // Activate clicked tab
+          // Activate clicked tab and corresponding panel
           tab.classList.add('is-active');
-          if (panels[index]) {
-            panels[index].classList.add('is-active');
+          const targetPanel = container.querySelector(`.pl-tab-panel[data-tab="${targetTab}"]`);
+          if (targetPanel) {
+            targetPanel.classList.add('is-active');
           }
+
+          // Also sync mobile/desktop nav tabs with same data-tab
+          container.querySelectorAll(`.pl-tab-btn[data-tab="${targetTab}"]`).forEach(t => {
+            t.classList.add('is-active');
+          });
         });
+      });
+    });
+  }
+
+  /**
+   * Initialize swipe carousel functionality
+   */
+  initSwipeCarousel() {
+    // Prev buttons
+    document.querySelectorAll('.pl-swipe-btn--prev').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const track = btn.closest('.pl-swipe-container').querySelector('.pl-swipe-track');
+        if (track) {
+          const cardWidth = track.querySelector('.pl-swipe-card')?.offsetWidth || 320;
+          track.scrollBy({ left: -cardWidth - 24, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Next buttons
+    document.querySelectorAll('.pl-swipe-btn--next').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const track = btn.closest('.pl-swipe-container').querySelector('.pl-swipe-track');
+        if (track) {
+          const cardWidth = track.querySelector('.pl-swipe-card')?.offsetWidth || 320;
+          track.scrollBy({ left: cardWidth + 24, behavior: 'smooth' });
+        }
       });
     });
   }

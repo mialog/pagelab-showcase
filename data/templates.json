@@ -12,14 +12,14 @@
         { "type": "about", "variant": "type-a-list" },
         { "type": "about", "variant": "type-b-grid" },
         { "type": "review", "variant": "type-b-card-grid" },
-        { "type": "cta", "variant": "type-a-finish" },
-        { "type": "faq", "variant": "index" }
+        { "type": "faq", "variant": "index" },
+        { "type": "cta", "variant": "type-a-finish" }
       ],
       "floatingCta": "type-c-floating-b"
     },
     {
       "id": "product-detail",
-      "name": "제품 상세",
+      "name": "제품 소개",
       "description": "제품의 특징과 혜택을 상세히 안내하는 페이지",
       "thumbnail": "images/templates/product-detail.png",
       "useCase": "신제품 출시, 제품 상세, 기능 안내",
@@ -27,12 +27,13 @@
         { "type": "hero", "variant": "type-b-center" },
         { "type": "intro", "variant": "type-a-textblock" },
         { "type": "about", "variant": "type-e-tab" },
+        { "type": "about", "variant": "type-d-card-swipe", "cardType": "card-c" },
         { "type": "benefit", "variant": "type-a-plus" },
-        { "type": "step", "variant": "type-a-img" },
         { "type": "review", "variant": "type-c-card-slider" },
         { "type": "cta", "variant": "type-a-finish" }
       ],
-      "floatingCta": "type-b-floating"
+      "floatingCta": "type-b-floating",
+      "darkGnb": true
     },
     {
       "id": "event-page",
@@ -43,13 +44,15 @@
       "sections": [
         { "type": "hero", "variant": "type-c-full" },
         { "type": "intro", "variant": "type-c-img" },
+        { "type": "about", "variant": "type-c-card-slide" },
         { "type": "benefit", "variant": "type-b-img" },
         { "type": "step", "variant": "type-b-text" },
         { "type": "faq", "variant": "index" },
-        { "type": "intro", "variant": "type-a-textblock", "label": "유의사항" },
-        { "type": "cta", "variant": "type-a-finish" }
+        { "type": "etc", "variant": "caution" }
       ],
-      "floatingCta": "type-b-floating"
+      "floatingCta": "type-b-floating",
+      "darkGnb": true,
+      "darkFooter": true
     }
   ],
   "sectionLabels": {
@@ -61,6 +64,7 @@
     "step": "이용 방법",
     "cta": "전환 유도",
     "faq": "FAQ",
+    "etc": "유의사항",
     "navigation": "네비게이션"
   }
 }

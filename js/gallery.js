@@ -3,6 +3,11 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Disable browser's automatic scroll restoration
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
   // Elements
   const sidebarItems = document.querySelectorAll('.sidebar__item');
   const filterTags = document.querySelectorAll('.filter-tag');
@@ -13,8 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Restore scroll position if coming back from detail page
   const savedScrollPosition = sessionStorage.getItem('galleryScrollPosition');
   if (savedScrollPosition) {
-    window.scrollTo(0, parseInt(savedScrollPosition, 10));
-    sessionStorage.removeItem('galleryScrollPosition');
+    // Use requestAnimationFrame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      window.scrollTo(0, parseInt(savedScrollPosition, 10));
+      // Don't remove immediately - remove after scroll is applied
+      setTimeout(() => {
+        sessionStorage.removeItem('galleryScrollPosition');
+      }, 100);
+    });
   }
 
   // Save scroll position when clicking a card link
