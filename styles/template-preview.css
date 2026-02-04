@@ -16,90 +16,53 @@ body {
 }
 
 /* ============================================
-   Preview Header (Fixed)
+   Sidebar Header (Back + Title)
    ============================================ */
-.template-preview__header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-  background: var(--pl-bg-white, #ffffff);
-  border-bottom: 1px solid var(--pl-border-light, #e5e7eb);
+.template-preview__nav-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  z-index: 100;
-}
-
-.template-preview__header-left {
-  display: flex;
-  align-items: center;
-  gap: 24px;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 /* Back Button */
 .template-preview__back {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--pl-text-low, #6b7280);
+  gap: 6px;
+  color: #6b7280;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 6px 0;
   transition: all 0.2s;
 }
 
 .template-preview__back:hover {
-  background: var(--pl-bg-neutral, #f3f4f6);
-  color: var(--pl-text-default, #111827);
+  color: #111827;
 }
 
 .template-preview__back svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
-/* Template Info */
-.template-preview__info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.template-preview__tag {
-  display: inline-flex;
-  padding: 4px 10px;
-  background: var(--pl-bg-brand-light, #e0f2fe);
-  color: var(--pl-text-brand, #0284c7);
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 100px;
-}
-
+/* Template Title */
 .template-preview__title {
   font-size: 18px;
   font-weight: 700;
-  color: var(--pl-text-default, #111827);
+  color: #111827;
+  margin: 0;
 }
 
-/* Device Switcher */
-.device-switcher {
-  display: flex;
-  gap: 4px;
-  background: var(--pl-bg-neutral, #f3f4f6);
-  padding: 4px;
-  border-radius: 10px;
-}
-
+/* Device Button Base */
 .device-btn {
   padding: 8px 16px;
   border: none;
   background: transparent;
-  color: var(--pl-text-low, #6b7280);
+  color: #6b7280;
   font-size: 13px;
   font-weight: 500;
   border-radius: 8px;
@@ -108,12 +71,12 @@ body {
 }
 
 .device-btn:hover {
-  color: var(--pl-text-default, #111827);
+  color: #111827;
 }
 
 .device-btn.is-active {
-  background: var(--pl-bg-white, #ffffff);
-  color: var(--pl-text-default, #111827);
+  background: #ffffff;
+  color: #111827;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -122,15 +85,17 @@ body {
    ============================================ */
 .template-preview__nav {
   position: fixed;
-  top: 64px;
+  top: 0;
   left: 0;
   bottom: 0;
   width: 220px;
-  background: var(--pl-bg-white, #ffffff);
-  border-right: 1px solid var(--pl-border-light, #e5e7eb);
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
   padding: 24px 16px;
   overflow-y: auto;
-  z-index: 50;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
 }
 
 .template-preview__nav-list {
@@ -191,12 +156,80 @@ body {
   color: var(--pl-text-default, #111827);
 }
 
+/* Sidebar Footer (Device Switcher + Top Button) */
+.template-preview__nav-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Sidebar Device Switcher */
+.template-preview__nav-device {
+  display: flex;
+  gap: 4px;
+  background: #f3f4f6;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.template-preview__nav-device .device-btn {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.template-preview__nav-device .device-btn:hover {
+  color: #111827;
+}
+
+.template-preview__nav-device .device-btn.is-active {
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Top Button */
+.template-preview__top-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.template-preview__top-btn:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.template-preview__top-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* ============================================
    Preview Container
    ============================================ */
 .template-preview__container {
   margin-left: 220px;
-  padding: 64px 0 0 0;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -220,6 +253,7 @@ body {
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  height: calc(100vh - 48px);
 }
 
 .template-preview__frame[data-device="mobile"] {
@@ -228,6 +262,14 @@ body {
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  height: calc(100vh - 48px);
+}
+
+/* Tablet/Mobile 프레임 내부 스크롤 */
+.template-preview__frame[data-device="tablet"] .template-preview__content,
+.template-preview__frame[data-device="mobile"] .template-preview__content {
+  height: 100%;
+  overflow-y: auto;
 }
 
 /* Preview Content */
@@ -246,21 +288,116 @@ body {
 .template-section--gnb {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 150;
+  background: white;
 }
 
 .template-section--gnb .pl-gnb {
   position: relative; /* sticky 부모에서 상대 위치 */
 }
 
-/* Mobile Overlay - 프레임 내에서만 표시되도록 오버라이드 */
+/* Tablet/Mobile 프레임에서 GNB 스티키 */
+.template-preview__frame[data-device="tablet"] .template-section--gnb,
+.template-preview__frame[data-device="mobile"] .template-section--gnb {
+  position: sticky;
+  top: 0;
+}
+
+/* Floating CTA - 뷰포트 하단 고정 */
+.template-section--floating {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 90;
+  pointer-events: none; /* 배경 클릭 통과 */
+  transition: left 0.3s ease, right 0.3s ease, max-width 0.3s ease, opacity 0.2s ease;
+}
+
+/* 메뉴 열릴 때 플로팅 CTA 숨김 */
+.template-preview__content.menu-open ~ .template-section--floating,
+body:has(.pl-gnb__mobile-overlay.is-open) .template-section--floating {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* PC: 사이드바 너비만큼 왼쪽 여백 */
+.template-section--floating.is-pc {
+  left: 220px;
+}
+
+/* Floating CTA 버튼 스타일 오버라이드 */
+.template-section--floating .pl-cta--floating {
+  pointer-events: auto; /* 버튼은 클릭 가능 */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: transparent; /* 배경 제거 */
+}
+
+/* Tablet/Mobile: JavaScript가 인라인 스타일로 위치 계산 */
+.template-section--floating.is-tablet,
+.template-section--floating.is-mobile {
+  /* JS가 left, right, maxWidth를 인라인으로 설정 */
+}
+
+/* Type A Floating - 위치만 조정, 나머지는 sections.css container query 사용 */
+.template-section--floating .pl-cta-floating__buttons {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Tablet/Mobile 모드: 전체 너비, 하단 여백 제거 */
+.template-section--floating.is-tablet .pl-cta-floating__buttons,
+.template-section--floating.is-mobile .pl-cta-floating__buttons {
+  max-width: 100%;
+  margin-bottom: 0;
+}
+
+/* Floating B - 위치만 조정, 나머지는 sections.css 원본 스타일 사용 */
+.template-section--floating .pl-cta-floating-b {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  margin: 0 auto 60px auto; /* 하단 여백 60px */
+}
+
+/* Tablet/Mobile 모드: 전체 너비 */
+.template-section--floating.is-tablet .pl-cta-floating-b,
+.template-section--floating.is-mobile .pl-cta-floating-b {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* Mobile Overlay - 프레임 전체 크기로 표시 */
 .template-preview__frame .pl-gnb__mobile-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+
+/* Tablet/Mobile 모드에서는 프레임 내부에 맞춤 */
+.template-preview__frame[data-device="tablet"] .pl-gnb__mobile-overlay,
+.template-preview__frame[data-device="mobile"] .pl-gnb__mobile-overlay {
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 48px); /* 프레임 높이와 동일 */
+}
+
+/* Menu open state - 스크롤 방지 */
+.template-preview__content.menu-open {
+  overflow: hidden;
 }
 
 /* Loading State */
@@ -316,45 +453,51 @@ body {
   .template-preview__container {
     margin-left: 180px;
   }
+
+  .template-section--floating.is-pc {
+    left: 180px;
+  }
 }
 
 @media (max-width: 900px) {
+  /* PC 전용 - 사이드바 항상 표시 유지 */
   .template-preview__nav {
-    display: none;
+    width: 160px;
   }
 
   .template-preview__container {
-    margin-left: 0;
-  }
-
-  .template-preview__header-left {
-    gap: 16px;
-  }
-
-  .template-preview__info {
-    gap: 8px;
+    margin-left: 160px;
   }
 
   .template-preview__title {
     font-size: 16px;
   }
+
+  .template-section--floating.is-pc {
+    left: 160px;
+  }
 }
 
 @media (max-width: 639px) {
-  .template-preview__header {
-    padding: 0 16px;
+  /* PC 전용 - 최소 너비에서도 사이드바 유지 */
+  .template-preview__nav {
+    width: 140px;
+  }
+
+  .template-preview__container {
+    margin-left: 140px;
   }
 
   .template-preview__back span {
     display: none;
   }
 
-  .template-preview__tag {
-    display: none;
+  .device-btn {
+    padding: 6px 8px;
+    font-size: 11px;
   }
 
-  .device-btn {
-    padding: 6px 12px;
-    font-size: 12px;
+  .template-section--floating.is-pc {
+    left: 140px;
   }
 }

@@ -9,6 +9,7 @@ class TemplateLoader {
     this.template = null;
     this.sectionLabels = {};
     this.loadedSections = [];
+    this.currentDevice = 'pc';
   }
 
   /**
@@ -42,11 +43,14 @@ class TemplateLoader {
       // 5. Initialize section scripts (FAQ accordion, etc.)
       this.initSectionScripts();
 
-      // 6. Initialize device switcher
+      // 6. Initialize device switcher (both header and sidebar)
       this.initDeviceSwitcher();
 
       // 7. Initialize scroll spy
       this.initScrollSpy();
+
+      // 8. Initialize top button
+      this.initTopButton();
 
     } catch (error) {
       console.error('Template loading failed:', error);
@@ -65,7 +69,8 @@ class TemplateLoader {
     await this.loadGnbFooter(container, 'gnb');
 
     // 2. Load all template sections
-    for (const section of this.template.sections) {
+    for (let i = 0; i < this.template.sections.length; i++) {
+      const section = this.template.sections[i];
       try {
         const html = await this.extractSectionFromOriginal(section.type, section.variant);
 
@@ -78,7 +83,8 @@ class TemplateLoader {
           wrapper.className = 'template-section';
           wrapper.dataset.sectionType = section.type;
           wrapper.dataset.sectionVariant = section.variant;
-          wrapper.id = `section-${section.type}-${section.variant}`;
+          // 커스텀 라벨이 있으면 인덱스를 붙여서 고유 ID 생성
+          wrapper.id = `section-${section.type}-${section.variant}${section.label ? '-' + i : ''}`;
           wrapper.innerHTML = adjustedHtml;
 
           container.appendChild(wrapper);
@@ -91,6 +97,56 @@ class TemplateLoader {
 
     // 3. Load Footer last
     await this.loadGnbFooter(container, 'footer');
+
+    // 4. Load Floating CTA if specified
+    if (this.template.floatingCta) {
+      await this.loadFloatingCta(this.template.floatingCta);
+      // Set initial position for PC
+      this.updateFloatingCtaPosition('pc');
+    }
+  }
+
+  /**
+   * Load floating CTA component (buttons only)
+   */
+  async loadFloatingCta(variant) {
+    try {
+      const path = `../sections/cta/${variant}.html`;
+      const response = await fetch(path);
+      if (!response.ok) return;
+
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Try both floating CTA structures:
+      // type-b: .pl-cta-floating__buttons
+      // type-c: .pl-cta-floating-b (entire bar with text + buttons)
+      let floatingElement = doc.querySelector('.pl-cta-floating__buttons');
+      let wrapperClass = 'pl-cta pl-cta--floating';
+
+      // If type-b not found, try type-c structure
+      if (!floatingElement) {
+        floatingElement = doc.querySelector('.pl-cta-floating-b');
+        wrapperClass = 'pl-cta pl-cta--floating pl-cta--floating-b';
+      }
+
+      if (floatingElement) {
+        const adjustedHtml = this.adjustImagePaths(floatingElement.outerHTML);
+
+        // Create wrapper with floating CTA structure
+        const wrapper = document.createElement('div');
+        wrapper.className = 'template-section template-section--floating';
+        wrapper.innerHTML = `<div class="${wrapperClass}">${adjustedHtml}</div>`;
+
+        const frame = document.getElementById('previewFrame');
+        if (frame) {
+          frame.appendChild(wrapper);
+        }
+      }
+    } catch (error) {
+      console.warn(`Failed to load floating CTA: ${variant}`, error);
+    }
   }
 
   /**
@@ -198,16 +254,20 @@ class TemplateLoader {
     const nav = document.getElementById('sectionNav');
     if (!nav) return;
 
-    nav.innerHTML = this.template.sections.map((section, index) => `
+    nav.innerHTML = this.template.sections.map((section, index) => {
+      // 커스텀 라벨 지원: section.label이 있으면 사용, 없으면 sectionLabels에서 가져옴
+      const label = section.label || this.sectionLabels[section.type] || section.type;
+      return `
       <li class="template-preview__nav-item">
-        <a href="#section-${section.type}-${section.variant}"
+        <a href="#section-${section.type}-${section.variant}${section.label ? '-' + index : ''}"
            class="template-preview__nav-link"
            data-index="${index}">
           <span class="template-preview__nav-number">${index + 1}</span>
-          <span class="template-preview__nav-label">${this.sectionLabels[section.type] || section.type}</span>
+          <span class="template-preview__nav-label">${label}</span>
         </a>
       </li>
-    `).join('');
+    `;
+    }).join('');
 
     // Add click handlers for smooth scroll
     nav.querySelectorAll('.template-preview__nav-link').forEach(link => {
@@ -231,36 +291,111 @@ class TemplateLoader {
     this.initResponsiveImages();
     this.initMobileMenu();
     this.initFooterToggle();
+    this.initGnbScroll();
+    this.initFooterDropdown();
+  }
+
+  /**
+   * Initialize GNB scroll effect (blur background)
+   */
+  initGnbScroll() {
+    const gnb = document.querySelector('.pl-gnb');
+    const previewContent = document.querySelector('.template-preview__content');
+
+    if (!gnb) return;
+
+    const handleScroll = (scrollTop) => {
+      if (scrollTop > 0) {
+        gnb.classList.add('is-scrolled');
+      } else {
+        gnb.classList.remove('is-scrolled');
+      }
+    };
+
+    // Listen to content scroll (for tablet/mobile frame)
+    if (previewContent) {
+      previewContent.addEventListener('scroll', () => {
+        handleScroll(previewContent.scrollTop);
+      });
+    }
+
+    // Also listen to window scroll (for PC mode)
+    window.addEventListener('scroll', () => {
+      handleScroll(window.scrollY);
+    });
+  }
+
+  /**
+   * Initialize footer family site dropdown
+   */
+  initFooterDropdown() {
+    const dropdowns = document.querySelectorAll('.pl-footer__dropdown');
+
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        // Close other dropdowns
+        dropdowns.forEach(d => {
+          if (d !== dropdown) {
+            d.classList.remove('is-open');
+          }
+        });
+
+        // Toggle current dropdown
+        dropdown.classList.toggle('is-open');
+      });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.pl-footer__dropdown-wrapper')) {
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('is-open');
+        });
+      }
+    });
   }
 
   /**
    * Initialize mobile menu toggle
    */
   initMobileMenu() {
-    const menuBtn = document.querySelector('.pl-gnb__mobile-menu');
-    const closeBtn = document.querySelector('.pl-gnb__mobile-close');
     const overlay = document.querySelector('.pl-gnb__mobile-overlay');
+    const content = document.querySelector('.template-preview__content');
+    const self = this;
 
-    if (menuBtn && overlay) {
-      menuBtn.addEventListener('click', () => {
+    // Define global toggleMobileMenu function for inline onclick handlers
+    window.toggleMobileMenu = function() {
+      if (!overlay) return;
+
+      const isOpen = overlay.classList.contains('is-open');
+
+      if (!isOpen) {
+        // Open menu
+        // For tablet/mobile frames, position overlay at scroll position
+        if (content && self.currentDevice !== 'pc') {
+          const scrollTop = content.scrollTop;
+          overlay.style.top = scrollTop + 'px';
+          content.classList.add('menu-open');
+        }
         overlay.classList.add('is-open');
         document.body.style.overflow = 'hidden';
-      });
-    }
-
-    if (closeBtn && overlay) {
-      closeBtn.addEventListener('click', () => {
+      } else {
+        // Close menu
+        if (content) {
+          content.classList.remove('menu-open');
+        }
         overlay.classList.remove('is-open');
         document.body.style.overflow = '';
-      });
-    }
+      }
+    };
 
     // Close on overlay background click
     if (overlay) {
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
-          overlay.classList.remove('is-open');
-          document.body.style.overflow = '';
+          window.toggleMobileMenu();
         }
       });
     }
@@ -275,9 +410,8 @@ class TemplateLoader {
 
     if (toggleBtn && addressEl) {
       toggleBtn.addEventListener('click', () => {
-        const isExpanded = toggleBtn.classList.contains('is-expanded');
         toggleBtn.classList.toggle('is-expanded');
-        addressEl.classList.toggle('is-visible');
+        addressEl.classList.toggle('is-open'); // CSS에서 .is-open 사용
       });
     }
   }
@@ -359,27 +493,100 @@ class TemplateLoader {
   }
 
   /**
-   * Initialize device switcher
+   * Initialize device switcher (both header and sidebar)
    */
   initDeviceSwitcher() {
-    const buttons = document.querySelectorAll('.device-btn');
+    const allButtons = document.querySelectorAll('.device-btn');
     const frame = document.getElementById('previewFrame');
 
-    if (!buttons.length || !frame) return;
+    if (!allButtons.length || !frame) return;
 
-    buttons.forEach(btn => {
+    allButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        // Update active state
-        buttons.forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
+        // Update active state for ALL device buttons (sync header & sidebar)
+        const device = btn.dataset.device;
+        this.currentDevice = device;
+
+        allButtons.forEach(b => {
+          if (b.dataset.device === device) {
+            b.classList.add('is-active');
+          } else {
+            b.classList.remove('is-active');
+          }
+        });
 
         // Update frame device
-        const device = btn.dataset.device;
         frame.dataset.device = device;
 
         // Update responsive images
         this.updateResponsiveImages(device);
+
+        // Update floating CTA position
+        this.updateFloatingCtaPosition(device);
       });
+    });
+
+    // Update floating CTA position on window resize
+    window.addEventListener('resize', () => {
+      this.updateFloatingCtaPosition(this.currentDevice);
+    });
+  }
+
+  /**
+   * Update floating CTA position based on device
+   */
+  updateFloatingCtaPosition(device) {
+    const floatingCta = document.querySelector('.template-section--floating');
+    const frame = document.getElementById('previewFrame');
+    if (!floatingCta || !frame) return;
+
+    // Remove all device classes
+    floatingCta.classList.remove('is-pc', 'is-tablet', 'is-mobile');
+    floatingCta.classList.add(`is-${device}`);
+
+    // Calculate and apply inline styles for tablet/mobile
+    if (device === 'pc') {
+      // PC: full width within container
+      floatingCta.style.left = '';
+      floatingCta.style.right = '';
+      floatingCta.style.maxWidth = '';
+    } else {
+      // Calculate immediately with current frame size
+      this.positionFloatingCtaToFrame(floatingCta, frame, device);
+      // Also recalculate after CSS transition completes (300ms in CSS)
+      setTimeout(() => {
+        this.positionFloatingCtaToFrame(floatingCta, frame, device);
+      }, 350);
+    }
+  }
+
+  /**
+   * Position floating CTA to match frame boundaries
+   */
+  positionFloatingCtaToFrame(floatingCta, frame, device) {
+    const frameRect = frame.getBoundingClientRect();
+
+    // Apply inline styles to match frame position
+    floatingCta.style.left = `${frameRect.left}px`;
+    floatingCta.style.right = `${window.innerWidth - frameRect.right}px`;
+    floatingCta.style.maxWidth = `${frameRect.width}px`;
+  }
+
+  /**
+   * Initialize top button
+   */
+  initTopButton() {
+    const topBtn = document.getElementById('topBtn');
+    if (!topBtn) return;
+
+    topBtn.addEventListener('click', () => {
+      // Try scrolling the content element first (for tablet/mobile)
+      const previewContent = document.querySelector('.template-preview__content');
+      if (previewContent && previewContent.scrollTop > 0) {
+        previewContent.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 

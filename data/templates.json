@@ -14,7 +14,8 @@
         { "type": "review", "variant": "type-b-card-grid" },
         { "type": "cta", "variant": "type-a-finish" },
         { "type": "faq", "variant": "index" }
-      ]
+      ],
+      "floatingCta": "type-c-floating-b"
     },
     {
       "id": "product-detail",
@@ -30,7 +31,8 @@
         { "type": "step", "variant": "type-a-img" },
         { "type": "review", "variant": "type-c-card-slider" },
         { "type": "cta", "variant": "type-a-finish" }
-      ]
+      ],
+      "floatingCta": "type-b-floating"
     },
     {
       "id": "event-page",
@@ -44,8 +46,10 @@
         { "type": "benefit", "variant": "type-b-img" },
         { "type": "step", "variant": "type-b-text" },
         { "type": "faq", "variant": "index" },
+        { "type": "intro", "variant": "type-a-textblock", "label": "유의사항" },
         { "type": "cta", "variant": "type-a-finish" }
-      ]
+      ],
+      "floatingCta": "type-b-floating"
     }
   ],
   "sectionLabels": {

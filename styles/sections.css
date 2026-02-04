@@ -138,11 +138,20 @@
 
 /* ============================================
    Hero Section - Type B (Center Aligned)
-   중앙 정렬형
+   중앙 정렬형 - Figma 스펙: 어두운 배경 + 흰색 텍스트
    ============================================ */
 .pl-hero--center {
   text-align: center;
-  background: var(--pl-bg-default);
+  background: #0E2F91; /* Figma: 다크 블루 배경 */
+}
+
+.pl-hero--center .pl-hero__title {
+  color: #fff;
+  font-weight: 400;
+}
+
+.pl-hero--center .pl-hero__desc {
+  color: #fff;
 }
 
 .pl-hero--center .pl-hero__container {
@@ -176,6 +185,25 @@
   height: auto;
   aspect-ratio: 1920 / 392; /* Figma: 1920x392 (~5:1) */
   border-radius: var(--pl-radius-3); /* Figma: 18px */
+}
+
+/* Hero Type B - Outlined Button (Cyan/시안 색상) - Figma 스펙 */
+.pl-hero--center .pl-btn--outline {
+  border-color: #15b2f1;
+  color: #15b2f1;
+  background: transparent;
+}
+
+.pl-hero--center .pl-btn--outline::before {
+  background: transparent;
+}
+
+.pl-hero--center .pl-btn--outline:hover::before {
+  background: rgba(21, 178, 241, 0.12); /* #15b2f1 at 12% */
+}
+
+.pl-hero--center .pl-btn--outline:active::before {
+  background: rgba(21, 178, 241, 0.24); /* #15b2f1 at 24% */
 }
 
 /* ============================================
@@ -419,7 +447,7 @@
   }
 
   .pl-hero--center .pl-hero__container {
-    padding: var(--pl-spacing-4) 0 0 0; /* Figma: content starts 12px from top */
+    padding: var(--pl-spacing-13) 0 0 0; /* spacing-13 전체 해상도 통일 */
     gap: var(--pl-spacing-9); /* Figma: 40px gap between content and image */
   }
 
@@ -439,7 +467,6 @@
 
   .pl-hero--center .pl-hero__content {
     gap: var(--pl-spacing-8); /* Figma: 32px gap between text and button */
-    padding-top: 100px; /* Figma: 100px top padding before label */
   }
 
   .pl-hero--center .pl-hero__text {
@@ -5380,32 +5407,35 @@
 .pl-gnb__menu-item {
   font-size: 17px;
   font-weight: 500;
-  color: #0b0d11;
+  color: #394046; /* Figma: tertiary text */
   text-decoration: none;
   padding: 8px 4px;
   border-radius: 10px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, font-weight 0.2s;
 }
 
 .pl-gnb__menu-item:hover {
-  color: #15b2f1;
+  color: #0b0d11; /* Figma: primary text */
+  background: rgba(11, 13, 17, 0.12); /* Figma: alpha-black-12 */
 }
 
 .pl-gnb__menu-item:focus {
-  color: #15b2f1;
+  color: #0b0d11;
+  background: rgba(11, 13, 17, 0.12);
+  font-weight: 700;
   outline: none;
 }
 
 .pl-gnb__menu-item:active {
-  color: #15b2f1;
+  color: #0b0d11;
   font-weight: 700;
-  background: rgba(21, 178, 241, 0.12);
+  background: rgba(11, 13, 17, 0.12);
 }
 
 .pl-gnb__menu-item.is-active {
-  color: #15b2f1;
+  color: #0b0d11;
   font-weight: 700;
-  background: rgba(21, 178, 241, 0.12);
+  background: rgba(11, 13, 17, 0.12);
 }
 
 .pl-gnb__menu-item.is-disabled {
@@ -5528,32 +5558,35 @@
   font-size: 19px;
   font-weight: 500;
   line-height: 1.44;
-  color: var(--pl-text-primary);
+  color: #394046; /* Figma: tertiary text */
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 8px 12px;
   border-radius: 10px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, font-weight 0.2s;
 }
 
 .pl-gnb__mobile-nav-item:hover {
-  color: #15b2f1;
+  color: #0b0d11; /* Figma: primary text */
+  background: rgba(11, 13, 17, 0.12); /* Figma: alpha-black-12 */
 }
 
 .pl-gnb__mobile-nav-item:focus {
-  color: #15b2f1;
+  color: #0b0d11;
+  background: rgba(11, 13, 17, 0.12);
+  font-weight: 700;
   outline: none;
 }
 
 .pl-gnb__mobile-nav-item:active {
-  color: #15b2f1;
+  color: #0b0d11;
   font-weight: 700;
-  background: rgba(21, 178, 241, 0.12);
+  background: rgba(11, 13, 17, 0.12);
 }
 
 .pl-gnb__mobile-nav-item.is-active {
-  color: #15b2f1;
+  color: #0b0d11;
   font-weight: 700;
-  background: rgba(21, 178, 241, 0.12);
+  background: rgba(11, 13, 17, 0.12);
 }
 
 .pl-gnb__mobile-nav-item.is-disabled {
@@ -5582,15 +5615,18 @@
 }
 
 .pl-gnb--dark .pl-gnb__menu-item {
-  color: var(--pl-text-invert);
+  color: rgba(255, 255, 255, 0.72); /* Figma: tertiary on dark */
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--pl-text-invert);
+  background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:focus {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--pl-text-invert);
+  background: var(--pl-alpha-white-12);
+  font-weight: 700;
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:active {

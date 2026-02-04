@@ -52,16 +52,16 @@ button {
 }
 
 .showcase__header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   background: var(--pl-bg-default);
   border-bottom: 1px solid var(--pl-border-light);
 }
 
 .showcase__header-inner {
-  max-width: var(--pl-container-wide);
-  margin: 0 auto;
   padding: var(--pl-spacing-4) var(--pl-layout-padding);
   display: flex;
   align-items: center;
@@ -108,9 +108,20 @@ button {
   background: var(--pl-bg-brand-light);
 }
 
+.showcase__nav-link--disabled {
+  color: var(--pl-text-lowest);
+  pointer-events: none;
+  cursor: default;
+}
+
 .showcase__main {
   flex: 1;
   display: flex;
+  padding-top: 65px; /* Fixed header height */
+}
+
+.showcase__main--full {
+  display: block; /* Override flex for full-width layout */
 }
 
 /* ============================================
@@ -123,9 +134,10 @@ button {
   background: var(--pl-neutral-5);
   padding: var(--pl-spacing-7) 0;
   position: sticky;
-  top: 65px;
-  height: calc(100vh - 65px);
+  top: 65px; /* Stick below fixed header */
+  height: calc(100vh - 65px); /* Viewport height minus fixed header */
   overflow-y: auto;
+  z-index: 50; /* Below fixed header (z-index: 100) */
 }
 
 .sidebar__section {

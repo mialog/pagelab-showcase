@@ -178,22 +178,24 @@
       color: #fff;
     }
 
+    /* Outlined Primary Button - Figma 스펙: #15b2f1 시안 색상 */
     .pl-hero--center .pl-btn--outline {
-      border-color: #fff;
-      color: #fff;
+      border-color: #15b2f1;
+      color: #15b2f1;
+      background: transparent;
     }
 
-    /* White overlay for dark background */
+    /* Interaction states - 시안 색상 오버레이 */
     .pl-hero--center .pl-btn--outline::before {
       background: transparent;
     }
 
     .pl-hero--center .pl-btn--outline:hover::before {
-      background: var(--pl-alpha-white-12);
+      background: rgba(21, 178, 241, 0.12); /* #15b2f1 at 12% */
     }
 
     .pl-hero--center .pl-btn--outline:active::before {
-      background: var(--pl-alpha-white-24);
+      background: rgba(21, 178, 241, 0.24); /* #15b2f1 at 24% */
     }
 
     /* Visual - 와이드 이미지 */

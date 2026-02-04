@@ -14,30 +14,36 @@
   <script src="../scripts/components.js"></script>
 </head>
 <body>
-  <!-- Preview Header -->
-  <header class="template-preview__header">
-    <div class="template-preview__header-left">
+  <!-- Section Navigation (Sidebar) -->
+  <nav class="template-preview__nav">
+    <!-- Sidebar Header -->
+    <div class="template-preview__nav-header">
       <a href="../guide.html" class="template-preview__back">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
         <span>조합 가이드</span>
       </a>
-      <div class="template-preview__info">
-        <span class="template-preview__tag">템플릿</span>
-        <h1 class="template-preview__title">서비스 소개</h1>
-      </div>
+      <h1 class="template-preview__title">서비스 소개</h1>
     </div>
-    <div class="device-switcher">
-      <button class="device-btn is-active" data-device="pc">PC</button>
-      <button class="device-btn" data-device="tablet">Tablet</button>
-      <button class="device-btn" data-device="mobile">Mobile</button>
-    </div>
-  </header>
 
-  <!-- Section Navigation -->
-  <nav class="template-preview__nav">
+    <!-- Section List -->
     <ul class="template-preview__nav-list" id="sectionNav"></ul>
+
+    <!-- Sidebar Footer: Device Switcher + Top Button -->
+    <div class="template-preview__nav-footer">
+      <div class="template-preview__nav-device">
+        <button class="device-btn is-active" data-device="pc">PC</button>
+        <button class="device-btn" data-device="tablet">Tablet</button>
+        <button class="device-btn" data-device="mobile">Mobile</button>
+      </div>
+      <button class="template-preview__top-btn" id="topBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+        맨 위로
+      </button>
+    </div>
   </nav>
 
   <!-- Preview Container -->
