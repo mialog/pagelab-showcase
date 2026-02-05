@@ -5603,6 +5603,13 @@
   display: flex;
 }
 
+/* 오버레이 열릴 때 GNB 전체 클릭 방지 + 숨김 */
+.pl-gnb.is-menu-open,
+.pl-gnb:has(~ .pl-gnb__mobile-overlay.is-open) {
+  pointer-events: none;
+  visibility: hidden;
+}
+
 /* 프리뷰 컨테이너: transform으로 fixed 포지션의 containing block 생성 */
 .preview-content {
   transform: translateZ(0);
@@ -5624,6 +5631,11 @@
   justify-content: space-between;
   padding: 0 var(--pl-spacing-6);
   height: 74px; /* GNB와 동일한 높이 */
+  flex-shrink: 0; /* 스크롤 시 줄어들지 않도록 */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: inherit; /* 부모 배경색 상속 */
 }
 
 .pl-gnb__mobile-close {
@@ -5713,7 +5725,7 @@
 }
 
 .pl-gnb--dark.is-scrolled {
-  background: var(--pl-alpha-black-12);
+  background: var(--pl-alpha-gray-32);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 1px 0 var(--pl-alpha-white-12);
@@ -5773,6 +5785,62 @@
 
 .pl-gnb--dark .pl-gnb__mobile-menu:active {
   background: var(--pl-alpha-white-24);
+}
+
+/* ============================================
+   GNB Dark Overlay (다크 GNB용 모바일 오버레이)
+   Figma: dark=on 오버레이 변형
+   배경: #394046, 텍스트/아이콘: #ffffff
+   ============================================ */
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay {
+  background: #394046;
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close svg {
+  stroke: #ffffff;
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:focus {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:active {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:focus {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 700;
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:active {
+  color: #ffffff;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
+  color: #ffffff;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-disabled {
+  color: rgba(255, 255, 255, 0.24);
 }
 
 

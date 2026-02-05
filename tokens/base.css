@@ -377,6 +377,10 @@
   /* Black Alpha */
   --pl-alpha-black-12: rgba(11, 13, 17, 0.12);
   --pl-alpha-black-24: rgba(11, 13, 17, 0.24);
+  --pl-alpha-black-32: rgba(11, 13, 17, 0.32);
+
+  /* Gray Alpha (neutral-80: #394046) */
+  --pl-alpha-gray-32: rgba(57, 64, 70, 0.32);
 
   /* White Alpha */
   --pl-alpha-white-12: rgba(255, 255, 255, 0.12);

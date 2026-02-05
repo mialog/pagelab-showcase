@@ -362,7 +362,12 @@
         <div class="pl-gnb__mobile-overlay" id="mobileMenuOverlay">
           <div class="pl-gnb__mobile-overlay-header">
             <a href="#" class="pl-gnb__logo">
-              <img src="./../../images/gnb/gnb_logo.png" alt="Logo" height="31">
+              <img id="overlayLogo"
+                   src="./../../images/gnb/gnb_logo.png"
+                   data-light="../../images/gnb/gnb_logo.png"
+                   data-dark="../../images/gnb/gnb_logo_wh.png"
+                   alt="Logo"
+                   height="31">
             </a>
             <button class="pl-gnb__mobile-close" aria-label="메뉴 닫기" onclick="toggleMobileMenu()">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -529,6 +534,7 @@
     const mainFooter = document.getElementById('mainFooter');
     const gnbLogo = document.getElementById('gnbLogo');
     const footerLogo = document.getElementById('footerLogo');
+    const overlayLogo = document.getElementById('overlayLogo');
 
     themeBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -543,11 +549,13 @@
           mainFooter.classList.add('pl-footer--dark');
           gnbLogo.src = gnbLogo.dataset.dark;
           footerLogo.src = footerLogo.dataset.dark;
+          if (overlayLogo) overlayLogo.src = overlayLogo.dataset.dark;
         } else {
           mainGnb.classList.remove('pl-gnb--dark');
           mainFooter.classList.remove('pl-footer--dark');
           gnbLogo.src = gnbLogo.dataset.light;
           footerLogo.src = footerLogo.dataset.light;
+          if (overlayLogo) overlayLogo.src = overlayLogo.dataset.light;
         }
       });
     });
@@ -555,6 +563,7 @@
     // Mobile Menu Toggle
     function toggleMobileMenu() {
       const overlay = document.getElementById('mobileMenuOverlay');
+      const gnb = document.getElementById('mainGnb');
       const previewContent = document.querySelector('.preview-content');
       const isOpen = overlay.classList.contains('is-open');
 
@@ -567,10 +576,12 @@
         const scrollTop = previewContent.scrollTop;
         overlay.style.top = scrollTop + 'px';
         previewContent.classList.add('menu-open');
+        if (gnb) gnb.classList.add('is-menu-open');
       } else {
         // 닫기: 스크롤 복원
         previewContent.classList.remove('menu-open');
         previewContent.style.setProperty('--scrollbar-width', '0px');
+        if (gnb) gnb.classList.remove('is-menu-open');
       }
 
       overlay.classList.toggle('is-open');

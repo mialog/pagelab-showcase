@@ -179,7 +179,7 @@ class TemplateLoader {
             if (logo && logo.dataset.dark) {
               logo.src = logo.dataset.dark;
             }
-            // Also update mobile overlay logo
+            // Also update mobile overlay logo to dark version
             if (overlay) {
               const overlayLogo = overlay.querySelector('.pl-gnb__logo img');
               if (overlayLogo && logo && logo.dataset.dark) {
@@ -400,6 +400,7 @@ class TemplateLoader {
    */
   initMobileMenu() {
     const overlay = document.querySelector('.pl-gnb__mobile-overlay');
+    const gnb = document.querySelector('.pl-gnb');
     const content = document.querySelector('.template-preview__content');
     const self = this;
 
@@ -411,13 +412,14 @@ class TemplateLoader {
 
       if (!isOpen) {
         // Open menu
-        // For tablet/mobile frames, position overlay at scroll position
         if (content && self.currentDevice !== 'pc') {
-          const scrollTop = content.scrollTop;
-          overlay.style.top = scrollTop + 'px';
+          // Sticky GNB section is already at top: 0, so overlay should also be at top: 0
+          // Don't set scrollTop - that would push it below the visible area
+          overlay.style.top = '0';
           content.classList.add('menu-open');
         }
         overlay.classList.add('is-open');
+        if (gnb) gnb.classList.add('is-menu-open');
         document.body.style.overflow = 'hidden';
       } else {
         // Close menu
@@ -425,6 +427,7 @@ class TemplateLoader {
           content.classList.remove('menu-open');
         }
         overlay.classList.remove('is-open');
+        if (gnb) gnb.classList.remove('is-menu-open');
         document.body.style.overflow = '';
       }
     };

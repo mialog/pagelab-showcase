@@ -313,10 +313,10 @@ body {
   }
 }
 
-/* Mobile: GNB 높이 60px */
+/* Mobile: GNB 높이 66px */
 @container section (max-width: 639px) {
   .template-section--gnb:has(.pl-gnb--dark) + .template-section {
-    margin-top: -60px;
+    margin-top: -66px;
   }
 }
 
@@ -339,7 +339,7 @@ body {
   position: fixed;
   bottom: 0;
   right: 0;
-  z-index: 90;
+  z-index: 200; /* 카드 오버레이(z-index:100)보다 높게 */
   pointer-events: none; /* 배경 클릭 통과 */
   transition: left 0.3s ease, right 0.3s ease, max-width 0.3s ease, opacity 0.2s ease;
 }
@@ -366,10 +366,12 @@ body:has(.pl-gnb__mobile-overlay.is-open) .template-section--floating {
   background: transparent; /* 배경 제거 */
 }
 
-/* Tablet/Mobile: JavaScript가 인라인 스타일로 위치 계산 */
+/* Tablet/Mobile: JavaScript가 인라인 스타일로 위치 계산 + 배경 추가 */
 .template-section--floating.is-tablet,
 .template-section--floating.is-mobile {
   /* JS가 left, right, maxWidth를 인라인으로 설정 */
+  background: #ffffff;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Type A Floating - 위치만 조정, 나머지는 sections.css container query 사용 */
