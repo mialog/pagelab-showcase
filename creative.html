@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageLab - 섹션 크리에이티브</title>
+  <link rel="stylesheet" href="./tokens/base.css">
+  <link rel="stylesheet" href="./tokens/campaign.css">
+  <link rel="stylesheet" href="./styles/components.css">
+  <link rel="stylesheet" href="./styles/sections.css">
+  <link rel="stylesheet" href="./styles/showcase.css">
+  <link rel="stylesheet" href="./styles/creative.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <!-- html2canvas for image export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="./scripts/components.js"></script>
+</head>
+<body>
+  <div class="showcase">
+    <!-- Header -->
+    <header class="showcase__header">
+      <div class="showcase__header-inner">
+        <div class="showcase__logo">
+          <span>PageLab</span>
+        </div>
+        <nav class="showcase__nav">
+          <a href="index.html" class="showcase__nav-link">섹션 갤러리</a>
+          <a href="guide.html" class="showcase__nav-link">추천 조합 가이드</a>
+          <a href="creative.html" class="showcase__nav-link is-active">섹션 크리에이티브</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="creative">
+      <!-- Left Panel: Section Selector -->
+      <aside class="creative__sidebar">
+        <div class="creative__sidebar-header">
+          <h2 class="creative__sidebar-title">섹션 선택</h2>
+          <button class="creative__reset-btn" id="resetBtn" title="전체 초기화">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+            초기화
+          </button>
+        </div>
+
+        <!-- Section Categories -->
+        <div class="creative__sections">
+          <!-- Navigation -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="navigation">
+              <span>네비게이션</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="navigation">
+              <button class="creative__item" data-type="navigation" data-variant="gnb">
+                <span class="creative__item-name">GNB (헤더)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="hero">
+              <span>메인 비주얼</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="hero">
+              <button class="creative__item" data-type="hero" data-variant="type-a-split">
+                <span class="creative__item-name">좌우 분할형</span>
+              </button>
+              <button class="creative__item" data-type="hero" data-variant="type-b-center">
+                <span class="creative__item-name">중앙 정렬형</span>
+              </button>
+              <button class="creative__item" data-type="hero" data-variant="type-c-full">
+                <span class="creative__item-name">전면 배경형</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Intro -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="intro">
+              <span>인트로</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="intro">
+              <button class="creative__item" data-type="intro" data-variant="type-a-textblock">
+                <span class="creative__item-name">텍스트 블록</span>
+              </button>
+              <button class="creative__item" data-type="intro" data-variant="type-b-textgrid">
+                <span class="creative__item-name">텍스트 그리드</span>
+              </button>
+              <button class="creative__item" data-type="intro" data-variant="type-c-img">
+                <span class="creative__item-name">이미지형</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- About -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="about">
+              <span>콘텐츠 설명</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="about">
+              <button class="creative__item" data-type="about" data-variant="type-a-list">
+                <span class="creative__item-name">리스트형</span>
+              </button>
+              <button class="creative__item" data-type="about" data-variant="type-b-grid">
+                <span class="creative__item-name">그리드형</span>
+              </button>
+              <button class="creative__item" data-type="about" data-variant="type-c-card-slide">
+                <span class="creative__item-name">카드 슬라이드</span>
+              </button>
+              <button class="creative__item" data-type="about" data-variant="type-d-card-swipe">
+                <span class="creative__item-name">카드 스와이프</span>
+              </button>
+              <button class="creative__item" data-type="about" data-variant="type-e-tab">
+                <span class="creative__item-name">탭형</span>
+              </button>
+              <button class="creative__item" data-type="about" data-variant="type-f-image">
+                <span class="creative__item-name">이미지형</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Benefit -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="benefit">
+              <span>혜택 안내</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="benefit">
+              <button class="creative__item" data-type="benefit" data-variant="type-a-plus">
+                <span class="creative__item-name">플러스형</span>
+              </button>
+              <button class="creative__item" data-type="benefit" data-variant="type-b-img">
+                <span class="creative__item-name">이미지형</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="step">
+              <span>이용 방법</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="step">
+              <button class="creative__item" data-type="step" data-variant="type-a-img">
+                <span class="creative__item-name">이미지형</span>
+              </button>
+              <button class="creative__item" data-type="step" data-variant="type-b-text">
+                <span class="creative__item-name">텍스트형</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Review -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="review">
+              <span>고객 후기</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="review">
+              <button class="creative__item" data-type="review" data-variant="type-a-highlight">
+                <span class="creative__item-name">하이라이트형</span>
+              </button>
+              <button class="creative__item" data-type="review" data-variant="type-b-card-grid">
+                <span class="creative__item-name">카드 그리드</span>
+              </button>
+              <button class="creative__item" data-type="review" data-variant="type-c-card-slider">
+                <span class="creative__item-name">카드 슬라이더</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- FAQ -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="faq">
+              <span>FAQ</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="faq">
+              <button class="creative__item" data-type="faq" data-variant="index">
+                <span class="creative__item-name">아코디언</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="cta">
+              <span>전환 유도</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="cta">
+              <button class="creative__item" data-type="cta" data-variant="type-a-finish">
+                <span class="creative__item-name">마무리형</span>
+              </button>
+              <button class="creative__item" data-type="cta" data-variant="type-b-floating">
+                <span class="creative__item-name">플로팅형</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="creative__category">
+            <button class="creative__category-header" data-category="footer">
+              <span>푸터</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="creative__category-items" data-category="footer">
+              <button class="creative__item" data-type="navigation" data-variant="footer">
+                <span class="creative__item-name">Footer</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center: Preview Canvas -->
+      <div class="creative__main">
+        <!-- Toolbar -->
+        <div class="creative__toolbar">
+          <div class="creative__toolbar-left">
+            <h1 class="creative__title">섹션 크리에이티브</h1>
+            <span class="creative__section-count" id="sectionCount">0개 섹션</span>
+          </div>
+          <div class="creative__toolbar-center">
+            <!-- Device Switcher -->
+            <div class="creative__device-switcher">
+              <button class="creative__device-btn is-active" data-device="pc" title="PC (1920px)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </button>
+              <button class="creative__device-btn" data-device="tablet" title="Tablet (720px)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+              </button>
+              <button class="creative__device-btn" data-device="mobile" title="Mobile (360px)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="creative__toolbar-right">
+            <!-- Export Buttons -->
+            <button class="creative__export-btn" id="exportImageBtn" title="이미지로 내보내기">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              이미지
+            </button>
+            <button class="creative__export-btn" id="exportTextBtn" title="텍스트로 내보내기">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              텍스트
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Area -->
+        <div class="creative__preview-wrapper">
+          <div class="creative__preview" id="previewCanvas" data-device="pc">
+            <div class="creative__preview-content" id="previewContent">
+              <!-- Empty State -->
+              <div class="creative__empty" id="emptyState">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="3" y1="9" x2="21" y2="9"></line>
+                  <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+                <p class="creative__empty-title">섹션을 추가해주세요</p>
+                <p class="creative__empty-desc">왼쪽 패널에서 원하는 섹션을 클릭하면<br>여기에 추가됩니다.</p>
+              </div>
+              <!-- Sections will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel: Added Sections List -->
+      <aside class="creative__layers">
+        <div class="creative__layers-header">
+          <h2 class="creative__layers-title">추가된 섹션</h2>
+        </div>
+        <div class="creative__layers-list" id="layersList">
+          <!-- Layer items will be added here -->
+          <div class="creative__layers-empty" id="layersEmpty">
+            추가된 섹션이 없습니다
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="./js/creative.js"></script>
+</body>
+</html>

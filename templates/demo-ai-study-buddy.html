@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 스터디 버디 - 출시 기념 이벤트 | Demo</title>
+  <!-- CSS (순서 중요!) -->
+  <link rel="stylesheet" href="../tokens/base.css">
+  <link rel="stylesheet" href="../tokens/campaign.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/sections.css">
+  <!-- Font -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <!-- JS (커스텀 엘리먼트) -->
+  <script src="../scripts/components.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--pl-font-main);
+      background: var(--pl-bg-default);
+      min-height: 100vh;
+    }
+
+    /* Page wrapper for container query */
+    .page-wrapper {
+      container-type: inline-size;
+      container-name: section;
+    }
+
+    /* Hero 섹션 커스텀 스타일 */
+    .pl-hero--center {
+      background: linear-gradient(135deg, #0E2F91 0%, #15b2f1 100%);
+    }
+
+    .pl-hero--center .pl-hero__title {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .pl-hero--center .pl-hero__desc {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .pl-hero--center .pl-btn--outline {
+      border-color: #ffffff;
+      color: #ffffff;
+      background: transparent;
+    }
+
+    .pl-hero--center .pl-btn--outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .pl-hero__visual {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .pl-hero__visual img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ========== GNB (Header) ========== -->
+  <header class="pl-gnb" id="mainGnb">
+    <div class="pl-gnb__container">
+      <!-- Logo -->
+      <a href="#" class="pl-gnb__logo">
+        <img id="gnbLogo"
+             src="../images/gnb/gnb_logo.png"
+             data-light="../images/gnb/gnb_logo.png"
+             data-dark="../images/gnb/gnb_logo_wh.png"
+             alt="Logo"
+             height="31">
+      </a>
+      <!-- Menu -->
+      <nav class="pl-gnb__nav">
+        <a href="#features" class="pl-gnb__menu-item">주요 기능</a>
+        <a href="#event" class="pl-gnb__menu-item">이벤트</a>
+        <a href="#howto" class="pl-gnb__menu-item">참여 방법</a>
+        <a href="#faq" class="pl-gnb__menu-item">FAQ</a>
+        <a href="#" class="pl-gnb__menu-item">다운로드</a>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button class="pl-gnb__mobile-menu" aria-label="메뉴 열기" onclick="toggleMobileMenu()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="pl-gnb__mobile-overlay" id="mobileMenuOverlay">
+    <div class="pl-gnb__mobile-overlay-header">
+      <a href="#" class="pl-gnb__logo">
+        <img src="../images/gnb/gnb_logo.png" alt="Logo" height="31">
+      </a>
+      <button class="pl-gnb__mobile-close" aria-label="메뉴 닫기" onclick="toggleMobileMenu()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <nav class="pl-gnb__mobile-nav">
+      <a href="#features" class="pl-gnb__mobile-nav-item" onclick="toggleMobileMenu()">주요 기능</a>
+      <a href="#event" class="pl-gnb__mobile-nav-item" onclick="toggleMobileMenu()">이벤트</a>
+      <a href="#howto" class="pl-gnb__mobile-nav-item" onclick="toggleMobileMenu()">참여 방법</a>
+      <a href="#faq" class="pl-gnb__mobile-nav-item" onclick="toggleMobileMenu()">FAQ</a>
+      <a href="#" class="pl-gnb__mobile-nav-item">다운로드</a>
+    </nav>
+  </div>
+
+
+  <!-- ========== Hero Section ========== -->
+  <section class="pl-section pl-hero pl-hero--center">
+    <div class="pl-section__container pl-hero__container">
+      <div class="pl-hero__content">
+        <div class="pl-hero__text">
+          <span class="pl-label pl-label--filled">NEW</span>
+          <h1 class="pl-hero__title">AI 스터디 버디와 함께<br>스마트한 학습을 시작하세요</h1>
+          <p class="pl-hero__desc">인공지능이 당신의 학습 패턴을 분석하고, 맞춤형 커리큘럼을 제안합니다. 24시간 언제든 질문하고, 즉각적인 피드백을 받아보세요.</p>
+        </div>
+        <div class="pl-hero__actions">
+          <a href="#event" class="pl-btn pl-btn--outline">출시 이벤트 참여하기</a>
+        </div>
+      </div>
+      <div class="pl-hero__visual">
+        <img src="../images/hero/hero-b-banner_pc.png" alt="AI 스터디 버디 소개">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== About Section (제품 기능) ========== -->
+  <section class="pl-section pl-about pl-about--list" id="features">
+    <div class="pl-section__container pl-about__container">
+
+      <!-- Section Title -->
+      <pl-section-title
+        label="FEATURES"
+        heading="AI 스터디 버디의 핵심 기능"
+        description="학습 효율을 극대화하는<br>스마트한 AI 기능을 만나보세요">
+      </pl-section-title>
+
+      <!-- List Card Grid -->
+      <div class="pl-list-grid">
+        <!-- Card 1 -->
+        <article class="pl-list-card">
+          <div class="pl-list-card__image">
+            <img src="../images/about/about_a_icon_1.png" alt="맞춤 학습">
+          </div>
+          <div class="pl-list-card__content">
+            <h3 class="pl-list-card__title">맞춤형 학습 커리큘럼</h3>
+            <p class="pl-list-card__desc">AI가 학습 패턴을 분석해 최적의 학습 경로를 제안합니다.</p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="pl-list-card">
+          <div class="pl-list-card__image">
+            <img src="../images/about/about_a_icon_2.png" alt="실시간 Q&A">
+          </div>
+          <div class="pl-list-card__content">
+            <h3 class="pl-list-card__title">24시간 실시간 Q&A</h3>
+            <p class="pl-list-card__desc">언제든 질문하면 AI가 즉시 상세한 해설을 제공합니다.</p>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="pl-list-card">
+          <div class="pl-list-card__image">
+            <img src="../images/about/about_a_icon_3.png" alt="성적 분석">
+          </div>
+          <div class="pl-list-card__content">
+            <h3 class="pl-list-card__title">스마트 성적 분석</h3>
+            <p class="pl-list-card__desc">약점 과목을 파악하고 집중 학습이 필요한 영역을 알려드립니다.</p>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="pl-list-card">
+          <div class="pl-list-card__image">
+            <img src="../images/about/about_a_icon_4.png" alt="학습 리포트">
+          </div>
+          <div class="pl-list-card__content">
+            <h3 class="pl-list-card__title">주간 학습 리포트</h3>
+            <p class="pl-list-card__desc">매주 학습 현황과 성장 그래프를 한눈에 확인하세요.</p>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="pl-list-card">
+          <div class="pl-list-card__image">
+            <img src="../images/about/about_a_icon_5.png" alt="게임화">
+          </div>
+          <div class="pl-list-card__content">
+            <h3 class="pl-list-card__title">게임형 학습 미션</h3>
+            <p class="pl-list-card__desc">재미있는 미션과 보상으로 학습 동기를 높여드립니다.</p>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="pl-list-card">
+          <div class="pl-list-card__image">
+            <img src="../images/about/about_a_icon_6.png" alt="멀티 플랫폼">
+          </div>
+          <div class="pl-list-card__content">
+            <h3 class="pl-list-card__title">멀티 플랫폼 지원</h3>
+            <p class="pl-list-card__desc">PC, 태블릿, 모바일 어디서든 끊김 없이 학습하세요.</p>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========== Benefit Section (이벤트 혜택) ========== -->
+  <section class="pl-benefit pl-benefit--plus" id="event">
+    <div class="pl-benefit__container">
+
+      <!-- Section Title -->
+      <pl-section-title
+        label="EVENT"
+        heading="출시 기념 특별 혜택"
+        description="지금 가입하시면<br>놓칠 수 없는 혜택을 드립니다"
+        note="*이벤트 기간: 2026.02.05 ~ 2026.02.28">
+      </pl-section-title>
+
+      <!-- Benefit Cards Grid - 3 Cards -->
+      <div class="pl-benefit__grid pl-benefit__grid--3col">
+
+        <div class="pl-benefit__card pl-benefit__card--small">
+          <div class="pl-benefit__card-text">
+            <h3 class="pl-benefit__card-title">1개월 무료 이용</h3>
+            <p class="pl-benefit__card-sub">프리미엄 플랜 제공</p>
+          </div>
+          <div class="pl-benefit__card-image">
+            <img src="../images/benefit/benefit-card-01.png" alt="무료 이용권">
+          </div>
+          <p class="pl-benefit__card-note">*신규 가입자 한정</p>
+        </div>
+
+        <!-- Plus Icon -->
+        <div class="pl-benefit__plus-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+
+        <div class="pl-benefit__card pl-benefit__card--small">
+          <div class="pl-benefit__card-text">
+            <h3 class="pl-benefit__card-title">스타벅스 기프티콘</h3>
+            <p class="pl-benefit__card-sub">아메리카노 Tall 사이즈</p>
+          </div>
+          <div class="pl-benefit__card-image">
+            <img src="../images/benefit/benefit-card-02.png" alt="스타벅스">
+          </div>
+          <p class="pl-benefit__card-note">*추첨 100명</p>
+        </div>
+
+        <!-- Plus Icon -->
+        <div class="pl-benefit__plus-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+
+        <div class="pl-benefit__card pl-benefit__card--small">
+          <div class="pl-benefit__card-text">
+            <h3 class="pl-benefit__card-title">에어팟 프로</h3>
+            <p class="pl-benefit__card-sub">Apple 정품</p>
+          </div>
+          <div class="pl-benefit__card-image">
+            <img src="../images/benefit/benefit-card-03.png" alt="에어팟">
+          </div>
+          <p class="pl-benefit__card-note">*추첨 10명</p>
+        </div>
+
+        <!-- Large Banner -->
+        <div class="pl-benefit__card pl-benefit__card--large">
+          <div class="pl-benefit__card-text">
+            <h3 class="pl-benefit__card-title">친구 초대 시 추가 혜택!</h3>
+            <p class="pl-benefit__card-sub">친구 1명당 7일 무료 이용권 증정</p>
+          </div>
+          <div class="pl-benefit__card-image">
+            <img src="../images/benefit/benefit-card-05.png" alt="친구 초대">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA Button -->
+      <div class="pl-benefit__cta">
+        <button class="pl-btn pl-btn--primary pl-btn--lg">
+          이벤트 참여하기
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========== Step Section (참여 방법) ========== -->
+  <section class="pl-step pl-step--text" id="howto">
+    <div class="pl-step__container">
+
+      <!-- Section Title -->
+      <pl-section-title
+        label="HOW TO"
+        heading="이벤트 참여 방법"
+        description="간단한 3단계로<br>특별 혜택을 받아가세요">
+      </pl-section-title>
+
+      <!-- Step Cards -->
+      <div class="pl-step-text__items">
+        <!-- Step 1 -->
+        <div class="pl-step-text__item">
+          <span class="pl-step-text__label">Step 01</span>
+          <div class="pl-step-text__thumb">
+            <img src="../images/step/step_b_1.png" alt="Step 1">
+          </div>
+          <div class="pl-step-text__content">
+            <h3 class="pl-step-text__title">앱 다운로드</h3>
+            <p class="pl-step-text__desc">앱스토어 또는 플레이스토어에서 'AI 스터디 버디'를 검색하여 설치합니다.</p>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="pl-step-text__arrow">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M10 24H38M38 24L26 12M38 24L26 36" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="pl-step-text__item">
+          <span class="pl-step-text__label">Step 02</span>
+          <div class="pl-step-text__thumb">
+            <img src="../images/step/step_b_2.png" alt="Step 2">
+          </div>
+          <div class="pl-step-text__content">
+            <h3 class="pl-step-text__title">회원가입</h3>
+            <p class="pl-step-text__desc">간편하게 회원가입을 완료하고 프로필을 설정합니다.</p>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="pl-step-text__arrow">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M10 24H38M38 24L26 12M38 24L26 36" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="pl-step-text__item">
+          <span class="pl-step-text__label">Step 03</span>
+          <div class="pl-step-text__thumb">
+            <img src="../images/step/step_b_3.png" alt="Step 3">
+          </div>
+          <div class="pl-step-text__content">
+            <h3 class="pl-step-text__title">이벤트 응모</h3>
+            <p class="pl-step-text__desc">첫 학습을 완료하면 자동으로 이벤트에 응모됩니다.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========== FAQ Section ========== -->
+  <section class="pl-faq" id="faq">
+    <div class="pl-faq__container">
+
+      <!-- Section Title -->
+      <div class="pl-section-title">
+        <div class="pl-section-title__text">
+          <h2 class="pl-section-title__heading">자주 묻는 질문</h2>
+        </div>
+      </div>
+
+      <!-- FAQ Items -->
+      <div class="pl-faq__items">
+
+        <!-- FAQ Item 1 -->
+        <div class="pl-faq__item">
+          <button class="pl-faq__header" aria-expanded="false">
+            <h3 class="pl-faq__question">AI 스터디 버디는 어떤 과목을 지원하나요?</h3>
+            <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="pl-faq__content">
+            <div class="pl-faq__answer">
+              <p class="pl-faq__answer-title">국어, 영어, 수학을 포함한 주요 과목을 지원합니다.</p>
+              <p class="pl-faq__answer-text">현재 초등학교 3학년부터 고등학교 3학년까지의 국어, 영어, 수학 과목을 지원하며, 과학, 사회 등 추가 과목은 2026년 하반기 업데이트 예정입니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="pl-faq__item">
+          <button class="pl-faq__header" aria-expanded="false">
+            <h3 class="pl-faq__question">이벤트 당첨자 발표는 언제인가요?</h3>
+            <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="pl-faq__content">
+            <div class="pl-faq__answer">
+              <p class="pl-faq__answer-title">2026년 3월 5일에 발표됩니다.</p>
+              <p class="pl-faq__answer-text">당첨자는 가입 시 등록한 휴대폰 번호로 개별 연락드리며, 공식 홈페이지에서도 확인 가능합니다. 경품은 당첨 발표 후 2주 이내에 순차적으로 발송됩니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="pl-faq__item">
+          <button class="pl-faq__header" aria-expanded="false">
+            <h3 class="pl-faq__question">무료 체험 후 자동 결제되나요?</h3>
+            <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="pl-faq__content">
+            <div class="pl-faq__answer">
+              <p class="pl-faq__answer-title">아니요, 자동 결제되지 않습니다.</p>
+              <p class="pl-faq__answer-text">1개월 무료 체험이 끝나면 서비스가 자동으로 종료되며, 유료 구독은 별도로 신청해야 합니다. 결제 정보 등록 없이 무료로 체험하실 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="pl-faq__item">
+          <button class="pl-faq__header" aria-expanded="false">
+            <h3 class="pl-faq__question">친구 초대는 어떻게 하나요?</h3>
+            <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="pl-faq__content">
+            <div class="pl-faq__answer">
+              <p class="pl-faq__answer-title">앱 내 '친구 초대' 메뉴에서 초대 링크를 공유하세요.</p>
+              <p class="pl-faq__answer-text">마이페이지 > 친구 초대에서 개인 초대 코드와 링크를 확인할 수 있습니다. 친구가 해당 링크로 가입하면 자동으로 7일 무료 이용권이 지급됩니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="pl-faq__item">
+          <button class="pl-faq__header" aria-expanded="false">
+            <h3 class="pl-faq__question">오프라인에서도 사용할 수 있나요?</h3>
+            <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="pl-faq__content">
+            <div class="pl-faq__answer">
+              <p class="pl-faq__answer-title">일부 기능은 오프라인에서도 이용 가능합니다.</p>
+              <p class="pl-faq__answer-text">미리 다운로드한 학습 콘텐츠는 오프라인에서 학습 가능하지만, AI 실시간 Q&A 및 성적 분석 기능은 인터넷 연결이 필요합니다.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========== CTA Section ========== -->
+  <section class="pl-cta pl-cta--finish">
+    <div class="pl-cta__container">
+      <div class="pl-cta__text">
+        <h2 class="pl-cta__title">지금 바로 시작하세요</h2>
+        <p class="pl-cta__desc">AI 스터디 버디와 함께 더 스마트한 학습을 경험해보세요</p>
+      </div>
+      <div class="pl-cta__buttons">
+        <a href="#" class="pl-cta__btn pl-cta__btn--outline">앱스토어</a>
+        <a href="#" class="pl-cta__btn pl-cta__btn--filled">플레이스토어</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== Footer ========== -->
+  <footer class="pl-footer" id="mainFooter">
+    <div class="pl-footer__container">
+      <!-- Top: Info + Contact -->
+      <div class="pl-footer__top">
+        <!-- Left: Info -->
+        <div class="pl-footer__info">
+          <!-- Category Links -->
+          <nav class="pl-footer__category">
+            <a href="#" class="pl-footer__category-link pl-footer__category-link--bold">개인정보 처리방침</a>
+            <a href="#" class="pl-footer__category-link">이용약관</a>
+            <a href="#" class="pl-footer__category-link">운영 정책</a>
+            <a href="#" class="pl-footer__category-link">고객센터</a>
+            <a href="#" class="pl-footer__category-link">회사소개</a>
+          </nav>
+          <!-- Business Info -->
+          <div class="pl-footer__business">
+            <div class="pl-footer__logo">
+              <img id="footerLogo"
+                   src="../images/footer/footer_logo.png"
+                   data-light="../images/footer/footer_logo.png"
+                   data-dark="../images/footer/footer_logo_wh.png"
+                   alt="회사 로고"
+                   width="120"
+                   height="44">
+            </div>
+            <div class="pl-footer__company">
+              <button class="pl-footer__company-toggle" onclick="toggleCompanyInfo(this)">
+                <span>(주) AI에듀테크</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="pl-footer__address" id="companyAddress">
+              <p>서울시 강남구 테헤란로 123 AI타워 10층</p>
+              <p>대표이사: 김학습 · 사업자등록번호: 123-45-67890 · 통신판매신고번호: 제2026-서울강남-0001호</p>
+            </div>
+          </div>
+        </div>
+        <!-- Right: Contact -->
+        <div class="pl-footer__contact">
+          <div class="pl-footer__call">
+            <p class="pl-footer__call-label">고객센터 대표번호</p>
+            <p class="pl-footer__call-number">1588-0000</p>
+            <p class="pl-footer__call-time">평일 오전 9:00 ~ 오후 6:00</p>
+          </div>
+          <div class="pl-footer__sns">
+            <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--instagram" aria-label="Instagram"></a>
+            <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--kakao" aria-label="KakaoTalk"></a>
+            <a href="#" class="pl-footer__sns-icon pl-footer__sns-icon--youtube" aria-label="YouTube"></a>
+          </div>
+        </div>
+      </div>
+      <!-- Copyright -->
+      <p class="pl-footer__copyright">Copyright © AI EduTech. All Rights Reserved</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Mobile Menu Toggle
+  function toggleMobileMenu() {
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const gnb = document.getElementById('mainGnb');
+    const isOpen = overlay.classList.contains('is-open');
+
+    if (!isOpen) {
+      overlay.classList.add('is-open');
+      if (gnb) gnb.classList.add('is-menu-open');
+      document.body.style.overflow = 'hidden';
+    } else {
+      overlay.classList.remove('is-open');
+      if (gnb) gnb.classList.remove('is-menu-open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Close overlay on background click
+  document.getElementById('mobileMenuOverlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      toggleMobileMenu();
+    }
+  });
+
+  // GNB Scroll State
+  const gnb = document.querySelector('.pl-gnb');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+      gnb?.classList.add('is-scrolled');
+    } else {
+      gnb?.classList.remove('is-scrolled');
+    }
+  });
+
+  // Footer Company Info Toggle
+  function toggleCompanyInfo(btn) {
+    btn.classList.toggle('is-expanded');
+    const address = document.getElementById('companyAddress');
+    address?.classList.toggle('is-visible');
+  }
+
+  // FAQ Accordion
+  document.querySelectorAll('.pl-faq__item').forEach(item => {
+    const header = item.querySelector('.pl-faq__header');
+    const content = item.querySelector('.pl-faq__content');
+
+    header?.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+
+      // Close all other items
+      document.querySelectorAll('.pl-faq__item').forEach(otherItem => {
+        if (otherItem !== item && otherItem.classList.contains('is-open')) {
+          const otherContent = otherItem.querySelector('.pl-faq__content');
+          otherContent.style.maxHeight = otherContent.scrollHeight + 'px';
+          setTimeout(() => {
+            otherContent.style.maxHeight = '0';
+          }, 10);
+          otherItem.classList.remove('is-open');
+          otherItem.querySelector('.pl-faq__header').setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle current item
+      if (isOpen) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        setTimeout(() => {
+          content.style.maxHeight = '0';
+        }, 10);
+        item.classList.remove('is-open');
+        header.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('is-open');
+        header.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
