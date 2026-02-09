@@ -210,6 +210,40 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Theme Switcher */
+.creative__theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-2);
+  margin-left: var(--pl-spacing-5);
+  padding-left: var(--pl-spacing-5);
+  border-left: 1px solid var(--pl-border-default);
+}
+
+.creative__theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 32px;
+  color: var(--pl-text-tertiary);
+  background: transparent;
+  border: none;
+  border-radius: var(--pl-radius-1);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.creative__theme-btn:hover {
+  color: var(--pl-text-primary);
+}
+
+.creative__theme-btn.is-active {
+  color: var(--pl-text-primary);
+  background: var(--pl-bg-default);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 .creative__toolbar-right {
   display: flex;
   align-items: center;
@@ -261,7 +295,7 @@
 }
 
 .creative__preview[data-device="pc"] {
-  width: 1200px;
+  width: 1360px;
 }
 
 .creative__preview[data-device="tablet"] {
@@ -277,6 +311,44 @@
   min-height: 400px;
   container-type: inline-size;
   container-name: section;
+}
+
+/* Fixed Header/Footer Slots */
+.creative__fixed-slot {
+  min-height: 60px;
+  position: relative;
+}
+
+.creative__fixed-slot--header {
+  border-bottom: 2px dashed var(--pl-border-light);
+}
+
+.creative__fixed-slot--footer {
+  border-top: 2px dashed var(--pl-border-light);
+}
+
+.creative__fixed-slot:has(.creative__section-wrapper) {
+  border: none;
+}
+
+.creative__fixed-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pl-spacing-3);
+  padding: var(--pl-spacing-5);
+  color: var(--pl-text-tertiary);
+  font-size: var(--pl-font-size-label-sm);
+  text-align: center;
+}
+
+.creative__fixed-placeholder svg {
+  opacity: 0.4;
+}
+
+.creative__main-content {
+  min-height: 400px;
 }
 
 /* Empty State */
@@ -370,6 +442,26 @@
   border: 2px dashed var(--pl-text-brand);
 }
 
+.creative__layer--fixed {
+  cursor: default;
+  background: var(--pl-bg-brand-light);
+  border: 1px solid var(--pl-border-brand);
+  opacity: 0.9;
+}
+
+.creative__layer--fixed:hover {
+  background: var(--pl-bg-brand-light);
+}
+
+.creative__layer--fixed .creative__layer-info {
+  padding-left: var(--pl-spacing-2);
+}
+
+.creative__layer--fixed .creative__layer-type {
+  color: var(--pl-text-brand);
+  font-weight: var(--pl-font-weight-bold);
+}
+
 .creative__layer-drag {
   display: flex;
   align-items: center;
@@ -442,19 +534,114 @@
 }
 
 /* Editable text highlight */
-[contenteditable="true"] {
+[contenteditable="true"]:not(.pl-btn):not(.pl-cta__btn) {
   outline: none;
+  cursor: text;
+  transition: background 0.2s, box-shadow 0.2s;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  position: relative;
+}
+
+[contenteditable="true"]:not(.pl-btn):not(.pl-cta__btn):focus {
+  background: rgba(21, 178, 241, 0.12);
+  box-shadow: 0 0 0 2px rgba(21, 178, 241, 0.2);
+  outline: none;
+}
+
+[contenteditable="true"]:not(.pl-btn):not(.pl-cta__btn):hover:not(:focus) {
+  background: rgba(21, 178, 241, 0.06);
+}
+
+/* Text delete button */
+.creative__text-delete {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: var(--pl-static-red);
+  border: 2px solid var(--pl-bg-default);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.creative__text-delete:hover {
+  background: #c62828;
+  transform: scale(1.1);
+}
+
+.creative__text-delete svg {
+  width: 10px;
+  height: 10px;
+  stroke-width: 3;
+}
+
+[contenteditable="true"]:hover .creative__text-delete {
+  display: flex;
+}
+
+/* Block delete button (for cards) */
+.creative__block-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: var(--pl-static-red);
+  border: 2px solid var(--pl-bg-default);
+  border-radius: var(--pl-radius-2);
+  color: white;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.creative__block-delete:hover {
+  background: #c62828;
+  transform: scale(1.05);
+}
+
+.creative__block-delete svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.5;
+}
+
+.pl-list-card:hover .creative__block-delete,
+.pl-grid-card:hover .creative__block-delete,
+.pl-swipe-card:hover .creative__block-delete,
+.pl-benefit__card:hover .creative__block-delete,
+.pl-step-card:hover .creative__block-delete,
+.pl-review__card:hover .creative__block-delete,
+.pl-faq__item:hover .creative__block-delete {
+  display: flex;
+}
+
+/* Fix button contenteditable styling */
+.pl-btn[contenteditable="true"],
+.pl-cta__btn[contenteditable="true"] {
+  /* Remove padding/margin overrides to preserve button styles */
   cursor: text;
 }
 
-[contenteditable="true"]:focus {
-  background: rgba(21, 178, 241, 0.08);
-  border-radius: 4px;
-}
-
-[contenteditable="true"]:hover:not(:focus) {
-  background: rgba(21, 178, 241, 0.04);
-  border-radius: 4px;
+.pl-btn[contenteditable="true"]:focus,
+.pl-cta__btn[contenteditable="true"]:focus {
+  /* Use outline instead of box-shadow to avoid interfering with button styles */
+  outline: 2px solid rgba(21, 178, 241, 0.5);
+  outline-offset: 2px;
 }
 
 /* ============================================
@@ -483,6 +670,80 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* ============================================
+   Dark Theme Support
+   ============================================ */
+.creative__preview[data-theme="dark"],
+.creative__preview-content[data-theme="dark"] {
+  background: var(--pl-bg-invert);
+}
+
+/* Dark Theme - GNB */
+.creative__preview[data-theme="dark"] .pl-gnb,
+.creative__preview-content[data-theme="dark"] .pl-gnb {
+  background: transparent;
+}
+
+.creative__preview[data-theme="dark"] .pl-gnb__logo,
+.creative__preview-content[data-theme="dark"] .pl-gnb__logo {
+  color: var(--pl-text-invert);
+}
+
+.creative__preview[data-theme="dark"] .pl-gnb__menu-item,
+.creative__preview-content[data-theme="dark"] .pl-gnb__menu-item {
+  color: var(--pl-text-invert);
+}
+
+.creative__preview[data-theme="dark"] .pl-gnb__menu-item:hover,
+.creative__preview-content[data-theme="dark"] .pl-gnb__menu-item:hover {
+  color: var(--pl-text-brand);
+}
+
+/* Dark Theme - Nav Content */
+.creative__preview[data-theme="dark"] .pl-nav-content,
+.creative__preview-content[data-theme="dark"] .pl-nav-content {
+  background: var(--pl-neutral-100);
+}
+
+/* Dark Theme - Footer */
+.creative__preview[data-theme="dark"] .pl-footer,
+.creative__preview-content[data-theme="dark"] .pl-footer {
+  background: var(--pl-neutral-100);
+  color: var(--pl-text-invert);
+}
+
+.creative__preview[data-theme="dark"] .pl-footer a,
+.creative__preview-content[data-theme="dark"] .pl-footer a {
+  color: var(--pl-neutral-30);
+}
+
+.creative__preview[data-theme="dark"] .pl-footer__title,
+.creative__preview-content[data-theme="dark"] .pl-footer__title {
+  color: var(--pl-text-invert);
+}
+
+/* Dark Theme - Section Titles */
+.creative__preview[data-theme="dark"] .pl-section-title__heading,
+.creative__preview-content[data-theme="dark"] .pl-section-title__heading {
+  color: var(--pl-text-invert);
+}
+
+.creative__preview[data-theme="dark"] .pl-section-title__description,
+.creative__preview-content[data-theme="dark"] .pl-section-title__description {
+  color: var(--pl-neutral-30);
+}
+
+/* Dark Theme - Hero */
+.creative__preview[data-theme="dark"] .pl-hero__title,
+.creative__preview-content[data-theme="dark"] .pl-hero__title {
+  color: var(--pl-text-invert);
+}
+
+.creative__preview[data-theme="dark"] .pl-hero__desc,
+.creative__preview-content[data-theme="dark"] .pl-hero__desc {
+  color: var(--pl-neutral-30);
 }
 
 /* ============================================

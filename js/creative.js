@@ -8,6 +8,9 @@ class SectionCreative {
     this.sections = [];
     this.sectionId = 0;
     this.currentDevice = 'pc';
+    this.currentTheme = 'light';
+    this.headerSection = null;
+    this.footerSection = null;
 
     // Section file mappings
     this.sectionFiles = {
@@ -61,6 +64,9 @@ class SectionCreative {
 
   bindElements() {
     this.previewContent = document.getElementById('previewContent');
+    this.mainContent = document.getElementById('mainContent');
+    this.headerSlot = document.getElementById('headerSlot');
+    this.footerSlot = document.getElementById('footerSlot');
     this.emptyState = document.getElementById('emptyState');
     this.layersList = document.getElementById('layersList');
     this.layersEmpty = document.getElementById('layersEmpty');
@@ -82,6 +88,11 @@ class SectionCreative {
     // Device switcher
     document.querySelectorAll('.creative__device-btn').forEach(btn => {
       btn.addEventListener('click', () => this.switchDevice(btn.dataset.device));
+    });
+
+    // Theme switcher
+    document.querySelectorAll('.creative__theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => this.switchTheme(btn.dataset.theme));
     });
 
     // Reset button
@@ -114,6 +125,20 @@ class SectionCreative {
       return;
     }
 
+    // Check if this is a fixed section (header or footer)
+    const isHeader = type === 'navigation' && variant === 'gnb';
+    const isFooter = type === 'navigation' && variant === 'footer';
+
+    // Prevent adding if already exists
+    if (isHeader && this.headerSection) {
+      alert('헤더는 한 개만 추가할 수 있습니다.');
+      return;
+    }
+    if (isFooter && this.footerSection) {
+      alert('푸터는 한 개만 추가할 수 있습니다.');
+      return;
+    }
+
     try {
       // Show loading state on button
       item.classList.add('is-loading');
@@ -127,11 +152,21 @@ class SectionCreative {
           type,
           variant,
           name: item.querySelector('.creative__item-name').textContent,
-          html
+          html,
+          isFixed: isHeader || isFooter
         };
 
-        this.sections.push(section);
-        this.renderSection(section);
+        if (isHeader) {
+          this.headerSection = section;
+          this.renderFixedSection(section, 'header');
+        } else if (isFooter) {
+          this.footerSection = section;
+          this.renderFixedSection(section, 'footer');
+        } else {
+          this.sections.push(section);
+          this.renderSection(section);
+        }
+
         this.updateLayersList();
         this.updateUI();
       }
@@ -205,43 +240,181 @@ class SectionCreative {
     wrapper.dataset.sectionId = section.id;
     wrapper.innerHTML = section.html;
 
-    // Make text elements editable
-    this.makeEditable(wrapper);
+    // Add to main content area first
+    this.mainContent.appendChild(wrapper);
 
-    // Add to preview
-    this.previewContent.appendChild(wrapper);
+    // Wait for custom elements to render, then make editable
+    requestAnimationFrame(() => {
+      this.makeEditable(wrapper);
+    });
+
+    // Initialize section-specific JS
+    this.initSectionJS(wrapper, section.type);
+  }
+
+  renderFixedSection(section, position) {
+    // Create wrapper
+    const wrapper = document.createElement('div');
+    wrapper.className = 'creative__section-wrapper';
+    wrapper.dataset.sectionId = section.id;
+    wrapper.dataset.fixed = position;
+    wrapper.innerHTML = section.html;
+
+    // Add to appropriate slot
+    const slot = position === 'header' ? this.headerSlot : this.footerSlot;
+
+    // Clear placeholder
+    const placeholder = slot.querySelector('.creative__fixed-placeholder');
+    if (placeholder) {
+      placeholder.remove();
+    }
+
+    // Add wrapper first
+    slot.appendChild(wrapper);
+
+    // Wait for custom elements to render, then make editable
+    requestAnimationFrame(() => {
+      this.makeEditable(wrapper);
+    });
 
     // Initialize section-specific JS
     this.initSectionJS(wrapper, section.type);
   }
 
   makeEditable(wrapper) {
-    // Find all text elements and make them editable
-    const textElements = wrapper.querySelectorAll(
-      'h1, h2, h3, h4, h5, h6, p, span:not(.pl-label):not([class*="icon"]), ' +
-      '.pl-hero__title, .pl-hero__desc, ' +
-      '.pl-section-title__heading, .pl-section-title__label, .pl-section-title__description, ' +
-      '.pl-list-card__title, .pl-list-card__desc, ' +
-      '.pl-benefit__card-title, .pl-benefit__card-sub, ' +
-      '.pl-step-text__title, .pl-step-text__desc, ' +
-      '.pl-faq__question, .pl-faq__answer-title, .pl-faq__answer-text, ' +
-      '.pl-cta__title, .pl-cta__desc, ' +
-      '.pl-btn, .pl-cta__btn'
-    );
+    // All text elements - editable and deletable
+    const textSelectors = [
+      'h1, h2, h3, h4, h5, h6',
+      'p',
+      'span',
+      '.pl-section-title__heading, .pl-section-title__label, .pl-section-title__desc, .pl-section-title__note',
+      '.pl-hero__title, .pl-hero__desc',
+      '.pl-label',
+      '.pl-list-card__title, .pl-list-card__desc',
+      '.pl-benefit__card-title, .pl-benefit__card-sub',
+      '.pl-step-text__title, .pl-step-text__desc',
+      '.pl-faq__question, .pl-faq__answer-title, .pl-faq__answer-text',
+      '.pl-review__name, .pl-review__text',
+      '.pl-cta__title, .pl-cta__desc',
+      '.pl-gnb__menu-item',
+      '.pl-footer__link, .pl-footer__title, .pl-footer__text, .pl-footer__info'
+    ];
 
+    // Block elements (cards, items) - deletable as whole only
+    const blockSelectors = [
+      '.pl-list-card',
+      '.pl-grid-card',
+      '.pl-swipe-card',
+      '.pl-benefit__card',
+      '.pl-step-card',
+      '.pl-review__card',
+      '.pl-faq__item'
+    ];
+
+    // Card types where only the card itself can be deleted (not inner text)
+    const cardOnlyDeleteTypes = [
+      '.pl-list-card',
+      '.pl-grid-card',
+      '.pl-swipe-card'
+    ];
+
+    // Make all text elements editable with delete button
+    const textElements = wrapper.querySelectorAll(textSelectors.join(', '));
     textElements.forEach(el => {
-      // Skip if it's an image, icon, or already has contenteditable
+      // Skip if it has images, SVGs, or already editable
       if (el.querySelector('img, svg') || el.hasAttribute('contenteditable')) {
         return;
       }
 
-      // Skip if parent is a link (for buttons)
-      if (el.tagName === 'A') {
-        el.setAttribute('contenteditable', 'true');
-        el.addEventListener('click', (e) => e.preventDefault());
-      } else if (!el.closest('a')) {
-        el.setAttribute('contenteditable', 'true');
+      // Skip if it's inside a button (buttons handled separately)
+      if (el.closest('.pl-btn, .pl-cta__btn')) {
+        return;
       }
+
+      // Skip if it's inside a card that only allows card-level deletion
+      const insideCardOnly = cardOnlyDeleteTypes.some(selector => el.closest(selector));
+      if (insideCardOnly) {
+        return;
+      }
+
+      el.setAttribute('contenteditable', 'true');
+      el.style.position = 'relative';
+
+      // Add delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__text-delete';
+      deleteBtn.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      `;
+      deleteBtn.title = '삭제';
+      deleteBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (confirm('이 요소를 삭제하시겠습니까?')) {
+          el.remove();
+        }
+      });
+
+      el.appendChild(deleteBtn);
+
+      // Prevent default link behavior while editing
+      if (el.tagName === 'A') {
+        el.addEventListener('click', (e) => {
+          if (el.getAttribute('contenteditable') === 'true') {
+            e.preventDefault();
+          }
+        });
+      }
+    });
+
+    // Make block elements deletable (cards, items)
+    const blockElements = wrapper.querySelectorAll(blockSelectors.join(', '));
+    blockElements.forEach(el => {
+      el.style.position = 'relative';
+
+      // Add delete button to block
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__block-delete';
+      deleteBtn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      `;
+      deleteBtn.title = '카드 삭제';
+      deleteBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (confirm('이 카드를 삭제하시겠습니까?')) {
+          el.remove();
+        }
+      });
+
+      el.appendChild(deleteBtn);
+    });
+
+    // Make buttons editable (but not in card-only-delete cards)
+    const buttons = wrapper.querySelectorAll('.pl-btn, .pl-cta__btn');
+    buttons.forEach(btn => {
+      // Skip buttons inside card-only-delete cards
+      const insideCardOnly = cardOnlyDeleteTypes.some(selector => btn.closest(selector));
+      if (insideCardOnly) {
+        return;
+      }
+
+      btn.setAttribute('contenteditable', 'true');
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
+      // Prevent line breaks in buttons
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+        }
+      });
     });
   }
 
@@ -280,16 +453,53 @@ class SectionCreative {
     // Clear existing layers
     this.layersList.innerHTML = '';
 
-    if (this.sections.length === 0) {
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
+
+    if (!hasContent) {
       this.layersList.innerHTML = '<div class="creative__layers-empty">추가된 섹션이 없습니다</div>';
       return;
     }
 
+    // Add header if exists
+    if (this.headerSection) {
+      this.layersList.appendChild(this.createLayerItem(this.headerSection, true));
+    }
+
+    // Add regular sections
     this.sections.forEach((section, index) => {
-      const layer = document.createElement('div');
-      layer.className = 'creative__layer';
-      layer.dataset.sectionId = section.id;
+      this.layersList.appendChild(this.createLayerItem(section, false));
+    });
+
+    // Add footer if exists
+    if (this.footerSection) {
+      this.layersList.appendChild(this.createLayerItem(this.footerSection, true));
+    }
+  }
+
+  createLayerItem(section, isFixed) {
+    const layer = document.createElement('div');
+    layer.className = isFixed ? 'creative__layer creative__layer--fixed' : 'creative__layer';
+    layer.dataset.sectionId = section.id;
+
+    if (!isFixed) {
       layer.draggable = true;
+    }
+
+    // Different HTML for fixed vs regular layers
+    if (isFixed) {
+      layer.innerHTML = `
+        <div class="creative__layer-info">
+          <span class="creative__layer-type">${this.sectionNames[section.type] || section.type}</span>
+          <span class="creative__layer-name">${section.name} (고정)</span>
+        </div>
+        <button class="creative__layer-delete" title="삭제">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      `;
+    } else {
       layer.innerHTML = `
         <div class="creative__layer-drag">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -312,34 +522,71 @@ class SectionCreative {
           </svg>
         </button>
       `;
+    }
 
-      // Delete button
-      layer.querySelector('.creative__layer-delete').addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.removeSection(section.id);
-      });
+    // Delete button
+    layer.querySelector('.creative__layer-delete').addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.removeSection(section.id, isFixed);
+    });
 
-      // Drag events
+    // Drag events (only for non-fixed sections)
+    if (!isFixed) {
       layer.addEventListener('dragstart', (e) => this.handleDragStart(e, section.id));
       layer.addEventListener('dragover', (e) => this.handleDragOver(e));
       layer.addEventListener('drop', (e) => this.handleDrop(e, section.id));
       layer.addEventListener('dragend', () => this.handleDragEnd());
-
-      this.layersList.appendChild(layer);
-    });
-  }
-
-  removeSection(id) {
-    // Remove from array
-    const index = this.sections.findIndex(s => s.id === id);
-    if (index > -1) {
-      this.sections.splice(index, 1);
     }
 
-    // Remove from DOM
-    const wrapper = this.previewContent.querySelector(`[data-section-id="${id}"]`);
-    if (wrapper) {
-      wrapper.remove();
+    return layer;
+  }
+
+  removeSection(id, isFixed = false) {
+    if (isFixed) {
+      // Check if it's header or footer
+      if (this.headerSection && this.headerSection.id === id) {
+        this.headerSection = null;
+        const wrapper = this.headerSlot.querySelector(`[data-section-id="${id}"]`);
+        if (wrapper) {
+          wrapper.remove();
+        }
+        // Restore placeholder
+        this.headerSlot.innerHTML = `
+          <div class="creative__fixed-placeholder">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="4" rx="1"></rect>
+            </svg>
+            <span>헤더를 추가하려면 네비게이션 카테고리에서 GNB를 선택하세요</span>
+          </div>
+        `;
+      } else if (this.footerSection && this.footerSection.id === id) {
+        this.footerSection = null;
+        const wrapper = this.footerSlot.querySelector(`[data-section-id="${id}"]`);
+        if (wrapper) {
+          wrapper.remove();
+        }
+        // Restore placeholder
+        this.footerSlot.innerHTML = `
+          <div class="creative__fixed-placeholder">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="17" width="18" height="4" rx="1"></rect>
+            </svg>
+            <span>푸터를 추가하려면 푸터 카테고리에서 Footer를 선택하세요</span>
+          </div>
+        `;
+      }
+    } else {
+      // Remove from array
+      const index = this.sections.findIndex(s => s.id === id);
+      if (index > -1) {
+        this.sections.splice(index, 1);
+      }
+
+      // Remove from DOM
+      const wrapper = this.mainContent.querySelector(`[data-section-id="${id}"]`);
+      if (wrapper) {
+        wrapper.remove();
+      }
     }
 
     this.updateLayersList();
@@ -391,11 +638,11 @@ class SectionCreative {
   }
 
   reorderPreview() {
-    // Reorder sections in preview
+    // Reorder sections in main content area
     this.sections.forEach(section => {
-      const wrapper = this.previewContent.querySelector(`[data-section-id="${section.id}"]`);
+      const wrapper = this.mainContent.querySelector(`[data-section-id="${section.id}"]`);
       if (wrapper) {
-        this.previewContent.appendChild(wrapper);
+        this.mainContent.appendChild(wrapper);
       }
     });
   }
@@ -412,6 +659,29 @@ class SectionCreative {
     this.previewCanvas.dataset.device = device;
   }
 
+  switchTheme(theme) {
+    this.currentTheme = theme;
+
+    // Update buttons
+    document.querySelectorAll('.creative__theme-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.theme === theme);
+    });
+
+    // Update preview theme (both canvas and content for compatibility)
+    this.previewCanvas.dataset.theme = theme;
+    this.previewContent.dataset.theme = theme;
+
+    // Update logo images for theme
+    const logos = this.previewContent.querySelectorAll('img[data-light][data-dark]');
+    logos.forEach(logo => {
+      if (theme === 'dark') {
+        logo.src = logo.dataset.dark;
+      } else {
+        logo.src = logo.dataset.light;
+      }
+    });
+  }
+
   updateUI() {
     // Update section count
     this.sectionCount.textContent = `${this.sections.length}개 섹션`;
@@ -420,22 +690,100 @@ class SectionCreative {
     this.emptyState.style.display = this.sections.length === 0 ? 'flex' : 'none';
 
     // Enable/disable export buttons
-    const hasContent = this.sections.length > 0;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
     document.getElementById('exportImageBtn').disabled = !hasContent;
     document.getElementById('exportTextBtn').disabled = !hasContent;
   }
 
   reset() {
-    if (this.sections.length === 0) return;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
+    if (!hasContent) return;
 
     if (confirm('모든 섹션을 초기화하시겠습니까?')) {
       this.sections = [];
-      this.previewContent.innerHTML = '';
-      this.previewContent.appendChild(this.emptyState);
+      this.headerSection = null;
+      this.footerSection = null;
+
+      // Clear main content
+      this.mainContent.innerHTML = '';
+      this.mainContent.appendChild(this.emptyState);
       this.emptyState.style.display = 'flex';
+
+      // Reset header slot
+      this.headerSlot.innerHTML = `
+        <div class="creative__fixed-placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="4" rx="1"></rect>
+          </svg>
+          <span>헤더를 추가하려면 네비게이션 카테고리에서 GNB를 선택하세요</span>
+        </div>
+      `;
+
+      // Reset footer slot
+      this.footerSlot.innerHTML = `
+        <div class="creative__fixed-placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="17" width="18" height="4" rx="1"></rect>
+          </svg>
+          <span>푸터를 추가하려면 푸터 카테고리에서 Footer를 선택하세요</span>
+        </div>
+      `;
+
       this.updateLayersList();
       this.updateUI();
     }
+  }
+
+  extractSectionText(wrapper, sectionType) {
+    let text = '';
+
+    // Extract text content by element type
+    const extractText = (selector) => {
+      const elements = wrapper.querySelectorAll(selector);
+      if (elements.length > 0) {
+        elements.forEach(el => {
+          const content = el.textContent.trim();
+          if (content && content.length > 0) {
+            text += `${content}\n`;
+          }
+        });
+        text += '\n';
+      }
+    };
+
+    // Section title
+    extractText('.pl-section-title__label');
+    extractText('.pl-section-title__heading, h1, h2');
+    extractText('.pl-section-title__description');
+
+    // Hero
+    extractText('.pl-hero__title');
+    extractText('.pl-hero__desc');
+
+    // Cards and items
+    extractText('.pl-list-card__title, .pl-benefit__card-title, .pl-step-text__title');
+    extractText('.pl-list-card__desc, .pl-benefit__card-sub, .pl-step-text__desc');
+
+    // FAQ
+    extractText('.pl-faq__question');
+    extractText('.pl-faq__answer-title, .pl-faq__answer-text');
+
+    // CTA
+    extractText('.pl-cta__title');
+    extractText('.pl-cta__desc');
+
+    // Buttons
+    const buttons = wrapper.querySelectorAll('.pl-btn, .pl-cta__btn');
+    if (buttons.length > 0) {
+      text += '버튼:\n';
+      buttons.forEach(btn => {
+        const btnText = btn.textContent.trim();
+        if (btnText) text += `- ${btnText}\n`;
+      });
+      text += '\n';
+    }
+
+    return text;
   }
 
   // Export as Image
@@ -474,67 +822,46 @@ class SectionCreative {
 
   // Export as Text
   exportText() {
-    if (this.sections.length === 0) return;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
+    if (!hasContent) return;
 
     let textContent = '=== PageLab Section Creative ===\n';
     textContent += `생성일: ${new Date().toLocaleString('ko-KR')}\n`;
     textContent += `섹션 수: ${this.sections.length}개\n`;
     textContent += '\n';
 
+    // Export header if exists
+    if (this.headerSection) {
+      const wrapper = this.headerSlot.querySelector(`[data-section-id="${this.headerSection.id}"]`);
+      if (wrapper) {
+        textContent += `\n${'='.repeat(50)}\n`;
+        textContent += `[고정] ${this.sectionNames[this.headerSection.type] || this.headerSection.type} - ${this.headerSection.name}\n`;
+        textContent += `${'='.repeat(50)}\n\n`;
+        textContent += this.extractSectionText(wrapper, this.headerSection.type);
+      }
+    }
+
+    // Export regular sections
     this.sections.forEach((section, index) => {
-      const wrapper = this.previewContent.querySelector(`[data-section-id="${section.id}"]`);
+      const wrapper = this.mainContent.querySelector(`[data-section-id="${section.id}"]`);
       if (!wrapper) return;
 
       textContent += `\n${'='.repeat(50)}\n`;
       textContent += `[${index + 1}] ${this.sectionNames[section.type] || section.type} - ${section.name}\n`;
       textContent += `${'='.repeat(50)}\n\n`;
-
-      // Extract text content by element type
-      const extractText = (selector, label) => {
-        const elements = wrapper.querySelectorAll(selector);
-        if (elements.length > 0) {
-          elements.forEach(el => {
-            const text = el.textContent.trim();
-            if (text && text.length > 0) {
-              textContent += `${text}\n`;
-            }
-          });
-          textContent += '\n';
-        }
-      };
-
-      // Section title
-      extractText('.pl-section-title__label', '라벨');
-      extractText('.pl-section-title__heading, h1, h2', '제목');
-      extractText('.pl-section-title__description', '설명');
-
-      // Hero
-      extractText('.pl-hero__title', '헤드라인');
-      extractText('.pl-hero__desc', '설명');
-
-      // Cards and items
-      extractText('.pl-list-card__title, .pl-benefit__card-title, .pl-step-text__title', '항목 제목');
-      extractText('.pl-list-card__desc, .pl-benefit__card-sub, .pl-step-text__desc', '항목 설명');
-
-      // FAQ
-      extractText('.pl-faq__question', '질문');
-      extractText('.pl-faq__answer-title, .pl-faq__answer-text', '답변');
-
-      // CTA
-      extractText('.pl-cta__title', 'CTA 제목');
-      extractText('.pl-cta__desc', 'CTA 설명');
-
-      // Buttons
-      const buttons = wrapper.querySelectorAll('.pl-btn, .pl-cta__btn');
-      if (buttons.length > 0) {
-        textContent += '버튼:\n';
-        buttons.forEach(btn => {
-          const text = btn.textContent.trim();
-          if (text) textContent += `- ${text}\n`;
-        });
-        textContent += '\n';
-      }
+      textContent += this.extractSectionText(wrapper, section.type);
     });
+
+    // Export footer if exists
+    if (this.footerSection) {
+      const wrapper = this.footerSlot.querySelector(`[data-section-id="${this.footerSection.id}"]`);
+      if (wrapper) {
+        textContent += `\n${'='.repeat(50)}\n`;
+        textContent += `[고정] ${this.sectionNames[this.footerSection.type] || this.footerSection.type} - ${this.footerSection.name}\n`;
+        textContent += `${'='.repeat(50)}\n\n`;
+        textContent += this.extractSectionText(wrapper, this.footerSection.type);
+      }
+    }
 
     // Create and download file
     const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
