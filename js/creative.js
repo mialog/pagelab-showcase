@@ -103,6 +103,66 @@ class SectionCreative {
     document.getElementById('exportTextBtn')?.addEventListener('click', () => this.exportText());
   }
 
+  // Custom confirm modal
+  showConfirmModal(message, title = '삭제 확인') {
+    return new Promise((resolve) => {
+      // Create modal if it doesn't exist
+      let modal = document.getElementById('customConfirmModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'customConfirmModal';
+        modal.className = 'creative__modal-overlay';
+        modal.style.display = 'none';
+        modal.innerHTML = `
+          <div class="creative__modal">
+            <h3 class="creative__modal-title"></h3>
+            <p class="creative__modal-message"></p>
+            <div class="creative__modal-actions">
+              <button class="creative__modal-btn creative__modal-btn--cancel">취소</button>
+              <button class="creative__modal-btn creative__modal-btn--confirm">삭제</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        // Event listeners
+        const cancelBtn = modal.querySelector('.creative__modal-btn--cancel');
+        const confirmBtn = modal.querySelector('.creative__modal-btn--confirm');
+
+        cancelBtn.addEventListener('click', () => {
+          this.hideConfirmModal(modal, false, resolve);
+        });
+
+        confirmBtn.addEventListener('click', () => {
+          this.hideConfirmModal(modal, true, resolve);
+        });
+
+        // Close on overlay click
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            this.hideConfirmModal(modal, false, resolve);
+          }
+        });
+      }
+
+      // Set content
+      modal.querySelector('.creative__modal-title').textContent = title;
+      modal.querySelector('.creative__modal-message').textContent = message;
+
+      // Show modal
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('is-visible'), 10);
+    });
+  }
+
+  hideConfirmModal(modal, result, resolve) {
+    modal.classList.remove('is-visible');
+    setTimeout(() => {
+      modal.style.display = 'none';
+      resolve(result);
+    }, 200);
+  }
+
   openAllCategories() {
     document.querySelectorAll('.creative__category').forEach(cat => {
       cat.classList.add('is-open');
@@ -153,7 +213,16 @@ class SectionCreative {
           variant,
           name: item.querySelector('.creative__item-name').textContent,
           html,
-          isFixed: isHeader || isFooter
+          isFixed: isHeader || isFooter,
+          // Add card count for benefit plus type
+          cardCount: (type === 'benefit' && variant === 'type-a-plus') ? 4 : undefined,
+          // Add card functionality for about card types
+          hasAddCard: type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe'].includes(variant),
+          // Add card style selection for grid, swipe, and tab types
+          hasStyleControl: type === 'about' && ['type-b-grid', 'type-d-card-swipe', 'type-e-tab'].includes(variant),
+          cardStyle: (type === 'about' && variant === 'type-b-grid') ? 'image-top' :
+                     (type === 'about' && variant === 'type-d-card-swipe') ? 'card-a' :
+                     (type === 'about' && variant === 'type-e-tab') ? 'style-a' : undefined
         };
 
         if (isHeader) {
@@ -205,6 +274,39 @@ class SectionCreative {
       } else if (type === 'navigation' && variant === 'footer') {
         // Get Footer
         sectionEl = doc.querySelector('.pl-footer');
+      } else if (type === 'about' && variant === 'type-b-grid') {
+        // For card grid, get all card type sections
+        const cardTypeSections = doc.querySelectorAll('.card-type-section');
+        if (cardTypeSections.length > 0) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'creative__grid-wrapper';
+          cardTypeSections.forEach(section => {
+            wrapper.appendChild(section.cloneNode(true));
+          });
+          return this.adjustImagePaths(wrapper.innerHTML);
+        }
+      } else if (type === 'about' && variant === 'type-d-card-swipe') {
+        // For card swipe, get all card type sections
+        const cardTypeSections = doc.querySelectorAll('.card-type-section');
+        if (cardTypeSections.length > 0) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'creative__swipe-wrapper';
+          cardTypeSections.forEach(section => {
+            wrapper.appendChild(section.cloneNode(true));
+          });
+          return this.adjustImagePaths(wrapper.innerHTML);
+        }
+      } else if (type === 'about' && variant === 'type-e-tab') {
+        // For tab, get all tab style sections
+        const tabStyleSections = doc.querySelectorAll('.tab-style-section');
+        if (tabStyleSections.length > 0) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'creative__tab-wrapper';
+          tabStyleSections.forEach(section => {
+            wrapper.appendChild(section.cloneNode(true));
+          });
+          return this.adjustImagePaths(wrapper.innerHTML);
+        }
       } else {
         // Get section element
         sectionEl = doc.querySelector('.pl-section, .pl-faq, .pl-benefit, .pl-step, .pl-cta');
@@ -242,6 +344,11 @@ class SectionCreative {
 
     // Add to main content area first
     this.mainContent.appendChild(wrapper);
+
+    // Set initial card style visibility
+    if (section.hasStyleControl) {
+      this.setCardStyleVisibility(wrapper, section.variant, section.cardStyle);
+    }
 
     // Wait for custom elements to render, then make editable
     requestAnimationFrame(() => {
@@ -305,6 +412,7 @@ class SectionCreative {
       '.pl-list-card',
       '.pl-grid-card',
       '.pl-swipe-card',
+      '.pl-slide-card',
       '.pl-benefit__card',
       '.pl-step-card',
       '.pl-review__card',
@@ -313,9 +421,7 @@ class SectionCreative {
 
     // Card types where only the card itself can be deleted (not inner text)
     const cardOnlyDeleteTypes = [
-      '.pl-list-card',
-      '.pl-grid-card',
-      '.pl-swipe-card'
+      '.pl-list-card'
     ];
 
     // Make all text elements editable with delete button
@@ -350,10 +456,10 @@ class SectionCreative {
         </svg>
       `;
       deleteBtn.title = '삭제';
-      deleteBtn.addEventListener('click', (e) => {
+      deleteBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (confirm('이 요소를 삭제하시겠습니까?')) {
+        if (await this.showConfirmModal('이 요소를 삭제하시겠습니까?')) {
           el.remove();
         }
       });
@@ -373,6 +479,12 @@ class SectionCreative {
     // Make block elements deletable (cards, items)
     const blockElements = wrapper.querySelectorAll(blockSelectors.join(', '));
     blockElements.forEach(el => {
+      // Skip benefit small cards (they are controlled via card count selector)
+      // But allow deletion of large banner card
+      if (el.classList.contains('pl-benefit__card') && !el.classList.contains('pl-benefit__card--large')) {
+        return;
+      }
+
       el.style.position = 'relative';
 
       // Add delete button to block
@@ -385,10 +497,10 @@ class SectionCreative {
         </svg>
       `;
       deleteBtn.title = '카드 삭제';
-      deleteBtn.addEventListener('click', (e) => {
+      deleteBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (confirm('이 카드를 삭제하시겠습니까?')) {
+        if (await this.showConfirmModal('이 카드를 삭제하시겠습니까?')) {
           el.remove();
         }
       });
@@ -410,6 +522,129 @@ class SectionCreative {
         e.preventDefault();
       });
       // Prevent line breaks in buttons
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+        }
+      });
+    });
+
+    // Special handling for slide cards (카드 슬라이드형)
+    const slideCards = wrapper.querySelectorAll('.pl-slide-card');
+    slideCards.forEach(card => {
+      // Title: editable only (no delete button)
+      const title = card.querySelector('.pl-slide-card__title');
+      if (title && !title.hasAttribute('contenteditable')) {
+        title.setAttribute('contenteditable', 'true');
+        title.style.cursor = 'text';
+        title.style.outline = 'none';
+      }
+
+      // Description: editable + deletable
+      const desc = card.querySelector('.pl-slide-card__desc');
+      if (desc && !desc.hasAttribute('contenteditable')) {
+        desc.setAttribute('contenteditable', 'true');
+        desc.style.position = 'relative';
+        desc.style.cursor = 'text';
+        desc.style.outline = 'none';
+
+        // Add delete button to description
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'creative__text-delete';
+        deleteBtn.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        `;
+        deleteBtn.title = '설명 삭제';
+        deleteBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (await this.showConfirmModal('이 설명을 삭제하시겠습니까?')) {
+            desc.remove();
+          }
+        });
+
+        desc.appendChild(deleteBtn);
+      }
+    });
+
+    // Special handling for tabs (탭형)
+    const tabButtons = wrapper.querySelectorAll('.pl-tab-btn, .pl-tab-nav button');
+    tabButtons.forEach(btn => {
+      if (btn.hasAttribute('contenteditable')) return;
+
+      // Store original position style
+      const originalPosition = window.getComputedStyle(btn).position;
+
+      // Make tab button text editable
+      btn.setAttribute('contenteditable', 'true');
+      if (originalPosition === 'static' || !originalPosition) {
+        btn.style.position = 'relative';
+      }
+
+      // Add delete button to tab
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__tab-delete';
+      deleteBtn.innerHTML = `×`;
+      deleteBtn.title = '탭 삭제';
+      deleteBtn.style.cssText = `
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: #ef4444;
+        border: 2px solid white;
+        border-radius: 50%;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        pointer-events: auto;
+      `;
+
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (await this.showConfirmModal('이 탭을 삭제하시겠습니까?')) {
+          // Find associated panel
+          const tabId = btn.dataset.tab;
+          if (tabId) {
+            const panel = wrapper.querySelector(`[data-tab="${tabId}"]`);
+            if (panel && panel.classList.contains('pl-tab-panel')) {
+              panel.remove();
+            }
+          }
+          btn.remove();
+        }
+      });
+
+      btn.appendChild(deleteBtn);
+
+      // Show delete button on hover
+      btn.addEventListener('mouseenter', () => {
+        deleteBtn.style.display = 'flex';
+      });
+      btn.addEventListener('mouseleave', () => {
+        deleteBtn.style.display = 'none';
+      });
+
+      // Prevent default tab switching when editing
+      btn.addEventListener('click', (e) => {
+        if (document.activeElement === btn) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+
+      // Prevent line breaks in tab buttons
       btn.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -444,6 +679,31 @@ class SectionCreative {
             tab.classList.add('is-active');
             panels[index]?.classList.add('is-active');
           });
+        });
+      });
+
+      // Initialize swipe functionality
+      wrapper.querySelectorAll('.pl-swipe-btn--prev').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const track = btn.closest('.pl-swipe-container').querySelector('.pl-swipe-track');
+          if (track) {
+            track.scrollBy({
+              left: -384, // 360 + 24
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      wrapper.querySelectorAll('.pl-swipe-btn--next').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const track = btn.closest('.pl-swipe-container').querySelector('.pl-swipe-track');
+          if (track) {
+            track.scrollBy({
+              left: 384,
+              behavior: 'smooth'
+            });
+          }
         });
       });
     }
@@ -500,27 +760,83 @@ class SectionCreative {
         </button>
       `;
     } else {
+      const hasCardControl = section.cardCount !== undefined;
+      const hasAddCard = section.hasAddCard || false;
+      const hasStyleControl = section.hasStyleControl || false;
+
+      // Generate style buttons based on section type
+      let styleButtons = '';
+      if (hasStyleControl) {
+        if (section.variant === 'type-b-grid') {
+          styleButtons = `
+            <div class="creative__layer-control creative__layer-control--style">
+              <span class="creative__layer-control-label">카드 스타일</span>
+              <button class="creative__card-style-btn ${section.cardStyle === 'image-top' ? 'is-active' : ''}" data-style="image-top">이미지 상단</button>
+              <button class="creative__card-style-btn ${section.cardStyle === 'text-top' ? 'is-active' : ''}" data-style="text-top">텍스트 상단</button>
+            </div>
+          `;
+        } else if (section.variant === 'type-d-card-swipe') {
+          styleButtons = `
+            <div class="creative__layer-control creative__layer-control--style">
+              <span class="creative__layer-control-label">카드 스타일</span>
+              <button class="creative__card-style-btn ${section.cardStyle === 'card-a' ? 'is-active' : ''}" data-style="card-a">타입 A</button>
+              <button class="creative__card-style-btn ${section.cardStyle === 'card-b' ? 'is-active' : ''}" data-style="card-b">타입 B</button>
+              <button class="creative__card-style-btn ${section.cardStyle === 'card-c' ? 'is-active' : ''}" data-style="card-c">타입 C</button>
+            </div>
+          `;
+        } else if (section.variant === 'type-e-tab') {
+          styleButtons = `
+            <div class="creative__layer-control creative__layer-control--style">
+              <span class="creative__layer-control-label">탭 스타일</span>
+              <button class="creative__card-style-btn ${section.cardStyle === 'style-a' ? 'is-active' : ''}" data-style="style-a">탭 A</button>
+              <button class="creative__card-style-btn ${section.cardStyle === 'style-b' ? 'is-active' : ''}" data-style="style-b">탭 B</button>
+            </div>
+          `;
+        }
+      }
+
       layer.innerHTML = `
-        <div class="creative__layer-drag">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="9" cy="5" r="1"></circle>
-            <circle cx="9" cy="12" r="1"></circle>
-            <circle cx="9" cy="19" r="1"></circle>
-            <circle cx="15" cy="5" r="1"></circle>
-            <circle cx="15" cy="12" r="1"></circle>
-            <circle cx="15" cy="19" r="1"></circle>
-          </svg>
+        <div class="creative__layer-main">
+          <div class="creative__layer-drag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="5" r="1"></circle>
+              <circle cx="9" cy="12" r="1"></circle>
+              <circle cx="9" cy="19" r="1"></circle>
+              <circle cx="15" cy="5" r="1"></circle>
+              <circle cx="15" cy="12" r="1"></circle>
+              <circle cx="15" cy="19" r="1"></circle>
+            </svg>
+          </div>
+          <div class="creative__layer-info">
+            <span class="creative__layer-type">${this.sectionNames[section.type] || section.type}</span>
+            <span class="creative__layer-name">${section.name}</span>
+          </div>
+          <button class="creative__layer-delete" title="삭제">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
-        <div class="creative__layer-info">
-          <span class="creative__layer-type">${this.sectionNames[section.type] || section.type}</span>
-          <span class="creative__layer-name">${section.name}</span>
+        ${hasCardControl ? `
+        <div class="creative__layer-control">
+          <button class="creative__card-count-btn ${section.cardCount === 4 ? 'is-active' : ''}" data-count="4">4개</button>
+          <button class="creative__card-count-btn ${section.cardCount === 3 ? 'is-active' : ''}" data-count="3">3개</button>
+          <button class="creative__card-count-btn ${section.cardCount === 2 ? 'is-active' : ''}" data-count="2">2개</button>
         </div>
-        <button class="creative__layer-delete" title="삭제">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+        ` : ''}
+        ${styleButtons}
+        ${hasAddCard ? `
+        <div class="creative__layer-control">
+          <button class="creative__add-card-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            카드 추가
+          </button>
+        </div>
+        ` : ''}
       `;
     }
 
@@ -529,6 +845,39 @@ class SectionCreative {
       e.stopPropagation();
       this.removeSection(section.id, isFixed);
     });
+
+    // Card count buttons (for benefit sections)
+    if (section.cardCount !== undefined) {
+      layer.querySelectorAll('.creative__card-count-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const count = parseInt(btn.dataset.count);
+          this.updateBenefitCardCount(section.id, count);
+        });
+      });
+    }
+
+    // Add card button (for about sections)
+    if (section.hasAddCard) {
+      const addCardBtn = layer.querySelector('.creative__add-card-btn');
+      if (addCardBtn) {
+        addCardBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.addCardToSection(section.id);
+        });
+      }
+    }
+
+    // Card style buttons (for grid and swipe sections)
+    if (section.hasStyleControl) {
+      layer.querySelectorAll('.creative__card-style-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const style = btn.dataset.style;
+          this.updateCardStyle(section.id, style);
+        });
+      });
+    }
 
     // Drag events (only for non-fixed sections)
     if (!isFixed) {
@@ -591,6 +940,300 @@ class SectionCreative {
 
     this.updateLayersList();
     this.updateUI();
+  }
+
+  updateBenefitCardCount(sectionId, count) {
+    // Find the section
+    const section = this.sections.find(s => s.id === sectionId);
+    if (!section || section.cardCount === undefined) return;
+
+    // Update card count
+    section.cardCount = count;
+
+    // Find the section wrapper in DOM
+    const wrapper = this.mainContent.querySelector(`[data-section-id="${sectionId}"]`);
+    if (!wrapper) return;
+
+    // Find the benefit grid
+    const grid = wrapper.querySelector('.pl-benefit__grid');
+    if (!grid) return;
+
+    // Update grid class
+    grid.className = `pl-benefit__grid pl-benefit__grid--${count}col`;
+
+    // Get all cards and plus icons
+    const allItems = Array.from(grid.children);
+
+    // Find the large banner card (always last item)
+    const bannerIndex = allItems.findIndex(item => item.classList.contains('pl-benefit__card--large'));
+
+    // Calculate how many items to show (cards + plus icons, excluding banner)
+    // For N cards, we need N cards + (N-1) plus icons = 2N-1 items
+    const itemsToShow = count * 2 - 1;
+
+    // Show/hide items (always keep banner visible)
+    allItems.forEach((item, index) => {
+      if (index === bannerIndex) {
+        // Always show banner
+        item.style.display = '';
+      } else if (index < itemsToShow) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    // Refresh layers list to update active button
+    this.updateLayersList();
+  }
+
+  updateCardStyle(sectionId, style) {
+    // Find the section
+    const section = this.sections.find(s => s.id === sectionId);
+    if (!section || !section.hasStyleControl) return;
+
+    // Update style
+    section.cardStyle = style;
+
+    // Find the section wrapper in DOM
+    const wrapper = this.mainContent.querySelector(`[data-section-id="${sectionId}"]`);
+    if (!wrapper) return;
+
+    // Update visibility
+    this.setCardStyleVisibility(wrapper, section.variant, style);
+
+    // Refresh layers list to update active button
+    this.updateLayersList();
+  }
+
+  setCardStyleVisibility(wrapper, variant, style) {
+    if (variant === 'type-b-grid') {
+      // Handle grid type - show/hide card type sections
+      const cardTypeSections = wrapper.querySelectorAll('.card-type-section');
+      cardTypeSections.forEach(section => {
+        const sectionType = section.dataset.cardType;
+        if (sectionType === style) {
+          section.classList.add('is-active');
+          section.style.display = '';
+        } else {
+          section.classList.remove('is-active');
+          section.style.display = 'none';
+        }
+      });
+    } else if (variant === 'type-d-card-swipe') {
+      // Handle swipe type - show/hide card type sections
+      const cardTypeSections = wrapper.querySelectorAll('.card-type-section');
+      cardTypeSections.forEach(section => {
+        const sectionType = section.dataset.cardType;
+        if (sectionType === style) {
+          section.classList.add('is-active');
+          section.style.display = '';
+        } else {
+          section.classList.remove('is-active');
+          section.style.display = 'none';
+        }
+      });
+    } else if (variant === 'type-e-tab') {
+      // Handle tab type - show/hide tab style sections
+      const tabStyleSections = wrapper.querySelectorAll('.tab-style-section');
+      tabStyleSections.forEach(section => {
+        const sectionType = section.dataset.tabStyle;
+        if (sectionType === style) {
+          section.classList.add('is-active');
+          section.style.display = '';
+        } else {
+          section.classList.remove('is-active');
+          section.style.display = 'none';
+        }
+      });
+    }
+  }
+
+  addCardToSection(sectionId) {
+    // Find the section
+    const section = this.sections.find(s => s.id === sectionId);
+    if (!section) return;
+
+    // Find the section wrapper in DOM
+    const wrapper = this.mainContent.querySelector(`[data-section-id="${sectionId}"]`);
+    if (!wrapper) return;
+
+    let container, templateCard, newCard;
+
+    // Handle different section types
+    if (section.variant === 'type-b-grid') {
+      // Card grid type - get the active card type section
+      const currentStyle = section.cardStyle || 'image-top';
+      const activeSection = wrapper.querySelector(`.card-type-section[data-card-type="${currentStyle}"]`);
+
+      if (activeSection) {
+        if (currentStyle === 'image-top') {
+          // Image-top variant (large cards)
+          const largeRow = activeSection.querySelector('.pl-card-grid__row--large');
+          if (largeRow) {
+            container = largeRow;
+            templateCard = container.querySelector('.pl-grid-card');
+          }
+        } else if (currentStyle === 'text-top') {
+          // Text-top variant (small cards)
+          const smallRow = activeSection.querySelector('.pl-card-grid__row--small');
+          if (smallRow) {
+            container = smallRow;
+            templateCard = container.querySelector('.pl-grid-card--small');
+          }
+        }
+
+        if (templateCard) {
+          newCard = templateCard.cloneNode(true);
+          // Reset text content to default
+          const title = newCard.querySelector('.pl-grid-card__title');
+          const desc = newCard.querySelector('.pl-grid-card__desc');
+          if (title) title.textContent = '새 카드 타이틀';
+          if (desc) desc.textContent = '새 카드 설명을 입력하세요.';
+        }
+      }
+    } else if (section.variant === 'type-d-card-swipe') {
+      // Card swipe type - get the active card type section
+      const currentStyle = section.cardStyle || 'card-a';
+      const activeSection = wrapper.querySelector(`.card-type-section[data-card-type="${currentStyle}"]`);
+
+      if (activeSection) {
+        const trackInner = activeSection.querySelector('.pl-swipe-track__inner');
+        if (trackInner) {
+          container = trackInner;
+          // Get the first card as template
+          templateCard = container.querySelector('.pl-swipe-card');
+
+          if (templateCard) {
+            newCard = templateCard.cloneNode(true);
+            // Reset text content to default
+            const title = newCard.querySelector('.pl-swipe-card__title');
+            const desc = newCard.querySelector('.pl-swipe-card__desc');
+            if (title) title.textContent = '새 카드 타이틀';
+            if (desc) desc.textContent = '새 카드 설명을 입력하세요.';
+          }
+        }
+      }
+    } else if (section.variant === 'type-c-card-slide') {
+      // Card slide type (auto-sliding)
+      const trackInner = wrapper.querySelector('.pl-card-track__inner');
+      if (trackInner) {
+        container = trackInner;
+        // Get the first card as template (before duplicates)
+        const allCards = Array.from(container.querySelectorAll('.pl-slide-card'));
+        // Assume first half is original, second half is duplicate
+        const originalCount = Math.floor(allCards.length / 2);
+        templateCard = allCards[0];
+
+        if (templateCard) {
+          newCard = templateCard.cloneNode(true);
+          // Reset text content to default
+          const title = newCard.querySelector('.pl-slide-card__title');
+          const desc = newCard.querySelector('.pl-slide-card__desc');
+          if (title) title.textContent = '새 카드 타이틀';
+          if (desc) desc.textContent = '새 카드 설명을 입력하세요.';
+
+          // Add to both original and duplicate sections
+          const duplicateCard = newCard.cloneNode(true);
+
+          // Insert before the duplicate section starts
+          const insertIndex = originalCount;
+          if (allCards[insertIndex]) {
+            container.insertBefore(newCard, allCards[insertIndex]);
+            // Add duplicate at the end
+            container.appendChild(duplicateCard);
+          } else {
+            // Add to end if no duplicates yet
+            container.appendChild(newCard);
+            container.appendChild(duplicateCard);
+          }
+
+          // Make the new cards editable
+          this.makeEditableCard(newCard);
+          this.makeEditableCard(duplicateCard);
+
+          return; // Early return for slide type
+        }
+      }
+    }
+
+    // Add the new card to container (for grid and swipe types)
+    if (container && newCard) {
+      container.appendChild(newCard);
+
+      // Make the new card editable
+      this.makeEditableCard(newCard);
+    }
+  }
+
+  makeEditableCard(card) {
+    // Make card deletable
+    card.style.position = 'relative';
+
+    // Add delete button to card
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'creative__block-delete';
+    deleteBtn.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    `;
+    deleteBtn.title = '카드 삭제';
+    deleteBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (await this.showConfirmModal('이 카드를 삭제하시겠습니까?')) {
+        card.remove();
+      }
+    });
+
+    // Remove existing delete button if any
+    const existingDeleteBtn = card.querySelector('.creative__block-delete');
+    if (existingDeleteBtn) {
+      existingDeleteBtn.remove();
+    }
+
+    card.appendChild(deleteBtn);
+
+    // Make text elements editable
+    const title = card.querySelector('.pl-grid-card__title, .pl-swipe-card__title, .pl-slide-card__title');
+    const desc = card.querySelector('.pl-grid-card__desc, .pl-swipe-card__desc, .pl-slide-card__desc');
+
+    if (title && !title.hasAttribute('contenteditable')) {
+      title.setAttribute('contenteditable', 'true');
+      title.style.cursor = 'text';
+      title.style.outline = 'none';
+    }
+
+    if (desc && !desc.hasAttribute('contenteditable')) {
+      desc.setAttribute('contenteditable', 'true');
+      desc.style.position = 'relative';
+      desc.style.cursor = 'text';
+      desc.style.outline = 'none';
+
+      // Add delete button to description (for slide cards)
+      if (card.classList.contains('pl-slide-card')) {
+        const textDeleteBtn = document.createElement('button');
+        textDeleteBtn.className = 'creative__text-delete';
+        textDeleteBtn.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        `;
+        textDeleteBtn.title = '설명 삭제';
+        textDeleteBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (await this.showConfirmModal('이 설명을 삭제하시겠습니까?')) {
+            desc.remove();
+          }
+        });
+
+        desc.appendChild(textDeleteBtn);
+      }
+    }
   }
 
   // Drag and Drop
@@ -695,11 +1338,11 @@ class SectionCreative {
     document.getElementById('exportTextBtn').disabled = !hasContent;
   }
 
-  reset() {
+  async reset() {
     const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
     if (!hasContent) return;
 
-    if (confirm('모든 섹션을 초기화하시겠습니까?')) {
+    if (await this.showConfirmModal('모든 섹션을 초기화하시겠습니까?', '전체 초기화')) {
       this.sections = [];
       this.headerSection = null;
       this.footerSection = null;

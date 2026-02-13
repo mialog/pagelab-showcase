@@ -419,14 +419,20 @@
 /* Layer Item */
 .creative__layer {
   display: flex;
-  align-items: center;
-  gap: var(--pl-spacing-3);
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
   padding: var(--pl-spacing-3) var(--pl-spacing-4);
   background: var(--pl-bg-neutral);
   border-radius: var(--pl-radius-2);
   margin-bottom: var(--pl-spacing-2);
   cursor: grab;
   transition: all 0.2s;
+}
+
+.creative__layer-main {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
 }
 
 .creative__layer:hover {
@@ -513,11 +519,136 @@
   background: var(--pl-red-5);
 }
 
+/* Layer Controls (Card Count) */
+.creative__layer-control {
+  display: flex;
+  gap: 4px;
+  padding-left: 24px;
+}
+
+.creative__layer-control--style {
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0 4px 24px;
+}
+
+.creative__layer-control-label {
+  font-size: 10px;
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.creative__card-count-btn {
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-tertiary);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-1);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.creative__card-count-btn:hover {
+  color: var(--pl-text-primary);
+  border-color: var(--pl-border-brand);
+}
+
+.creative__card-count-btn.is-active {
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-brand);
+  border-color: var(--pl-bg-brand);
+}
+
+/* Card Style Buttons */
+.creative__card-style-btn {
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-tertiary);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-1);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.creative__card-style-btn:hover {
+  color: var(--pl-text-primary);
+  border-color: var(--pl-border-brand);
+  background: var(--pl-bg-neutral);
+}
+
+.creative__card-style-btn.is-active {
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-brand);
+  border-color: var(--pl-bg-brand);
+  font-weight: var(--pl-font-weight-bold);
+}
+
+/* Add Card Button */
+.creative__add-card-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-brand);
+  border: none;
+  border-radius: var(--pl-radius-1);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.creative__add-card-btn:hover {
+  background: var(--pl-brand-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.creative__add-card-btn:active {
+  transform: translateY(0);
+}
+
+.creative__add-card-btn svg {
+  flex-shrink: 0;
+}
+
 /* ============================================
    Section in Preview - Editable
    ============================================ */
 .creative__section-wrapper {
   position: relative;
+  container-type: inline-size;
+  container-name: section;
+}
+
+/* Card type sections for grid and swipe */
+.creative__section-wrapper .card-type-section {
+  display: none;
+}
+
+.creative__section-wrapper .card-type-section.is-active {
+  display: block;
+}
+
+/* Tab style sections for tab type */
+.creative__section-wrapper .tab-style-section {
+  display: none;
+}
+
+.creative__section-wrapper .tab-style-section.is-active {
+  display: block;
 }
 
 .creative__section-wrapper:hover::before {
@@ -589,6 +720,11 @@
   display: flex;
 }
 
+/* Show tab delete button on hover */
+[contenteditable="true"]:hover .creative__tab-delete {
+  display: flex !important;
+}
+
 /* Block delete button (for cards) */
 .creative__block-delete {
   position: absolute;
@@ -623,6 +759,7 @@
 .pl-list-card:hover .creative__block-delete,
 .pl-grid-card:hover .creative__block-delete,
 .pl-swipe-card:hover .creative__block-delete,
+.pl-slide-card:hover .creative__block-delete,
 .pl-benefit__card:hover .creative__block-delete,
 .pl-step-card:hover .creative__block-delete,
 .pl-review__card:hover .creative__block-delete,
@@ -642,6 +779,335 @@
   /* Use outline instead of box-shadow to avoid interfering with button styles */
   outline: 2px solid rgba(21, 178, 241, 0.5);
   outline-offset: 2px;
+}
+
+/* Fix tab button contenteditable styling */
+.pl-tab-btn[contenteditable="true"] {
+  /* Preserve all button styles */
+  cursor: text;
+  user-select: text;
+  /* Preserve original styling */
+  padding: var(--pl-spacing-2) var(--pl-spacing-5) !important;
+  font-family: var(--pl-font-main) !important;
+  font-size: var(--pl-font-size-title-sm) !important;
+  font-weight: var(--pl-font-weight-medium) !important;
+  white-space: nowrap !important;
+  /* Allow flex gap to work properly */
+  flex-shrink: 0 !important;
+}
+
+.pl-tab-btn[contenteditable="true"]:focus {
+  outline: 2px solid rgba(21, 178, 241, 0.3);
+  outline-offset: -2px;
+}
+
+/* Tab delete button positioning fix */
+.creative__tab-delete {
+  pointer-events: auto !important;
+  z-index: 10 !important;
+}
+
+/* Tab Style A - Default (Outline) */
+.creative__section-wrapper .pl-tab-nav:not(.pl-tab-nav--style-b) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--pl-spacing-3) !important;
+  padding: var(--pl-spacing-2) !important;
+}
+
+.creative__section-wrapper .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn {
+  color: var(--pl-text-accent) !important;
+  background: var(--pl-bg-default) !important;
+  border: 1px solid var(--pl-border-accent-light) !important;
+  border-radius: var(--pl-radius-2) !important;
+  margin: 0 !important;
+}
+
+/* Add margin between tab buttons as fallback */
+.creative__section-wrapper .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn:not(:last-child) {
+  margin-right: var(--pl-spacing-3) !important;
+}
+
+.creative__section-wrapper .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn.is-active {
+  font-weight: var(--pl-font-weight-bold) !important;
+  color: var(--pl-text-invert) !important;
+  background: var(--pl-bg-accent) !important;
+  border-color: var(--pl-bg-accent) !important;
+}
+
+/* Tab Style B - Ensure border radius is applied */
+.creative__section-wrapper .pl-tab-nav--style-b {
+  background: var(--pl-violet-50) !important;
+  border-radius: var(--pl-radius-5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--pl-spacing-3) !important;
+  padding: var(--pl-spacing-3) var(--pl-spacing-4) !important;
+}
+
+.creative__section-wrapper .pl-tab-nav--style-b .pl-tab-btn {
+  border-radius: var(--pl-radius-circle) !important;
+  color: var(--pl-text-invert) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: var(--pl-spacing-2) var(--pl-spacing-5) !important;
+  margin: 0 !important;
+}
+
+/* Add margin between tab buttons as fallback */
+.creative__section-wrapper .pl-tab-nav--style-b .pl-tab-btn:not(:last-child) {
+  margin-right: var(--pl-spacing-3) !important;
+}
+
+.creative__section-wrapper .pl-tab-nav--style-b .pl-tab-btn:hover {
+  background: var(--pl-alpha-white-12) !important;
+}
+
+.creative__section-wrapper .pl-tab-nav--style-b .pl-tab-btn.is-active {
+  color: var(--pl-violet-50) !important;
+  background: var(--pl-neutral-0) !important;
+}
+
+/* Mobile Tab Styles - Only show in mobile view */
+@container section (max-width: 639px) {
+  /* Hide desktop navigation on mobile */
+  .creative__section-wrapper .pl-tab-nav--desktop {
+    display: none !important;
+  }
+
+  /* Hide both style A and B desktop nav specifically */
+  .creative__section-wrapper .pl-tab-nav:not(.pl-tab-nav-mobile) {
+    display: none !important;
+  }
+
+  /* Show mobile navigation */
+  .creative__section-wrapper .pl-tab-nav-mobile {
+    display: flex !important;
+  }
+
+  .creative__section-wrapper .pl-tab-nav-mobile--style-b {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: var(--pl-spacing-3) !important;
+  }
+
+  /* Each row gets its own purple background (pill style) */
+  .creative__section-wrapper .pl-tab-nav-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: var(--pl-spacing-3) !important;
+    background: var(--pl-violet-50) !important;
+    border-radius: 999px !important;
+    padding: var(--pl-spacing-3) var(--pl-spacing-3) !important;
+  }
+
+  .creative__section-wrapper .pl-tab-nav-mobile--style-b .pl-tab-btn {
+    border-radius: 999px !important;
+    color: var(--pl-text-invert) !important;
+    background: transparent !important;
+    border: none !important;
+    height: 29px !important;
+    padding: 0 !important;
+    flex: 1 !important;
+    margin: 0 !important;
+  }
+
+  .creative__section-wrapper .pl-tab-nav-mobile--style-b .pl-tab-btn:hover {
+    background: var(--pl-alpha-white-12) !important;
+  }
+
+  .creative__section-wrapper .pl-tab-nav-mobile--style-b .pl-tab-btn.is-active {
+    color: var(--pl-violet-50) !important;
+    background: var(--pl-neutral-0) !important;
+  }
+
+  /* Mobile Style A */
+  .creative__section-wrapper .pl-tab-nav-mobile--style-a {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: var(--pl-spacing-3) !important;
+  }
+
+  .creative__section-wrapper .pl-tab-nav-row-a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: var(--pl-spacing-3) !important;
+  }
+
+  .creative__section-wrapper .pl-tab-nav-mobile--style-a .pl-tab-btn {
+    font-size: var(--pl-font-size-body-sm) !important;
+    font-weight: var(--pl-font-weight-medium) !important;
+    color: var(--pl-text-accent) !important;
+    background: var(--pl-bg-default) !important;
+    border: 1px solid var(--pl-border-accent-light) !important;
+    border-radius: var(--pl-radius-2) !important;
+    padding: var(--pl-spacing-3) var(--pl-spacing-6) !important;
+    margin: 0 !important;
+  }
+
+  .creative__section-wrapper .pl-tab-nav-mobile--style-a .pl-tab-btn.is-active {
+    font-weight: var(--pl-font-weight-bold) !important;
+    color: var(--pl-text-invert) !important;
+    background: var(--pl-bg-accent) !important;
+    border-color: var(--pl-bg-accent) !important;
+  }
+}
+
+/* Benefit card unified border radius - only when banner is deleted */
+/* These rules only apply when the last child is a small card (banner has been removed) */
+
+/* 4-col layout: when banner is deleted, first card gets left corners, last card gets right corners */
+.creative__section-wrapper .pl-benefit__grid--4col:has(> .pl-benefit__card--small:last-child) > .pl-benefit__card--small:nth-child(1) {
+  border-top-left-radius: var(--pl-radius-5) !important;
+  border-bottom-left-radius: var(--pl-radius-5) !important;
+}
+
+.creative__section-wrapper .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7):last-child {
+  border-top-right-radius: var(--pl-radius-5) !important;
+  border-bottom-right-radius: var(--pl-radius-5) !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+/* 3-col layout: when banner is deleted, first card gets left corners, last card gets right corners */
+.creative__section-wrapper .pl-benefit__grid--3col:has(> .pl-benefit__card--small:last-child) > .pl-benefit__card--small:nth-child(1) {
+  border-top-left-radius: var(--pl-radius-5) !important;
+  border-bottom-left-radius: var(--pl-radius-5) !important;
+}
+
+.creative__section-wrapper .pl-benefit__grid--3col:has(> .pl-benefit__card--small:last-child) > .pl-benefit__card--small:nth-child(5) {
+  border-top-right-radius: var(--pl-radius-5) !important;
+  border-bottom-right-radius: var(--pl-radius-5) !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+/* 2-col layout: when banner is deleted, first card gets left corners, last card gets right corners */
+.creative__section-wrapper .pl-benefit__grid--2col:has(> .pl-benefit__card--small:last-child) > .pl-benefit__card--small:nth-child(1) {
+  border-top-left-radius: var(--pl-radius-5) !important;
+  border-bottom-left-radius: var(--pl-radius-5) !important;
+}
+
+.creative__section-wrapper .pl-benefit__grid--2col:has(> .pl-benefit__card--small:last-child) > .pl-benefit__card--small:nth-child(3) {
+  border-top-right-radius: var(--pl-radius-5) !important;
+  border-bottom-right-radius: var(--pl-radius-5) !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+/* Plus icons positioning - based on banner presence */
+/* When banner exists - keep original position */
+.creative__section-wrapper .pl-benefit__plus-icon {
+  top: 32% !important;
+}
+
+/* When banner is deleted - center in cards */
+.creative__section-wrapper .pl-benefit__grid:has(> .pl-benefit__card--small:last-child) .pl-benefit__plus-icon {
+  top: 50% !important;
+}
+
+/* Fix swipe card delete button positioning */
+.creative__section-wrapper .pl-swipe-card {
+  position: relative;
+}
+
+.creative__section-wrapper .pl-swipe-card .creative__block-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+/* ============================================
+   Custom Confirm Modal
+   ============================================ */
+.creative__modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--pl-bg-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.creative__modal-overlay.is-visible {
+  opacity: 1;
+}
+
+.creative__modal {
+  background: var(--pl-bg-default);
+  border-radius: var(--pl-radius-3);
+  box-shadow: 0 8px 24px rgba(11, 13, 17, 0.15);
+  width: 90%;
+  max-width: 400px;
+  padding: var(--pl-spacing-8);
+  transform: scale(0.9);
+  transition: transform 0.2s ease;
+}
+
+.creative__modal-overlay.is-visible .creative__modal {
+  transform: scale(1);
+}
+
+.creative__modal-title {
+  font-size: var(--pl-font-size-title-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  margin-bottom: var(--pl-spacing-4);
+}
+
+.creative__modal-message {
+  font-size: var(--pl-font-size-body-sm);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+  margin-bottom: var(--pl-spacing-8);
+}
+
+.creative__modal-actions {
+  display: flex;
+  gap: var(--pl-spacing-3);
+  justify-content: flex-end;
+}
+
+.creative__modal-btn {
+  padding: var(--pl-spacing-4) var(--pl-spacing-7);
+  border-radius: var(--pl-radius-1);
+  font-size: var(--pl-font-size-body-sm);
+  font-weight: var(--pl-font-weight-bold);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.creative__modal-btn--cancel {
+  background: var(--pl-bg-neutral);
+  color: var(--pl-text-secondary);
+}
+
+.creative__modal-btn--cancel:hover {
+  background: var(--pl-bg-neutral-dark);
+}
+
+.creative__modal-btn--confirm {
+  background: var(--pl-bg-negative);
+  color: var(--pl-text-invert);
+}
+
+.creative__modal-btn--confirm:hover {
+  background: var(--pl-red-60);
 }
 
 /* ============================================
