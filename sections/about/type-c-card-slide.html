@@ -164,6 +164,68 @@
       container-name: section;
     }
 
+    /* Preview Header Right */
+    .preview-header__right {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-3);
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode - Type C Reverse (Figma)
+       bg 자동 반전, 카드 텍스트 --pl-text-invert 충돌 보정 */
+    .preview-content[data-theme="dark"] .pl-section-title__heading {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: #e3e8ed;
+    }
+
+    .preview-content[data-theme="dark"] .pl-slide-card__title {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-slide-card__desc {
+      color: #ffffff;
+    }
+
   </style>
 </head>
 <body>
@@ -178,37 +240,53 @@
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">About</span>
-        <h1 class="preview-header__title">슬라이드형 (Type C)</h1>
+        <span class="preview-header__tag">콘텐츠 설명</span>
+        <h1 class="preview-header__title">슬라이드형</h1>
       </div>
     </div>
 
-    <div class="device-switcher">
-      <button class="device-btn is-active" data-device="pc">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-          <line x1="8" y1="21" x2="16" y2="21"></line>
-          <line x1="12" y1="17" x2="12" y2="21"></line>
-        </svg>
-        PC
-        <span class="device-btn__size">1920</span>
-      </button>
-      <button class="device-btn" data-device="tablet">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Tablet
-        <span class="device-btn__size">720</span>
-      </button>
-      <button class="device-btn" data-device="mobile">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Mobile
-        <span class="device-btn__size">360</span>
-      </button>
+    <div class="preview-header__right">
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+      <div class="device-switcher">
+        <button class="device-btn is-active" data-device="pc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          PC
+          <span class="device-btn__size">1920</span>
+        </button>
+        <button class="device-btn" data-device="tablet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Tablet
+          <span class="device-btn__size">720</span>
+        </button>
+        <button class="device-btn" data-device="mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Mobile
+          <span class="device-btn__size">360</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -228,7 +306,7 @@
           <div class="pl-section__container pl-about__container">
 
             <!-- Section Title Component -->
-            <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+            <pl-section-title label="SOLUNI PROGRAMS" heading="솔루니 프로그램 소개" description="독서와 토론으로 생각하는 힘을 키우는 솔루니!<br>우리 아이에게 꼭 맞는 프로그램을 만나보세요."></pl-section-title>
 
             <!-- Card Track (Loop Animation) -->
             <div class="pl-card-track">
@@ -240,8 +318,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 독서토론</h3>
+                    <p class="pl-slide-card__desc">하브루타 토론으로 깊이 있는 독서 습관과 논리적 사고력을 길러줍니다.</p>
                   </div>
                 </article>
 
@@ -251,8 +329,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 한국사</h3>
+                    <p class="pl-slide-card__desc">역사 속 이야기를 읽고 토론하며 한국사의 흐름을 자연스럽게 이해합니다.</p>
                   </div>
                 </article>
 
@@ -262,8 +340,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 글쓰기</h3>
+                    <p class="pl-slide-card__desc">생각을 글로 표현하는 힘! 논술과 서술형 평가를 체계적으로 준비합니다.</p>
                   </div>
                 </article>
 
@@ -273,8 +351,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 사회탐구</h3>
+                    <p class="pl-slide-card__desc">사회 현상을 다양한 시각으로 탐구하고 자신의 의견을 논리적으로 펼칩니다.</p>
                   </div>
                 </article>
 
@@ -284,8 +362,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 과학탐구</h3>
+                    <p class="pl-slide-card__desc">과학 원리를 독서와 토론으로 탐구하며 지적 호기심을 키워줍니다.</p>
                   </div>
                 </article>
 
@@ -295,8 +373,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 영어독서</h3>
+                    <p class="pl-slide-card__desc">영어 원서 읽기와 토론으로 영어 독해력과 표현력을 동시에 향상시킵니다.</p>
                   </div>
                 </article>
 
@@ -307,8 +385,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 독서토론</h3>
+                    <p class="pl-slide-card__desc">하브루타 토론으로 깊이 있는 독서 습관과 논리적 사고력을 길러줍니다.</p>
                   </div>
                 </article>
 
@@ -318,8 +396,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 한국사</h3>
+                    <p class="pl-slide-card__desc">역사 속 이야기를 읽고 토론하며 한국사의 흐름을 자연스럽게 이해합니다.</p>
                   </div>
                 </article>
 
@@ -329,8 +407,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 글쓰기</h3>
+                    <p class="pl-slide-card__desc">생각을 글로 표현하는 힘! 논술과 서술형 평가를 체계적으로 준비합니다.</p>
                   </div>
                 </article>
 
@@ -340,8 +418,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 사회탐구</h3>
+                    <p class="pl-slide-card__desc">사회 현상을 다양한 시각으로 탐구하고 자신의 의견을 논리적으로 펼칩니다.</p>
                   </div>
                 </article>
 
@@ -351,8 +429,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 과학탐구</h3>
+                    <p class="pl-slide-card__desc">과학 원리를 독서와 토론으로 탐구하며 지적 호기심을 키워줍니다.</p>
                   </div>
                 </article>
 
@@ -362,8 +440,8 @@
                   </div>
                   <div class="pl-slide-card__overlay"></div>
                   <div class="pl-slide-card__content">
-                    <h3 class="pl-slide-card__title">카드 타이틀</h3>
-                    <p class="pl-slide-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                    <h3 class="pl-slide-card__title">솔루니 영어독서</h3>
+                    <p class="pl-slide-card__desc">영어 원서 읽기와 토론으로 영어 독해력과 표현력을 동시에 향상시킵니다.</p>
                   </div>
                 </article>
               </div>
@@ -387,6 +465,23 @@
         btn.classList.add('is-active');
         const device = btn.dataset.device;
         previewFrame.dataset.device = device;
+      });
+    });
+
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
       });
     });
   </script>

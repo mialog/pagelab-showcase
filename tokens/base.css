@@ -388,6 +388,35 @@
 }
 
 /* ============================================
+   Dark Theme (Reverse Mode)
+   Figma Variable reverse 모드에서 default와 다른 값만 오버라이드
+   ============================================ */
+[data-theme="dark"] {
+  /* Text */
+  --pl-text-primary: #ffffff;
+  --pl-text-secondary: #e3e8ed;
+  --pl-text-tertiary: #c6d0d7;
+  --pl-text-invert: #0b0d11;
+  --pl-text-link-sub: #c6d0d7;
+
+  /* Background */
+  --pl-bg-default: #0b0d11;
+  --pl-bg-invert: #ffffff;
+  --pl-bg-brand-dark: #d2effa;
+  --pl-bg-brand-light: #007daf;
+  --pl-bg-overlay: rgba(11, 13, 17, 0.80);
+
+  /* Border */
+  --pl-border-invert: #0b0d11;
+
+  /* Icon */
+  --pl-icon-primary: #ffffff;
+  --pl-icon-secondary: #e3e8ed;
+  --pl-icon-tertiary: #d4dce2;
+  --pl-icon-invert: #0b0d11;
+}
+
+/* ============================================
    Tablet (640px ~ 1199px)
    Responsive.json ta 모드 값 적용
    ============================================ */

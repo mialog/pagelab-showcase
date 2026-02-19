@@ -216,6 +216,71 @@
       display: block;
     }
 
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode - Type D Reverse (Figma)
+       bg 자동 반전, 카드/nav 버튼/그라데이션 변경 */
+    .preview-content[data-theme="dark"] .pl-section-title__heading {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: #e3e8ed;
+    }
+
+    .preview-content[data-theme="dark"] .pl-swipe-card {
+      background: #0b0d11;
+    }
+
+    .preview-content[data-theme="dark"] .pl-swipe-btn {
+      background: #0b0d11;
+    }
+
+    /* Arrow 영역 그라데이션: 흰색 → 다크 */
+    .preview-content[data-theme="dark"] .pl-swipe-controls {
+      background: linear-gradient(90deg, #0b0d11 0%, rgba(11, 13, 17, 0) 100%);
+    }
+
+    /* Card B 오버레이: 솔리드 다크 80% (피그마 스펙) */
+    .preview-content[data-theme="dark"] .pl-swipe-card__overlay-bg {
+      background: rgba(11, 13, 17, 0.8);
+    }
+
   </style>
 </head>
 <body>
@@ -230,12 +295,28 @@
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">About</span>
-        <h1 class="preview-header__title">스와이프형 (Type D)</h1>
+        <span class="preview-header__tag">콘텐츠 설명</span>
+        <h1 class="preview-header__title">스와이프형</h1>
       </div>
     </div>
 
     <div class="preview-header__right">
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+
       <!-- Card Type Switcher -->
       <div class="card-type-switcher">
         <button class="card-type-btn is-active" data-card-type="card-a">
@@ -297,7 +378,7 @@
         <div class="card-type-section is-active" data-card-type="card-a">
           <section class="pl-section pl-about pl-about--swipe">
             <div class="pl-section__container pl-about__container">
-              <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+              <pl-section-title label="Learning System" heading="눈높이만의 학습 시스템" description="48년 교육 노하우와 AI 기술이 만나<br>아이마다 다른 맞춤 학습 경험을 제공합니다."></pl-section-title>
               <div class="pl-swipe-container">
                 <div class="pl-swipe-controls">
                   <button class="pl-swipe-btn pl-swipe-btn--prev">
@@ -318,8 +399,8 @@
                         <img src="./../../images/about/about_d_card_1.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">AI 맞춤학습 시스템</h3>
+                        <p class="pl-swipe-card__desc">AI가 아이의 학습 패턴을 분석하여 최적의 학습 경로를 제공합니다.</p>
                       </div>
                       <div class="pl-swipe-card__btn">
                         <button class="pl-btn pl-btn--primary pl-btn--large">
@@ -335,8 +416,8 @@
                         <img src="./../../images/about/about_d_card_1.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 방문학습</h3>
+                        <p class="pl-swipe-card__desc">전문 선생님이 직접 방문하여 1:1 맞춤 학습 지도를 합니다.</p>
                       </div>
                       <div class="pl-swipe-card__btn">
                         <button class="pl-btn pl-btn--primary pl-btn--large">
@@ -352,8 +433,8 @@
                         <img src="./../../images/about/about_d_card_1.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이러닝센터</h3>
+                        <p class="pl-swipe-card__desc">전국 러닝센터에서 체계적인 학습 관리를 받을 수 있습니다.</p>
                       </div>
                       <div class="pl-swipe-card__btn">
                         <button class="pl-btn pl-btn--primary pl-btn--large">
@@ -369,8 +450,8 @@
                         <img src="./../../images/about/about_d_card_1.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">전 과목 학습 프로그램</h3>
+                        <p class="pl-swipe-card__desc">국어, 수학, 영어, 사회, 과학까지 전 과목을 지원합니다.</p>
                       </div>
                       <div class="pl-swipe-card__btn">
                         <button class="pl-btn pl-btn--primary pl-btn--large">
@@ -386,8 +467,8 @@
                         <img src="./../../images/about/about_d_card_1.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">학습 성장 리포트</h3>
+                        <p class="pl-swipe-card__desc">주간·월간 리포트로 아이의 학습 성장을 한눈에 확인하세요.</p>
                       </div>
                       <div class="pl-swipe-card__btn">
                         <button class="pl-btn pl-btn--primary pl-btn--large">
@@ -403,8 +484,8 @@
                         <img src="./../../images/about/about_d_card_1.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">학부모 맞춤 서비스</h3>
+                        <p class="pl-swipe-card__desc">학습 상담부터 진도 관리까지, 학부모를 위한 전용 서비스입니다.</p>
                       </div>
                       <div class="pl-swipe-card__btn">
                         <button class="pl-btn pl-btn--primary pl-btn--large">
@@ -426,7 +507,7 @@
         <div class="card-type-section" data-card-type="card-b">
           <section class="pl-section pl-about pl-about--swipe">
             <div class="pl-section__container pl-about__container">
-              <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+              <pl-section-title label="Subject Programs" heading="과목별 맞춤 프로그램" description="아이의 수준에 딱 맞는 과목별 학습으로<br>기초부터 심화까지 체계적으로 이끌어 드립니다."></pl-section-title>
               <div class="pl-swipe-container">
                 <div class="pl-swipe-controls">
                   <button class="pl-swipe-btn pl-swipe-btn--prev">
@@ -448,8 +529,8 @@
                       </div>
                       <div class="pl-swipe-card__overlay-bg"></div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 국어</h3>
+                        <p class="pl-swipe-card__desc">독해력과 어휘력을 키우는 체계적인 국어 학습 프로그램입니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -464,8 +545,8 @@
                       </div>
                       <div class="pl-swipe-card__overlay-bg"></div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 수학</h3>
+                        <p class="pl-swipe-card__desc">연산부터 사고력까지, 수학적 문제 해결 능력을 길러줍니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -480,8 +561,8 @@
                       </div>
                       <div class="pl-swipe-card__overlay-bg"></div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 영어</h3>
+                        <p class="pl-swipe-card__desc">듣기, 읽기, 말하기, 쓰기를 균형 있게 학습합니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -496,8 +577,8 @@
                       </div>
                       <div class="pl-swipe-card__overlay-bg"></div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 사회</h3>
+                        <p class="pl-swipe-card__desc">사회 현상의 이해와 탐구력을 키우는 프로그램입니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -512,8 +593,8 @@
                       </div>
                       <div class="pl-swipe-card__overlay-bg"></div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 과학</h3>
+                        <p class="pl-swipe-card__desc">과학적 사고력과 탐구 능력을 체계적으로 키워줍니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -528,8 +609,8 @@
                       </div>
                       <div class="pl-swipe-card__overlay-bg"></div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 코딩</h3>
+                        <p class="pl-swipe-card__desc">논리적 사고력과 창의력을 키우는 코딩 학습 프로그램입니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -549,7 +630,7 @@
         <div class="card-type-section" data-card-type="card-c">
           <section class="pl-section pl-about pl-about--swipe">
             <div class="pl-section__container pl-about__container">
-              <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+              <pl-section-title label="Smart Features" heading="눈높이만의 스마트 학습 기능" description="눈높이는 아이의 학습 성장을 놓치지 않습니다.<br>6가지 핵심 기능이 우리 아이의 실력 향상을 체계적으로 이끌어 드립니다."></pl-section-title>
               <div class="pl-swipe-container">
                 <div class="pl-swipe-controls">
                   <button class="pl-swipe-btn pl-swipe-btn--prev">
@@ -570,8 +651,8 @@
                         <img src="./../../images/about/about_d_card_3.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">AI 진단평가</h3>
+                        <p class="pl-swipe-card__desc">AI가 아이의 학습 수준을 정밀하게 진단하여, 과목별 강점과 보완이 필요한 영역을 정확히 파악합니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -585,8 +666,8 @@
                         <img src="./../../images/about/about_d_card_3.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">1:1 맞춤 커리큘럼</h3>
+                        <p class="pl-swipe-card__desc">진단 결과를 바탕으로 아이에게 딱 맞는 학습 경로를 설계하여, 부족한 부분을 집중적으로 보완합니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -600,8 +681,8 @@
                         <img src="./../../images/about/about_d_card_3.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이 선생님 방문지도</h3>
+                        <p class="pl-swipe-card__desc">전문 눈높이 선생님이 직접 방문하여 아이의 학습 상태를 점검하고 1:1 맞춤 지도를 진행합니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -615,8 +696,8 @@
                         <img src="./../../images/about/about_d_card_3.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">전 과목 학습 지원</h3>
+                        <p class="pl-swipe-card__desc">국어, 수학, 영어, 사회, 과학까지 전 과목을 아이의 수준에 맞춰 균형 있게 학습할 수 있습니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -630,8 +711,8 @@
                         <img src="./../../images/about/about_d_card_3.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">눈높이러닝센터</h3>
+                        <p class="pl-swipe-card__desc">전국 눈높이러닝센터에서 전문 교사의 체계적인 관리와 또래 학습 환경을 함께 경험할 수 있습니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -645,8 +726,8 @@
                         <img src="./../../images/about/about_d_card_3.png" alt="" onerror="this.style.display='none'">
                       </div>
                       <div class="pl-swipe-card__content">
-                        <h3 class="pl-swipe-card__title">카드 타이틀</h3>
-                        <p class="pl-swipe-card__desc">간결하고 강력한 메시지를 통해 효과적으로 홍보하세요.</p>
+                        <h3 class="pl-swipe-card__title">학습 리포트</h3>
+                        <p class="pl-swipe-card__desc">주간/월간 학습 데이터를 시각화하여 과목별 성장 추이와 학습 습관을 한눈에 확인할 수 있습니다.</p>
                         <a href="#" class="pl-swipe-card__link">
                           자세히 보기
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -718,6 +799,23 @@
           left: 384,
           behavior: 'smooth'
         });
+      });
+    });
+
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
       });
     });
   </script>

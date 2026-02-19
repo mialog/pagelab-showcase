@@ -46,10 +46,13 @@ class TemplateLoader {
       // 6. Initialize device switcher (both header and sidebar)
       this.initDeviceSwitcher();
 
-      // 7. Initialize scroll spy
+      // 7. Initialize GNB menu anchors
+      this.initGnbMenu();
+
+      // 8. Initialize scroll spy
       this.initScrollSpy();
 
-      // 8. Initialize top button
+      // 9. Initialize top button
       this.initTopButton();
 
     } catch (error) {
@@ -364,6 +367,65 @@ class TemplateLoader {
   }
 
   /**
+   * Initialize GNB menu items as section anchors
+   */
+  initGnbMenu() {
+    const gnbMenu = this.template.gnbMenu;
+    if (!gnbMenu || !gnbMenu.length) return;
+
+    const desktopItems = document.querySelectorAll('.pl-gnb__menu-item');
+    const mobileItems = document.querySelectorAll('.pl-gnb__mobile-nav-item');
+
+    // Build section ID map from gnbMenu config
+    gnbMenu.forEach((menuItem, i) => {
+      const section = this.template.sections[menuItem.sectionIndex];
+      if (!section) return;
+
+      const sectionId = `section-${section.type}-${section.variant}${section.label ? '-' + menuItem.sectionIndex : ''}`;
+
+      // Update desktop menu item
+      if (desktopItems[i]) {
+        desktopItems[i].textContent = menuItem.label;
+        desktopItems[i].setAttribute('href', `#${sectionId}`);
+        desktopItems[i].dataset.sectionId = sectionId;
+        desktopItems[i].addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.getElementById(sectionId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+
+      // Update mobile menu item
+      if (mobileItems[i]) {
+        mobileItems[i].textContent = menuItem.label;
+        mobileItems[i].setAttribute('href', `#${sectionId}`);
+        mobileItems[i].dataset.sectionId = sectionId;
+        mobileItems[i].addEventListener('click', (e) => {
+          e.preventDefault();
+          // Close mobile menu first
+          if (window.toggleMobileMenu) window.toggleMobileMenu();
+          setTimeout(() => {
+            const target = document.getElementById(sectionId);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 300);
+        });
+      }
+    });
+
+    // Hide extra menu items if there are fewer than 5
+    for (let i = gnbMenu.length; i < desktopItems.length; i++) {
+      desktopItems[i].style.display = 'none';
+    }
+    for (let i = gnbMenu.length; i < mobileItems.length; i++) {
+      mobileItems[i].style.display = 'none';
+    }
+  }
+
+  /**
    * Initialize footer family site dropdown
    */
   initFooterDropdown() {
@@ -671,25 +733,54 @@ class TemplateLoader {
    */
   initScrollSpy() {
     const navLinks = document.querySelectorAll('.template-preview__nav-link');
+    const gnbDesktopItems = document.querySelectorAll('.pl-gnb__menu-item[data-section-id]');
+    const gnbMobileItems = document.querySelectorAll('.pl-gnb__mobile-nav-item[data-section-id]');
     const sections = this.loadedSections;
 
     if (!navLinks.length || !sections.length) return;
 
+    // Track currently intersecting sections
+    const intersecting = new Set();
+
+    const updateActiveStates = () => {
+      // Find the first (topmost in DOM) intersecting section
+      let activeSectionId = null;
+      for (const section of sections) {
+        if (intersecting.has(section.id)) {
+          activeSectionId = section.id;
+          break;
+        }
+      }
+
+      if (!activeSectionId) return;
+
+      // Update sidebar nav
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        link.classList.toggle('is-active', href === `#${activeSectionId}`);
+      });
+
+      // Update GNB menu items (only if this section is linked to a menu item)
+      const hasGnbMatch = Array.from(gnbDesktopItems).some(item => item.dataset.sectionId === activeSectionId);
+      if (hasGnbMatch) {
+        gnbDesktopItems.forEach(item => {
+          item.classList.toggle('is-active', item.dataset.sectionId === activeSectionId);
+        });
+        gnbMobileItems.forEach(item => {
+          item.classList.toggle('is-active', item.dataset.sectionId === activeSectionId);
+        });
+      }
+    };
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-
-          navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === `#${sectionId}`) {
-              link.classList.add('is-active');
-            } else {
-              link.classList.remove('is-active');
-            }
-          });
+          intersecting.add(entry.target.id);
+        } else {
+          intersecting.delete(entry.target.id);
         }
       });
+      updateActiveStates();
     }, {
       rootMargin: '-20% 0px -60% 0px',
       threshold: 0

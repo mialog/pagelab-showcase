@@ -72,7 +72,7 @@
       padding: var(--pl-spacing-1) var(--pl-spacing-3);
       font-size: var(--pl-font-size-label-sm);
       font-weight: var(--pl-font-weight-bold);
-      color: var(--pl-green-50);
+      color: var(--pl-static-green);
       background: var(--pl-green-5);
       border-radius: var(--pl-radius-1);
     }
@@ -159,6 +159,60 @@
       container-name: section;
     }
 
+    /* Preview Header Right */
+    .preview-header__right {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-3);
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode - Type F Reverse (Figma)
+       bg 자동 반전, 이미지 프레임 유지 */
+    .preview-content[data-theme="dark"] .pl-section-title__heading {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: #e3e8ed;
+    }
+
   </style>
 </head>
 <body>
@@ -173,37 +227,53 @@
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">About</span>
-        <h1 class="preview-header__title">미디어형 (Type F)</h1>
+        <span class="preview-header__tag">콘텐츠 설명</span>
+        <h1 class="preview-header__title">미디어형</h1>
       </div>
     </div>
 
-    <div class="device-switcher">
-      <button class="device-btn is-active" data-device="pc">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-          <line x1="8" y1="21" x2="16" y2="21"></line>
-          <line x1="12" y1="17" x2="12" y2="21"></line>
-        </svg>
-        PC
-        <span class="device-btn__size">1920</span>
-      </button>
-      <button class="device-btn" data-device="tablet">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Tablet
-        <span class="device-btn__size">720</span>
-      </button>
-      <button class="device-btn" data-device="mobile">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Mobile
-        <span class="device-btn__size">360</span>
-      </button>
+    <div class="preview-header__right">
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+      <div class="device-switcher">
+        <button class="device-btn is-active" data-device="pc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          PC
+          <span class="device-btn__size">1920</span>
+        </button>
+        <button class="device-btn" data-device="tablet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Tablet
+          <span class="device-btn__size">720</span>
+        </button>
+        <button class="device-btn" data-device="mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Mobile
+          <span class="device-btn__size">360</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -221,7 +291,7 @@
         <section class="pl-section pl-about pl-about--image">
           <div class="pl-section__container pl-about__container">
             <!-- Section Title -->
-            <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+            <pl-section-title label="Brand Story" heading="대교, 교육의 미래를 열다" description="1976년부터 시작된 대교의 교육 철학은<br>아이들의 무한한 가능성을 열어주는 것입니다."></pl-section-title>
 
             <!-- Image Container -->
             <div class="pl-about-image">
@@ -246,6 +316,23 @@
         btn.classList.add('is-active');
         const device = btn.dataset.device;
         previewFrame.dataset.device = device;
+      });
+    });
+
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
       });
     });
   </script>

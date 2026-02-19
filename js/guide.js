@@ -20,7 +20,8 @@ const TEMPLATE_DATA = {
         { type: "review", variant: "type-b-card-grid" },
         { type: "faq", variant: "index" },
         { type: "cta", variant: "type-a-finish" }
-      ]
+      ],
+      floatingCta: "type-c-floating-b"
     },
     {
       id: "product-detail",

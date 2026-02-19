@@ -15,7 +15,14 @@
         { "type": "faq", "variant": "index" },
         { "type": "cta", "variant": "type-a-finish" }
       ],
-      "floatingCta": "type-c-floating-b"
+      "floatingCta": "type-c-floating-b",
+      "gnbMenu": [
+        { "label": "서비스 소개", "sectionIndex": 1 },
+        { "label": "주요 기능", "sectionIndex": 2 },
+        { "label": "고객 후기", "sectionIndex": 4 },
+        { "label": "자주 묻는 질문", "sectionIndex": 5 },
+        { "label": "상담 신청", "sectionIndex": 6 }
+      ]
     },
     {
       "id": "product-detail",
@@ -33,7 +40,14 @@
         { "type": "cta", "variant": "type-a-finish" }
       ],
       "floatingCta": "type-b-floating",
-      "darkGnb": true
+      "darkGnb": true,
+      "gnbMenu": [
+        { "label": "제품 소개", "sectionIndex": 1 },
+        { "label": "학습 프로그램", "sectionIndex": 2 },
+        { "label": "학습 혜택", "sectionIndex": 4 },
+        { "label": "수강 후기", "sectionIndex": 5 },
+        { "label": "무료 체험", "sectionIndex": 6 }
+      ]
     },
     {
       "id": "event-page",
@@ -52,7 +66,14 @@
       ],
       "floatingCta": "type-b-floating",
       "darkGnb": true,
-      "darkFooter": true
+      "darkFooter": true,
+      "gnbMenu": [
+        { "label": "이벤트 소개", "sectionIndex": 1 },
+        { "label": "프로그램 안내", "sectionIndex": 2 },
+        { "label": "참여 혜택", "sectionIndex": 3 },
+        { "label": "참여 방법", "sectionIndex": 4 },
+        { "label": "자주 묻는 질문", "sectionIndex": 5 }
+      ]
     }
   ],
   "sectionLabels": {

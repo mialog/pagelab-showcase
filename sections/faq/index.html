@@ -72,8 +72,8 @@
     .preview-header__tag {
       font-size: var(--pl-font-size-label-sm);
       font-weight: var(--pl-font-weight-bold);
-      color: var(--pl-static-orange);
-      background: var(--pl-orange-5);
+      color: var(--pl-static-gray);
+      background: var(--pl-neutral-5);
       padding: 3px 10px;
       border-radius: var(--pl-radius-1);
     }
@@ -213,8 +213,8 @@
       <div class="preview-content">
 
         <!-- ========== FAQ Section ========== -->
-        <section class="pl-faq">
-          <div class="pl-faq__container">
+        <section class="pl-section pl-faq" data-section="faq">
+          <div class="pl-section__container pl-faq__container">
 
             <!-- Section Title -->
             <div class="pl-section-title">
@@ -229,16 +229,15 @@
               <!-- FAQ Item 1 -->
               <div class="pl-faq__item">
                 <button class="pl-faq__header" aria-expanded="false">
-                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <h3 class="pl-faq__question">아이런은 몇 살부터 이용할 수 있나요?</h3>
                   <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
                 <div class="pl-faq__content">
                   <div class="pl-faq__answer">
-                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
-                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
-해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                    <p class="pl-faq__answer-title">5세부터 초등학교 6학년까지 이용 가능합니다.</p>
+                    <p class="pl-faq__answer-text">각 연령과 학년에 맞는 커리큘럼이 별도로 준비되어 있으며, AI가 아이의 실제 학습 수준에 맞게 난이도를 자동 조절합니다.</p>
                   </div>
                 </div>
               </div>
@@ -246,16 +245,15 @@
               <!-- FAQ Item 2 -->
               <div class="pl-faq__item is-open">
                 <button class="pl-faq__header" aria-expanded="true">
-                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <h3 class="pl-faq__question">무료 체험 기간은 얼마나 되나요?</h3>
                   <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
                 <div class="pl-faq__content">
                   <div class="pl-faq__answer">
-                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
-                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
-해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                    <p class="pl-faq__answer-title">7일간 모든 기능을 무료로 체험할 수 있습니다.</p>
+                    <p class="pl-faq__answer-text">체험 기간 중 결제 정보를 입력하지 않아도 되며, 체험 후 자동으로 유료 전환되지 않으니 부담 없이 이용해보세요.</p>
                   </div>
                 </div>
               </div>
@@ -263,16 +261,15 @@
               <!-- FAQ Item 3 -->
               <div class="pl-faq__item">
                 <button class="pl-faq__header" aria-expanded="false">
-                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <h3 class="pl-faq__question">학습 진도는 어떻게 확인하나요?</h3>
                   <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
                 <div class="pl-faq__content">
                   <div class="pl-faq__answer">
-                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
-                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
-해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                    <p class="pl-faq__answer-title">부모용 대시보드에서 실시간으로 확인 가능합니다.</p>
+                    <p class="pl-faq__answer-text">매일 학습 완료 후 학습 리포트가 카카오톡으로 발송되며, 앱 내 대시보드에서 주간/월간 학습 통계를 한눈에 확인할 수 있습니다.</p>
                   </div>
                 </div>
               </div>
@@ -280,16 +277,15 @@
               <!-- FAQ Item 4 -->
               <div class="pl-faq__item">
                 <button class="pl-faq__header" aria-expanded="false">
-                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <h3 class="pl-faq__question">형제자매도 같이 사용할 수 있나요?</h3>
                   <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
                 <div class="pl-faq__content">
                   <div class="pl-faq__answer">
-                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
-                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
-해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                    <p class="pl-faq__answer-title">한 계정으로 최대 3명까지 자녀 프로필을 등록할 수 있습니다.</p>
+                    <p class="pl-faq__answer-text">각 자녀별로 독립된 학습 데이터와 커리큘럼이 제공되며, 프로필 전환으로 간편하게 이용 가능합니다.</p>
                   </div>
                 </div>
               </div>
@@ -297,16 +293,15 @@
               <!-- FAQ Item 5 -->
               <div class="pl-faq__item">
                 <button class="pl-faq__header" aria-expanded="false">
-                  <h3 class="pl-faq__question">이벤트 참여 조건이 있나요?</h3>
+                  <h3 class="pl-faq__question">환불 정책은 어떻게 되나요?</h3>
                   <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
                 <div class="pl-faq__content">
                   <div class="pl-faq__answer">
-                    <p class="pl-faq__answer-title">1인 1개의 ID로 참여할 수 있습니다.</p>
-                    <p class="pl-faq__answer-text">본 이벤트는 대한민국에 거주 중인 대한민국 국민을 대상으로 하며, 한국 시간을 기준으로 진행됩니다.
-해시태그 등록 & 내용에 맞는 태그 부착 & 전체 공개 설정한 게시글 기준으로 본 이벤트의 미션 수행 여부를 체크합니다.</p>
+                    <p class="pl-faq__answer-title">결제일로부터 7일 이내 전액 환불이 가능합니다.</p>
+                    <p class="pl-faq__answer-text">7일 이후에는 남은 기간에 비례하여 부분 환불이 진행되며, 고객센터 또는 앱 내 1:1 문의를 통해 간편하게 신청할 수 있습니다.</p>
                   </div>
                 </div>
               </div>

@@ -506,7 +506,7 @@
 
 .pl-intro--textblock {
   background: var(--pl-violet-5);
-  padding: var(--pl-spacing-12) var(--pl-layout-padding);
+  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
 }
 
 .pl-intro__container {
@@ -522,6 +522,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--pl-spacing-5);
+  padding-top: var(--pl-spacing-9); /* Figma: 40px, section(32px) + title(40px) = 72px */
 }
 
 /* Figma: 17px/700, line-height 144%, color violet-50 (#9b6bf4) */
@@ -600,7 +601,7 @@
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-intro--textblock {
-    padding: var(--pl-spacing-11) var(--pl-layout-padding);
+    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-11);
   }
 
   .pl-section-title__label {
@@ -621,7 +622,7 @@
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-intro--textblock {
-    padding: var(--pl-spacing-10) 20px;
+    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
   }
 
   .pl-section-title {
@@ -653,7 +654,7 @@
    ============================================ */
 .pl-intro--textgrid {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-12) var(--pl-layout-padding);
+  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
 }
 
 .pl-intro--textgrid .pl-intro__container {
@@ -741,7 +742,7 @@
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-intro--textgrid {
-    padding: var(--pl-spacing-10) 20px;
+    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
   }
 
   .pl-intro--textgrid .pl-intro__container {
@@ -869,7 +870,7 @@
 
 .pl-about--list {
   background: var(--pl-violet-5); /* Figma: #f6f2fc */
-  padding: var(--pl-spacing-12) var(--pl-layout-padding) var(--pl-spacing-14);
+  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-14);
 }
 
 .pl-about__container {
@@ -948,7 +949,7 @@
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--list {
-    padding: var(--pl-spacing-11) var(--pl-layout-padding) var(--pl-spacing-13);
+    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-13);
   }
 
   .pl-about__container {
@@ -984,7 +985,7 @@
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--list {
-    padding: var(--pl-spacing-5) 20px var(--pl-spacing-10);
+    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
   }
 
   .pl-about__container {
@@ -1027,7 +1028,7 @@
    ============================================ */
 .pl-about--grid {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-11) var(--pl-layout-padding) var(--pl-spacing-14);
+  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-14);
 }
 
 .pl-about--grid .pl-about__container {
@@ -1180,7 +1181,7 @@
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--grid {
-    padding: var(--pl-spacing-10) var(--pl-layout-padding) var(--pl-spacing-12);
+    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
   }
 
   .pl-card-grid__row--large {
@@ -1259,9 +1260,9 @@
   gap: var(--pl-spacing-12);
 }
 
-/* Section Title in Card Slide */
+/* Section Title in Card Slide: 가로 padding 유지 (섹션이 full-width라 수평 여백 직접 지정) */
 .pl-about--slide .pl-section-title {
-  padding: var(--pl-spacing-10) var(--pl-layout-padding) 0; /* Figma: 40px internal top padding */
+  padding: 0 var(--pl-layout-padding);
 }
 
 /* Card Track Container */
@@ -1300,7 +1301,6 @@
   height: 330px;
   flex-shrink: 0;
   position: relative;
-  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 */
   border-radius: var(--pl-radius-3); /* Figma: 18px */
   overflow: hidden;
   cursor: pointer;
@@ -1374,7 +1374,7 @@
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--slide {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-10); /* Figma: 20px top */
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-10);
   }
 
   .pl-about--slide .pl-about__container {
@@ -1382,7 +1382,7 @@
   }
 
   .pl-about--slide .pl-section-title {
-    padding-top: var(--pl-spacing-9); /* Figma: 36px internal top padding */
+    padding: 0 var(--pl-layout-padding);
   }
 
   .pl-slide-card {
@@ -1410,7 +1410,7 @@
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--slide {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-8); /* Figma: 16px top */
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-8);
   }
 
   .pl-about--slide .pl-about__container {
@@ -1418,7 +1418,7 @@
   }
 
   .pl-about--slide .pl-section-title {
-    padding-top: var(--pl-spacing-8); /* Figma: 32px internal top padding */
+    padding: 0 var(--pl-layout-padding);
   }
 
   .pl-card-track__inner {
@@ -1465,9 +1465,9 @@
   gap: var(--pl-spacing-12);
 }
 
-/* Section Title in Card Swipe */
+/* Section Title in Card Swipe: 가로 padding 유지 (섹션이 full-width라 수평 여백 직접 지정) */
 .pl-about--swipe .pl-section-title {
-  padding: var(--pl-spacing-10) var(--pl-layout-padding) 0;
+  padding: 0 var(--pl-layout-padding);
 }
 
 /* Swipe Container */
@@ -1734,6 +1734,7 @@
   height: 463px; /* Figma PC: 463px */
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 */
 }
 
 /* Figma: hover = white 12%, pressed = white 24% */
@@ -1804,7 +1805,7 @@
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--swipe {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-10);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-10);
   }
 
   .pl-about--swipe .pl-about__container {
@@ -1812,7 +1813,7 @@
   }
 
   .pl-about--swipe .pl-section-title {
-    padding-top: var(--pl-spacing-9);
+    padding: 0 var(--pl-layout-padding);
   }
 
   .pl-swipe-controls {
@@ -1895,7 +1896,7 @@
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--swipe {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-8);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-8);
   }
 
   .pl-about--swipe .pl-about__container {
@@ -1903,7 +1904,7 @@
   }
 
   .pl-about--swipe .pl-section-title {
-    padding-top: var(--pl-spacing-8);
+    padding: 0 var(--pl-layout-padding);
   }
 
   .pl-swipe-controls {
@@ -1990,7 +1991,7 @@
    ============================================ */
 .pl-about--tab {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-5) 0 var(--pl-spacing-13);
+  padding: var(--pl-spacing-8) 0 var(--pl-spacing-13);
 }
 
 .pl-about--tab .pl-about__container {
@@ -1998,10 +1999,6 @@
   flex-direction: column;
   align-items: center;
   gap: var(--pl-spacing-12);
-}
-
-.pl-about--tab .pl-section-title {
-  padding-top: var(--pl-spacing-10);
 }
 
 /* Tab Container */
@@ -2081,15 +2078,11 @@
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--tab {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
   }
 
   .pl-about--tab .pl-about__container {
     gap: var(--pl-spacing-10);
-  }
-
-  .pl-about--tab .pl-section-title {
-    padding-top: var(--pl-spacing-9);
   }
 
   .pl-tab-container {
@@ -2118,15 +2111,11 @@
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--tab {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-9);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
   }
 
   .pl-about--tab .pl-about__container {
     gap: var(--pl-spacing-8);
-  }
-
-  .pl-about--tab .pl-section-title {
-    padding-top: var(--pl-spacing-8);
   }
 
   .pl-tab-container {
@@ -2163,7 +2152,7 @@
 }
 
 .pl-tab-nav--style-b .pl-tab-btn {
-  color: var(--pl-text-invert);
+  color: var(--pl-text-primary);
   background: transparent;
   border: none;
   border-radius: var(--pl-radius-circle);
@@ -2280,7 +2269,7 @@
     font-family: var(--pl-font-main);
     font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
     font-weight: var(--pl-font-weight-medium);
-    color: var(--pl-text-invert);
+    color: var(--pl-text-primary);
     background: transparent;
     border: none;
     border-radius: 999px;
@@ -2313,12 +2302,16 @@
    Type F - Image Section
    Figma 스펙: 섹션 타이틀 + 단일 이미지
    ============================================ */
+.pl-about--image {
+  background: var(--pl-bg-default);
+  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-14);
+}
+
 .pl-about--image .pl-about__container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--pl-spacing-8); /* Figma: 32px */
-  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
 }
 
 .pl-about-image {
@@ -2342,9 +2335,12 @@
 
 /* Type F - Tablet */
 @container section (max-width: 1199px) /* Ta */ {
+  .pl-about--image {
+    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
+  }
+
   .pl-about--image .pl-about__container {
     gap: var(--pl-spacing-6);
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0;
   }
 
   .pl-about-image__wrapper {
@@ -2355,9 +2351,12 @@
 
 /* Type F - Mobile */
 @container section (max-width: 639px) /* Mo */ {
+  .pl-about--image {
+    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
+  }
+
   .pl-about--image .pl-about__container {
     gap: 52px; /* Figma: 52px */
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
   }
 
   .pl-about-image__wrapper {
@@ -3836,10 +3835,6 @@
   padding: 0 var(--pl-layout-padding);
 }
 
-.pl-benefit--img .pl-section-title {
-  padding-top: var(--pl-spacing-6);
-}
-
 /* Benefit Image */
 .pl-benefit__image {
   width: 100%;
@@ -3867,15 +3862,11 @@
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-benefit--img {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-10);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-10);
   }
 
   .pl-benefit--img .pl-benefit__container {
     gap: var(--pl-spacing-9);
-  }
-
-  .pl-benefit--img .pl-section-title {
-    padding-top: var(--pl-spacing-5);
   }
 
   .pl-benefit__image {
@@ -3889,15 +3880,11 @@
    ============================================ */
 @container section (max-width: 639px) {
   .pl-benefit--img {
-    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
   }
 
   .pl-benefit--img .pl-benefit__container {
     gap: var(--pl-spacing-9); /* Figma: ~52px */
-  }
-
-  .pl-benefit--img .pl-section-title {
-    padding-top: var(--pl-spacing-8);
   }
 
   .pl-benefit__image {
@@ -3931,10 +3918,6 @@
   max-width: var(--pl-container-default);
   margin: 0 auto;
   padding: 0 var(--pl-layout-padding);
-}
-
-.pl-step--img .pl-section-title {
-  padding-top: var(--pl-spacing-6);
 }
 
 /* Step Items Container */
@@ -4000,7 +3983,7 @@
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-step--img {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
   }
 
   .pl-step__container {
@@ -4056,7 +4039,7 @@
    ============================================ */
 @container section (max-width: 639px) {
   .pl-step--img {
-    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
   }
 
   .pl-step__container {
@@ -4105,10 +4088,6 @@
 .pl-step--text .pl-step__container {
   gap: var(--pl-section-title-gap); /* 68px gap between section title and items */
   max-width: 1840px; /* Figma: 1840px (1920px - 40px*2) */
-}
-
-.pl-step--text .pl-section-title {
-  padding-top: var(--pl-spacing-6);
 }
 
 /* Step Text Items Container */
@@ -4206,7 +4185,7 @@
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-step--text {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
   }
 
   .pl-step--text .pl-step__container {
@@ -4262,7 +4241,7 @@
    ============================================ */
 @container section (max-width: 639px) {
   .pl-step--text {
-    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
   }
 
   .pl-step--text .pl-step__container {
@@ -4328,10 +4307,6 @@
 .pl-step--textonly .pl-step__container {
   gap: var(--pl-section-title-gap); /* 68px gap between section title and items */
   max-width: 1840px; /* Figma: 1840px (1920px - 40px*2) */
-}
-
-.pl-step--textonly .pl-section-title {
-  padding-top: var(--pl-spacing-6);
 }
 
 /* Step Text Only Items Container */
@@ -4416,7 +4391,7 @@
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-step--textonly {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
   }
 
   .pl-step-textonly__items {
@@ -4455,7 +4430,7 @@
    ============================================ */
 @container section (max-width: 639px) {
   .pl-step--textonly {
-    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
   }
 
   .pl-step-textonly__items {
@@ -4598,7 +4573,7 @@
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-faq {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11); /* 20px 0 60px */
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
   }
 
   .pl-faq__container {
@@ -4647,7 +4622,7 @@
    ============================================ */
 @container section (max-width: 639px) {
   .pl-faq {
-    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9); /* 16px 0 52px */
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
   }
 
   .pl-faq__container {
@@ -4709,10 +4684,6 @@
   padding: 0 var(--pl-layout-padding);
 }
 
-.pl-caution .pl-section-title {
-  padding-top: var(--pl-spacing-10); /* Figma: 40px internal top padding */
-}
-
 /* Caution List */
 .pl-caution__list {
   display: flex;
@@ -4760,16 +4731,13 @@
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-caution {
-    padding: var(--pl-spacing-5) 0 var(--pl-spacing-11);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
   }
 
   .pl-caution__container {
     gap: var(--pl-spacing-9);
     padding: 0 var(--pl-spacing-8);
   }
-
-  .pl-caution .pl-section-title {
-    padding-top: var(--pl-spacing-9); /* Figma: 36px internal top padding */
   }
 
   .pl-caution__list {
@@ -4788,16 +4756,12 @@
    ============================================ */
 @container section (max-width: 639px) {
   .pl-caution {
-    padding: var(--pl-spacing-4) 0 var(--pl-spacing-9);
+    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
   }
 
   .pl-caution__container {
     gap: var(--pl-spacing-8);
     padding: 0 var(--pl-spacing-6);
-  }
-
-  .pl-caution .pl-section-title {
-    padding-top: var(--pl-spacing-8); /* Figma: 32px internal top padding */
   }
 
   .pl-caution__list {
@@ -5545,7 +5509,6 @@
 .pl-gnb__menu-item.is-active {
   color: #0b0d11;
   font-weight: 700;
-  background: rgba(11, 13, 17, 0.12);
 }
 
 .pl-gnb__menu-item.is-disabled {
@@ -5708,7 +5671,6 @@
 .pl-gnb__mobile-nav-item.is-active {
   color: #0b0d11;
   font-weight: 700;
-  background: rgba(11, 13, 17, 0.12);
 }
 
 .pl-gnb__mobile-nav-item.is-disabled {
@@ -5760,7 +5722,6 @@
 .pl-gnb--dark .pl-gnb__menu-item.is-active {
   color: var(--pl-text-invert);
   font-weight: 700;
-  background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item.is-disabled {
@@ -5836,7 +5797,6 @@
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
   color: #ffffff;
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.12);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-disabled {

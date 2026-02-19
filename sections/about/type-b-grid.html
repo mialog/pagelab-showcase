@@ -216,6 +216,57 @@
       display: block;
     }
 
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode - Type B Reverse (Figma)
+       bg 자동 반전, 카드 bg/stroke 변경 */
+    .preview-content[data-theme="dark"] .pl-section-title__heading {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: #e3e8ed;
+    }
+
+    .preview-content[data-theme="dark"] .pl-grid-card {
+      background: #0b0d11;
+    }
+
   </style>
 </head>
 <body>
@@ -230,12 +281,28 @@
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">About</span>
-        <h1 class="preview-header__title">카드 그리드형 (Type B)</h1>
+        <span class="preview-header__tag">콘텐츠 설명</span>
+        <h1 class="preview-header__title">카드 그리드형</h1>
       </div>
     </div>
 
     <div class="preview-header__right">
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+
       <!-- Card Type Switcher -->
       <div class="card-type-switcher">
         <button class="card-type-btn is-active" data-card-type="image-top">
@@ -294,11 +361,11 @@
 
         <!-- Card Type 1: Image Top (Large Cards) -->
         <div class="card-type-section is-active" data-card-type="image-top">
-          <section class="pl-section pl-about pl-about--grid">
+          <section class="pl-section pl-about pl-about--grid" data-section="about" aria-label="과목별 학습 - 이미지 상단형">
             <div class="pl-section__container pl-about__container">
 
               <!-- Section Title Component -->
-              <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+              <pl-section-title label="학습 과목" heading="과목별 맞춤 학습 프로그램" description="수학, 국어, 영어, 코딩까지<br>아이의 성장에 필요한 모든 과목을 한 곳에서"></pl-section-title>
 
               <!-- Card Grid: Image Top (3 columns) -->
               <div class="pl-card-grid">
@@ -306,33 +373,33 @@
                   <!-- Card 1 -->
                   <article class="pl-grid-card">
                     <div class="pl-grid-card__image">
-                      <img src="./../../images/about/about_b_imgtop_1.png" alt="" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
+                      <img src="./../../images/about/about_b_imgtop_1.png" alt="단계별 수학 학습 이미지" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
                     </div>
                     <div class="pl-grid-card__content">
-                      <h3 class="pl-grid-card__title">카드 타이틀</h3>
-                      <p class="pl-grid-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                      <h3 class="pl-grid-card__title">단계별 수학 학습</h3>
+                      <p class="pl-grid-card__desc">기초 연산부터 사고력 문제까지, 아이 수준에 딱 맞는 수학 학습</p>
                     </div>
                   </article>
 
                   <!-- Card 2 -->
                   <article class="pl-grid-card">
                     <div class="pl-grid-card__image">
-                      <img src="./../../images/about/about_b_imgtop_2.png" alt="" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
+                      <img src="./../../images/about/about_b_imgtop_2.png" alt="창의 국어 프로그램 이미지" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
                     </div>
                     <div class="pl-grid-card__content">
-                      <h3 class="pl-grid-card__title">카드 타이틀</h3>
-                      <p class="pl-grid-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                      <h3 class="pl-grid-card__title">창의 국어 프로그램</h3>
+                      <p class="pl-grid-card__desc">독해력, 어휘력, 글쓰기까지 통합적으로 키워주는 국어 과정</p>
                     </div>
                   </article>
 
                   <!-- Card 3 -->
                   <article class="pl-grid-card">
                     <div class="pl-grid-card__image">
-                      <img src="./../../images/about/about_b_imgtop_3.png" alt="" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
+                      <img src="./../../images/about/about_b_imgtop_3.png" alt="영어 파닉스 & 리딩 이미지" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
                     </div>
                     <div class="pl-grid-card__content">
-                      <h3 class="pl-grid-card__title">카드 타이틀</h3>
-                      <p class="pl-grid-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                      <h3 class="pl-grid-card__title">영어 파닉스 & 리딩</h3>
+                      <p class="pl-grid-card__desc">파닉스부터 리딩까지 원어민 음성으로 배우는 영어 학습</p>
                     </div>
                   </article>
                 </div>
@@ -344,11 +411,11 @@
 
         <!-- Card Type 2: Text Top (Small Cards) -->
         <div class="card-type-section" data-card-type="text-top">
-          <section class="pl-section pl-about pl-about--grid">
+          <section class="pl-section pl-about pl-about--grid" data-section="about" aria-label="과목별 학습 - 텍스트 상단형">
             <div class="pl-section__container pl-about__container">
 
               <!-- Section Title Component -->
-              <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+              <pl-section-title label="학습 과목" heading="과목별 맞춤 학습 프로그램" description="수학, 국어, 영어, 코딩까지<br>아이의 성장에 필요한 모든 과목을 한 곳에서"></pl-section-title>
 
               <!-- Card Grid: Text Top (4 columns) -->
               <div class="pl-card-grid">
@@ -356,44 +423,44 @@
                   <!-- Card 1 -->
                   <article class="pl-grid-card pl-grid-card--small">
                     <div class="pl-grid-card__content">
-                      <h3 class="pl-grid-card__title">카드 타이틀</h3>
-                      <p class="pl-grid-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                      <h3 class="pl-grid-card__title">수학 기초 다지기</h3>
+                      <p class="pl-grid-card__desc">수 개념부터 연산까지 탄탄한 기초를 만들어줍니다.</p>
                     </div>
                     <div class="pl-grid-card__image">
-                      <img src="./../../images/about/about_b_txttop_1.png" alt="" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
+                      <img src="./../../images/about/about_b_txttop_1.png" alt="수학 기초 다지기 이미지" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
                     </div>
                   </article>
 
                   <!-- Card 2 -->
                   <article class="pl-grid-card pl-grid-card--small">
                     <div class="pl-grid-card__content">
-                      <h3 class="pl-grid-card__title">카드 타이틀</h3>
-                      <p class="pl-grid-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                      <h3 class="pl-grid-card__title">국어 독해력 향상</h3>
+                      <p class="pl-grid-card__desc">다양한 지문으로 읽기 능력과 이해력을 키워줍니다.</p>
                     </div>
                     <div class="pl-grid-card__image">
-                      <img src="./../../images/about/about_b_txttop_2.png" alt="" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
+                      <img src="./../../images/about/about_b_txttop_2.png" alt="국어 독해력 향상 이미지" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
                     </div>
                   </article>
 
                   <!-- Card 3 -->
                   <article class="pl-grid-card pl-grid-card--small">
                     <div class="pl-grid-card__content">
-                      <h3 class="pl-grid-card__title">카드 타이틀</h3>
-                      <p class="pl-grid-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                      <h3 class="pl-grid-card__title">영어 듣기 & 말하기</h3>
+                      <p class="pl-grid-card__desc">AI 음성 인식으로 정확한 발음을 연습할 수 있어요.</p>
                     </div>
                     <div class="pl-grid-card__image">
-                      <img src="./../../images/about/about_b_txttop_3.png" alt="" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
+                      <img src="./../../images/about/about_b_txttop_3.png" alt="영어 듣기 & 말하기 이미지" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
                     </div>
                   </article>
 
                   <!-- Card 4 -->
                   <article class="pl-grid-card pl-grid-card--small">
                     <div class="pl-grid-card__content">
-                      <h3 class="pl-grid-card__title">카드 타이틀</h3>
-                      <p class="pl-grid-card__desc">간결하고 강력한 메시지를 통해 고객에게 제품을 효과적으로 홍보하세요.</p>
+                      <h3 class="pl-grid-card__title">코딩 사고력 교육</h3>
+                      <p class="pl-grid-card__desc">블록 코딩으로 논리적 사고력의 기초를 다져줍니다.</p>
                     </div>
                     <div class="pl-grid-card__image">
-                      <img src="./../../images/about/about_b_txttop_4.png" alt="" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
+                      <img src="./../../images/about/about_b_txttop_4.png" alt="코딩 사고력 교육 이미지" onerror="this.parentElement.style.background='var(--pl-neutral-10)'">
                     </div>
                   </article>
                 </div>
@@ -438,6 +505,23 @@
             section.classList.remove('is-active');
           }
         });
+      });
+    });
+
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
       });
     });
   </script>

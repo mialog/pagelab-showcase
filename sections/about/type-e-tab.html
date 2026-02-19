@@ -216,6 +216,80 @@
       display: block;
     }
 
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode - Type E Reverse (Figma)
+       bg 자동 반전, 탭은 Default 스타일 유지 (흰 배경 + 파란 텍스트) */
+    .preview-content[data-theme="dark"] .pl-section-title__label {
+      color: #15b2f1;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__heading {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: #e3e8ed;
+    }
+
+    /* Style A 탭: 시맨틱 토큰 반전 보정 (피그마 동일 스타일 유지) */
+    .preview-content[data-theme="dark"] .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn {
+      background: #ffffff;
+      color: #416df0;
+      border-color: #8eabff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn.is-active {
+      background: #416df0;
+      color: #ffffff;
+      border-color: #416df0;
+    }
+
+    /* Style B 탭: 시맨틱 토큰 반전 보정 (피그마 동일 스타일 유지) */
+    .preview-content[data-theme="dark"] .pl-tab-nav--style-b .pl-tab-btn {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-tab-nav--style-b .pl-tab-btn.is-active {
+      color: #9b6bf4;
+      background: #ffffff;
+    }
+
   </style>
 </head>
 <body>
@@ -230,12 +304,28 @@
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">About</span>
-        <h1 class="preview-header__title">탭 전환형 (Type E)</h1>
+        <span class="preview-header__tag">콘텐츠 설명</span>
+        <h1 class="preview-header__title">탭 전환형</h1>
       </div>
     </div>
 
     <div class="preview-header__right">
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+
       <!-- Tab Style Switcher -->
       <div class="tab-style-switcher">
         <button class="tab-style-btn is-active" data-tab-style="style-a">
@@ -288,29 +378,29 @@
             <div class="pl-section__container pl-about__container">
 
               <!-- Section Title Component -->
-              <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+              <pl-section-title label="Core Features" heading="눈높이 맞춤학습 핵심 기능" description="AI 기술과 48년 교육 노하우가 만든 5가지 핵심 기능이<br>우리 아이의 학습 실력을 체계적으로 키워 드립니다."></pl-section-title>
 
               <!-- Tab Container -->
               <div class="pl-tab-container">
                 <!-- Tab Navigation - Style A (PC/Tablet) -->
                 <nav class="pl-tab-nav pl-tab-nav--desktop">
-                  <button class="pl-tab-btn is-active" data-tab="tab-a1">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-a2">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-a3">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-a4">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-a5">탭 이름</button>
+                  <button class="pl-tab-btn is-active" data-tab="tab-a1">AI 진단평가</button>
+                  <button class="pl-tab-btn" data-tab="tab-a2">맞춤 국어</button>
+                  <button class="pl-tab-btn" data-tab="tab-a3">맞춤 수학</button>
+                  <button class="pl-tab-btn" data-tab="tab-a4">맞춤 영어</button>
+                  <button class="pl-tab-btn" data-tab="tab-a5">학습 리포트</button>
                 </nav>
 
                 <!-- Tab Navigation - Style A (Mobile: Two Row Structure) -->
                 <div class="pl-tab-nav-mobile pl-tab-nav-mobile--style-a">
                   <div class="pl-tab-nav-row-a">
-                    <button class="pl-tab-btn is-active" data-tab="tab-a1">탭 이름</button>
-                    <button class="pl-tab-btn" data-tab="tab-a2">탭 이름</button>
-                    <button class="pl-tab-btn" data-tab="tab-a3">탭 이름</button>
+                    <button class="pl-tab-btn is-active" data-tab="tab-a1">AI 진단평가</button>
+                    <button class="pl-tab-btn" data-tab="tab-a2">맞춤 국어</button>
+                    <button class="pl-tab-btn" data-tab="tab-a3">맞춤 수학</button>
                   </div>
                   <div class="pl-tab-nav-row-a pl-tab-nav-row-a--narrow">
-                    <button class="pl-tab-btn" data-tab="tab-a4">탭 이름</button>
-                    <button class="pl-tab-btn" data-tab="tab-a5">탭 이름</button>
+                    <button class="pl-tab-btn" data-tab="tab-a4">맞춤 영어</button>
+                    <button class="pl-tab-btn" data-tab="tab-a5">학습 리포트</button>
                   </div>
                 </div>
 
@@ -354,29 +444,29 @@
             <div class="pl-section__container pl-about__container">
 
               <!-- Section Title Component -->
-              <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+              <pl-section-title label="Core Features" heading="눈높이 맞춤학습 핵심 기능" description="AI 기술과 48년 교육 노하우가 만든 5가지 핵심 기능이<br>우리 아이의 학습 실력을 체계적으로 키워 드립니다."></pl-section-title>
 
               <!-- Tab Container -->
               <div class="pl-tab-container">
                 <!-- Tab Navigation - Style B (PC/Tablet) -->
                 <nav class="pl-tab-nav pl-tab-nav--style-b pl-tab-nav--desktop">
-                  <button class="pl-tab-btn is-active" data-tab="tab-b1">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-b2">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-b3">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-b4">탭 이름</button>
-                  <button class="pl-tab-btn" data-tab="tab-b5">탭 이름</button>
+                  <button class="pl-tab-btn is-active" data-tab="tab-b1">AI 진단평가</button>
+                  <button class="pl-tab-btn" data-tab="tab-b2">맞춤 국어</button>
+                  <button class="pl-tab-btn" data-tab="tab-b3">맞춤 수학</button>
+                  <button class="pl-tab-btn" data-tab="tab-b4">맞춤 영어</button>
+                  <button class="pl-tab-btn" data-tab="tab-b5">학습 리포트</button>
                 </nav>
 
                 <!-- Tab Navigation - Style B (Mobile: Two Row Structure) -->
                 <div class="pl-tab-nav-mobile pl-tab-nav-mobile--style-b">
                   <div class="pl-tab-nav-row">
-                    <button class="pl-tab-btn is-active" data-tab="tab-b1">탭 이름</button>
-                    <button class="pl-tab-btn" data-tab="tab-b2">탭 이름</button>
-                    <button class="pl-tab-btn" data-tab="tab-b3">탭 이름</button>
+                    <button class="pl-tab-btn is-active" data-tab="tab-b1">AI 진단평가</button>
+                    <button class="pl-tab-btn" data-tab="tab-b2">맞춤 국어</button>
+                    <button class="pl-tab-btn" data-tab="tab-b3">맞춤 수학</button>
                   </div>
                   <div class="pl-tab-nav-row pl-tab-nav-row--narrow">
-                    <button class="pl-tab-btn" data-tab="tab-b4">탭 이름</button>
-                    <button class="pl-tab-btn" data-tab="tab-b5">탭 이름</button>
+                    <button class="pl-tab-btn" data-tab="tab-b4">맞춤 영어</button>
+                    <button class="pl-tab-btn" data-tab="tab-b5">학습 리포트</button>
                   </div>
                 </div>
 
@@ -482,6 +572,23 @@
             }
           });
         });
+      });
+    });
+
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
       });
     });
   </script>

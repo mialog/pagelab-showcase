@@ -164,6 +164,77 @@
       container-name: section;
     }
 
+    /* Preview Header Right */
+    .preview-header__right {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-3);
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode - Type A Reverse (Figma)
+       bg #f6f2fc → #0b0d11, 카드 #8c98a1 96%, stroke #0b0d11 */
+    .preview-content[data-theme="dark"] .pl-about--list {
+      background: #0b0d11;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__heading {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: #e3e8ed;
+    }
+
+    .preview-content[data-theme="dark"] .pl-list-card {
+      background: rgba(140, 152, 161, 0.96);
+      border-color: #0b0d11;
+    }
+
+    .preview-content[data-theme="dark"] .pl-list-card__title {
+      color: #ffffff;
+    }
+
+    .preview-content[data-theme="dark"] .pl-list-card__desc {
+      color: #e3e8ed;
+    }
+
   </style>
 </head>
 <body>
@@ -178,37 +249,53 @@
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">About</span>
-        <h1 class="preview-header__title">목록형 (Type A)</h1>
+        <span class="preview-header__tag">콘텐츠 설명</span>
+        <h1 class="preview-header__title">목록형</h1>
       </div>
     </div>
 
-    <div class="device-switcher">
-      <button class="device-btn is-active" data-device="pc">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-          <line x1="8" y1="21" x2="16" y2="21"></line>
-          <line x1="12" y1="17" x2="12" y2="21"></line>
-        </svg>
-        PC
-        <span class="device-btn__size">1920</span>
-      </button>
-      <button class="device-btn" data-device="tablet">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Tablet
-        <span class="device-btn__size">720</span>
-      </button>
-      <button class="device-btn" data-device="mobile">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Mobile
-        <span class="device-btn__size">360</span>
-      </button>
+    <div class="preview-header__right">
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+      <div class="device-switcher">
+        <button class="device-btn is-active" data-device="pc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          PC
+          <span class="device-btn__size">1920</span>
+        </button>
+        <button class="device-btn" data-device="tablet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Tablet
+          <span class="device-btn__size">720</span>
+        </button>
+        <button class="device-btn" data-device="mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Mobile
+          <span class="device-btn__size">360</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -224,77 +311,77 @@
           Section title + 3x2 list card grid
           ========================================
         -->
-        <section class="pl-section pl-about pl-about--list">
+        <section class="pl-section pl-about pl-about--list" data-section="about">
           <div class="pl-section__container pl-about__container">
 
             <!-- Section Title Component -->
-            <pl-section-title label="슬로건 섹션 타이틀" heading="섹션 타이틀" description="슬로건을 설명할 수 있는 보조 문구<br>전달하고 싶은 메시지 및 부가 설명" note="*부가 설명 케이스"></pl-section-title>
+            <pl-section-title label="핵심 기능" heading="아이런이 특별한 이유" description="AI 기반 맞춤 학습으로 우리 아이의 잠재력을 키워주세요<br>재미와 효과를 동시에 잡는 스마트 학습 경험"></pl-section-title>
 
             <!-- List Card Grid -->
             <div class="pl-list-grid">
               <!-- Card 1 -->
               <article class="pl-list-card">
                 <div class="pl-list-card__image">
-                  <img src="./../../images/about/about_a_icon_1.png" alt="" onerror="this.style.display='none'">
+                  <img src="./../../images/about/about_a_icon_1.png" alt="AI 레벨 진단 아이콘" onerror="this.style.display='none'">
                 </div>
                 <div class="pl-list-card__content">
-                  <h3 class="pl-list-card__title">리스트 박스형 제목</h3>
-                  <p class="pl-list-card__desc">짧고 간결한 글일수록 정보 전달에 효과적입니다.</p>
+                  <h3 class="pl-list-card__title">AI 레벨 진단</h3>
+                  <p class="pl-list-card__desc">아이의 현재 학습 수준을 정밀 분석하여 최적의 커리큘럼을 제안합니다.</p>
                 </div>
               </article>
 
               <!-- Card 2 -->
               <article class="pl-list-card">
                 <div class="pl-list-card__image">
-                  <img src="./../../images/about/about_a_icon_2.png" alt="" onerror="this.style.display='none'">
+                  <img src="./../../images/about/about_a_icon_2.png" alt="맞춤형 커리큘럼 아이콘" onerror="this.style.display='none'">
                 </div>
                 <div class="pl-list-card__content">
-                  <h3 class="pl-list-card__title">리스트 박스형 제목</h3>
-                  <p class="pl-list-card__desc">짧고 간결한 글일수록 정보 전달에 효과적입니다.</p>
+                  <h3 class="pl-list-card__title">맞춤형 커리큘럼</h3>
+                  <p class="pl-list-card__desc">학습 데이터를 기반으로 매일 새로운 맞춤 학습 콘텐츠를 제공합니다.</p>
                 </div>
               </article>
 
               <!-- Card 3 -->
               <article class="pl-list-card">
                 <div class="pl-list-card__image">
-                  <img src="./../../images/about/about_a_icon_3.png" alt="" onerror="this.style.display='none'">
+                  <img src="./../../images/about/about_a_icon_3.png" alt="게이미피케이션 아이콘" onerror="this.style.display='none'">
                 </div>
                 <div class="pl-list-card__content">
-                  <h3 class="pl-list-card__title">리스트 박스형 제목</h3>
-                  <p class="pl-list-card__desc">짧고 간결한 글일수록 정보 전달에 효과적입니다.</p>
+                  <h3 class="pl-list-card__title">게이미피케이션</h3>
+                  <p class="pl-list-card__desc">미션, 보상, 캐릭터 성장 등 게임 요소로 학습 동기를 유지합니다.</p>
                 </div>
               </article>
 
               <!-- Card 4 -->
               <article class="pl-list-card">
                 <div class="pl-list-card__image">
-                  <img src="./../../images/about/about_a_icon_4.png" alt="" onerror="this.style.display='none'">
+                  <img src="./../../images/about/about_a_icon_4.png" alt="실시간 학습 리포트 아이콘" onerror="this.style.display='none'">
                 </div>
                 <div class="pl-list-card__content">
-                  <h3 class="pl-list-card__title">리스트 박스형 제목</h3>
-                  <p class="pl-list-card__desc">짧고 간결한 글일수록 정보 전달에 효과적입니다.</p>
+                  <h3 class="pl-list-card__title">실시간 학습 리포트</h3>
+                  <p class="pl-list-card__desc">학습 진도와 성취도를 한눈에 확인할 수 있는 부모용 대시보드.</p>
                 </div>
               </article>
 
               <!-- Card 5 -->
               <article class="pl-list-card">
                 <div class="pl-list-card__image">
-                  <img src="./../../images/about/about_a_icon_5.png" alt="" onerror="this.style.display='none'">
+                  <img src="./../../images/about/about_a_icon_5.png" alt="1:1 AI 튜터 아이콘" onerror="this.style.display='none'">
                 </div>
                 <div class="pl-list-card__content">
-                  <h3 class="pl-list-card__title">리스트 박스형 제목</h3>
-                  <p class="pl-list-card__desc">짧고 간결한 글일수록 정보 전달에 효과적입니다.</p>
+                  <h3 class="pl-list-card__title">1:1 AI 튜터</h3>
+                  <p class="pl-list-card__desc">모르는 문제는 AI 튜터에게 바로 질문하고 쉬운 설명을 받을 수 있어요.</p>
                 </div>
               </article>
 
               <!-- Card 6 -->
               <article class="pl-list-card">
                 <div class="pl-list-card__image">
-                  <img src="./../../images/about/about_a_icon_6.png" alt="" onerror="this.style.display='none'">
+                  <img src="./../../images/about/about_a_icon_6.png" alt="형제자매 관리 아이콘" onerror="this.style.display='none'">
                 </div>
                 <div class="pl-list-card__content">
-                  <h3 class="pl-list-card__title">리스트 박스형 제목</h3>
-                  <p class="pl-list-card__desc">짧고 간결한 글일수록 정보 전달에 효과적입니다.</p>
+                  <h3 class="pl-list-card__title">형제자매 관리</h3>
+                  <p class="pl-list-card__desc">한 계정으로 최대 3명까지 자녀별 맞춤 학습을 관리할 수 있습니다.</p>
                 </div>
               </article>
             </div>
@@ -317,6 +404,23 @@
         btn.classList.add('is-active');
         const device = btn.dataset.device;
         previewFrame.dataset.device = device;
+      });
+    });
+
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
       });
     });
   </script>
