@@ -208,57 +208,7 @@
       font-weight: var(--pl-font-weight-bold);
     }
 
-    /* Type C 스타일 오버라이드 - Figma 스펙 */
-    .pl-hero--full {
-      background: transparent;
-    }
-
-    .pl-hero--full .pl-hero__title {
-      color: #B7C8FF; /* 연보라색 */
-      font-weight: 400;
-      transition: color 0.3s ease;
-    }
-
-    .pl-hero--full .pl-hero__desc {
-      color: #fff;
-      transition: color 0.3s ease;
-    }
-
-    /* Secondary 버튼 스타일 */
-    .pl-btn--secondary-light {
-      background: #D1EAFA;
-      color: #0B0D11;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    /* Dark Mode - Type C Reverse (Figma)
-       Figma 구조: 흰 배경(뒤) → 이미지 20%(위) → 텍스트
-       CSS 구조: section bg → img → ::after overlay → 텍스트 */
-    .preview-content[data-theme="dark"] .pl-hero--full {
-      background: #ffffff;
-    }
-
-    .preview-content[data-theme="dark"] .pl-hero--full .pl-hero__bg::after {
-      background: transparent;
-    }
-
-    .preview-content[data-theme="dark"] .pl-hero--full .pl-hero__bg img {
-      opacity: 0.2;
-      filter: saturate(0.48);
-    }
-
-    .preview-content[data-theme="dark"] .pl-hero--full .pl-hero__title {
-      color: #082271;
-    }
-
-    .preview-content[data-theme="dark"] .pl-hero--full .pl-hero__desc {
-      color: #0b0d11;
-    }
-
-    .preview-content[data-theme="dark"] .pl-btn--secondary-light {
-      background: #007daf;
-      color: #ffffff;
-    }
+    /* filled-secondary 버튼: components.css 공통 처리 */
 
   </style>
 </head>
@@ -350,7 +300,7 @@
                 <p class="pl-hero__desc">대교 솔루니와 함께하는 신학기 독서토론 특별 이벤트! 책 읽는 습관이 생각하는 힘을 키웁니다.</p>
               </div>
               <div class="pl-hero__actions">
-                <a href="#" class="pl-btn pl-btn--secondary-light">무료 체험수업 신청하기</a>
+                <a href="#" class="pl-btn pl-btn--filled-secondary">무료 체험수업 신청하기</a>
               </div>
             </div>
 

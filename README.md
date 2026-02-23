@@ -212,6 +212,32 @@ pagelab_showcase/
 --pl-neutral-100: #0b0d11;   /* 가장 어두운 배경 */
 ```
 
+### 다크 모드 시맨틱 토큰
+
+`data-theme="dark"` 속성으로 다크 모드 전환. 시맨틱 토큰은 자동으로 값이 역전됩니다.
+
+```html
+<!-- 다크 모드 적용 -->
+<div data-theme="dark">...</div>
+```
+
+**스케일 토큰(`--pl-lightblue-10` 등)은 고정값** → 직접 사용하면 다크 모드 미지원
+**시맨틱 토큰(`--pl-bg-brand-light` 등)은 모드 자동 전환** → 항상 시맨틱 토큰 사용
+
+#### `-dark` / `-light` 페어 토큰 — 다크 모드에서 서로 교환됨
+
+| 카테고리 | 라이트 모드 | 다크 모드 |
+|---------|-----------|---------|
+| `--pl-bg-brand-light` | `#d1eefa` | `#06435b` |
+| `--pl-bg-brand-dark` | `#06435b` | `#d1eefa` |
+| `--pl-bg-accent-light` | `#dae3ff` | `#0e2f91` |
+| `--pl-bg-positive-light` | `#ecf8f2` | `#167d46` |
+| `--pl-bg-caution-light` | `#fff8e7` | `#a37402` |
+| `--pl-bg-negative-light` | `#fef5f5` | `#a32428` |
+
+brand / accent / positive / caution / negative 5개 카테고리 × text, bg, border, icon 4개 접두사에 동일 패턴 적용.
+자세한 내용은 [AI_GUIDE.md](AI_GUIDE.md) 참고.
+
 ### 간격
 
 ```css
@@ -309,4 +335,4 @@ AI 어시스턴트와 작업 시 **[AI_GUIDE.md](AI_GUIDE.md)** 참고
 
 ---
 
-**최종 업데이트**: 2026-02-03
+**최종 업데이트**: 2026-02-23

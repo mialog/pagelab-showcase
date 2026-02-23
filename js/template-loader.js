@@ -55,6 +55,9 @@ class TemplateLoader {
       // 9. Initialize top button
       this.initTopButton();
 
+      // 10. Initialize theme toggle
+      this.initThemeToggle();
+
     } catch (error) {
       console.error('Template loading failed:', error);
       this.showError(error.message);
@@ -68,8 +71,8 @@ class TemplateLoader {
     const container = document.getElementById('sectionContainer');
     container.innerHTML = ''; // Remove loading indicator
 
-    // 1. Load GNB first (with dark option if specified)
-    await this.loadGnbFooter(container, 'gnb', this.template.darkGnb);
+    // 1. Load GNB first
+    await this.loadGnbFooter(container, 'gnb');
 
     // 2. Load all template sections
     for (let i = 0; i < this.template.sections.length; i++) {
@@ -98,8 +101,8 @@ class TemplateLoader {
       }
     }
 
-    // 3. Load Footer last (with dark option if specified)
-    await this.loadGnbFooter(container, 'footer', this.template.darkFooter);
+    // 3. Load Footer last
+    await this.loadGnbFooter(container, 'footer');
 
     // 4. Load Floating CTA if specified
     if (this.template.floatingCta) {
@@ -115,7 +118,7 @@ class TemplateLoader {
   async loadFloatingCta(variant) {
     try {
       const path = `../sections/cta/${variant}.html`;
-      const response = await fetch(path);
+      const response = await fetch(path, { cache: 'no-store' });
       if (!response.ok) return;
 
       const html = await response.text();
@@ -158,38 +161,24 @@ class TemplateLoader {
    * @param {string} type - 'gnb' or 'footer'
    * @param {boolean} dark - Whether to use dark theme
    */
-  async loadGnbFooter(container, type, dark = false) {
+  async loadGnbFooter(container, type) {
     try {
       const path = '../sections/navigation/type-a-gnb-footer.html';
-      const response = await fetch(path);
+      const response = await fetch(path, { cache: 'no-store' });
       if (!response.ok) return;
 
       const html = await response.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
 
+      // Inject dark mode styles (same as 섹션 둘러보기)
+      this.injectSectionDarkStyles(doc, 'navigation-gnb-footer');
+
       let element;
       if (type === 'gnb') {
         element = doc.querySelector('.pl-gnb');
-        // Also get mobile overlay
         const overlay = doc.querySelector('.pl-gnb__mobile-overlay');
         if (element) {
-          // Add dark class if specified
-          if (dark) {
-            element.classList.add('pl-gnb--dark');
-            // Update logo to dark version
-            const logo = element.querySelector('#gnbLogo');
-            if (logo && logo.dataset.dark) {
-              logo.src = logo.dataset.dark;
-            }
-            // Also update mobile overlay logo to dark version
-            if (overlay) {
-              const overlayLogo = overlay.querySelector('.pl-gnb__logo img');
-              if (overlayLogo && logo && logo.dataset.dark) {
-                overlayLogo.src = logo.dataset.dark;
-              }
-            }
-          }
           const adjustedHtml = this.adjustImagePaths(element.outerHTML + (overlay ? overlay.outerHTML : ''));
           const wrapper = document.createElement('div');
           wrapper.className = 'template-section template-section--gnb';
@@ -199,15 +188,6 @@ class TemplateLoader {
       } else if (type === 'footer') {
         element = doc.querySelector('.pl-footer');
         if (element) {
-          // Add dark class if specified
-          if (dark) {
-            element.classList.add('pl-footer--dark');
-            // Update logo to dark version
-            const logo = element.querySelector('#footerLogo');
-            if (logo && logo.dataset.dark) {
-              logo.src = logo.dataset.dark;
-            }
-          }
           const adjustedHtml = this.adjustImagePaths(element.outerHTML);
           const wrapper = document.createElement('div');
           wrapper.className = 'template-section template-section--footer';
@@ -221,13 +201,51 @@ class TemplateLoader {
   }
 
   /**
+   * Inject dark mode styles from a section HTML into <head>,
+   * replacing .preview-content[data-theme] with #sectionContainer[data-theme]
+   */
+  injectSectionDarkStyles(doc, styleKey) {
+    const existingId = `section-dark-styles-${styleKey}`;
+    if (document.getElementById(existingId)) return; // already injected
+
+    let cssText = '';
+    doc.querySelectorAll('style').forEach(styleEl => {
+      if (styleEl.textContent.includes('data-theme')) {
+        cssText += styleEl.textContent;
+      }
+    });
+
+    if (!cssText) return;
+
+    // Replace .preview-content[data-theme with #sectionContainer[data-theme
+    cssText = cssText.replace(/\.preview-content\[data-theme/g, '#sectionContainer[data-theme');
+
+    // Strip navigation-specific layout rules that don't apply in template context:
+    // .pl-gnb { background: transparent } (needs .pl-nav-content which doesn't exist here)
+    // .pl-nav-content { margin-top: -74px } (layout hack for standalone nav page only)
+    cssText = cssText.replace(
+      /#sectionContainer\[data-theme="dark"\]\s+\.pl-gnb\s*\{[^}]*\}/g,
+      ''
+    );
+    cssText = cssText.replace(
+      /#sectionContainer\[data-theme="dark"\]\s+\.pl-nav-content\s*\{[^}]*\}/g,
+      ''
+    );
+
+    const styleEl = document.createElement('style');
+    styleEl.id = existingId;
+    styleEl.textContent = cssText;
+    document.head.appendChild(styleEl);
+  }
+
+  /**
    * Extract section markup from original file
    */
   async extractSectionFromOriginal(type, variant, cardType = null) {
     const path = `../sections/${type}/${variant}.html`;
 
     try {
-      const response = await fetch(path);
+      const response = await fetch(path, { cache: 'no-store' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const html = await response.text();
@@ -235,6 +253,9 @@ class TemplateLoader {
       // Parse HTML and extract section content
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
+
+      // Inject dark mode styles (same as 섹션 둘러보기)
+      this.injectSectionDarkStyles(doc, `${type}-${variant}`);
 
       // If cardType is specified, find the specific card type section
       if (cardType) {
@@ -284,7 +305,10 @@ class TemplateLoader {
       .replace(/\.\.\/\.\.\/images\//g, '../images/')
       .replace(/src="images\//g, 'src="../images/')
       .replace(/url\(['"]?\.\/\.\.\/\.\.\/images\//g, "url('../images/")
-      .replace(/url\(['"]?\.\.\/\.\.\/images\//g, "url('../images/");
+      .replace(/url\(['"]?\.\.\/\.\.\/images\//g, "url('../images/")
+      // data-dark / data-light 속성도 경로 변환
+      .replace(/data-dark="\.\.\/\.\.\/images\//g, 'data-dark="../images/')
+      .replace(/data-light="\.\.\/\.\.\/images\//g, 'data-light="../images/');
   }
 
   /**
@@ -713,6 +737,33 @@ class TemplateLoader {
   /**
    * Initialize top button
    */
+  initThemeToggle() {
+    const themeBtns = document.querySelectorAll('.theme-preview-btn');
+    const sectionContainer = document.getElementById('sectionContainer');
+    if (!themeBtns.length || !sectionContainer) return;
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const themeVal = btn.dataset.themeVal;
+        if (themeVal === 'dark') {
+          sectionContainer.setAttribute('data-theme', 'dark');
+          // 다크 로고로 교체
+          sectionContainer.querySelectorAll('[data-dark]').forEach(el => {
+            if (el.dataset.dark) el.src = el.dataset.dark;
+          });
+        } else {
+          sectionContainer.removeAttribute('data-theme');
+          // 라이트 로고로 복원
+          sectionContainer.querySelectorAll('[data-light]').forEach(el => {
+            if (el.dataset.light) el.src = el.dataset.light;
+          });
+        }
+      });
+    });
+  }
+
   initTopButton() {
     const topBtn = document.getElementById('topBtn');
     if (!topBtn) return;

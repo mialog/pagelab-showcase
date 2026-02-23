@@ -132,10 +132,11 @@
    Button Variants
    ============================================ */
 
-/* Primary Button */
+/* Primary Button (filled_primary)
+   brand cyan 배경은 다크모드에서도 유지되므로 텍스트는 항상 흰색 */
 .pl-btn--primary {
   background: var(--pl-bg-brand);
-  color: var(--pl-text-invert);
+  color: var(--pl-neutral-0);
 }
 
 .pl-btn--primary::before {
@@ -190,11 +191,11 @@
 }
 
 .pl-btn--outline:hover::before {
-  background: var(--pl-alpha-black-12);
+  background: var(--pl-alpha-brand-12);
 }
 
 .pl-btn--outline:active::before {
-  background: var(--pl-alpha-black-24);
+  background: var(--pl-alpha-brand-24);
 }
 
 .pl-btn--outline:focus-visible {
@@ -226,26 +227,53 @@
   outline-offset: 2px;
 }
 
-/* Secondary Light Button (for dark backgrounds) */
-.pl-btn--secondary-light {
-  background: rgba(255, 255, 255, 0.9);
+/* Filled Secondary Button (filled_secondary)
+   --pl-bg-brand-light 토큰이 라이트/다크 자동 반전 처리
+   라이트: lightblue-5 (#edf8fc) / 다크: lightblue-70 (#007daf) */
+.pl-btn--filled-secondary {
+  background: var(--pl-bg-brand-light);
   color: var(--pl-text-primary);
 }
 
-.pl-btn--secondary-light::before {
+.pl-btn--filled-secondary::before {
   background: transparent;
 }
 
-.pl-btn--secondary-light:hover::before {
+.pl-btn--filled-secondary:hover::before {
   background: var(--pl-alpha-black-12);
 }
 
-.pl-btn--secondary-light:active::before {
+.pl-btn--filled-secondary:active::before {
   background: var(--pl-alpha-black-24);
 }
 
-.pl-btn--secondary-light:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
+.pl-btn--filled-secondary:focus-visible {
+  outline: 2px solid var(--pl-border-brand);
+  outline-offset: 2px;
+}
+
+/* Outline Secondary Button (outlined_secondary)
+   중립 테두리, 모드 전환 시 자동 반전 */
+.pl-btn--outline-secondary {
+  background: transparent;
+  border: var(--pl-border-2) solid var(--pl-border-default);
+  color: var(--pl-text-primary);
+}
+
+.pl-btn--outline-secondary::before {
+  background: transparent;
+}
+
+.pl-btn--outline-secondary:hover::before {
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-btn--outline-secondary:active::before {
+  background: var(--pl-alpha-black-24);
+}
+
+.pl-btn--outline-secondary:focus-visible {
+  outline: 2px solid var(--pl-border-default);
   outline-offset: 2px;
 }
 

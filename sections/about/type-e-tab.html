@@ -254,40 +254,32 @@
     }
 
     /* Dark Mode - Type E Reverse (Figma)
-       bg 자동 반전, 탭은 Default 스타일 유지 (흰 배경 + 파란 텍스트) */
+       섹션타이틀: sections.css [data-theme="dark"] 컴포넌트 토큰 자동 적용 */
     .preview-content[data-theme="dark"] .pl-section-title__label {
-      color: #15b2f1;
-    }
-
-    .preview-content[data-theme="dark"] .pl-section-title__heading {
-      color: #ffffff;
+      color: var(--pl-text-brand);
     }
 
     .preview-content[data-theme="dark"] .pl-section-title__desc {
-      color: #e3e8ed;
+      color: var(--pl-text-secondary);
     }
 
     /* Style A 탭: 시맨틱 토큰 반전 보정 (피그마 동일 스타일 유지) */
     .preview-content[data-theme="dark"] .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn {
-      background: #ffffff;
-      color: #416df0;
-      border-color: #8eabff;
+      background: var(--pl-neutral-0);
+      color: var(--pl-text-accent);
+      border-color: var(--pl-border-accent-light);
     }
 
     .preview-content[data-theme="dark"] .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn.is-active {
-      background: #416df0;
-      color: #ffffff;
-      border-color: #416df0;
+      background: var(--pl-text-accent);
+      color: var(--pl-neutral-0);
+      border-color: var(--pl-text-accent);
     }
 
-    /* Style B 탭: 시맨틱 토큰 반전 보정 (피그마 동일 스타일 유지) */
-    .preview-content[data-theme="dark"] .pl-tab-nav--style-b .pl-tab-btn {
-      color: #ffffff;
-    }
-
+    /* Style B 탭: sections.css에서 neutral-0 처리, active만 보정 */
     .preview-content[data-theme="dark"] .pl-tab-nav--style-b .pl-tab-btn.is-active {
-      color: #9b6bf4;
-      background: #ffffff;
+      color: var(--pl-text-link);
+      background: var(--pl-neutral-0);
     }
 
   </style>
@@ -329,10 +321,10 @@
       <!-- Tab Style Switcher -->
       <div class="tab-style-switcher">
         <button class="tab-style-btn is-active" data-tab-style="style-a">
-          탭 A
+          라인형
         </button>
         <button class="tab-style-btn" data-tab-style="style-b">
-          탭 B
+          라운드형
         </button>
       </div>
 

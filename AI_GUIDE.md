@@ -155,6 +155,90 @@ pagelab_showcase/
 
 **결과**: CSS에서 `var(--pl-spacing-8)`를 사용하면 화면 크기에 따라 자동으로 32px → 30px → 24px로 변경됩니다.
 
+### 2.5 시맨틱 컬러 토큰과 다크 모드
+
+#### 스케일 토큰 vs 시맨틱 토큰
+
+| 구분 | 예시 | 특징 |
+|------|------|------|
+| **스케일 토큰** | `var(--pl-neutral-50)`, `var(--pl-lightblue-10)` | 고정 색상값. 다크 모드에서도 변하지 않음 |
+| **시맨틱 토큰** | `var(--pl-text-primary)`, `var(--pl-bg-brand-light)` | 모드에 따라 자동으로 값이 바뀜 |
+
+**원칙**: 배경·텍스트·아이콘·보더 컬러는 반드시 **시맨틱 토큰**을 사용해야 다크 모드가 자동 지원됩니다. 스케일 토큰(`--pl-neutral-*`, `--pl-blue-*` 등)을 직접 사용하면 다크 모드에서 색상이 바뀌지 않습니다.
+
+#### Figma default/reverse 패턴
+
+Figma 컬러 변수는 "default"(라이트) 모드와 "reverse"(다크) 모드 두 값을 가집니다.
+**`-light`와 `-dark` 접미사를 가진 페어 토큰은 다크 모드에서 서로의 값으로 교환(reverse)됩니다.**
+
+```css
+/* 라이트 모드 (:root) */
+--pl-bg-brand-light: #d1eefa;   /* lightblue-10 (밝은 색) */
+--pl-bg-brand-dark:  #06435b;   /* lightblue-90 (어두운 색) */
+
+/* 다크 모드 ([data-theme="dark"]) — 서로 교환됨 */
+--pl-bg-brand-light: #06435b;   /* reverse: 원래 -dark 값 */
+--pl-bg-brand-dark:  #d1eefa;   /* reverse: 원래 -light 값 */
+```
+
+이 패턴 덕분에 `var(--pl-bg-brand-light)`는 라이트 모드에서는 밝은 배경, 다크 모드에서는 어두운 배경을 자동으로 렌더링합니다.
+
+#### 다크 모드 적용 방법
+
+```html
+<!-- 라이트 모드 (기본) -->
+<div class="preview-content">...</div>
+
+<!-- 다크 모드 — data-theme="dark" 추가 -->
+<div class="preview-content" data-theme="dark">...</div>
+```
+
+`tokens/base.css`의 `[data-theme="dark"]` 블록에 오버라이드 값이 정의되어 있습니다.
+
+#### 다크 모드 reversal이 적용된 카테고리
+
+다음 5개 카테고리의 `-dark`/`-light` 페어는 모두 `[data-theme="dark"]`에서 서로 reverse됩니다.
+각 카테고리는 `text`, `bg`, `border`, `icon` 4개 접두사에 동일하게 적용됩니다.
+
+| 카테고리 | 컬러 계열 | 토큰 예시 |
+|---------|---------|---------|
+| **brand** | 라이트블루 | `--pl-bg-brand-light` ↔ `--pl-bg-brand-dark` |
+| **accent** | 블루 | `--pl-bg-accent-light` ↔ `--pl-bg-accent-dark` |
+| **positive** | 그린 | `--pl-bg-positive-light` ↔ `--pl-bg-positive-dark` |
+| **caution** | 옐로우 | `--pl-bg-caution-light` ↔ `--pl-bg-caution-dark` |
+| **negative** | 레드 | `--pl-bg-negative-light` ↔ `--pl-bg-negative-dark` |
+
+**주요 값 참고표 (bg 카테고리):**
+
+| 토큰 | 라이트 모드 | 다크 모드 |
+|------|-----------|---------|
+| `--pl-bg-brand-light` | `#d1eefa` (lightblue-10) | `#06435b` (lightblue-90) |
+| `--pl-bg-brand-dark` | `#06435b` (lightblue-90) | `#d1eefa` (lightblue-10) |
+| `--pl-bg-accent-light` | `#dae3ff` | `#0e2f91` |
+| `--pl-bg-accent-dark` | `#0e2f91` | `#dae3ff` |
+| `--pl-bg-positive-light` | `#ecf8f2` | `#167d46` |
+| `--pl-bg-positive-dark` | `#167d46` | `#ecf8f2` |
+| `--pl-bg-caution-light` | `#fff8e7` | `#a37402` |
+| `--pl-bg-caution-dark` | `#a37402` | `#fff8e7` |
+| `--pl-bg-negative-light` | `#fef5f5` | `#a32428` |
+| `--pl-bg-negative-dark` | `#a32428` | `#fef5f5` |
+
+#### ❌ 잘못된 방법 (스케일 토큰 직접 사용)
+
+```css
+.pl-hero--center {
+  background: var(--pl-lightblue-10); /* 다크 모드에서도 그대로 #d1eefa 유지됨 */
+}
+```
+
+#### ✅ 올바른 방법 (시맨틱 토큰 사용)
+
+```css
+.pl-hero--center {
+  background: var(--pl-bg-brand-light); /* 다크 모드에서 자동으로 #06435b로 전환됨 */
+}
+```
+
 ---
 
 ## 3. CSS 아키텍처 및 규칙
@@ -164,7 +248,9 @@ pagelab_showcase/
 #### tokens/base.css
 - PLtokens.json의 값을 CSS 변수로 변환
 - 미디어 쿼리로 반응형 토큰 구현
-- **절대 수정 금지** (자동 생성 파일)
+- `[data-theme="dark"]` 블록에서 다크 모드 오버라이드 값 관리
+- **Spacing·Font·Radius 등 반응형 토큰은 수정 주의** (PLtokens.json 기반)
+- **시맨틱 컬러 토큰 (`[data-theme="dark"]` 블록) 추가·수정은 허용**
 
 #### styles/sections.css
 - 모든 섹션의 스타일 정의
@@ -951,6 +1037,9 @@ function toggleMobileMenu() {
 - [ ] Container Query로 반응형 구현 (`@container section`)
 - [ ] BEM 네이밍 컨벤션 준수
 - [ ] Tablet(1199px), Mobile(639px) 브레이크포인트 적용
+- [ ] 컬러는 **스케일 토큰 대신 시맨틱 토큰** 사용 (`var(--pl-bg-brand-light)` ✅ vs `var(--pl-lightblue-10)` ❌)
+- [ ] 배경색이 있는 섹션은 다크 모드 자동 지원을 위해 `-dark`/`-light` 페어 시맨틱 토큰 선택
+- [ ] 다크 모드 전용 별도 스타일이 필요한 경우에만 `[data-theme="dark"] .component {}` 추가
 
 ### 9.3 토큰 사용 우선순위
 
@@ -1136,6 +1225,6 @@ padding: 28px 24px; /* 28px: 토큰 없음, 24px: Spacing7 Mo 값 */
 
 ---
 
-**문서 버전**: 1.1
-**최종 업데이트**: 2026-02-02
+**문서 버전**: 1.2
+**최종 업데이트**: 2026-02-23
 **작성자**: PageLab Team

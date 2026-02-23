@@ -116,6 +116,39 @@ button {
   cursor: default;
 }
 
+/* Theme Toggle Button */
+.showcase__theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--pl-radius-2);
+  color: var(--pl-text-secondary);
+  background: transparent;
+  border: 1px solid var(--pl-border-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.showcase__theme-toggle:hover {
+  color: var(--pl-text-primary);
+  background: var(--pl-bg-neutral);
+}
+
+.theme-toggle__icon { display: block; }
+.theme-toggle__icon--dark { display: none; }
+
+[data-theme="dark"] .theme-toggle__icon--light { display: none; }
+[data-theme="dark"] .theme-toggle__icon--dark { display: block; }
+
+/* Spacer for pages without theme-toggle (e.g. creative.html) */
+.showcase__header-spacer {
+  width: 36px;
+  flex-shrink: 0;
+}
+
 .showcase__main {
   flex: 1;
   display: flex;
@@ -638,4 +671,87 @@ button {
   .section-gallery {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================
+   Dark Mode Overrides
+   --pl-neutral-5, --pl-bg-neutral, --pl-*-5 등
+   스케일/라이트 전용 토큰이 다크모드에서 반전되지 않아
+   명시적으로 재정의합니다.
+   ============================================ */
+
+/* Header border */
+[data-theme="dark"] .showcase__header {
+  border-bottom-color: var(--pl-neutral-80);
+}
+
+/* Sidebar */
+[data-theme="dark"] .showcase__sidebar {
+  background: var(--pl-neutral-90);
+  border-right-color: var(--pl-neutral-80);
+}
+
+[data-theme="dark"] .sidebar__item.is-active {
+  background: rgba(21, 177, 241, 0.12);
+}
+
+[data-theme="dark"] .sidebar__count {
+  background: var(--pl-neutral-80);
+  color: var(--pl-text-tertiary);
+}
+
+[data-theme="dark"] .sidebar__item:hover {
+  background: var(--pl-neutral-80);
+}
+
+/* Responsive sidebar pills (max-width: 900px) */
+@media (max-width: 900px) {
+  [data-theme="dark"] .sidebar__item {
+    background: var(--pl-neutral-80);
+  }
+
+  [data-theme="dark"] .showcase__sidebar {
+    border-bottom-color: var(--pl-neutral-80);
+  }
+}
+
+/* Section cards */
+[data-theme="dark"] .section-card {
+  border-color: var(--pl-neutral-80);
+}
+
+[data-theme="dark"] .section-card__preview {
+  background: var(--pl-neutral-90);
+  border-bottom-color: var(--pl-neutral-80);
+}
+
+/* Card type tags - override all light *-5 backgrounds */
+[data-theme="dark"] .section-card[data-type] .section-card__tag {
+  background: var(--pl-neutral-80);
+}
+
+/* Search input */
+[data-theme="dark"] .content__search-input {
+  color: var(--pl-text-primary);
+  border-color: var(--pl-neutral-80);
+  background: var(--pl-neutral-90);
+}
+
+/* Filter tags */
+[data-theme="dark"] .filter-tag {
+  background: var(--pl-neutral-80);
+  color: var(--pl-text-secondary);
+}
+
+[data-theme="dark"] .filter-tag:hover {
+  background: var(--pl-neutral-70);
+}
+
+[data-theme="dark"] .filter-tag.is-active {
+  color: var(--pl-neutral-0);
+}
+
+/* Header nav active */
+[data-theme="dark"] .showcase__nav-link.is-active {
+  background: rgba(21, 177, 241, 0.12);
 }

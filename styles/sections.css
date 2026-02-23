@@ -139,28 +139,29 @@
 
 /* ============================================
    Hero Section - Type B (Center Aligned)
-   중앙 정렬형 - Figma 스펙: 어두운 배경 + 흰색 텍스트
+   중앙 정렬형 - 브랜드 라이트 배경 + 다크 텍스트 (스케일 토큰 고정)
    ============================================ */
 .pl-hero--center {
   text-align: center;
-  background: #0E2F91; /* Figma: 다크 블루 배경 */
+  background: var(--pl-bg-brand-light); /* 시맨틱: 라이트 lightblue-10 / 다크 lightblue-90 */
 }
 
 .pl-hero--center .pl-hero__title {
-  color: #fff;
-  font-weight: 400;
+  color: var(--pl-text-primary); /* 시맨틱: 라이트 #0b0d11 / 다크 #ffffff */
+  font-size: var(--pl-font-size-display-md); /* Figma: 48px */
+  font-weight: var(--pl-font-weight-bold); /* Figma: Bold 700 */
 }
 
 .pl-hero--center .pl-hero__desc {
-  color: #fff;
+  color: var(--pl-text-primary); /* 시맨틱: 라이트 #0b0d11 / 다크 #ffffff */
 }
 
 .pl-hero--center .pl-hero__container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--pl-spacing-10); /* Figma: spacing-10 = 48px */
-  padding: var(--pl-spacing-13) 0 0 0; /* 위 여백 */
+  gap: var(--pl-spacing-9); /* Figma: 40px, content→image gap */
+  padding: var(--pl-spacing-11) 0 0 0; /* Figma: 60px top padding */
 }
 
 .pl-hero--center .pl-hero__content {
@@ -168,12 +169,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--pl-spacing-10);
+  gap: var(--pl-spacing-9); /* Figma: 40px, text→button gap */
 }
 
 .pl-hero--center .pl-hero__text {
   align-items: center;
-  gap: var(--pl-spacing-8);
+  gap: var(--pl-spacing-6); /* Figma: 20px, label→title→desc gap */
 }
 
 .pl-hero--center .pl-hero__actions {
@@ -190,9 +191,9 @@
 
 /* Hero Type B - Outlined Button (Cyan/시안 색상) - Figma 스펙 */
 .pl-hero--center .pl-btn--outline {
-  border-color: #15b2f1;
-  color: #15b2f1;
-  background: transparent;
+  border-color: var(--pl-lightblue-50); /* 스케일 토큰: 항상 #15b1f1 */
+  color: var(--pl-lightblue-50);
+  background: var(--pl-neutral-0); /* 스케일 토큰: 항상 white */
 }
 
 .pl-hero--center .pl-btn--outline::before {
@@ -200,20 +201,20 @@
 }
 
 .pl-hero--center .pl-btn--outline:hover::before {
-  background: rgba(21, 178, 241, 0.12); /* #15b2f1 at 12% */
+  background: rgba(21, 178, 241, 0.12); /* var(--pl-text-brand) at 12% */
 }
 
 .pl-hero--center .pl-btn--outline:active::before {
-  background: rgba(21, 178, 241, 0.24); /* #15b2f1 at 24% */
+  background: rgba(21, 178, 241, 0.24); /* var(--pl-text-brand) at 24% */
 }
 
 /* ============================================
    Hero Section - Type C (Full Visual)
-   전면 비주얼 + 오버레이
+   전면 배경형 - neutral-50 고정 배경 + 시맨틱 텍스트 (모드 반전)
    ============================================ */
 .pl-hero--full {
   position: relative;
-  background: transparent;
+  background: var(--pl-neutral-50); /* 스케일 토큰: #8c97a0, 모드 무관 고정 */
   overflow: hidden;
 }
 
@@ -227,13 +228,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.20; /* Figma: 20% image texture */
+  filter: saturate(0.48); /* Figma: saturation -52% */
 }
 
 .pl-hero--full .pl-hero__bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(11, 13, 17, 0.80); /* Figma: alpha-black-80 */
+  background: transparent; /* 오버레이 제거 */
 }
 
 .pl-hero--full .pl-hero__container {
@@ -253,20 +256,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--pl-spacing-10);
+  gap: var(--pl-spacing-13); /* Figma: 80px, text→button gap */
 }
 
 .pl-hero--full .pl-hero__text {
   align-items: center;
-  gap: var(--pl-spacing-8);
+  gap: var(--pl-spacing-9); /* Figma: 40px, label→title→desc gap */
 }
 
 .pl-hero--full .pl-hero__title {
-  color: #b7c8ff; /* Figma: light blue for dark bg */
+  color: var(--pl-text-primary); /* 시맨틱: 라이트 #0b0d11 / 다크 #ffffff */
+  font-weight: var(--pl-font-weight-bold);
 }
 
 .pl-hero--full .pl-hero__desc {
-  color: var(--pl-text-invert); /* Figma: solid white, no opacity */
+  color: var(--pl-text-primary); /* 시맨틱: 라이트 #0b0d11 / 다크 #ffffff */
 }
 
 .pl-hero--full .pl-hero__actions {
@@ -309,6 +313,10 @@
   }
 
   /* Hero Type B (Center) Tablet */
+  .pl-hero--center .pl-hero__title {
+    font-size: 40px; /* = --pl-font-size-display-md @ Ta */
+  }
+
   .pl-hero--center .pl-hero__visual {
     aspect-ratio: 720 / 400; /* Figma Tablet: 720x400 (1.8:1) */
     border-radius: var(--pl-radius-2); /* Figma Tablet: 16px */
@@ -474,6 +482,10 @@
     gap: var(--pl-spacing-5); /* Figma: gap between label, title, desc */
   }
 
+  .pl-hero--center .pl-hero__title {
+    font-size: 30px; /* Figma Mo: 30px = --pl-font-size-display-md @ Mo */
+  }
+
   /* Type C (Full) 모바일 - Figma: 360x800 */
   .pl-hero--full {
     min-height: 800px; /* Figma 모바일 높이 */
@@ -581,14 +593,18 @@
   color: var(--pl-text-brand-light);
 }
 
-.pl-section-title--dark .pl-section-title__heading,
-[data-theme="dark"] .pl-section-title__heading {
+.pl-section-title--dark .pl-section-title__heading {
   color: var(--pl-text-invert);
 }
+[data-theme="dark"] .pl-section-title__heading {
+  color: var(--pl-text-primary);
+}
 
-.pl-section-title--dark .pl-section-title__desc,
-[data-theme="dark"] .pl-section-title__desc {
+.pl-section-title--dark .pl-section-title__desc {
   color: var(--pl-text-invert);
+}
+[data-theme="dark"] .pl-section-title__desc {
+  color: var(--pl-text-secondary);
 }
 
 .pl-section-title--dark .pl-section-title__note,
@@ -1141,11 +1157,11 @@
 }
 
 .pl-grid-card:hover .pl-grid-card__image::after {
-  background: rgba(11, 13, 17, 0.12); /* Figma: hovered 12% */
+  background: var(--pl-alpha-black-12); /* Figma: hovered 12% */
 }
 
 .pl-grid-card:active .pl-grid-card__image::after {
-  background: rgba(11, 13, 17, 0.12); /* Figma: pressed 12% */
+  background: var(--pl-alpha-black-12); /* Figma: pressed 12% */
 }
 
 /* Grid Card - Interaction States (Text Top / Small) */
@@ -1169,11 +1185,11 @@
 }
 
 .pl-grid-card--small:hover::before {
-  background: rgba(255, 255, 255, 0.12); /* Figma: hovered 12% */
+  background: var(--pl-alpha-white-12); /* Figma: hovered 12% */
 }
 
 .pl-grid-card--small:active::before {
-  background: rgba(255, 255, 255, 0.24); /* Figma: pressed 24% */
+  background: var(--pl-alpha-white-24); /* Figma: pressed 24% */
 }
 
 /* ============================================
@@ -1323,7 +1339,7 @@
 .pl-slide-card__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(11, 13, 17, 0.32); /* Figma: #0b0d11 at 32% */
+  background: var(--pl-alpha-black-32); /* Figma: #0b0d11 at 32% */
   z-index: 2;
   transition: background 0.2s ease;
 }
@@ -1662,11 +1678,11 @@
 
 /* Figma: hover = white 12%, pressed = white 24% */
 .pl-swipe-card--overlay:hover::after {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pl-alpha-white-12);
 }
 
 .pl-swipe-card--overlay:active::after {
-  background: rgba(255, 255, 255, 0.24);
+  background: var(--pl-alpha-white-24);
 }
 
 .pl-swipe-card--overlay .pl-swipe-card__overlay-bg {
@@ -1675,7 +1691,7 @@
   left: 0;
   right: 0;
   height: 197px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--pl-alpha-white-80);
   z-index: 2; /* Below content but above image */
 }
 
@@ -1739,11 +1755,11 @@
 
 /* Figma: hover = white 12%, pressed = white 24% */
 .pl-swipe-card--split:hover::after {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pl-alpha-white-12);
 }
 
 .pl-swipe-card--split:active::after {
-  background: rgba(255, 255, 255, 0.24);
+  background: var(--pl-alpha-white-24);
 }
 
 .pl-swipe-card--split .pl-swipe-card__image {
@@ -2152,7 +2168,7 @@
 }
 
 .pl-tab-nav--style-b .pl-tab-btn {
-  color: var(--pl-text-primary);
+  color: var(--pl-text-invert);
   background: transparent;
   border: none;
   border-radius: var(--pl-radius-circle);
@@ -2480,7 +2496,7 @@
   flex-direction: column;
   gap: var(--pl-spacing-7);
   padding: var(--pl-spacing-9) 24px 24px 24px; /* Figma: approx padding */
-  background: rgba(255, 255, 255, 0.8); /* Figma: 80% opacity */
+  background: var(--pl-alpha-white-80); /* Figma: 80% opacity */
   border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
   border-radius: 18px; /* Figma: 18px */
 }
@@ -2651,7 +2667,7 @@
   flex-direction: column;
   gap: var(--pl-spacing-7);
   padding: var(--pl-spacing-9) 24px; /* Figma: 40px top/bottom, 24px left/right */
-  background: rgba(255, 255, 255, 0.8); /* Figma: 80% opacity */
+  background: var(--pl-alpha-white-80); /* Figma: 80% opacity */
   border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
   border-radius: 18px; /* Figma: 18px */
 }
@@ -2721,33 +2737,31 @@
   }
 
   .pl-review-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--pl-spacing-7); /* Figma: 22px between cards */
+    flex-direction: column;
+    align-items: stretch;
     max-width: none;
-    padding: 0; /* No side padding - cards fill container width */
+    padding: 0;
   }
 
   .pl-review-grid__row {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 317px 317px; /* Figma: 2 cards × 317px */
     justify-content: center;
-    gap: var(--pl-spacing-7);
+    gap: var(--pl-spacing-7); /* Figma: 22px */
   }
 
   .pl-review-card--grid {
-    flex: 0 0 calc(50% - 11px); /* 2 cards per row with 22px gap */
-    max-width: 317px;
+    width: 100%; /* fills grid cell (317px) */
+    flex: none;
+    max-width: none;
     height: 327px;
     padding: var(--pl-spacing-9) var(--pl-spacing-7);
     border-radius: 16px;
   }
 
-  /* Last card full width when odd number */
+  /* Last card full width when odd (7th card) */
   .pl-review-grid__row .pl-review-card--grid:last-child:nth-child(odd) {
-    flex: 0 0 100%;
-    max-width: 656px;
+    grid-column: 1 / -1; /* spans both columns = 656px */
     height: 267px;
   }
 
@@ -2779,6 +2793,7 @@
   }
 
   .pl-review-grid__row {
+    display: flex;
     flex-direction: column;
     gap: var(--pl-spacing-6);
     width: 100%;
@@ -2884,7 +2899,7 @@
   align-items: flex-start;
   gap: var(--pl-spacing-7); /* Figma: spacing-7 = 24px */
   padding: var(--pl-spacing-9) 24px 32px 24px; /* Figma: spacing-9, spacing-7, spacing-8, spacing-7 */
-  background: rgba(255, 255, 255, 0.8); /* Figma: 80% opacity */
+  background: var(--pl-alpha-white-80); /* Figma: 80% opacity */
   border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
   border-radius: 18px; /* Figma: 18px */
 }
@@ -4547,7 +4562,7 @@
   margin: var(--pl-spacing-5) var(--pl-spacing-2) var(--pl-spacing-5); /* 20px 8px 20px - Figma spec */
   padding: var(--pl-spacing-8) var(--pl-spacing-6); /* 32px 24px - Figma spec */
   background: var(--pl-bg-default); /* Figma: white background */
-  border: 1px solid #c6d0d7; /* Figma: answer box border */
+  border: 1px solid var(--pl-border-default); /* Figma: answer box border */
   border-radius: var(--pl-radius-3); /* 18px */
 }
 
@@ -4663,6 +4678,42 @@
 }
 
 /* ============================================
+   FAQ - Dark Mode (data-theme="dark" 컨텍스트)
+   ============================================ */
+[data-theme="dark"] .pl-faq {
+  background: var(--pl-neutral-90);
+}
+
+[data-theme="dark"] .pl-faq__item {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .pl-faq__question {
+  color: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-faq__icon {
+  color: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-faq__header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .pl-faq__answer {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .pl-faq__answer-title {
+  color: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-faq__answer-text {
+  color: var(--pl-text-secondary);
+}
+
+/* ============================================
    Caution Section (ETC - 유의사항)
    Figma: 1920x475, bg #ffffff
    ============================================ */
@@ -4715,7 +4766,7 @@
   content: '';
   width: 4px; /* Figma: 4x4 circle */
   height: 4px;
-  background: var(--pl-text-tertiary); /* #8c98a1 */
+  background: var(--pl-text-tertiary); /* var(--pl-text-lowest) */
   border-radius: 50%;
 }
 
@@ -4849,7 +4900,7 @@
 }
 
 .pl-cta__btn--outline {
-  color: var(--pl-text-brand); /* #15b2f1 */
+  color: var(--pl-text-brand); /* var(--pl-text-brand) */
   background: var(--pl-bg-default); /* white */
   border: 1px solid var(--pl-text-brand);
 }
@@ -4860,7 +4911,7 @@
 
 .pl-cta__btn--filled {
   color: var(--pl-bg-default); /* white */
-  background: var(--pl-text-brand); /* #15b2f1 */
+  background: var(--pl-text-brand); /* var(--pl-text-brand) */
   border: 1px solid var(--pl-text-brand);
 }
 
@@ -4943,8 +4994,17 @@
     flex: 1;
     min-width: auto;
     height: 56px; /* Figma: 56px */
-    font-size: 17px; /* Figma: 17px */
+    font-size: 15px;
+    padding: 0 14px;
+    white-space: nowrap;
   }
+}
+
+/* ============================================
+   CTA Finish - Dark Mode (data-theme="dark" 컨텍스트)
+   ============================================ */
+[data-theme="dark"] .pl-cta--finish {
+  background: var(--pl-neutral-90);
 }
 
 /* ============================================
@@ -5029,7 +5089,7 @@
 
 /* Hover: 검은색 12% 오버레이 */
 .pl-cta-floating__btn:hover::before {
-  background: rgba(11, 13, 17, 0.12);
+  background: var(--pl-alpha-black-12);
 }
 
 /* Active/Pressed: 시안색 24% 오버레이 (테두리 없음) */
@@ -5052,12 +5112,12 @@
 
 .pl-cta-floating__btn:disabled .pl-cta-floating__label,
 .pl-cta-floating__btn.is-disabled .pl-cta-floating__label {
-  color: #8c98a1;
+  color: var(--pl-text-lowest);
 }
 
 .pl-cta-floating__btn:disabled .pl-cta-floating__icon,
 .pl-cta-floating__btn.is-disabled .pl-cta-floating__icon {
-  stroke: #8c98a1;
+  stroke: var(--pl-text-lowest);
 }
 
 .pl-cta-floating__label {
@@ -5227,7 +5287,7 @@
 .pl-cta-floating-b__text {
   font-size: 20px; /* Figma: 20px */
   font-weight: var(--pl-font-weight-bold);
-  color: #416df0;
+  color: var(--pl-text-accent);
   white-space: nowrap;
 }
 
@@ -5265,27 +5325,27 @@
 
 /* Hover: 흰색 12% 오버레이 */
 .pl-cta-floating-b__btn:hover::before {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pl-alpha-white-12);
 }
 
 /* Active/Pressed: 흰색 24% 오버레이 (테두리 없음) */
 .pl-cta-floating-b__btn:active::before {
-  background: rgba(255, 255, 255, 0.24);
+  background: var(--pl-alpha-white-24);
 }
 
 /* Focus: 흰색 24% 오버레이 + 버튼 색상 테두리 */
 .pl-cta-floating-b__btn:focus-visible::before {
-  background: rgba(255, 255, 255, 0.24);
+  background: var(--pl-alpha-white-24);
 }
 
 /* Focus 테두리 - Purple 버튼 */
 .pl-cta-floating-b__btn--purple:focus-visible::before {
-  box-shadow: inset 0 0 0 2px #9b6bf4;
+  box-shadow: inset 0 0 0 2px var(--pl-text-link);
 }
 
 /* Focus 테두리 - Cyan 버튼 */
 .pl-cta-floating-b__btn--cyan:focus-visible::before {
-  box-shadow: inset 0 0 0 2px #15b2f1;
+  box-shadow: inset 0 0 0 2px var(--pl-text-brand);
 }
 
 /* Disabled 상태 */
@@ -5297,12 +5357,12 @@
 
 .pl-cta-floating-b__btn:disabled .pl-cta-floating-b__label,
 .pl-cta-floating-b__btn.is-disabled .pl-cta-floating-b__label {
-  color: #8c98a1;
+  color: var(--pl-text-lowest);
 }
 
 .pl-cta-floating-b__btn:disabled .pl-cta-floating-b__icon,
 .pl-cta-floating-b__btn.is-disabled .pl-cta-floating-b__icon {
-  stroke: #8c98a1;
+  stroke: var(--pl-text-lowest);
 }
 
 .pl-cta-floating-b__label {
@@ -5323,12 +5383,12 @@
 
 /* Purple Button */
 .pl-cta-floating-b__btn--purple {
-  background: #9b6bf4;
+  background: var(--pl-text-link);
 }
 
 /* Cyan Button */
 .pl-cta-floating-b__btn--cyan {
-  background: #15b2f1;
+  background: var(--pl-text-brand);
 }
 
 /* Single Button Variant */
@@ -5435,19 +5495,21 @@
   justify-content: center;
   width: 100%;
   height: 74px;
-  background: #ffffff;
-  position: sticky;
+  background: transparent; /* Figma: scroll=off 상태에서 투명 */
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   transition: background 0.3s, box-shadow 0.3s;
 }
 
 /* Scrolled State - Figma: bg #ffffff 80% opacity */
 .pl-gnb.is-scrolled {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--pl-alpha-white-80);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 rgba(11, 13, 17, 0.08);
+  box-shadow: 0 1px 0 var(--pl-alpha-black-08);
 }
 
 .pl-gnb__container {
@@ -5481,7 +5543,7 @@
 .pl-gnb__menu-item {
   font-size: 17px;
   font-weight: 500;
-  color: #394046; /* Figma: tertiary text */
+  color: var(--pl-text-secondary); /* Figma: tertiary text */
   text-decoration: none;
   padding: 8px 4px;
   border-radius: 10px;
@@ -5489,30 +5551,30 @@
 }
 
 .pl-gnb__menu-item:hover {
-  color: #0b0d11; /* Figma: primary text */
-  background: rgba(11, 13, 17, 0.12); /* Figma: alpha-black-12 */
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12); /* Figma: alpha-black-12 */
 }
 
 .pl-gnb__menu-item:focus {
-  color: #0b0d11;
-  background: rgba(11, 13, 17, 0.12);
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12);
   font-weight: 700;
   outline: none;
 }
 
 .pl-gnb__menu-item:active {
-  color: #0b0d11;
+  color: var(--pl-text-primary);
   font-weight: 700;
-  background: rgba(11, 13, 17, 0.12);
+  background: var(--pl-alpha-black-12);
 }
 
 .pl-gnb__menu-item.is-active {
-  color: #0b0d11;
+  color: var(--pl-text-primary);
   font-weight: 700;
 }
 
 .pl-gnb__menu-item.is-disabled {
-  color: rgba(11, 13, 17, 0.24);
+  color: var(--pl-alpha-black-24);
   pointer-events: none;
 }
 
@@ -5530,20 +5592,20 @@
 }
 
 .pl-gnb__mobile-menu:hover {
-  background: rgba(11, 13, 17, 0.08);
+  background: var(--pl-alpha-black-08);
 }
 
 .pl-gnb__mobile-menu:focus {
-  background: rgba(11, 13, 17, 0.08);
+  background: var(--pl-alpha-black-08);
   outline: none;
 }
 
 .pl-gnb__mobile-menu:active {
-  background: rgba(11, 13, 17, 0.12);
+  background: var(--pl-alpha-black-12);
 }
 
 .pl-gnb__mobile-menu svg {
-  stroke: #0b0d11;
+  stroke: var(--pl-text-primary);
 }
 
 /* Mobile Menu Overlay */
@@ -5556,7 +5618,7 @@
   bottom: 0;
   height: 100vh;
   height: 100dvh; /* Dynamic viewport height for mobile browsers */
-  background: #ffffff;
+  background: var(--pl-bg-default);
   z-index: 1001;
   flex-direction: column;
   overflow-y: auto;
@@ -5615,20 +5677,20 @@
 }
 
 .pl-gnb__mobile-close:hover {
-  background: rgba(11, 13, 17, 0.08);
+  background: var(--pl-alpha-black-08);
 }
 
 .pl-gnb__mobile-close:focus {
-  background: rgba(11, 13, 17, 0.08);
+  background: var(--pl-alpha-black-08);
   outline: none;
 }
 
 .pl-gnb__mobile-close:active {
-  background: rgba(11, 13, 17, 0.12);
+  background: var(--pl-alpha-black-12);
 }
 
 .pl-gnb__mobile-close svg {
-  stroke: #0b0d11;
+  stroke: var(--pl-text-primary);
 }
 
 .pl-gnb__mobile-nav {
@@ -5643,7 +5705,7 @@
   font-size: 19px;
   font-weight: 500;
   line-height: 1.44;
-  color: #394046; /* Figma: tertiary text */
+  color: var(--pl-text-secondary); /* Figma: tertiary text */
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 10px;
@@ -5651,30 +5713,30 @@
 }
 
 .pl-gnb__mobile-nav-item:hover {
-  color: #0b0d11; /* Figma: primary text */
-  background: rgba(11, 13, 17, 0.12); /* Figma: alpha-black-12 */
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12); /* Figma: alpha-black-12 */
 }
 
 .pl-gnb__mobile-nav-item:focus {
-  color: #0b0d11;
-  background: rgba(11, 13, 17, 0.12);
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12);
   font-weight: 700;
   outline: none;
 }
 
 .pl-gnb__mobile-nav-item:active {
-  color: #0b0d11;
+  color: var(--pl-text-primary);
   font-weight: 700;
-  background: rgba(11, 13, 17, 0.12);
+  background: var(--pl-alpha-black-12);
 }
 
 .pl-gnb__mobile-nav-item.is-active {
-  color: #0b0d11;
+  color: var(--pl-text-primary);
   font-weight: 700;
 }
 
 .pl-gnb__mobile-nav-item.is-disabled {
-  color: rgba(11, 13, 17, 0.24);
+  color: var(--pl-alpha-black-24);
   pointer-events: none;
 }
 
@@ -5695,33 +5757,34 @@
 
 .pl-gnb--dark .pl-gnb__logo svg text,
 .pl-gnb--dark .pl-gnb__logo svg path {
-  fill: var(--pl-text-invert);
+  fill: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item {
-  color: rgba(255, 255, 255, 0.72); /* Figma: tertiary on dark */
+  color: var(--pl-alpha-white-72); /* Figma: tertiary on dark */
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:hover {
-  color: var(--pl-text-invert);
+  color: var(--pl-neutral-0);
   background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:focus {
-  color: var(--pl-text-invert);
+  color: var(--pl-neutral-0);
   background: var(--pl-alpha-white-12);
   font-weight: 700;
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:active {
-  color: var(--pl-text-invert);
+  color: var(--pl-neutral-0);
   font-weight: 700;
   background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item.is-active {
-  color: var(--pl-text-invert);
+  color: var(--pl-neutral-0);
   font-weight: 700;
+  background: rgba(21, 177, 241, 0.12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item.is-disabled {
@@ -5729,11 +5792,11 @@
 }
 
 .pl-gnb--dark .pl-gnb__mobile-menu {
-  color: var(--pl-text-invert);
+  color: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark .pl-gnb__mobile-menu svg {
-  stroke: var(--pl-text-invert);
+  stroke: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark .pl-gnb__mobile-menu:hover {
@@ -5754,53 +5817,111 @@
    배경: #394046, 텍스트/아이콘: #ffffff
    ============================================ */
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay {
-  background: #394046;
+  background: var(--pl-neutral-80); /* Figma: #394046 */
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close svg {
-  stroke: #ffffff;
+  stroke: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:focus {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:active {
-  background: rgba(255, 255, 255, 0.24);
+  background: var(--pl-alpha-white-24);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--pl-alpha-white-72); /* no exact token */
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:focus {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
   font-weight: 700;
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:active {
-  color: #ffffff;
+  color: var(--pl-neutral-0);
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
-  color: #ffffff;
+  color: var(--pl-neutral-0);
   font-weight: 700;
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-disabled {
-  color: rgba(255, 255, 255, 0.24);
+  color: var(--pl-alpha-white-24);
+}
+
+/* ============================================
+   GNB - Dark Mode (data-theme="dark" 컨텍스트)
+   라이트 GNB가 다크 테마 컨테이너 안에 있을 때
+   ============================================ */
+[data-theme="dark"] .pl-gnb {
+  background: transparent; /* Figma: scroll=off 상태에서 투명 */
+}
+
+[data-theme="dark"] .pl-gnb.is-scrolled {
+  background: var(--pl-alpha-black-80); /* Figma: #0b0d11 80% opacity */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--pl-alpha-white-12);
+}
+
+[data-theme="dark"] .pl-gnb__logo svg text,
+[data-theme="dark"] .pl-gnb__logo svg path {
+  fill: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb__menu-item {
+  color: var(--pl-alpha-white-72);
+}
+
+[data-theme="dark"] .pl-gnb__menu-item:hover {
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
+}
+
+[data-theme="dark"] .pl-gnb__menu-item.is-active {
+  color: var(--pl-neutral-0);
+  background: rgba(21, 177, 241, 0.12);
+}
+
+[data-theme="dark"] .pl-gnb__mobile-menu {
+  color: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb__mobile-menu svg {
+  stroke: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay {
+  background: var(--pl-neutral-100); /* Figma: #0b0d11 solid */
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close svg {
+  stroke: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item {
+  color: var(--pl-alpha-white-72);
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
+  color: var(--pl-neutral-0);
 }
 
 
@@ -5839,14 +5960,14 @@
 
 /* ============================================
    Footer
-   Figma: 1920x546, bg #ffffff, border-top #c6d0d7
+   Figma: 1920x546, bg #ffffff, border-top var(--pl-border-default)
    ============================================ */
 .pl-footer {
   display: flex;
   justify-content: center;
   width: 100%;
-  background: #ffffff;
-  border-top: 1px solid #c6d0d7;
+  background: var(--pl-bg-default);
+  border-top: 1px solid var(--pl-border-default);
 }
 
 .pl-footer__container {
@@ -5881,19 +6002,19 @@
 .pl-footer__category-link {
   font-size: 17px;
   font-weight: 500;
-  color: #6a747c;
+  color: var(--pl-text-tertiary);
   text-decoration: none;
   letter-spacing: 0.32px;
   transition: color 0.2s;
 }
 
 .pl-footer__category-link:hover {
-  color: #0b0d11;
+  color: var(--pl-text-primary);
 }
 
 .pl-footer__category-link--bold {
   font-weight: 700;
-  color: #0b0d11;
+  color: var(--pl-text-primary);
 }
 
 .pl-footer__business {
@@ -5913,7 +6034,7 @@
   gap: 12px;
   font-size: 14px;
   font-weight: 700;
-  color: #0b0d11;
+  color: var(--pl-text-primary);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -5922,7 +6043,7 @@
 
 .pl-footer__company-toggle svg {
   display: none; /* PC에서 숨김 - Tablet/Mobile에서만 표시 */
-  stroke: #6a747c;
+  stroke: var(--pl-text-tertiary);
   transition: transform 0.2s;
 }
 
@@ -5939,7 +6060,7 @@
 .pl-footer__address p {
   font-size: 14px;
   font-weight: 500;
-  color: #6a747c;
+  color: var(--pl-text-tertiary);
   letter-spacing: 0.32px;
   line-height: 20px;
 }
@@ -5961,19 +6082,19 @@
 .pl-footer__call-label {
   font-size: 19px;
   font-weight: 700;
-  color: #394046;
+  color: var(--pl-text-secondary);
 }
 
 .pl-footer__call-number {
   font-size: 24px;
   font-weight: 700;
-  color: #394046;
+  color: var(--pl-text-secondary);
 }
 
 .pl-footer__call-time {
   font-size: 14px;
   font-weight: 500;
-  color: #6a747c;
+  color: var(--pl-text-tertiary);
   letter-spacing: 0.32px;
 }
 
@@ -6006,7 +6127,7 @@
   align-items: flex-start;
   gap: 40px;
   padding: 32px 0;
-  border-top: 1px solid #c6d0d7;
+  border-top: 1px solid var(--pl-border-default);
 }
 
 .pl-footer__marks {
@@ -6047,7 +6168,7 @@
 .pl-footer__isms-text p {
   font-size: 14px;
   font-weight: 500;
-  color: #6a747c;
+  color: var(--pl-text-tertiary);
   letter-spacing: 0.32px;
 }
 
@@ -6068,28 +6189,28 @@
   width: 240px;
   height: 52px;
   padding: 0 16px;
-  background: #ffffff;
-  border: 1px solid #c6d0d7;
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-default);
   border-radius: 4px;
   font-size: 14px;
   font-weight: 500;
-  color: #0b0d11;
+  color: var(--pl-text-primary);
   cursor: pointer;
 }
 
 .pl-footer__dropdown svg {
-  stroke: #6a747c;
+  stroke: var(--pl-text-tertiary);
   transition: transform 0.2s;
 }
 
 /* Dropdown Hover State */
 .pl-footer__dropdown:hover {
-  border-color: #6a747c;
+  border-color: var(--pl-border-darker);
 }
 
 /* Dropdown Opened State */
 .pl-footer__dropdown.is-open {
-  border-color: #6a747c;
+  border-color: var(--pl-border-darker);
   border-radius: 4px 4px 0 0;
 }
 
@@ -6104,8 +6225,8 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: #ffffff;
-  border: 1px solid #6a747c;
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-darker);
   border-top: none;
   border-radius: 0 0 4px 4px;
   max-height: 176px;
@@ -6124,13 +6245,13 @@
   padding: 0 16px;
   font-size: 14px;
   font-weight: 500;
-  color: #0b0d11;
+  color: var(--pl-text-primary);
   text-decoration: none;
   transition: background 0.2s;
 }
 
 .pl-footer__dropdown-item:hover {
-  background: #e3e8ed;
+  background: var(--pl-bg-neutral);
 }
 
 /* Dropdown List Scrollbar */
@@ -6139,13 +6260,13 @@
 }
 
 .pl-footer__dropdown-list::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: var(--pl-bg-default);
 }
 
 .pl-footer__dropdown-list::-webkit-scrollbar-thumb {
-  background: #d4dce2;
+  background: var(--pl-bg-scrollbar);
   border-radius: 99px;
-  border: 4px solid #ffffff;
+  border: 4px solid var(--pl-bg-default);
 }
 
 /* Dropdown Wrapper for positioning */
@@ -6165,12 +6286,12 @@
   width: 100%;
   height: 48px;
   padding: 0 24px;
-  background: #ffffff;
-  border: 1px solid #15b2f1;
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-text-brand);
   border-radius: 999px;
   font-size: 17px;
   font-weight: 500;
-  color: #15b2f1;
+  color: var(--pl-text-brand);
   text-decoration: none;
   transition: background 0.2s;
 }
@@ -6183,7 +6304,7 @@
 .pl-footer__copyright {
   font-size: 14px;
   font-weight: 500;
-  color: #8c98a1;
+  color: var(--pl-text-lowest);
   letter-spacing: 0.32px;
   padding-top: 24px;
 }
@@ -6193,63 +6314,58 @@
    Figma: dark=on 변형 - bg #394046
    ============================================ */
 .pl-footer--dark {
-  background: #394046; /* Figma: bg */
-  border-top-color: #8c98a1;
+  background: var(--pl-neutral-100); /* Figma: #0b0d11 */
+  border-top-color: var(--pl-text-lowest);
 }
 
 .pl-footer--dark .pl-footer__category-link {
-  color: #ffffff; /* Figma: white */
+  color: var(--pl-border-default); /* Figma: neutral-30 */
 }
 
 .pl-footer--dark .pl-footer__category-link--bold {
-  color: #ffffff; /* Figma: white bold */
-}
-
-/* 비활성 메뉴 */
-.pl-footer--dark .pl-footer__category-link:nth-child(n+7) {
-  color: #6a747c; /* Figma: tertiary */
+  color: var(--pl-neutral-0); /* Figma: white bold */
 }
 
 .pl-footer--dark .pl-footer__company-toggle {
-  color: #ffffff; /* Figma: white bold */
+  color: var(--pl-neutral-0); /* Figma: white bold */
 }
 
 .pl-footer--dark .pl-footer__address p {
-  color: #ffffff; /* Figma: white */
+  color: var(--pl-border-default); /* Figma: neutral-30 */
 }
 
 .pl-footer--dark .pl-footer__call-label {
-  color: #ffffff; /* Figma: white bold */
+  color: var(--pl-neutral-10); /* Figma: #e3e8ed */
 }
 
 .pl-footer--dark .pl-footer__call-number {
-  color: #ffffff; /* Figma: white bold */
+  color: var(--pl-neutral-10); /* Figma: #e3e8ed */
 }
 
 .pl-footer--dark .pl-footer__call-time {
-  color: rgba(255, 255, 255, 0.8); /* Figma: white 80% */
+  color: var(--pl-border-default); /* Figma: neutral-30 */
 }
 
 .pl-footer--dark .pl-footer__isms-text p {
-  color: rgba(255, 255, 255, 0.8); /* Figma: white 80% */
+  color: var(--pl-border-default); /* Figma: neutral-30 */
 }
 
 .pl-footer--dark .pl-footer__isms-text strong {
-  color: rgba(255, 255, 255, 0.8); /* Figma: white 80% */
+  color: var(--pl-border-default); /* Figma: neutral-30 */
 }
 
 .pl-footer--dark .pl-footer__copyright {
-  color: #8c98a1; /* Figma: neutral-60 */
+  color: var(--pl-text-lowest); /* Figma: neutral-60 */
 }
 
 /* Dark mode - hover states */
 .pl-footer--dark .pl-footer__category-link:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--pl-neutral-0);
 }
 
 /* Dark mode - arrow icon color */
 .pl-footer--dark .pl-footer__company-toggle svg {
-  stroke: #ffffff;
+  stroke: var(--pl-neutral-0);
 }
 
 

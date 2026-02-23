@@ -142,6 +142,7 @@
       overflow: hidden;
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
       transition: all 0.3s;
+      height: fit-content;
     }
 
     .preview-frame[data-device="pc"] {
@@ -158,7 +159,92 @@
 
     .preview-content {
       overflow-x: auto;
+      container-type: inline-size;
+      container-name: section;
     }
+
+    /* Preview Header Right */
+    .preview-header__right {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-4);
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-2) var(--pl-spacing-4);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode Overrides */
+    .preview-content[data-theme="dark"] {
+      background: #0b0d11;
+    }
+
+    .preview-content[data-theme="dark"] .pl-faq {
+      background: #0b0d11;
+    }
+
+
+    .preview-content[data-theme="dark"] .pl-faq__item {
+      border-bottom-color: #d4dce2;
+    }
+
+    .preview-content[data-theme="dark"] .pl-faq__question {
+      color: var(--pl-neutral-0);
+    }
+
+    .preview-content[data-theme="dark"] .pl-faq__icon {
+      color: var(--pl-neutral-0);
+    }
+
+    .preview-content[data-theme="dark"] .pl-faq__header:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .preview-content[data-theme="dark"] .pl-faq__answer {
+      background: transparent;
+      border-color: var(--pl-border-default);
+    }
+
+    .preview-content[data-theme="dark"] .pl-faq__answer-title {
+      color: var(--pl-neutral-0);
+    }
+
+    .preview-content[data-theme="dark"] .pl-faq__answer-text {
+      color: var(--pl-text-secondary);
+    }
+
   </style>
 </head>
 <body>
@@ -178,32 +264,41 @@
       </div>
     </div>
 
-    <div class="device-switcher">
-      <button class="device-btn is-active" data-device="pc">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-          <line x1="8" y1="21" x2="16" y2="21"></line>
-          <line x1="12" y1="17" x2="12" y2="21"></line>
-        </svg>
-        PC
-        <span class="device-btn__size">1920</span>
-      </button>
-      <button class="device-btn" data-device="tablet">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Tablet
-        <span class="device-btn__size">720</span>
-      </button>
-      <button class="device-btn" data-device="mobile">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        Mobile
-        <span class="device-btn__size">360</span>
-      </button>
+    <div class="preview-header__right">
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">Light</button>
+        <button class="theme-btn" data-theme="dark">Dark</button>
+      </div>
+
+      <!-- Device Switcher -->
+      <div class="device-switcher">
+        <button class="device-btn is-active" data-device="pc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          PC
+          <span class="device-btn__size">1920</span>
+        </button>
+        <button class="device-btn" data-device="tablet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Tablet
+          <span class="device-btn__size">720</span>
+        </button>
+        <button class="device-btn" data-device="mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Mobile
+          <span class="device-btn__size">360</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -229,7 +324,7 @@
               <!-- FAQ Item 1 -->
               <div class="pl-faq__item">
                 <button class="pl-faq__header" aria-expanded="false">
-                  <h3 class="pl-faq__question">아이런은 몇 살부터 이용할 수 있나요?</h3>
+                  <h3 class="pl-faq__question">눈높이는 몇 살부터 이용할 수 있나요?</h3>
                   <svg class="pl-faq__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M8 12L16 20L24 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -317,6 +412,23 @@
   </main>
 
   <script>
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
+      });
+    });
+
     // Device Switcher
     const deviceBtns = document.querySelectorAll('.device-btn');
     const previewFrame = document.querySelector('.preview-frame');

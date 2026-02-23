@@ -3,6 +3,30 @@
    (No fetch - works with file:// protocol)
    ============================================ */
 
+// Theme init (runs immediately to prevent flash)
+(function() {
+  const saved = localStorage.getItem('pl-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('pl-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('pl-theme', 'dark');
+      }
+    });
+  }
+});
+
 // Template data (inline to avoid fetch/CORS issues)
 const TEMPLATE_DATA = {
   templates: [

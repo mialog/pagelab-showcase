@@ -225,9 +225,9 @@
       font-weight: var(--pl-font-weight-bold);
     }
 
-    /* Dark Theme - 전체 배경 (Footer용) */
+    /* Dark Theme - 전체 배경 */
     .preview-content[data-theme="dark"] {
-      background: var(--pl-bg-invert);
+      background: var(--pl-neutral-100);
     }
 
     /* Dark Theme - GNB sticky + 투명 */
@@ -238,14 +238,50 @@
       background: transparent;
     }
 
-    /* Dark Theme - Nav Content: Neutral-100 (ScaleColorNeutralDarkest) 배경 */
+    /* Dark Theme - Nav Content: Neutral-100 배경 */
     .preview-content[data-theme="dark"] .pl-nav-content {
       background: var(--pl-neutral-100);
-      margin-top: -74px; /* GNB 뒤로 확장 */
-      padding-top: calc(74px + var(--pl-layout-body-top)); /* GNB 높이 + 원래 여백 */
+      margin-top: -74px;
+      padding-top: calc(74px + var(--pl-layout-body-top));
     }
 
-    /* Section Title 다크모드 스타일은 sections.css에서 자동 처리됨 */
+    /* Dark Theme - Section Title */
+    .preview-content[data-theme="dark"] .pl-section-title__label { color: var(--pl-text-link); }
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc { color: var(--pl-text-secondary); }
+    .preview-content[data-theme="dark"] .pl-section-title__note { color: var(--pl-text-lowest); }
+
+    /* Dark Theme - Footer */
+    .preview-content[data-theme="dark"] .pl-footer {
+      background: var(--pl-neutral-100);
+      border-top-color: var(--pl-text-lowest);
+    }
+    .preview-content[data-theme="dark"] .pl-footer__category-link { color: var(--pl-border-default); }
+    .preview-content[data-theme="dark"] .pl-footer__category-link:hover { color: var(--pl-text-primary); }
+    .preview-content[data-theme="dark"] .pl-footer__category-link--bold { color: var(--pl-text-primary); }
+    .preview-content[data-theme="dark"] .pl-footer__company-toggle { color: var(--pl-text-primary); }
+    .preview-content[data-theme="dark"] .pl-footer__company-toggle svg { stroke: var(--pl-neutral-0); }
+    .preview-content[data-theme="dark"] .pl-footer__address p { color: var(--pl-border-default); }
+    .preview-content[data-theme="dark"] .pl-footer__call-label { color: var(--pl-text-secondary); }
+    .preview-content[data-theme="dark"] .pl-footer__call-number { color: var(--pl-text-secondary); }
+    .preview-content[data-theme="dark"] .pl-footer__call-time { color: var(--pl-border-default); }
+    .preview-content[data-theme="dark"] .pl-footer__isms-text p { color: var(--pl-border-default); }
+    .preview-content[data-theme="dark"] .pl-footer__isms-text strong { color: var(--pl-border-default); }
+    .preview-content[data-theme="dark"] .pl-footer__copyright { color: var(--pl-text-lowest); }
+    .preview-content[data-theme="dark"] .pl-footer__bottom { border-top-color: var(--pl-border-default); }
+    .preview-content[data-theme="dark"] .pl-footer__dropdown {
+      background: var(--pl-neutral-80);
+      border-color: var(--pl-border-default);
+      color: var(--pl-text-primary);
+    }
+    .preview-content[data-theme="dark"] .pl-footer__dropdown svg { stroke: var(--pl-neutral-0); }
+    .preview-content[data-theme="dark"] .pl-footer__dropdown:hover { border-color: var(--pl-neutral-0); }
+    .preview-content[data-theme="dark"] .pl-footer__dropdown-list {
+      background: var(--pl-neutral-80);
+      border-color: var(--pl-border-default);
+    }
+    .preview-content[data-theme="dark"] .pl-footer__dropdown-item { color: var(--pl-text-primary); }
+    .preview-content[data-theme="dark"] .pl-footer__dropdown-item:hover { background: rgba(255, 255, 255, 0.08); }
 
   </style>
 </head>

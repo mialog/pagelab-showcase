@@ -208,42 +208,21 @@
       font-weight: var(--pl-font-weight-bold);
     }
 
-    /* Type B 스타일 오버라이드 - Figma 스펙 */
+    /* Type B 스타일 오버라이드 - 스케일 토큰으로 모드 무관 고정 */
     .pl-hero--center {
-      background: #0E2F91;
-      transition: background 0.3s ease;
+      background: var(--pl-bg-brand-light); /* 시맨틱: 라이트 lightblue-10 / 다크 lightblue-90 */
     }
 
     .pl-hero--center .pl-hero__title {
-      color: #fff;
-      font-weight: 400;
-      transition: color 0.3s ease;
+      color: var(--pl-text-primary);
+      font-weight: var(--pl-font-weight-bold);
     }
 
     .pl-hero--center .pl-hero__desc {
-      color: #fff;
-      transition: color 0.3s ease;
+      color: var(--pl-text-primary);
     }
 
-    /* Outlined Primary Button - Figma 스펙: #15b2f1 시안 색상 */
-    .pl-hero--center .pl-btn--outline {
-      border-color: #15b2f1;
-      color: #15b2f1;
-      background: transparent;
-    }
-
-    /* Interaction states - 시안 색상 오버레이 */
-    .pl-hero--center .pl-btn--outline::before {
-      background: transparent;
-    }
-
-    .pl-hero--center .pl-btn--outline:hover::before {
-      background: rgba(21, 178, 241, 0.12); /* #15b2f1 at 12% */
-    }
-
-    .pl-hero--center .pl-btn--outline:active::before {
-      background: rgba(21, 178, 241, 0.24); /* #15b2f1 at 24% */
-    }
+    /* pl-btn--outline: components.css 공통 처리 (brand alpha 오버레이) */
 
     /* Visual - 와이드 이미지 */
     .pl-hero__visual {
@@ -257,19 +236,6 @@
       width: 100%;
       height: auto;
       object-fit: cover;
-    }
-
-    /* Dark Mode - Type B Reverse (Figma) */
-    .preview-content[data-theme="dark"] .pl-hero--center {
-      background: #dae3ff;
-    }
-
-    .preview-content[data-theme="dark"] .pl-hero--center .pl-hero__title {
-      color: #0b0d11;
-    }
-
-    .preview-content[data-theme="dark"] .pl-hero--center .pl-hero__desc {
-      color: #0b0d11;
     }
 
   </style>

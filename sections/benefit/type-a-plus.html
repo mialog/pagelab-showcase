@@ -216,6 +216,79 @@
       display: block;
     }
 
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover { color: var(--pl-text-primary); }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode - Type A Plus (Figma)
+       bg #0b0d11, 라벨 #9b6bf4, 헤딩 #fff, 디스크 #e3e8ed, 노트 var(--pl-text-lowest)
+       카드 bg #007daf, 카드 타이틀 #fff, 카드 sub #e3e8ed, 카드 노트 var(--pl-border-default)
+       plus icon var(--pl-text-brand), CTA바 var(--pl-text-brand), CTA텍스트 #0b0d11, 버튼 var(--pl-text-brand) */
+    .preview-content[data-theme="dark"] .pl-section-title__label {
+      color: var(--pl-text-link);
+    }
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: var(--pl-text-secondary);
+    }
+    .preview-content[data-theme="dark"] .pl-section-title__note {
+      color: var(--pl-text-lowest);
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__card--small {
+      background: #007daf;
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__card-title {
+      color: var(--pl-neutral-0);
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__card-sub {
+      color: var(--pl-text-secondary);
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__card-note {
+      color: var(--pl-border-default);
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__plus-icon {
+      color: var(--pl-text-brand);
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__card--large {
+      background: var(--pl-text-brand);
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__card--large .pl-benefit__card-title {
+      color: #0b0d11;
+    }
+    .preview-content[data-theme="dark"] .pl-benefit__card--large .pl-benefit__card-sub {
+      color: #0b0d11;
+    }
+
   </style>
 </head>
 <body>
@@ -236,6 +309,22 @@
     </div>
 
     <div class="preview-header__right">
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+
       <!-- Tab Style Switcher -->
       <div class="tab-style-switcher">
         <button class="tab-style-btn is-active" data-card-count="4">
@@ -338,7 +427,7 @@
 
               <div class="pl-benefit__card pl-benefit__card--small">
                 <div class="pl-benefit__card-text">
-                  <h3 class="pl-benefit__card-title">눈높이 선생님 방문지도</h3>
+                  <h3 class="pl-benefit__card-title">선생님 방문지도</h3>
                   <p class="pl-benefit__card-sub">전문 교사 1:1 방문 학습관리</p>
                 </div>
                 <div class="pl-benefit__card-image">
@@ -381,7 +470,7 @@
 
             <!-- CTA Button -->
             <div class="pl-benefit__cta">
-              <button class="pl-btn pl-btn--primary pl-btn--lg">
+              <button class="pl-btn pl-btn--primary pl-btn--large">
                 무료 진단평가 신청
               </button>
             </div>
@@ -444,7 +533,7 @@
 
               <div class="pl-benefit__card pl-benefit__card--small">
                 <div class="pl-benefit__card-text">
-                  <h3 class="pl-benefit__card-title">눈높이 선생님 방문지도</h3>
+                  <h3 class="pl-benefit__card-title">선생님 방문지도</h3>
                   <p class="pl-benefit__card-sub">전문 교사 1:1 방문 학습관리</p>
                 </div>
                 <div class="pl-benefit__card-image">
@@ -468,7 +557,7 @@
 
             <!-- CTA Button -->
             <div class="pl-benefit__cta">
-              <button class="pl-btn pl-btn--primary pl-btn--lg">
+              <button class="pl-btn pl-btn--primary pl-btn--large">
                 무료 진단평가 신청
               </button>
             </div>
@@ -536,7 +625,7 @@
 
             <!-- CTA Button -->
             <div class="pl-benefit__cta">
-              <button class="pl-btn pl-btn--primary pl-btn--lg">
+              <button class="pl-btn pl-btn--primary pl-btn--large">
                 무료 진단평가 신청
               </button>
             </div>
@@ -562,6 +651,22 @@
         btn.classList.add('is-active');
         const device = btn.dataset.device;
         previewFrame.setAttribute('data-device', device);
+      });
+    });
+
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        if (btn.dataset.theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
       });
     });
 

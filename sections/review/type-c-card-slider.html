@@ -208,33 +208,26 @@
 
     /* Dark Mode - Type C Reverse (Figma)
        bg #0b0d11 자동반전, 라벨 #9b6bf4, 헤딩 #fff, 디스크 #e3e8ed
-       카드 bg: rgba(255,255,255,0.12)(반투명), 본문: #fff, 이름: #e3e8ed, 부가정보: #c6d0d7 */
+       카드 bg: rgba(255,255,255,0.12)(반투명), 본문: #fff, 이름: #e3e8ed, 부가정보: var(--pl-border-default) */
     .preview-content[data-theme="dark"] .pl-section-title__label {
-      color: #9b6bf4;
+      color: var(--pl-text-link);
     }
 
-    .preview-content[data-theme="dark"] .pl-section-title__heading {
-      color: #ffffff;
-    }
 
     .preview-content[data-theme="dark"] .pl-section-title__desc {
-      color: #e3e8ed;
+      color: var(--pl-text-secondary);
     }
 
     .preview-content[data-theme="dark"] .pl-review-card {
       background: rgba(255, 255, 255, 0.12);
     }
 
-    .preview-content[data-theme="dark"] .pl-review-card__content {
-      color: #ffffff;
-    }
-
     .preview-content[data-theme="dark"] .pl-review-card__name {
-      color: #e3e8ed;
+      color: var(--pl-text-secondary);
     }
 
     .preview-content[data-theme="dark"] .pl-review-card__info {
-      color: #c6d0d7;
+      color: var(--pl-border-default);
     }
 
   </style>

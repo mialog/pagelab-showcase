@@ -166,6 +166,38 @@ body {
   gap: 12px;
 }
 
+/* Theme Toggle (above device switcher) */
+.template-preview__nav-theme {
+  display: flex;
+  gap: 4px;
+  background: #f3f4f6;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.theme-preview-btn {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-preview-btn:hover {
+  color: #111827;
+}
+
+.theme-preview-btn.is-active {
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 /* Sidebar Device Switcher */
 .template-preview__nav-device {
   display: flex;
@@ -285,53 +317,18 @@ body {
 }
 
 /* GNB Sticky - 스크롤 시 따라다니기 */
+/* height: 0 + overflow: visible → GNB가 히어로 위에 겹쳐서 히어로 배경이 투명 GNB 뒤로 보임 */
 .template-section--gnb {
   position: sticky;
   top: 0;
   z-index: 150;
-  background: white;
+  background: transparent; /* GNB 자체가 background 담당 */
+  height: 0;
+  overflow: visible;
 }
 
 .template-section--gnb .pl-gnb {
-  position: relative; /* sticky 부모에서 상대 위치 */
-}
-
-/* Dark GNB - 투명 배경으로 히어로 위에 오버레이 */
-.template-section--gnb:has(.pl-gnb--dark) {
-  background: transparent !important;
-}
-
-/* Dark GNB - 다음 섹션(히어로)을 GNB 뒤로 올림 */
-.template-section--gnb:has(.pl-gnb--dark) + .template-section {
-  margin-top: -74px; /* GNB 높이 PC */
-}
-
-/* Tablet: GNB 높이 60px */
-@container section (max-width: 1199px) {
-  .template-section--gnb:has(.pl-gnb--dark) + .template-section {
-    margin-top: -60px;
-  }
-}
-
-/* Mobile: GNB 높이 66px */
-@container section (max-width: 639px) {
-  .template-section--gnb:has(.pl-gnb--dark) + .template-section {
-    margin-top: -66px;
-  }
-}
-
-/* Tablet/Mobile 프레임에서 GNB 스티키 */
-.template-preview__frame[data-device="tablet"] .template-section--gnb,
-.template-preview__frame[data-device="mobile"] .template-section--gnb {
-  position: sticky;
-  top: 0;
-  background: transparent;
-}
-
-/* Tablet/Mobile 프레임에서 일반 GNB는 흰 배경 유지 */
-.template-preview__frame[data-device="tablet"] .template-section--gnb:not(:has(.pl-gnb--dark)),
-.template-preview__frame[data-device="mobile"] .template-section--gnb:not(:has(.pl-gnb--dark)) {
-  background: white;
+  position: relative;
 }
 
 /* Floating CTA - 뷰포트 하단 고정 */

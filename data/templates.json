@@ -40,7 +40,6 @@
         { "type": "cta", "variant": "type-a-finish" }
       ],
       "floatingCta": "type-b-floating",
-      "darkGnb": true,
       "gnbMenu": [
         { "label": "제품 소개", "sectionIndex": 1 },
         { "label": "학습 프로그램", "sectionIndex": 2 },
@@ -65,8 +64,6 @@
         { "type": "etc", "variant": "caution" }
       ],
       "floatingCta": "type-b-floating",
-      "darkGnb": true,
-      "darkFooter": true,
       "gnbMenu": [
         { "label": "이벤트 소개", "sectionIndex": 1 },
         { "label": "프로그램 안내", "sectionIndex": 2 },

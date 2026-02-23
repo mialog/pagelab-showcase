@@ -170,6 +170,64 @@
       container-name: section;
     }
 
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--pl-bg-neutral);
+      padding: 4px;
+      border-radius: var(--pl-radius-2);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-2) var(--pl-spacing-4);
+      font-size: var(--pl-font-size-label-sm);
+      font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary);
+      background: transparent;
+      border: none;
+      border-radius: var(--pl-radius-1);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      color: var(--pl-text-primary);
+    }
+
+    .theme-btn.is-active {
+      color: var(--pl-text-primary);
+      background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-weight: var(--pl-font-weight-bold);
+    }
+
+    /* Dark Mode Overrides */
+    .preview-content[data-theme="dark"] .pl-step {
+      background: #0b0d11;
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__label {
+      color: var(--pl-text-link);
+    }
+
+
+    .preview-content[data-theme="dark"] .pl-section-title__desc {
+      color: var(--pl-text-secondary);
+    }
+
+    .preview-content[data-theme="dark"] .pl-section-title__note {
+      color: var(--pl-text-lowest);
+    }
+
+    .preview-content[data-theme="dark"] .pl-step__arrow {
+      color: var(--pl-text-secondary);
+    }
+
   </style>
 </head>
 <body>
@@ -190,6 +248,12 @@
     </div>
 
     <div class="preview-header__right">
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">Light</button>
+        <button class="theme-btn" data-theme="dark">Dark</button>
+      </div>
+
       <!-- Device Switcher -->
       <div class="device-switcher">
         <button class="device-btn is-active" data-device="pc">
@@ -280,6 +344,23 @@
   </main>
 
   <script>
+    // Theme Switcher
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const theme = btn.dataset.theme;
+        if (theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
+      });
+    });
+
     // Device Switcher
     const deviceBtns = document.querySelectorAll('.device-btn');
     const previewFrame = document.querySelector('.preview-frame');

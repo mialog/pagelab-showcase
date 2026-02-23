@@ -2,7 +2,32 @@
    PageLab Showcase - Gallery Script
    ============================================ */
 
+// ============================================
+// Theme Toggle (runs immediately before DOMContentLoaded to avoid flash)
+// ============================================
+(function() {
+  const saved = localStorage.getItem('pl-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('pl-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('pl-theme', 'dark');
+      }
+    });
+  }
+
   // Disable browser's automatic scroll restoration
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -119,13 +144,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Sidebar click handler
+  // Sidebar click handler - scroll to section instead of filtering
   sidebarItems.forEach(item => {
     item.addEventListener('click', () => {
       sidebarItems.forEach(i => i.classList.remove('is-active'));
       item.classList.add('is-active');
-      currentType = item.dataset.filter;
-      filterCards();
+
+      const filter = item.dataset.filter;
+      if (filter === 'all') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const targetDivider = document.querySelector(`.section-divider[data-category="${filter}"]`);
+        if (targetDivider) {
+          const headerHeight = document.querySelector('.showcase__header')?.offsetHeight || 60;
+          const top = targetDivider.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
     });
   });
 
@@ -197,25 +232,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Update sidebar active state
-    if (currentCategory) {
-      sidebarItems.forEach(item => {
-        if (item.dataset.filter === currentCategory) {
-          item.classList.add('is-current');
-        } else {
-          item.classList.remove('is-current');
-        }
-      });
-    } else {
-      // At the top, highlight "All"
-      sidebarItems.forEach(item => {
-        if (item.dataset.filter === 'all') {
-          item.classList.add('is-current');
-        } else {
-          item.classList.remove('is-current');
-        }
-      });
-    }
+    // Update sidebar active state (sync is-active and is-current with scroll)
+    const activeFilter = currentCategory || 'all';
+    sidebarItems.forEach(item => {
+      const matches = item.dataset.filter === activeFilter;
+      item.classList.toggle('is-current', matches);
+      item.classList.toggle('is-active', matches);
+    });
   }
 
   // Throttle scroll event
