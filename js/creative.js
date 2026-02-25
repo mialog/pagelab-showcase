@@ -106,6 +106,8 @@ class SectionCreative {
   // Custom confirm modal
   showConfirmModal(message, title = '삭제 확인') {
     return new Promise((resolve) => {
+      this._pendingResolve = resolve;
+
       // Create modal if it doesn't exist
       let modal = document.getElementById('customConfirmModal');
       if (!modal) {
@@ -125,22 +127,22 @@ class SectionCreative {
         `;
         document.body.appendChild(modal);
 
-        // Event listeners
+        // Event listeners — always use this._pendingResolve to get current resolve
         const cancelBtn = modal.querySelector('.creative__modal-btn--cancel');
         const confirmBtn = modal.querySelector('.creative__modal-btn--confirm');
 
         cancelBtn.addEventListener('click', () => {
-          this.hideConfirmModal(modal, false, resolve);
+          this.hideConfirmModal(modal, false, this._pendingResolve);
         });
 
         confirmBtn.addEventListener('click', () => {
-          this.hideConfirmModal(modal, true, resolve);
+          this.hideConfirmModal(modal, true, this._pendingResolve);
         });
 
         // Close on overlay click
         modal.addEventListener('click', (e) => {
           if (e.target === modal) {
-            this.hideConfirmModal(modal, false, resolve);
+            this.hideConfirmModal(modal, false, this._pendingResolve);
           }
         });
       }
@@ -419,12 +421,7 @@ class SectionCreative {
       '.pl-faq__item'
     ];
 
-    // Card types where only the card itself can be deleted (not inner text)
-    const cardOnlyDeleteTypes = [
-      '.pl-list-card'
-    ];
-
-    // Make all text elements editable with delete button
+    // Make all text elements editable only (no delete button)
     const textElements = wrapper.querySelectorAll(textSelectors.join(', '));
     textElements.forEach(el => {
       // Skip if it has images, SVGs, or already editable
@@ -437,34 +434,7 @@ class SectionCreative {
         return;
       }
 
-      // Skip if it's inside a card that only allows card-level deletion
-      const insideCardOnly = cardOnlyDeleteTypes.some(selector => el.closest(selector));
-      if (insideCardOnly) {
-        return;
-      }
-
       el.setAttribute('contenteditable', 'true');
-      el.style.position = 'relative';
-
-      // Add delete button
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'creative__text-delete';
-      deleteBtn.innerHTML = `
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      `;
-      deleteBtn.title = '삭제';
-      deleteBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (await this.showConfirmModal('이 요소를 삭제하시겠습니까?')) {
-          el.remove();
-        }
-      });
-
-      el.appendChild(deleteBtn);
 
       // Prevent default link behavior while editing
       if (el.tagName === 'A') {
@@ -501,22 +471,18 @@ class SectionCreative {
         e.preventDefault();
         e.stopPropagation();
         if (await this.showConfirmModal('이 카드를 삭제하시겠습니까?')) {
+          const parent = el.parentElement;
           el.remove();
+          this.recenterCardContainer(parent);
         }
       });
 
       el.appendChild(deleteBtn);
     });
 
-    // Make buttons editable (but not in card-only-delete cards)
+    // Make buttons editable
     const buttons = wrapper.querySelectorAll('.pl-btn, .pl-cta__btn');
     buttons.forEach(btn => {
-      // Skip buttons inside card-only-delete cards
-      const insideCardOnly = cardOnlyDeleteTypes.some(selector => btn.closest(selector));
-      if (insideCardOnly) {
-        return;
-      }
-
       btn.setAttribute('contenteditable', 'true');
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -540,34 +506,43 @@ class SectionCreative {
         title.style.outline = 'none';
       }
 
-      // Description: editable + deletable
-      const desc = card.querySelector('.pl-slide-card__desc');
-      if (desc && !desc.hasAttribute('contenteditable')) {
-        desc.setAttribute('contenteditable', 'true');
-        desc.style.position = 'relative';
-        desc.style.cursor = 'text';
-        desc.style.outline = 'none';
+      // Description: already handled by card desc block below
+    });
 
-        // Add delete button to description
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'creative__text-delete';
-        deleteBtn.innerHTML = `
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        `;
-        deleteBtn.title = '설명 삭제';
-        deleteBtn.addEventListener('click', async (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (await this.showConfirmModal('이 설명을 삭제하시겠습니까?')) {
-            desc.remove();
-          }
-        });
+    // Card body/desc elements — editable + deletable (title은 삭제 불가)
+    const cardDescSelectors = [
+      '.pl-grid-card__desc',
+      '.pl-slide-card__desc',
+      '.pl-list-card__desc',
+      '.pl-swipe-card__desc',
+      '.pl-benefit__card-sub',
+      '.pl-review-card__content',
+      '.pl-step-text__desc',
+      '.pl-step-img__desc',
+    ];
+    wrapper.querySelectorAll(cardDescSelectors.join(', ')).forEach(desc => {
+      if (desc.querySelector('.creative__text-delete')) return;
 
-        desc.appendChild(deleteBtn);
-      }
+      desc.setAttribute('contenteditable', 'true');
+      desc.style.position = 'relative';
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__text-delete';
+      deleteBtn.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      `;
+      deleteBtn.title = '설명 삭제';
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (await this.showConfirmModal('이 설명을 삭제하시겠습니까?')) {
+          desc.remove();
+        }
+      });
+      desc.appendChild(deleteBtn);
     });
 
     // Special handling for tabs (탭형)
@@ -706,6 +681,32 @@ class SectionCreative {
           }
         });
       });
+    }
+  }
+
+  recenterCardContainer(container) {
+    if (!container) return;
+
+    const computed = window.getComputedStyle(container);
+
+    if (computed.display === 'grid') {
+      // 그리드 컬럼 너비 추출 후 flex centering으로 전환
+      const cols = computed.gridTemplateColumns.split(' ');
+      const colWidth = cols[0]; // e.g. "384px"
+      const gap = computed.gap !== 'normal' ? computed.gap : computed.columnGap;
+
+      container.style.display = 'flex';
+      container.style.flexWrap = 'wrap';
+      container.style.justifyContent = 'center';
+      if (gap && gap !== 'normal') container.style.gap = gap;
+
+      Array.from(container.children).forEach(child => {
+        child.style.width = colWidth;
+        child.style.flexShrink = '0';
+      });
+    } else if (computed.display === 'flex') {
+      container.style.justifyContent = 'center';
+      container.style.flexWrap = 'wrap';
     }
   }
 

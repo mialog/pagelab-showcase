@@ -1146,6 +1146,15 @@
   background: var(--pl-bg-invert);
 }
 
+/* GNB — position:fixed를 relative로 override (빌더 프리뷰 안에 고정) */
+.creative__preview-content .pl-gnb {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  z-index: auto;
+}
+
 /* Dark Theme - GNB */
 .creative__preview[data-theme="dark"] .pl-gnb,
 .creative__preview-content[data-theme="dark"] .pl-gnb {
