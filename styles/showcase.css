@@ -58,9 +58,9 @@ button {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: var(--pl-z-nav);
   background: var(--pl-bg-default);
-  border-bottom: 1px solid var(--pl-border-light);
+  border-bottom: var(--pl-border-1) solid var(--pl-border-light);
 }
 
 .showcase__header-inner {
@@ -172,7 +172,7 @@ button {
   top: 65px; /* Stick below fixed header */
   height: calc(100vh - 65px); /* Viewport height minus fixed header */
   overflow-y: auto;
-  z-index: 50; /* Below fixed header (z-index: 100) */
+  z-index: var(--pl-z-sticky); /* Below fixed header */
 }
 
 .sidebar__section {
@@ -238,7 +238,7 @@ button {
   font-size: var(--pl-font-size-label-sm);
   color: var(--pl-text-lowest);
   background: var(--pl-bg-neutral);
-  padding: 2px 8px;
+  padding: var(--pl-spacing-1) var(--pl-spacing-3);
   border-radius: var(--pl-radius-circle);
 }
 
@@ -294,7 +294,7 @@ button {
 
 .content__search-icon {
   position: absolute;
-  left: 10px;
+  left: var(--pl-spacing-3);
   top: 50%;
   transform: translateY(-50%);
   color: var(--pl-icon-tertiary);
@@ -326,7 +326,7 @@ button {
 
 .section-card:hover {
   border-color: var(--pl-border-brand);
-  box-shadow: 0 4px 20px rgba(21, 177, 241, 0.1);
+  box-shadow: var(--pl-shadow-brand);
   transform: translateY(-2px);
 }
 
@@ -488,7 +488,7 @@ button {
 
 .filter-bar__search-icon {
   position: absolute;
-  left: 12px;
+  left: var(--pl-spacing-4);
   top: 50%;
   transform: translateY(-50%);
   color: var(--pl-icon-tertiary);
@@ -559,7 +559,7 @@ button {
 
 .recipe-card:hover {
   border-color: var(--pl-border-accent);
-  box-shadow: 0 4px 16px rgba(65, 109, 240, 0.08);
+  box-shadow: var(--pl-shadow-accent);
 }
 
 .recipe-card__title {
@@ -586,7 +586,7 @@ button {
   font-size: var(--pl-font-size-label-sm);
   color: var(--pl-text-accent);
   background: var(--pl-bg-accent-light);
-  padding: 4px 10px;
+  padding: var(--pl-spacing-2) 10px;
   border-radius: var(--pl-radius-1);
 }
 
@@ -644,8 +644,8 @@ button {
   .showcase__header-inner {
     flex-direction: column;
     gap: var(--pl-spacing-4);
-    padding-left: 20px; /* Mo: 공통 20px 좌우 여백 */
-    padding-right: 20px;
+    padding-left: var(--pl-spacing-6); /* Mo: 공통 20px 좌우 여백 */
+    padding-right: var(--pl-spacing-6);
   }
 
   .showcase__nav {
@@ -654,7 +654,7 @@ button {
   }
 
   .showcase__content {
-    padding: var(--pl-spacing-7) 20px; /* Mo: 공통 20px 좌우 여백 */
+    padding: var(--pl-spacing-7) var(--pl-spacing-6); /* Mo: 공통 20px 좌우 여백 */
   }
 
   .content__header-top {
@@ -692,7 +692,7 @@ button {
 }
 
 [data-theme="dark"] .sidebar__item.is-active {
-  background: rgba(21, 177, 241, 0.12);
+  background: var(--pl-alpha-brand-12);
 }
 
 [data-theme="dark"] .sidebar__count {
@@ -753,5 +753,5 @@ button {
 
 /* Header nav active */
 [data-theme="dark"] .showcase__nav-link.is-active {
-  background: rgba(21, 177, 241, 0.12);
+  background: var(--pl-alpha-brand-12);
 }

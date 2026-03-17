@@ -367,6 +367,45 @@
   --pl-static-gray: #8c97a0;
 
   /* ----------------------------------------
+     Shadow
+     ---------------------------------------- */
+  --pl-shadow-sm: 0 1px 3px var(--pl-alpha-black-08);
+  --pl-shadow-md: 0 4px 16px var(--pl-alpha-black-08);
+  --pl-shadow-lg: 0 4px 24px var(--pl-alpha-black-12);
+  --pl-shadow-xl: 0 8px 24px var(--pl-alpha-black-12);
+  --pl-shadow-float-up: 0 -4px 16px var(--pl-alpha-black-08);
+  --pl-shadow-brand: 0 4px 20px rgba(21, 177, 241, 0.12);
+  --pl-shadow-accent: 0 4px 16px rgba(65, 109, 240, 0.08);
+
+  /* ----------------------------------------
+     Z-index
+     ---------------------------------------- */
+  --pl-z-base: 0;
+  --pl-z-dropdown: 10;
+  --pl-z-sticky: 50;
+  --pl-z-nav: 100;
+  --pl-z-overlay-card: 100;
+  --pl-z-gnb: 150;
+  --pl-z-modal: 200;
+  --pl-z-toast: 300;
+
+  /* ----------------------------------------
+     Transition
+     ---------------------------------------- */
+  --pl-transition-fast: all 0.15s ease;
+  --pl-transition-base: all 0.2s ease;
+  --pl-transition-slow: all 0.3s ease;
+  --pl-transition-device: max-width 0.3s ease;
+  --pl-transition-bg: background 0.2s ease;
+  --pl-transition-opacity: opacity 0.2s ease;
+
+  /* ----------------------------------------
+     Layout - GNB / Shell
+     ---------------------------------------- */
+  --pl-gnb-height: 56px;
+  --pl-nav-sidebar-width: 220px;
+
+  /* ----------------------------------------
      Alpha Colors (Interaction Overlays)
      버튼 상태용 투명도 컬러
      ---------------------------------------- */

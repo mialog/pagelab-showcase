@@ -248,10 +248,48 @@ class SectionCreative {
     }
   }
 
+  // Replace <pl-section-title> tags with plain HTML in raw text (before any DOM parsing)
+  // Uses a mini DOMParser to extract attributes reliably (handles > inside attr values like <br>)
+  expandSectionTitlesInText(text) {
+    return text.replace(
+      /<pl-section-title((?:[^>"']|"[^"]*"|'[^']*')*?)><\/pl-section-title>/g,
+      (match) => {
+        // Parse just this element with DOMParser to get attributes reliably
+        const miniDoc = new DOMParser().parseFromString(
+          `<!DOCTYPE html><html><body>${match}</body></html>`, 'text/html'
+        );
+        const el = miniDoc.body.querySelector('pl-section-title');
+        console.log('[expand inner]', 'el found:', !!el, 'note attr:', el ? el.getAttribute('note') : 'NO_EL', 'match preview:', match.slice(0, 100));
+        if (!el) return match;
+
+        const label = el.getAttribute('label') || '';
+        const heading = el.getAttribute('heading') || '';
+        const description = el.getAttribute('description') || '';
+        const note = el.getAttribute('note') || '';
+
+        let html = '<div class="pl-section-title">';
+        if (label) html += `<span class="pl-section-title__label">${label}</span>`;
+        html += '<div class="pl-section-title__text">';
+        if (heading) html += `<h2 class="pl-section-title__heading">${heading}</h2>`;
+        if (description) html += `<p class="pl-section-title__desc">${description}</p>`;
+        if (note) html += `<p class="pl-section-title__note">${note}</p>`;
+        html += '</div></div>';
+        return html;
+      }
+    );
+  }
+
   async loadSectionHTML(filePath, type, variant) {
     try {
       const response = await fetch(filePath);
-      const text = await response.text();
+      const rawText = await response.text();
+
+      // Expand pl-section-title to plain HTML before DOMParser sees it
+      // (avoids all custom element lifecycle issues)
+      const text = this.expandSectionTitlesInText(rawText);
+      // DEBUG: check if transformation worked
+      const m = text.match(/pl-section-title__note[^<]*<\/p>/);
+      console.log('[pl-section-title debug]', filePath, 'has note:', text.includes('pl-section-title__note'), 'note sample:', m ? m[0].slice(0, 60) : 'NONE', 'still has custom el:', text.includes('<pl-section-title'));
 
       // Parse the HTML
       const parser = new DOMParser();
@@ -261,53 +299,40 @@ class SectionCreative {
       let sectionEl;
 
       if (type === 'navigation' && variant === 'gnb') {
-        // Get GNB header
+        // Get GNB header — serialize directly from DOMParser doc (no main-doc adoption)
         sectionEl = doc.querySelector('.pl-gnb');
         if (sectionEl) {
-          // Also get mobile overlay
           const overlay = doc.querySelector('.pl-gnb__mobile-overlay');
-          if (overlay) {
-            const wrapper = document.createElement('div');
-            wrapper.appendChild(sectionEl.cloneNode(true));
-            wrapper.appendChild(overlay.cloneNode(true));
-            return this.adjustImagePaths(wrapper.innerHTML);
-          }
+          const combined = sectionEl.outerHTML + (overlay ? overlay.outerHTML : '');
+          return this.adjustImagePaths(combined);
         }
       } else if (type === 'navigation' && variant === 'footer') {
         // Get Footer
         sectionEl = doc.querySelector('.pl-footer');
       } else if (type === 'about' && variant === 'type-b-grid') {
-        // For card grid, get all card type sections
+        // Serialize each card-type-section directly from DOMParser doc (no main-doc adoption)
         const cardTypeSections = doc.querySelectorAll('.card-type-section');
         if (cardTypeSections.length > 0) {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'creative__grid-wrapper';
-          cardTypeSections.forEach(section => {
-            wrapper.appendChild(section.cloneNode(true));
-          });
-          return this.adjustImagePaths(wrapper.innerHTML);
+          let html = '<div class="creative__grid-wrapper">';
+          cardTypeSections.forEach(section => { html += section.outerHTML; });
+          html += '</div>';
+          return this.adjustImagePaths(html);
         }
       } else if (type === 'about' && variant === 'type-d-card-swipe') {
-        // For card swipe, get all card type sections
         const cardTypeSections = doc.querySelectorAll('.card-type-section');
         if (cardTypeSections.length > 0) {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'creative__swipe-wrapper';
-          cardTypeSections.forEach(section => {
-            wrapper.appendChild(section.cloneNode(true));
-          });
-          return this.adjustImagePaths(wrapper.innerHTML);
+          let html = '<div class="creative__swipe-wrapper">';
+          cardTypeSections.forEach(section => { html += section.outerHTML; });
+          html += '</div>';
+          return this.adjustImagePaths(html);
         }
       } else if (type === 'about' && variant === 'type-e-tab') {
-        // For tab, get all tab style sections
         const tabStyleSections = doc.querySelectorAll('.tab-style-section');
         if (tabStyleSections.length > 0) {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'creative__tab-wrapper';
-          tabStyleSections.forEach(section => {
-            wrapper.appendChild(section.cloneNode(true));
-          });
-          return this.adjustImagePaths(wrapper.innerHTML);
+          let html = '<div class="creative__tab-wrapper">';
+          tabStyleSections.forEach(section => { html += section.outerHTML; });
+          html += '</div>';
+          return this.adjustImagePaths(html);
         }
       } else {
         // Get section element
@@ -352,7 +377,7 @@ class SectionCreative {
       this.setCardStyleVisibility(wrapper, section.variant, section.cardStyle);
     }
 
-    // Wait for custom elements to render, then make editable
+    // Make editable after layout is complete
     requestAnimationFrame(() => {
       this.makeEditable(wrapper);
     });
@@ -381,7 +406,7 @@ class SectionCreative {
     // Add wrapper first
     slot.appendChild(wrapper);
 
-    // Wait for custom elements to render, then make editable
+    // Make editable after layout is complete
     requestAnimationFrame(() => {
       this.makeEditable(wrapper);
     });
@@ -421,6 +446,13 @@ class SectionCreative {
       '.pl-faq__item'
     ];
 
+    // section-title 선택 삭제 가능 요소 (heading 제외)
+    const sectionTitleOptionalSelectors = [
+      '.pl-section-title__label',
+      '.pl-section-title__desc',
+      '.pl-section-title__note',
+    ];
+
     // Make all text elements editable only (no delete button)
     const textElements = wrapper.querySelectorAll(textSelectors.join(', '));
     textElements.forEach(el => {
@@ -435,6 +467,29 @@ class SectionCreative {
       }
 
       el.setAttribute('contenteditable', 'true');
+
+      // section-title 선택 요소 (label, desc, note) — 삭제 버튼 추가
+      const isOptionalTitleEl = sectionTitleOptionalSelectors.some(sel => el.matches(sel));
+      if (isOptionalTitleEl) {
+        el.style.position = 'relative';
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'creative__text-delete';
+        deleteBtn.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        `;
+        deleteBtn.title = '삭제 (선택)';
+        deleteBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (await this.showConfirmModal('이 요소를 삭제하시겠습니까?')) {
+            el.remove();
+          }
+        });
+        el.appendChild(deleteBtn);
+      }
 
       // Prevent default link behavior while editing
       if (el.tagName === 'A') {
@@ -511,19 +566,30 @@ class SectionCreative {
 
     // Card body/desc elements — editable + deletable (title은 삭제 불가)
     const cardDescSelectors = [
+      // 콘텐츠설명 (About)
       '.pl-grid-card__desc',
       '.pl-slide-card__desc',
       '.pl-list-card__desc',
       '.pl-swipe-card__desc',
+      // 혜택
       '.pl-benefit__card-sub',
+      // 고객후기 (Review) — content는 삭제, name은 유지, info/stars는 선택
       '.pl-review-card__content',
+      '.pl-review-card__user-info',
+      '.pl-review-card__info',
+      '.pl-review-card__stars',
+      // 이용방법 (Step) — label(Step 01)은 선택, title은 유지
+      '.pl-step-text__label',
       '.pl-step-text__desc',
       '.pl-step-img__desc',
     ];
     wrapper.querySelectorAll(cardDescSelectors.join(', ')).forEach(desc => {
       if (desc.querySelector('.creative__text-delete')) return;
 
-      desc.setAttribute('contenteditable', 'true');
+      // stars 같은 non-text 요소는 contenteditable 제외
+      if (!desc.classList.contains('pl-review-card__stars')) {
+        desc.setAttribute('contenteditable', 'true');
+      }
       desc.style.position = 'relative';
 
       const deleteBtn = document.createElement('button');

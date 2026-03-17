@@ -5640,6 +5640,13 @@
   transform: translateZ(0);
 }
 
+/* 프리뷰 컨테이너 내 GNB: fixed → sticky (transformed 컨테이너 내 fixed는 absolute처럼 동작해 스크롤 시 사라짐) */
+.preview-content .pl-gnb {
+  position: sticky;
+  left: auto;
+  right: auto;
+}
+
 /* 프리뷰 컨테이너 내 오버레이: fixed 포지션이 preview-content 기준으로 동작 */
 .preview-content .pl-gnb__mobile-overlay {
   position: fixed;

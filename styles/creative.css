@@ -6,8 +6,8 @@
 .creative {
   display: grid;
   grid-template-columns: 260px 1fr 240px;
-  height: calc(100vh - 56px);
-  margin-top: 56px;
+  height: calc(100vh - var(--pl-gnb-height));
+  margin-top: var(--pl-gnb-height);
   background: var(--pl-neutral-10);
 }
 
@@ -40,7 +40,7 @@
 .creative__reset-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--pl-spacing-2);
   padding: 6px 10px;
   font-size: var(--pl-font-size-label-sm);
   color: var(--pl-text-tertiary);
@@ -168,7 +168,7 @@
   font-size: var(--pl-font-size-label-sm);
   color: var(--pl-text-tertiary);
   background: var(--pl-bg-neutral);
-  padding: 4px 10px;
+  padding: var(--pl-spacing-2) 10px;
   border-radius: var(--pl-radius-1);
 }
 
@@ -180,9 +180,9 @@
 .creative__device-switcher {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--pl-spacing-2);
   background: var(--pl-bg-neutral);
-  padding: 4px;
+  padding: var(--pl-spacing-2);
   border-radius: var(--pl-radius-2);
 }
 
@@ -207,7 +207,7 @@
 .creative__device-btn.is-active {
   color: var(--pl-text-primary);
   background: var(--pl-bg-default);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--pl-shadow-sm);
 }
 
 /* Theme Switcher */
@@ -241,7 +241,7 @@
 .creative__theme-btn.is-active {
   color: var(--pl-text-primary);
   background: var(--pl-bg-default);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--pl-shadow-sm);
 }
 
 .creative__toolbar-right {
@@ -254,7 +254,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: var(--pl-spacing-3) 14px;
   font-size: var(--pl-font-size-label-sm);
   font-weight: var(--pl-font-weight-bold);
   color: var(--pl-text-primary);
@@ -287,7 +287,7 @@
 
 .creative__preview {
   background: var(--pl-bg-default);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--pl-shadow-lg);
   border-radius: var(--pl-radius-3);
   overflow: visible;
   transition: width 0.3s ease;
@@ -522,14 +522,14 @@
 /* Layer Controls (Card Count) */
 .creative__layer-control {
   display: flex;
-  gap: 4px;
-  padding-left: 24px;
+  gap: var(--pl-spacing-2);
+  padding-left: var(--pl-spacing-7);
 }
 
 .creative__layer-control--style {
   flex-direction: column;
   gap: 6px;
-  padding: 8px 0 4px 24px;
+  padding: var(--pl-spacing-3) 0 var(--pl-spacing-2) var(--pl-spacing-7);
 }
 
 .creative__layer-control-label {
@@ -541,7 +541,7 @@
 }
 
 .creative__card-count-btn {
-  padding: 4px 8px;
+  padding: var(--pl-spacing-2) var(--pl-spacing-3);
   font-size: 11px;
   font-weight: var(--pl-font-weight-bold);
   color: var(--pl-text-tertiary);
@@ -596,8 +596,8 @@
 .creative__add-card-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
+  gap: var(--pl-spacing-2);
+  padding: 6px var(--pl-spacing-4);
   font-size: 12px;
   font-weight: var(--pl-font-weight-bold);
   color: var(--pl-text-invert);
@@ -611,9 +611,9 @@
 }
 
 .creative__add-card-btn:hover {
-  background: var(--pl-brand-hover);
+  background: var(--pl-lightblue-60);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  box-shadow: var(--pl-shadow-brand);
 }
 
 .creative__add-card-btn:active {
@@ -676,8 +676,8 @@
 }
 
 [contenteditable="true"]:not(.pl-btn):not(.pl-cta__btn):focus {
-  background: rgba(21, 178, 241, 0.12);
-  box-shadow: 0 0 0 2px rgba(21, 178, 241, 0.2);
+  background: var(--pl-alpha-brand-12);
+  box-shadow: 0 0 0 2px var(--pl-alpha-brand-24);
   outline: none;
 }
 
@@ -706,7 +706,7 @@
 }
 
 .creative__text-delete:hover {
-  background: #c62828;
+  background: var(--pl-red-60);
   transform: scale(1.1);
 }
 
@@ -746,7 +746,7 @@
 }
 
 .creative__block-delete:hover {
-  background: #c62828;
+  background: var(--pl-red-60);
   transform: scale(1.05);
 }
 
@@ -777,7 +777,7 @@
 .pl-btn[contenteditable="true"]:focus,
 .pl-cta__btn[contenteditable="true"]:focus {
   /* Use outline instead of box-shadow to avoid interfering with button styles */
-  outline: 2px solid rgba(21, 178, 241, 0.5);
+  outline: 2px solid var(--pl-alpha-brand-24);
   outline-offset: 2px;
 }
 
@@ -797,7 +797,7 @@
 }
 
 .pl-tab-btn[contenteditable="true"]:focus {
-  outline: 2px solid rgba(21, 178, 241, 0.3);
+  outline: 2px solid var(--pl-alpha-brand-12);
   outline-offset: -2px;
 }
 
@@ -901,12 +901,12 @@
     justify-content: center !important;
     gap: var(--pl-spacing-3) !important;
     background: var(--pl-violet-50) !important;
-    border-radius: 999px !important;
+    border-radius: var(--pl-radius-circle) !important;
     padding: var(--pl-spacing-3) var(--pl-spacing-3) !important;
   }
 
   .creative__section-wrapper .pl-tab-nav-mobile--style-b .pl-tab-btn {
-    border-radius: 999px !important;
+    border-radius: var(--pl-radius-circle) !important;
     color: var(--pl-text-invert) !important;
     background: transparent !important;
     border: none !important;
@@ -1050,7 +1050,7 @@
 .creative__modal {
   background: var(--pl-bg-default);
   border-radius: var(--pl-radius-3);
-  box-shadow: 0 8px 24px rgba(11, 13, 17, 0.15);
+  box-shadow: var(--pl-shadow-xl);
   width: 90%;
   max-width: 400px;
   padding: var(--pl-spacing-8);
@@ -1144,6 +1144,12 @@
 .creative__preview[data-theme="dark"],
 .creative__preview-content[data-theme="dark"] {
   background: var(--pl-bg-invert);
+}
+
+/* Card grid — align-items:start로 override (desc 삭제 시 카드 높이 동적 축소) */
+.creative__preview-content .pl-card-grid__row--large,
+.creative__preview-content .pl-card-grid__row--small {
+  align-items: start;
 }
 
 /* GNB — position:fixed를 relative로 override (빌더 프리뷰 안에 고정) */
