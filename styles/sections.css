@@ -4883,20 +4883,13 @@
   flex-shrink: 0;
 }
 
+/* CTA Finish button: extends pl-btn with CTA-specific sizing and pill shape */
 .pl-cta__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   min-width: 156px; /* Figma: 156px */
   height: 59px; /* Figma: 59px */
   padding: 0 24px;
   font-size: 19px; /* Figma: 19px */
-  font-weight: var(--pl-font-weight-default);
-  line-height: 1.44;
-  text-decoration: none;
   border-radius: 999px; /* Pill shape */
-  transition: all 0.2s;
-  cursor: pointer;
 }
 
 .pl-cta__btn--outline {

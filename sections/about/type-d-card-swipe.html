@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./../../tokens/base.css">
   <link rel="stylesheet" href="./../../tokens/campaign.css">
   <link rel="stylesheet" href="./../../styles/components.css">
+  <link rel="stylesheet" href="./../../styles/dark-mode.css">
   <link rel="stylesheet" href="./../../styles/sections.css">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
@@ -253,32 +254,14 @@
       font-weight: var(--pl-font-weight-bold);
     }
 
-    /* Dark Mode - Type D Reverse (Figma)
-       bg 자동 반전, 카드/nav 버튼/그라데이션 변경 */
 
-    .preview-content[data-theme="dark"] .pl-section-title__desc {
-      color: var(--pl-text-secondary);
-    }
 
-    .preview-content[data-theme="dark"] .pl-swipe-card {
-      background: var(--pl-bg-default);
-    }
 
-    .preview-content[data-theme="dark"] .pl-swipe-btn {
-      background: var(--pl-bg-default);
-    }
 
     /* Arrow 영역 그라데이션: 흰색 → 다크 */
-    .preview-content[data-theme="dark"] .pl-swipe-controls {
-      background: linear-gradient(90deg, var(--pl-bg-default) 0%, transparent 100%);
-    }
 
     /* Card B 오버레이: 솔리드 다크 80% (피그마 스펙) */
-    .preview-content[data-theme="dark"] .pl-swipe-card__overlay-bg {
-      background: var(--pl-alpha-black-80);
-    }
-
-  </style>
+</style>
 </head>
 <body>
 
