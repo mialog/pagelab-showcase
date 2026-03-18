@@ -5,6 +5,8 @@
   "scripts": {
     "tokens": "node scripts/generate-tokens.js",
     "tokens:validate": "node scripts/validate-tokens.js",
-    "tokens:sync": "npm run tokens && npm run tokens:validate"
+    "tokens:sync": "npm run tokens && npm run tokens:validate",
+    "new-section": "node scripts/new-section.js",
+    "validate": "node scripts/validate-sections.js"
   }
 }

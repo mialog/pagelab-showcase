@@ -1,14 +1,105 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+/**
+ * new-section.js — PageLab 섹션 스캐폴딩 CLI
+ *
+ * Usage:
+ *   npm run new-section -- --type=about --name=type-g-video
+ *   npm run new-section -- --type=benefit --name=type-c-list --label="특징/혜택" --title="리스트형"
+ *
+ * Options:
+ *   --type   섹션 타입 (about|hero|benefit|step|review|cta|intro|navigation|faq|etc)
+ *   --name   파일 이름 (예: type-g-video → sections/about/type-g-video.html)
+ *   --label  프리뷰 헤더 태그 텍스트 (생략 시 타입별 기본값)
+ *   --title  프리뷰 헤더 제목 텍스트 (생략 시 name 기반 자동 생성)
+ */
+
+import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ROOT = join(__dirname, '..');
+
+// ── CLI 인수 파싱 ──────────────────────────────────────────
+const args = process.argv.slice(2);
+const get = (key) => {
+  const entry = args.find(a => a.startsWith(`--${key}=`));
+  return entry ? entry.split('=').slice(1).join('=') : null;
+};
+
+const type  = get('type');
+const name  = get('name');
+const label = get('label');
+const title = get('title');
+
+// ── 유효성 검사 ────────────────────────────────────────────
+const VALID_TYPES = ['about', 'hero', 'benefit', 'step', 'review', 'cta', 'intro', 'navigation', 'faq', 'etc'];
+
+if (!type || !name) {
+  console.error(`
+❌ 사용법: npm run new-section -- --type=<타입> --name=<이름>
+
+  --type   섹션 타입: ${VALID_TYPES.join(' | ')}
+  --name   파일 이름: type-g-video, type-c-list 등
+  --label  헤더 태그 (선택): "특징/혜택"
+  --title  헤더 제목 (선택): "리스트형"
+
+예시:
+  npm run new-section -- --type=about --name=type-g-video
+  npm run new-section -- --type=benefit --name=type-c-list --title="리스트형"
+`);
+  process.exit(1);
+}
+
+if (!VALID_TYPES.includes(type)) {
+  console.error(`❌ 유효하지 않은 타입: "${type}"\n   사용 가능: ${VALID_TYPES.join(', ')}`);
+  process.exit(1);
+}
+
+// ── 기본값 설정 ────────────────────────────────────────────
+const TYPE_DEFAULTS = {
+  about:      { label: '콘텐츠 설명',     title: '소개형' },
+  hero:       { label: '히어로',          title: '히어로' },
+  benefit:    { label: '혜택/특징',       title: '특징형' },
+  step:       { label: '단계/프로세스',   title: '단계형' },
+  review:     { label: '리뷰/후기',       title: '리뷰형' },
+  cta:        { label: 'Call to Action',  title: 'CTA형' },
+  intro:      { label: '인트로',          title: '인트로형' },
+  navigation: { label: '네비게이션',      title: 'GNB/Footer' },
+  faq:        { label: 'FAQ',             title: 'FAQ형' },
+  etc:        { label: '기타',            title: '기타형' },
+};
+
+const defaults  = TYPE_DEFAULTS[type];
+const tagLabel  = label || defaults.label;
+const tagTitle  = title || defaults.title;
+
+// ── 파일 경로 설정 ─────────────────────────────────────────
+const fileName  = name.endsWith('.html') ? name : `${name}.html`;
+const dirPath   = join(ROOT, 'sections', type);
+const filePath  = join(dirPath, fileName);
+
+if (existsSync(filePath)) {
+  console.error(`❌ 이미 존재하는 파일: sections/${type}/${fileName}`);
+  process.exit(1);
+}
+
+// ── HTML 템플릿 생성 ───────────────────────────────────────
+const sectionClass = `pl-${type}`;
+const variantClass = name.replace(/[^a-z0-9-]/g, '-');
+
+const html = `<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hero - Type C Full Visual | PageLab</title>
+  <title>${tagTitle} | PageLab Section Showcase</title>
   <link rel="stylesheet" href="./../../tokens/base.css">
   <link rel="stylesheet" href="./../../tokens/campaign.css">
+  <link rel="stylesheet" href="./../../styles/sections.css">
   <link rel="stylesheet" href="./../../styles/components.css">
   <link rel="stylesheet" href="./../../styles/dark-mode.css">
-  <link rel="stylesheet" href="./../../styles/sections.css">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <script src="./../../scripts/components.js"></script>
@@ -21,46 +112,46 @@
 
     body {
       font-family: var(--pl-font-main);
-      background: var(--pl-neutral-10);
+      background: var(--pl-bg-neutral);
       min-height: 100vh;
     }
 
     /* Preview Header */
     .preview-header {
-      background: var(--pl-bg-default);
-      border-bottom: 1px solid var(--pl-border-light);
-      padding: var(--pl-spacing-4) var(--pl-spacing-7);
+      position: sticky;
+      top: 0;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
+      padding: var(--pl-spacing-4) var(--pl-spacing-6);
+      background: var(--pl-bg-default);
+      border-bottom: 1px solid var(--pl-border-light);
     }
 
     .preview-header__left {
       display: flex;
       align-items: center;
-      gap: var(--pl-spacing-5);
+      gap: var(--pl-spacing-4);
     }
 
     .preview-header__back {
       display: flex;
       align-items: center;
       gap: var(--pl-spacing-2);
-      font-size: var(--pl-font-size-label-md);
+      font-size: var(--pl-font-size-body-sm);
       color: var(--pl-text-tertiary);
       text-decoration: none;
-      padding: var(--pl-spacing-2) var(--pl-spacing-3);
-      border-radius: var(--pl-radius-1);
-      transition: all 0.2s;
+      transition: color 0.2s;
     }
 
     .preview-header__back:hover {
       color: var(--pl-text-primary);
-      background: var(--pl-bg-neutral);
+    }
+
+    .preview-header__back svg {
+      width: 16px;
+      height: 16px;
     }
 
     .preview-header__info {
@@ -70,16 +161,16 @@
     }
 
     .preview-header__tag {
+      padding: var(--pl-spacing-1) var(--pl-spacing-3);
       font-size: var(--pl-font-size-label-sm);
       font-weight: var(--pl-font-weight-bold);
-      color: var(--pl-text-brand);
-      background: var(--pl-bg-brand-light);
-      padding: 3px 10px;
+      color: var(--pl-static-green);
+      background: var(--pl-green-5);
       border-radius: var(--pl-radius-1);
     }
 
     .preview-header__title {
-      font-size: var(--pl-font-size-body-md);
+      font-size: var(--pl-font-size-title-sm);
       font-weight: var(--pl-font-weight-bold);
       color: var(--pl-text-primary);
     }
@@ -97,9 +188,8 @@
     .device-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: var(--pl-spacing-2);
-      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      padding: var(--pl-spacing-2) var(--pl-spacing-4);
       font-size: var(--pl-font-size-label-sm);
       font-weight: var(--pl-font-weight-default);
       color: var(--pl-text-tertiary);
@@ -122,17 +212,16 @@
     }
 
     .device-btn__size {
+      font-size: 11px;
       color: var(--pl-text-lowest);
-      font-weight: var(--pl-font-weight-default);
     }
 
     /* Preview Container */
     .preview-container {
-      padding-top: 60px;
-      min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 80px var(--pl-spacing-7) var(--pl-spacing-7);
+      padding: var(--pl-spacing-8);
+      min-height: calc(100vh - 60px);
     }
 
     .preview-frame {
@@ -141,22 +230,11 @@
       border-radius: var(--pl-radius-3);
       overflow: hidden;
       transition: width 0.3s ease;
-      width: 1920px;
-      max-width: 100%;
-      height: fit-content; /* 콘텐츠 높이에 맞춤 */
     }
 
-    .preview-frame[data-device="pc"] {
-      width: 1920px;
-    }
-
-    .preview-frame[data-device="tablet"] {
-      width: 720px;
-    }
-
-    .preview-frame[data-device="mobile"] {
-      width: 360px;
-    }
+    .preview-frame[data-device="pc"]     { width: 1920px; }
+    .preview-frame[data-device="tablet"] { width: 720px; }
+    .preview-frame[data-device="mobile"] { width: 360px; }
 
     /* Section Content */
     .preview-content {
@@ -209,7 +287,7 @@
       font-weight: var(--pl-font-weight-bold);
     }
 
-    /* filled-secondary 버튼: components.css 공통 처리 */
+    /* TODO: 이 섹션 전용 스타일을 여기에 추가하세요 */
 
   </style>
 </head>
@@ -219,14 +297,14 @@
   <header class="preview-header">
     <div class="preview-header__left">
       <a href="../../index.html" class="preview-header__back">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
         </svg>
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">메인 비주얼</span>
-        <h1 class="preview-header__title">전면 배경형</h1>
+        <span class="preview-header__tag">${tagLabel}</span>
+        <h1 class="preview-header__title">${tagTitle}</h1>
       </div>
     </div>
 
@@ -281,29 +359,21 @@
       <div class="preview-content">
         <!--
           ========================================
-          Hero - Type C Full Visual
-          피그마 디자인 그대로 구현
+          ${tagLabel} - ${tagTitle}
+          TODO: Figma 스펙을 여기에 기록하세요
           ========================================
         -->
-        <section class="pl-section pl-hero pl-hero--full" data-section="hero">
-          <!-- Background -->
-          <div class="pl-hero__bg">
-            <img src="./../../images/hero/hero-c-bg.png" alt="Background">
-          </div>
+        <section class="pl-section ${sectionClass} ${sectionClass}--${variantClass}" data-section="${type}">
+          <div class="pl-section__container ${sectionClass}__container">
 
-          <div class="pl-section__container pl-hero__container">
+            <!-- Section Title -->
+            <pl-section-title
+              label="섹션 레이블"
+              heading="섹션 제목을 입력하세요"
+              description="섹션 설명을 입력하세요">
+            </pl-section-title>
 
-            <!-- Content -->
-            <div class="pl-hero__content">
-              <div class="pl-hero__text">
-                <span class="pl-label pl-label--filled">SOLUNI READING FESTIVAL</span>
-                <h1 class="pl-hero__title">솔루니 봄 독서 축제<br>읽고, 생각하고, 표현하는 즐거움</h1>
-                <p class="pl-hero__desc">대교 솔루니와 함께하는 신학기 독서토론 특별 이벤트! 책 읽는 습관이 생각하는 힘을 키웁니다.</p>
-              </div>
-              <div class="pl-hero__actions">
-                <pl-button variant="filled-secondary" href="#">무료 체험수업 신청하기</pl-button>
-              </div>
-            </div>
+            <!-- TODO: 섹션 콘텐츠를 여기에 추가하세요 -->
 
           </div>
         </section>
@@ -321,8 +391,7 @@
       btn.addEventListener('click', () => {
         deviceBtns.forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
-        const device = btn.dataset.device;
-        previewFrame.dataset.device = device;
+        previewFrame.dataset.device = btn.dataset.device;
       });
     });
 
@@ -334,8 +403,7 @@
       btn.addEventListener('click', () => {
         themeBtns.forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
-        const theme = btn.dataset.theme;
-        if (theme === 'dark') {
+        if (btn.dataset.theme === 'dark') {
           previewContent.setAttribute('data-theme', 'dark');
         } else {
           previewContent.removeAttribute('data-theme');
@@ -346,3 +414,21 @@
 
 </body>
 </html>
+`;
+
+// ── 파일 쓰기 ──────────────────────────────────────────────
+mkdirSync(dirPath, { recursive: true });
+writeFileSync(filePath, html, 'utf8');
+
+console.log(`
+✅ 새 섹션 파일 생성 완료!
+
+   📄 sections/${type}/${fileName}
+   🏷️  태그: ${tagLabel}
+   📌 제목: ${tagTitle}
+
+다음 단계:
+  1. 파일을 열어 TODO 주석 위치에 콘텐츠를 추가하세요
+  2. styles/sections.css 에 섹션 전용 CSS를 추가하세요
+  3. index.html 갤러리에 링크를 추가하세요
+`);
