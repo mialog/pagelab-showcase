@@ -401,3 +401,95 @@
     transform: rotate(360deg);
   }
 }
+
+/* ============================================
+   Card Component (pl-card)
+   <pl-card label="01" title="제목" description="설명">
+   ============================================ */
+.pl-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+  padding: var(--pl-spacing-6);
+  background: var(--pl-bg-default);
+  border: var(--pl-border-1) solid var(--pl-border-light);
+  border-radius: var(--pl-radius-3);
+  transition: box-shadow 0.2s ease;
+}
+
+.pl-card:hover {
+  box-shadow: 0 4px 16px var(--pl-alpha-black-08);
+}
+
+/* Label / Step Number */
+.pl-card__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-brand);
+  background: var(--pl-bg-brand-light);
+  border-radius: var(--pl-radius-2);
+  flex-shrink: 0;
+}
+
+/* Image */
+.pl-card__image {
+  width: 100%;
+  border-radius: var(--pl-radius-2);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.pl-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content */
+.pl-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-card__title {
+  font-size: var(--pl-font-size-title-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+}
+
+.pl-card__desc {
+  font-size: var(--pl-font-size-body-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+.pl-card__note {
+  font-size: var(--pl-font-size-label-sm);
+  color: var(--pl-text-tertiary);
+  line-height: var(--pl-line-height-default);
+}
+
+/* Dark Mode */
+.preview-content[data-theme="dark"] .pl-card {
+  background: var(--pl-bg-default);
+  border-color: var(--pl-border-default);
+}
+
+.preview-content[data-theme="dark"] .pl-card:hover {
+  box-shadow: 0 4px 16px var(--pl-alpha-black-24);
+}
+
+.preview-content[data-theme="dark"] .pl-card__title {
+  color: var(--pl-text-primary);
+}
+
+.preview-content[data-theme="dark"] .pl-card__desc {
+  color: var(--pl-text-secondary);
+}
