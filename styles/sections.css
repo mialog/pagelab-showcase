@@ -1642,7 +1642,7 @@
 
 .pl-swipe-card__desc {
   font-size: var(--pl-font-size-title-sm); /* Figma PC: 20px */
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   line-height: 1.68; /* Figma: 33.6px / 20px */
   color: var(--pl-text-secondary);
   margin: 0;
@@ -1715,7 +1715,7 @@
 
 .pl-swipe-card--overlay .pl-swipe-card__desc {
   font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   line-height: 1.68; /* Figma: 26.88px / 16px */
   margin-bottom: var(--pl-spacing-3);
 }
@@ -1786,7 +1786,7 @@
 
 .pl-swipe-card--split .pl-swipe-card__desc {
   font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   line-height: 1.68; /* Figma: 26.88px / 16px */
   margin-bottom: var(--pl-spacing-3);
 }
@@ -2041,7 +2041,7 @@
   padding: var(--pl-spacing-2) var(--pl-spacing-5);
   font-family: var(--pl-font-main);
   font-size: var(--pl-font-size-title-sm);
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   color: var(--pl-text-accent);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-border-accent-light);
@@ -2220,7 +2220,7 @@
     gap: var(--pl-spacing-3); /* Figma: 12px between rows */
   }
 
-  .pl-tab-nav-row-a {
+  .pl-tab-nav-row--a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2230,7 +2230,7 @@
   .pl-tab-nav-mobile--style-a .pl-tab-btn {
     font-family: var(--pl-font-main);
     font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
-    font-weight: var(--pl-font-weight-medium);
+    font-weight: var(--pl-font-weight-default);
     color: var(--pl-text-accent);
     background: var(--pl-bg-default);
     border: 1px solid var(--pl-border-accent-light);
@@ -2284,7 +2284,7 @@
   .pl-tab-nav-mobile--style-b .pl-tab-btn {
     font-family: var(--pl-font-main);
     font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
-    font-weight: var(--pl-font-weight-medium);
+    font-weight: var(--pl-font-weight-default);
     color: var(--pl-text-primary);
     background: transparent;
     border: none;
@@ -4133,7 +4133,7 @@
   align-items: center;
   padding: var(--pl-spacing-1) var(--pl-spacing-3);
   font-size: var(--pl-font-size-label-sm);
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   color: var(--pl-text-brand);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-text-brand);
@@ -4354,7 +4354,7 @@
   align-items: center;
   padding: var(--pl-spacing-1) var(--pl-spacing-3);
   font-size: var(--pl-font-size-label-sm);
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   color: var(--pl-text-brand);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-text-brand);
@@ -4891,7 +4891,7 @@
   height: 59px; /* Figma: 59px */
   padding: 0 24px;
   font-size: 19px; /* Figma: 19px */
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   line-height: 1.44;
   text-decoration: none;
   border-radius: 999px; /* Pill shape */

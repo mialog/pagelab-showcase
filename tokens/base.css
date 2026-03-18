@@ -1,13 +1,13 @@
 /* ============================================
    PageLab Design Tokens - Base
-   브랜드 프로젝트에서 그대로 복사해서 사용
-   Responsive.json + PLtokens.json 통합
+   ⚠️  이 파일은 PLtokens.json에서 자동 생성됩니다.
+   직접 수정하지 마세요. 변경은 PLtokens.json에서 하세요.
+   생성 명령: npm run tokens
    ============================================ */
 
 :root {
   /* ----------------------------------------
      Device Breakpoints
-     PC: 1200px ~ / Tablet: 640px ~ 1199px / Mobile: 280px ~ 639px
      ---------------------------------------- */
   --pl-device-pc-min: 1200px;
   --pl-device-tablet-min: 640px;
@@ -17,12 +17,9 @@
   /* ----------------------------------------
      Spacing (PC 기준)
      ---------------------------------------- */
-  --pl-spacing-1: 2px;
   --pl-spacing-2: 4px;
   --pl-spacing-3: 8px;
-  --pl-spacing-4: 12px;
   --pl-spacing-5: 16px;
-  --pl-spacing-6: 20px;
   --pl-spacing-7: 24px;
   --pl-spacing-8: 32px;
   --pl-spacing-9: 40px;
@@ -32,6 +29,9 @@
   --pl-spacing-13: 80px;
   --pl-spacing-14: 100px;
   --pl-spacing-15: 120px;
+  --pl-spacing-1: 2px;
+  --pl-spacing-6: 20px;
+  --pl-spacing-4: 12px;
 
   /* ----------------------------------------
      Border Width
@@ -68,7 +68,7 @@
   /* ----------------------------------------
      Typography - Font Family
      ---------------------------------------- */
-  --pl-font-main: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  --pl-font-main: 'Pretendard Variable', sans-serif;
   --pl-font-point: 'ONE Mobile Title', sans-serif;
   --pl-font-ja: 'Noto Sans JP', sans-serif;
   --pl-font-zh-tw: 'Noto Sans TC', sans-serif;
@@ -104,9 +104,9 @@
   /* ----------------------------------------
      Typography - Line Height
      ---------------------------------------- */
-  --pl-line-height-title: 1.36;    /* 136% */
-  --pl-line-height-default: 1.44;  /* 144% */
-  --pl-line-height-body: 1.68;     /* 168% */
+  --pl-line-height-title: 1.36;
+  --pl-line-height-default: 1.44;
+  --pl-line-height-body: 1.68;
 
   /* ----------------------------------------
      Typography - Letter Spacing
@@ -246,85 +246,85 @@
   /* ----------------------------------------
      Semantic Colors - Text
      ---------------------------------------- */
-  --pl-text-primary: #0b0d11;
-  --pl-text-secondary: #394046;
-  --pl-text-tertiary: #6a747c;
-  --pl-text-lowest: #8c97a0;
-  --pl-text-invert: #ffffff;
+  --pl-text-link-sub: #8c97a0;
+  --pl-text-link: #9b6bf4;
+  --pl-text-accent-light: #b7c8ff;
+  --pl-text-accent-dark: #082271;
+  --pl-text-accent: #416df0;
+  --pl-text-positive-light: #8fd5b0;
+  --pl-text-positive-dark: #167d46;
+  --pl-text-caution-light: #fed571;
+  --pl-text-caution: #fdb913;
+  --pl-text-negative-light: #f68d91;
+  --pl-text-negative-dark: #7e0a0e;
+  --pl-text-brand-light: #8ddaf9;
   --pl-text-disabled: #0b0d113d;
+  --pl-text-invert: #ffffff;
+  --pl-text-lowest: #8c97a0;
+  --pl-text-tertiary: #6a747c;
+  --pl-text-secondary: #394046;
+  --pl-text-primary: #0b0d11;
+  --pl-text-caution-dark: #a37402;
   --pl-text-brand: #15b1f1;
   --pl-text-brand-dark: #06435b;
-  --pl-text-brand-light: #8ddaf9;
-  --pl-text-accent: #416df0;
-  --pl-text-accent-dark: #082271;
-  --pl-text-accent-light: #b7c8ff;
   --pl-text-positive: #45b97c;
-  --pl-text-positive-dark: #167d46;
-  --pl-text-positive-light: #8fd5b0;
-  --pl-text-caution: #fdb913;
-  --pl-text-caution-dark: #a37402;
-  --pl-text-caution-light: #fed571;
   --pl-text-negative: #e04d52;
-  --pl-text-negative-dark: #7e0a0e;
-  --pl-text-negative-light: #f68d91;
-  --pl-text-link: #9b6bf4;
-  --pl-text-link-sub: #8c97a0;
 
   /* ----------------------------------------
      Semantic Colors - Background
      ---------------------------------------- */
-  --pl-bg-default: #ffffff;
-  --pl-bg-invert: #394046;
-  --pl-bg-neutral: #e3e8ed;
-  --pl-bg-neutral-dark: #d4dce2;
-  --pl-bg-neutral-darker: #8c97a0;
-  --pl-bg-disabled: #8c98a13d;
-  --pl-bg-skeleton: #d4dce2;
-  --pl-bg-scrollbar: #d4dce2;
-  --pl-bg-overlay: #ffffffcc;
-  --pl-bg-dim: #0b0d1199;
-  --pl-bg-toast: #0b0d11cc;
-  --pl-bg-brand: #15b1f1;
-  --pl-bg-brand-dark: #06435b;   /* lightblue-90, Figma: brand/darkest */
-  --pl-bg-brand-light: #d1eefa; /* lightblue-10, Figma: brand/lighter */
-  --pl-bg-accent: #416df0;
-  --pl-bg-accent-dark: #0e2f91;
-  --pl-bg-accent-light: #dae3ff;
-  --pl-bg-positive: #45b97c;
-  --pl-bg-positive-dark: #167d46;
-  --pl-bg-positive-light: #ecf8f2;
-  --pl-bg-caution: #fdb913;
-  --pl-bg-caution-dark: #a37402;
-  --pl-bg-caution-light: #fff8e7;
-  --pl-bg-negative: #e04d52;
   --pl-bg-negative-dark: #a32428;
+  --pl-bg-brand-light: #edf8fc;
+  --pl-bg-brand-dark: #007daf;
+  --pl-bg-brand: #15b1f1;
+  --pl-bg-disabled: #8c98a13d;
+  --pl-bg-neutral-darker: #8c97a0;
+  --pl-bg-toast: #0b0d11cc;
+  --pl-bg-dim: #0b0d1199;
+  --pl-bg-neutral: #e3e8ed;
+  --pl-bg-accent-dark: #0e2f91;
+  --pl-bg-caution-dark: #a37402;
+  --pl-bg-accent: #416df0;
+  --pl-bg-positive-light: #ecf8f2;
+  --pl-bg-skeleton: #d4dce2;
+  --pl-bg-caution-light: #fff8e7;
+  --pl-bg-invert: #394046;
+  --pl-bg-caution: #fdb913;
+  --pl-bg-overlay: #ffffffcc;
+  --pl-bg-positive: #45b97c;
+  --pl-bg-accent-light: #dae3ff;
+  --pl-bg-scrollbar: #d4dce2;
+  --pl-bg-neutral-dark: #d4dce2;
+  --pl-bg-positive-dark: #167d46;
+  --pl-bg-negative: #e04d52;
+  --pl-bg-default: #ffffff;
   --pl-bg-negative-light: #fef5f5;
 
   /* ----------------------------------------
      Semantic Colors - Border
      ---------------------------------------- */
-  --pl-border-default: #c6cfd6;
-  --pl-border-light: #d4dce2;
-  --pl-border-dark: #8c97a0;
-  --pl-border-darker: #6a747c;
-  --pl-border-black: #0b0d11;
-  --pl-border-invert: #ffffff;
-  --pl-border-disabled: #0b0d113d;
-  --pl-border-brand: #15b1f1;
-  --pl-border-brand-dark: #045f84;
-  --pl-border-brand-light: #8ddaf9;
-  --pl-border-accent: #416df0;
-  --pl-border-accent-dark: #0e2f91;
   --pl-border-accent-light: #8eabff;
-  --pl-border-positive: #45b97c;
-  --pl-border-positive-dark: #167d46;
+  --pl-border-accent-dark: #0e2f91;
+  --pl-border-accent: #416df0;
   --pl-border-positive-light: #8fd5b0;
-  --pl-border-caution: #fdb913;
-  --pl-border-caution-dark: #a37402;
+  --pl-border-disabled: #0b0d113d;
   --pl-border-caution-light: #fee3a0;
-  --pl-border-negative: #e04d52;
-  --pl-border-negative-dark: #7e0a0e;
   --pl-border-negative-light: #f68d91;
+  --pl-border-negative-dark: #7e0a0e;
+  --pl-border-brand-dark: #045f84;
+  --pl-border-black: #0b0d11;
+  --pl-border-darker: #6a747c;
+  --pl-border-default: #c6cfd6;
+  --pl-border-negative: #e04d52;
+  --pl-border-positive: #45b97c;
+  --pl-border-caution: #fdb913;
+  --pl-border-brand: #15b1f1;
+  --pl-border-invert: #ffffff;
+  --pl-border-dark: #8c97a0;
+  --pl-border-positive-dark: #167d46;
+  --pl-border-brand-light: #8ddaf9;
+  --pl-border-caution-dark: #a37402;
+  --pl-border-light: #d4dce2;
 
   /* ----------------------------------------
      Semantic Colors - Icon
@@ -338,33 +338,69 @@
   --pl-icon-brand: #15b1f1;
   --pl-icon-brand-dark: #06435b;
   --pl-icon-brand-light: #8ddaf9;
-  --pl-icon-accent: #416df0;
-  --pl-icon-accent-dark: #082271;
-  --pl-icon-accent-light: #b7c8ff;
-  --pl-icon-positive: #45b97c;
-  --pl-icon-positive-dark: #167d46;
-  --pl-icon-positive-light: #8fd5b0;
-  --pl-icon-caution: #fdb913;
-  --pl-icon-caution-dark: #a37402;
-  --pl-icon-caution-light: #fed571;
   --pl-icon-negative: #e04d52;
   --pl-icon-negative-dark: #7e0a0e;
   --pl-icon-negative-light: #f68d91;
+  --pl-icon-caution: #fdb913;
+  --pl-icon-caution-dark: #a37402;
+  --pl-icon-caution-light: #fed571;
+  --pl-icon-positive: #45b97c;
+  --pl-icon-positive-dark: #167d46;
+  --pl-icon-positive-light: #8fd5b0;
+  --pl-icon-accent: #416df0;
+  --pl-icon-accent-dark: #082271;
+  --pl-icon-accent-light: #b7c8ff;
   --pl-icon-link: #9b6bf4;
   --pl-icon-link-sub: #8c97a0;
 
   /* ----------------------------------------
      Static Colors (고정 컬러)
      ---------------------------------------- */
-  --pl-static-red: #e04d52;
   --pl-static-orange: #f37321;
-  --pl-static-yellow: #fdb913;
-  --pl-static-green: #45b97c;
-  --pl-static-lightblue: #15b1f1;
-  --pl-static-blue: #416df0;
-  --pl-static-violet: #9b6bf4;
+  --pl-static-red: #e04d52;
   --pl-static-pink: #fc60b4;
   --pl-static-gray: #8c97a0;
+  --pl-static-blue: #416df0;
+  --pl-static-violet: #9b6bf4;
+  --pl-static-green: #45b97c;
+  --pl-static-lightblue: #15b1f1;
+  --pl-static-yellow: #fdb913;
+
+  /* ----------------------------------------
+     Alpha Colors (Interaction Overlays)
+     ---------------------------------------- */
+  --pl-alpha-black-08: #0b0d1114;
+  --pl-alpha-black-12: #0b0d111e;
+  --pl-alpha-black-24: #0b0d113d;
+  --pl-alpha-black-32: #0b0d1151;
+  --pl-alpha-black-48: #0b0d117a;
+  --pl-alpha-black-60: #0b0d1199;
+  --pl-alpha-black-80: #0b0d11cc;
+  --pl-alpha-black-96: #0b0d11f4;
+  --pl-alpha-white-08: #ffffff14;
+  --pl-alpha-white-12: #ffffff1e;
+  --pl-alpha-white-24: #ffffff3d;
+  --pl-alpha-white-32: #ffffff51;
+  --pl-alpha-white-48: #ffffff7a;
+  --pl-alpha-white-60: #ffffff99;
+  --pl-alpha-white-80: #ffffffcc;
+  --pl-alpha-white-96: #fffffff4;
+  --pl-alpha-gray-08: #8c98a114;
+  --pl-alpha-gray-12: #8c98a11e;
+  --pl-alpha-gray-24: #8c98a13d;
+  --pl-alpha-gray-32: #8c98a151;
+  --pl-alpha-gray-48: #8c98a17a;
+  --pl-alpha-gray-60: #8c98a199;
+  --pl-alpha-gray-80: #8c98a1cc;
+  --pl-alpha-gray-96: #8c98a1f4;
+  --pl-alpha-lightblue-08: #15b2f114;
+  --pl-alpha-lightblue-12: #15b2f11e;
+  --pl-alpha-lightblue-24: #15b2f13d;
+  --pl-alpha-lightblue-32: #15b2f151;
+  --pl-alpha-lightblue-48: #15b2f17a;
+  --pl-alpha-lightblue-60: #15b2f199;
+  --pl-alpha-lightblue-80: #15b2f1cc;
+  --pl-alpha-lightblue-96: #15b2f1f4;
 
   /* ----------------------------------------
      Shadow
@@ -374,8 +410,8 @@
   --pl-shadow-lg: 0 4px 24px var(--pl-alpha-black-12);
   --pl-shadow-xl: 0 8px 24px var(--pl-alpha-black-12);
   --pl-shadow-float-up: 0 -4px 16px var(--pl-alpha-black-08);
-  --pl-shadow-brand: 0 4px 20px rgba(21, 177, 241, 0.12);
-  --pl-shadow-accent: 0 4px 16px rgba(65, 109, 240, 0.08);
+  --pl-shadow-brand: 0 4px 20px var(--pl-alpha-lightblue-12);
+  --pl-shadow-accent: 0 4px 16px var(--pl-alpha-lightblue-08);
 
   /* ----------------------------------------
      Z-index
@@ -384,7 +420,6 @@
   --pl-z-dropdown: 10;
   --pl-z-sticky: 50;
   --pl-z-nav: 100;
-  --pl-z-overlay-card: 100;
   --pl-z-gnb: 150;
   --pl-z-modal: 200;
   --pl-z-toast: 300;
@@ -406,28 +441,54 @@
   --pl-nav-sidebar-width: 220px;
 
   /* ----------------------------------------
-     Alpha Colors (Interaction Overlays)
-     버튼 상태용 투명도 컬러
+     PageLab Aliases
+     (Figma JSON에 없지만 코드에서 사용하는 편의 별칭)
      ---------------------------------------- */
-  /* Brand Alpha (lightblue #15b1f1 = rgb(21, 177, 241)) */
-  --pl-alpha-brand-12: rgba(21, 177, 241, 0.12);
-  --pl-alpha-brand-24: rgba(21, 177, 241, 0.24);
-
-  /* Black Alpha */
-  --pl-alpha-black-08: rgba(11, 13, 17, 0.08);
-  --pl-alpha-black-12: rgba(11, 13, 17, 0.12);
-  --pl-alpha-black-24: rgba(11, 13, 17, 0.24);
-  --pl-alpha-black-32: rgba(11, 13, 17, 0.32);
-  --pl-alpha-black-80: rgba(11, 13, 17, 0.80);
-
-  /* Gray Alpha (neutral-80: #394046) */
-  --pl-alpha-gray-32: rgba(57, 64, 70, 0.32);
-
-  /* White Alpha */
-  --pl-alpha-white-12: rgba(255, 255, 255, 0.12);
-  --pl-alpha-white-24: rgba(255, 255, 255, 0.24);
+  /* Brand = Lightblue (디자인 시스템 브랜드 컬러) */
+  --pl-alpha-brand-08: var(--pl-alpha-lightblue-08);
+  --pl-alpha-brand-12: var(--pl-alpha-lightblue-12);
+  --pl-alpha-brand-24: var(--pl-alpha-lightblue-24);
+  --pl-alpha-brand-32: var(--pl-alpha-lightblue-32);
+  /* Static white (Dark bg에서 텍스트/아이콘용) */
+  --pl-static-white: var(--pl-neutral-0);
+  /* Alpha white 72 (Figma JSON에 없는 단계 — 직접 정의) */
   --pl-alpha-white-72: rgba(255, 255, 255, 0.72);
-  --pl-alpha-white-80: rgba(255, 255, 255, 0.80);
+
+  /* ----------------------------------------
+     Component Tokens (Button)
+     ---------------------------------------- */
+  --comp-btn-radius: 999px;
+  --comp-btn-large-padding-hor: 32px;
+  --comp-btn-large-padding-ver: 16px;
+  --comp-btn-large-gap: 8px;
+  --comp-btn-medium-padding-hor: 24px;
+  --comp-btn-medium-padding-ver: 12px;
+  --comp-btn-medium-gap: 6px;
+  --comp-btn-small-padding-hor: 20px;
+  --comp-btn-small-padding-ver: 8px;
+  --comp-btn-small-gap: 4px;
+  --comp-btn-ghost-radius: 8px;
+  --comp-btn-ic-large-padding: 16px;
+  --comp-btn-ic-medium-padding: 12px;
+  --comp-btn-ic-small-padding: 8px;
+  --comp-btn-ic-radius: 999px;
+  --comp-btn-ic-ghost-large-padding: 8px;
+  --comp-btn-ic-ghost-medium-padding: 4px;
+  --comp-btn-ic-ghost-small-padding: 2px;
+  --comp-btn-ghost-small-padding-ver: 10px;
+  --comp-btn-ghost-large-padding-hor: 16px;
+  --comp-btn-ghost-large-padding-ver: 16px;
+  --comp-btn-ghost-medium-padding-hor: 10px;
+  --comp-btn-ghost-medium-padding-ver: 12px;
+  --comp-btn-ghost-small-padding-hor: 8px;
+  --comp-btn-xsmall-padding-ver: 6px;
+  --comp-btn-xsmall-gap: 4px;
+  --comp-btn-xsmall-padding-hor: 14px;
+  --comp-btn-ghost-xsmall-padding-ver: 4px;
+  --comp-btn-ghost-xsmall-padding-hor: 6px;
+  --comp-btn-max-width: 400px;
+  --comp-btn-group-max-width: 480px;
+  --comp-btn-ic-ghost-radius: 8px;
 }
 
 /* ============================================
@@ -441,73 +502,73 @@
   --pl-text-tertiary: #c6d0d7;
   --pl-text-invert: #0b0d11;
   --pl-text-link-sub: #c6d0d7;
-  --pl-text-brand-light: #06435b;    /* lightblue-90, reverse of lightblue-30 */
-  --pl-text-brand-dark: #8ddaf9;     /* lightblue-30, reverse of lightblue-90 */
-  --pl-text-accent-dark: #b7c8ff;    /* reverse of accent-dark #082271 */
-  --pl-text-accent-light: #082271;   /* reverse of accent-light #b7c8ff */
-  --pl-text-positive-dark: #8fd5b0;  /* reverse of positive-dark #167d46 */
-  --pl-text-positive-light: #167d46; /* reverse of positive-light #8fd5b0 */
-  --pl-text-caution-dark: #fed571;   /* reverse of caution-dark #a37402 */
-  --pl-text-caution-light: #a37402;  /* reverse of caution-light #fed571 */
-  --pl-text-negative-dark: #f68d91;  /* reverse of negative-dark #7e0a0e */
-  --pl-text-negative-light: #7e0a0e; /* reverse of negative-light #f68d91 */
+  --pl-text-brand-light: #06435b;
+  --pl-text-brand-dark: #8ddaf9;
+  --pl-text-accent-dark: #b7c8ff;
+  --pl-text-accent-light: #082271;
+  --pl-text-positive-dark: #8fd5b0;
+  --pl-text-positive-light: #167d46;
+  --pl-text-caution-dark: #fed571;
+  --pl-text-caution-light: #a37402;
+  --pl-text-negative-dark: #f68d91;
+  --pl-text-negative-light: #7e0a0e;
 
   /* Background */
   --pl-bg-default: #0b0d11;
   --pl-bg-invert: #ffffff;
-  --pl-bg-brand-dark: #d1eefa;       /* lightblue-10, reverse of lightblue-90 */
-  --pl-bg-brand-light: #06435b;      /* lightblue-90, reverse of lightblue-10 */
+  --pl-bg-brand-dark: #d1eefa;
+  --pl-bg-brand-light: #06435b;
   --pl-bg-overlay: rgba(11, 13, 17, 0.80);
-  --pl-bg-accent-dark: #dae3ff;      /* reverse of accent-dark #0e2f91 */
-  --pl-bg-accent-light: #0e2f91;     /* reverse of accent-light #dae3ff */
-  --pl-bg-positive-dark: #ecf8f2;    /* reverse of positive-dark #167d46 */
-  --pl-bg-positive-light: #167d46;   /* reverse of positive-light #ecf8f2 */
-  --pl-bg-caution-dark: #fff8e7;     /* reverse of caution-dark #a37402 */
-  --pl-bg-caution-light: #a37402;    /* reverse of caution-light #fff8e7 */
-  --pl-bg-negative-dark: #fef5f5;    /* reverse of negative-dark #a32428 */
-  --pl-bg-negative-light: #a32428;   /* reverse of negative-light #fef5f5 */
+  --pl-bg-accent-dark: #dae3ff;
+  --pl-bg-accent-light: #0e2f91;
+  --pl-bg-positive-dark: #ecf8f2;
+  --pl-bg-positive-light: #167d46;
+  --pl-bg-caution-dark: #fff8e7;
+  --pl-bg-caution-light: #a37402;
+  --pl-bg-negative-dark: #fef5f5;
+  --pl-bg-negative-light: #a32428;
 
   /* Border */
   --pl-border-invert: #0b0d11;
-  --pl-border-brand-light: #045f84;  /* lightblue-80, reverse of lightblue-30 */
-  --pl-border-brand-dark: #8ddaf9;   /* lightblue-30, reverse of lightblue-80 */
-  --pl-border-accent-dark: #8eabff;  /* reverse of accent-dark #0e2f91 */
-  --pl-border-accent-light: #0e2f91; /* reverse of accent-light #8eabff */
-  --pl-border-positive-dark: #8fd5b0;  /* reverse of positive-dark #167d46 */
-  --pl-border-positive-light: #167d46; /* reverse of positive-light #8fd5b0 */
-  --pl-border-caution-dark: #fee3a0;   /* reverse of caution-dark #a37402 */
-  --pl-border-caution-light: #a37402;  /* reverse of caution-light #fee3a0 */
-  --pl-border-negative-dark: #f68d91;  /* reverse of negative-dark #7e0a0e */
-  --pl-border-negative-light: #7e0a0e; /* reverse of negative-light #f68d91 */
+  --pl-border-brand-light: #045f84;
+  --pl-border-brand-dark: #8ddaf9;
+  --pl-border-accent-dark: #8eabff;
+  --pl-border-accent-light: #0e2f91;
+  --pl-border-positive-dark: #8fd5b0;
+  --pl-border-positive-light: #167d46;
+  --pl-border-caution-dark: #fee3a0;
+  --pl-border-caution-light: #a37402;
+  --pl-border-negative-dark: #f68d91;
+  --pl-border-negative-light: #7e0a0e;
 
   /* Icon */
   --pl-icon-primary: #ffffff;
   --pl-icon-secondary: #e3e8ed;
   --pl-icon-tertiary: #d4dce2;
   --pl-icon-invert: #0b0d11;
-  --pl-icon-brand-light: #06435b;    /* lightblue-90, reverse of lightblue-30 */
-  --pl-icon-brand-dark: #8ddaf9;     /* lightblue-30, reverse of lightblue-90 */
-  --pl-icon-accent-dark: #b7c8ff;    /* reverse of accent-dark #082271 */
-  --pl-icon-accent-light: #082271;   /* reverse of accent-light #b7c8ff */
-  --pl-icon-positive-dark: #8fd5b0;  /* reverse of positive-dark #167d46 */
-  --pl-icon-positive-light: #167d46; /* reverse of positive-light #8fd5b0 */
-  --pl-icon-caution-dark: #fed571;   /* reverse of caution-dark #a37402 */
-  --pl-icon-caution-light: #a37402;  /* reverse of caution-light #fed571 */
-  --pl-icon-negative-dark: #f68d91;  /* reverse of negative-dark #7e0a0e */
-  --pl-icon-negative-light: #7e0a0e; /* reverse of negative-light #f68d91 */
+  --pl-icon-brand-light: #06435b;
+  --pl-icon-brand-dark: #8ddaf9;
+  --pl-icon-accent-dark: #b7c8ff;
+  --pl-icon-accent-light: #082271;
+  --pl-icon-positive-dark: #8fd5b0;
+  --pl-icon-positive-light: #167d46;
+  --pl-icon-caution-dark: #fed571;
+  --pl-icon-caution-light: #a37402;
+  --pl-icon-negative-dark: #f68d91;
+  --pl-icon-negative-light: #7e0a0e;
 }
 
 /* ============================================
    Tablet (640px ~ 1199px)
-   Responsive.json ta 모드 값 적용
    ============================================ */
 @media (max-width: 1199px) {
   :root {
-    /* Spacing */
-    --pl-spacing-4: 10px;
     --pl-spacing-5: 14px;
-    --pl-spacing-6: 18px;
     --pl-spacing-7: 22px;
+    --pl-radius-2: 8px;
+    --pl-radius-3: 16px;
+    --pl-radius-5: 28px;
+    --pl-radius-6: 34px;
     --pl-spacing-8: 30px;
     --pl-spacing-9: 36px;
     --pl-spacing-10: 44px;
@@ -515,51 +576,45 @@
     --pl-spacing-12: 60px;
     --pl-spacing-14: 92px;
     --pl-spacing-15: 112px;
-
-    /* Border Radius */
-    --pl-radius-2: 8px;
-    --pl-radius-3: 16px;
-    --pl-radius-5: 28px;
-    --pl-radius-6: 34px;
+    --pl-spacing-6: 18px;
+    --pl-spacing-4: 10px;
     --pl-radius-7: 52px;
-
-    /* Layout */
+    --pl-device-pc-min: 640px;
+    --pl-device-min-height: 880px;
     --pl-layout-padding: 32px;
     --pl-layout-body-top: 20px;
     --pl-layout-body-bottom: 60px;
-    --pl-device-min-height: 880px;
-
-    /* Font Size - Responsive.json ta 값 */
-    --pl-font-size-display-lg: 44px;
-    --pl-font-size-display-md: 40px;
-    --pl-font-size-display-sm: 34px;
-    --pl-font-size-header-lg: 32px;
-    --pl-font-size-header-md: 28px;
     --pl-font-size-header-sm: 24px;
-    --pl-font-size-title-lg: 22px;
-    --pl-font-size-title-md: 20px;
-    --pl-font-size-title-sm: 18px;
+    --pl-font-size-header-md: 28px;
+    --pl-font-size-header-lg: 32px;
     --pl-font-size-label-lg: 18px;
+    --pl-font-size-display-md: 40px;
+    --pl-font-size-title-md: 20px;
     --pl-font-size-label-md: 16px;
-
-    /* Letter Spacing */
-    --pl-letter-spacing-wide: 4px;
+    --pl-font-size-display-sm: 34px;
+    --pl-font-size-title-lg: 22px;
+    --pl-font-size-title-sm: 18px;
+    --pl-font-size-display-lg: 44px;
   }
 }
 
 /* ============================================
    Mobile (~ 639px)
-   Responsive.json mo 모드 값 적용
    ============================================ */
 @media (max-width: 639px) {
   :root {
-    /* Spacing */
     --pl-spacing-2: 3px;
     --pl-spacing-3: 6px;
-    --pl-spacing-4: 8px;
     --pl-spacing-5: 12px;
-    --pl-spacing-6: 16px;
     --pl-spacing-7: 20px;
+    --pl-border-2: 1px;
+    --pl-border-3: 2px;
+    --pl-border-4: 3px;
+    --pl-radius-2: 8px;
+    --pl-radius-3: 16px;
+    --pl-radius-4: 20px;
+    --pl-radius-5: 24px;
+    --pl-radius-6: 30px;
     --pl-spacing-8: 24px;
     --pl-spacing-9: 32px;
     --pl-spacing-10: 40px;
@@ -568,46 +623,28 @@
     --pl-spacing-13: 60px;
     --pl-spacing-14: 80px;
     --pl-spacing-15: 100px;
-
-    /* Border */
-    --pl-border-2: 1px;
-    --pl-border-3: 2px;
-    --pl-border-4: 3px;
-
-    /* Border Radius */
-    --pl-radius-2: 8px;
-    --pl-radius-3: 16px;
-    --pl-radius-4: 20px;
-    --pl-radius-5: 24px;
-    --pl-radius-6: 30px;
+    --pl-spacing-6: 16px;
+    --pl-spacing-4: 8px;
     --pl-radius-7: 48px;
-
-    /* Layout */
+    --pl-device-pc-min: 280px;
+    --pl-device-min-height: 800px;
     --pl-layout-padding: 20px;
     --pl-layout-body-top: 16px;
     --pl-layout-body-bottom: 48px;
-    --pl-device-min-height: 800px;
-
-    /* Font Size - Responsive.json mo 값 */
-    --pl-font-size-display-lg: 30px;
-    --pl-font-size-display-md: 30px;
-    --pl-font-size-display-sm: 28px;
-    --pl-font-size-header-lg: 28px;
-    --pl-font-size-header-md: 24px;
     --pl-font-size-header-sm: 22px;
-    --pl-font-size-title-lg: 20px;
-    --pl-font-size-title-md: 18px;
-    --pl-font-size-title-sm: 16px;
-    --pl-font-size-body-lg: 18px;
-    --pl-font-size-body-md: 16px;
-    --pl-font-size-body-sm: 16px;
+    --pl-font-size-header-md: 24px;
+    --pl-font-size-header-lg: 28px;
     --pl-font-size-label-lg: 17px;
+    --pl-font-size-display-md: 30px;
+    --pl-font-size-title-md: 18px;
     --pl-font-size-label-md: 15px;
-
-    /* Line Height */
-    --pl-line-height-body: 1.6;
-
-    /* Letter Spacing */
+    --pl-font-size-body-md: 16px;
+    --pl-font-size-body-lg: 18px;
+    --pl-font-size-display-sm: 28px;
+    --pl-font-size-title-lg: 20px;
+    --pl-font-size-title-sm: 16px;
+    --pl-font-size-display-lg: 30px;
     --pl-letter-spacing-wide: 3px;
+    --pl-line-height-body: 1.6;
   }
 }

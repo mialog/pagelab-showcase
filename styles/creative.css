@@ -481,7 +481,7 @@
 }
 
 .creative__layer-type {
-  font-size: var(--pl-font-size-label-xs);
+  font-size: var(--pl-font-size-label-sm);
   color: var(--pl-text-brand);
   text-transform: uppercase;
   font-weight: var(--pl-font-weight-bold);
@@ -790,7 +790,7 @@
   padding: var(--pl-spacing-2) var(--pl-spacing-5) !important;
   font-family: var(--pl-font-main) !important;
   font-size: var(--pl-font-size-title-sm) !important;
-  font-weight: var(--pl-font-weight-medium) !important;
+  font-weight: var(--pl-font-weight-default) !important;
   white-space: nowrap !important;
   /* Allow flex gap to work properly */
   flex-shrink: 0 !important;
@@ -942,7 +942,7 @@
 
   .creative__section-wrapper .pl-tab-nav-mobile--style-a .pl-tab-btn {
     font-size: var(--pl-font-size-body-sm) !important;
-    font-weight: var(--pl-font-weight-medium) !important;
+    font-weight: var(--pl-font-weight-default) !important;
     color: var(--pl-text-accent) !important;
     background: var(--pl-bg-default) !important;
     border: 1px solid var(--pl-border-accent-light) !important;

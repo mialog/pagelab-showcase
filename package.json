@@ -1,0 +1,10 @@
+{
+  "name": "pagelab-showcase",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "tokens": "node scripts/generate-tokens.js",
+    "tokens:validate": "node scripts/validate-tokens.js",
+    "tokens:sync": "npm run tokens && npm run tokens:validate"
+  }
+}

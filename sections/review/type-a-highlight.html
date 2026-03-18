@@ -121,7 +121,7 @@
 
     .device-btn__size {
       font-size: 11px;
-      color: var(--pl-text-quaternary);
+      color: var(--pl-text-lowest);
     }
 
     /* Preview Container */
@@ -222,11 +222,11 @@
       background: rgba(255, 255, 255, 0.12);
     }
 
-    .preview-content[data-theme="dark"] .pl-review-card__name {
+    .preview-content[data-theme="dark"] .pl-review-card__user-name {
       color: var(--pl-text-secondary);
     }
 
-    .preview-content[data-theme="dark"] .pl-review-card__info {
+    .preview-content[data-theme="dark"] .pl-review-card__user-info {
       color: var(--pl-border-default);
     }
 
@@ -305,11 +305,11 @@
           대표 후기 강조 + 카드 리스트 (무한루프)
           ========================================
         -->
-        <section class="pl-section pl-review pl-review--highlight">
+        <section class="pl-section pl-review pl-review--highlight" data-section="review">
           <div class="pl-section__container pl-review__container">
             <!-- Highlight Title -->
             <div class="pl-review-highlight">
-              <div class="pl-review-highlight__stars">
+              <div class="pl-review-highlight__stars" role="img" aria-label="별점 5점">
                 <svg class="pl-star" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
@@ -346,8 +346,8 @@
                   </div>
                   <p class="pl-review-card__content">우리 아가씨가 노새 등에 실린 버들고리 사이에 의젓이 올라타고 몸소 나타난 것입니다</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">김이름</span>
-                    <span class="pl-review-card__info">초3 학부모</span>
+                    <span class="pl-review-card__user-name">김이름</span>
+                    <span class="pl-review-card__user-info">초3 학부모</span>
                   </div>
                 </article>
 
@@ -361,8 +361,8 @@
                   </div>
                   <p class="pl-review-card__content">아이가 정말 좋아해요! 매일 스스로 학습하는 습관이 생겼어요.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">박학부모</span>
-                    <span class="pl-review-card__info">초1 학부모</span>
+                    <span class="pl-review-card__user-name">박학부모</span>
+                    <span class="pl-review-card__user-info">초1 학부모</span>
                   </div>
                 </article>
 
@@ -376,8 +376,8 @@
                   </div>
                   <p class="pl-review-card__content">선생님 피드백이 정말 꼼꼼해요. 아이 실력이 눈에 띄게 늘었습니다.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">이엄마</span>
-                    <span class="pl-review-card__info">초5 학부모</span>
+                    <span class="pl-review-card__user-name">이엄마</span>
+                    <span class="pl-review-card__user-info">초5 학부모</span>
                   </div>
                 </article>
 
@@ -391,8 +391,8 @@
                   </div>
                   <p class="pl-review-card__content">가성비가 정말 좋아요. 학원보다 효과가 더 좋은 것 같습니다.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">최아빠</span>
-                    <span class="pl-review-card__info">중1 학부모</span>
+                    <span class="pl-review-card__user-name">최아빠</span>
+                    <span class="pl-review-card__user-info">중1 학부모</span>
                   </div>
                 </article>
 
@@ -406,8 +406,8 @@
                   </div>
                   <p class="pl-review-card__content">맞춤형 커리큘럼이 정말 마음에 들어요. 아이 수준에 딱 맞게 진행됩니다.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">정엄마</span>
-                    <span class="pl-review-card__info">초2 학부모</span>
+                    <span class="pl-review-card__user-name">정엄마</span>
+                    <span class="pl-review-card__user-info">초2 학부모</span>
                   </div>
                 </article>
 
@@ -421,8 +421,8 @@
                   </div>
                   <p class="pl-review-card__content">친구 추천으로 시작했는데 대만족이에요! 벌써 6개월째 하고 있어요.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">한엄마</span>
-                    <span class="pl-review-card__info">초4 학부모</span>
+                    <span class="pl-review-card__user-name">한엄마</span>
+                    <span class="pl-review-card__user-info">초4 학부모</span>
                   </div>
                 </article>
 
@@ -436,8 +436,8 @@
                   </div>
                   <p class="pl-review-card__content">상담 선생님이 정말 친절하세요. 궁금한 점 언제든 물어볼 수 있어요.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">윤아빠</span>
-                    <span class="pl-review-card__info">초6 학부모</span>
+                    <span class="pl-review-card__user-name">윤아빠</span>
+                    <span class="pl-review-card__user-info">초6 학부모</span>
                   </div>
                 </article>
 
@@ -452,8 +452,8 @@
                   </div>
                   <p class="pl-review-card__content">우리 아가씨가 노새 등에 실린 버들고리 사이에 의젓이 올라타고 몸소 나타난 것입니다</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">김이름</span>
-                    <span class="pl-review-card__info">초3 학부모</span>
+                    <span class="pl-review-card__user-name">김이름</span>
+                    <span class="pl-review-card__user-info">초3 학부모</span>
                   </div>
                 </article>
 
@@ -467,8 +467,8 @@
                   </div>
                   <p class="pl-review-card__content">아이가 정말 좋아해요! 매일 스스로 학습하는 습관이 생겼어요.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">박학부모</span>
-                    <span class="pl-review-card__info">초1 학부모</span>
+                    <span class="pl-review-card__user-name">박학부모</span>
+                    <span class="pl-review-card__user-info">초1 학부모</span>
                   </div>
                 </article>
 
@@ -482,8 +482,8 @@
                   </div>
                   <p class="pl-review-card__content">선생님 피드백이 정말 꼼꼼해요. 아이 실력이 눈에 띄게 늘었습니다.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">이엄마</span>
-                    <span class="pl-review-card__info">초5 학부모</span>
+                    <span class="pl-review-card__user-name">이엄마</span>
+                    <span class="pl-review-card__user-info">초5 학부모</span>
                   </div>
                 </article>
 
@@ -497,8 +497,8 @@
                   </div>
                   <p class="pl-review-card__content">가성비가 정말 좋아요. 학원보다 효과가 더 좋은 것 같습니다.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">최아빠</span>
-                    <span class="pl-review-card__info">중1 학부모</span>
+                    <span class="pl-review-card__user-name">최아빠</span>
+                    <span class="pl-review-card__user-info">중1 학부모</span>
                   </div>
                 </article>
 
@@ -512,8 +512,8 @@
                   </div>
                   <p class="pl-review-card__content">맞춤형 커리큘럼이 정말 마음에 들어요. 아이 수준에 딱 맞게 진행됩니다.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">정엄마</span>
-                    <span class="pl-review-card__info">초2 학부모</span>
+                    <span class="pl-review-card__user-name">정엄마</span>
+                    <span class="pl-review-card__user-info">초2 학부모</span>
                   </div>
                 </article>
 
@@ -527,8 +527,8 @@
                   </div>
                   <p class="pl-review-card__content">친구 추천으로 시작했는데 대만족이에요! 벌써 6개월째 하고 있어요.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">한엄마</span>
-                    <span class="pl-review-card__info">초4 학부모</span>
+                    <span class="pl-review-card__user-name">한엄마</span>
+                    <span class="pl-review-card__user-info">초4 학부모</span>
                   </div>
                 </article>
 
@@ -542,8 +542,8 @@
                   </div>
                   <p class="pl-review-card__content">상담 선생님이 정말 친절하세요. 궁금한 점 언제든 물어볼 수 있어요.</p>
                   <div class="pl-review-card__author">
-                    <span class="pl-review-card__name">윤아빠</span>
-                    <span class="pl-review-card__info">초6 학부모</span>
+                    <span class="pl-review-card__user-name">윤아빠</span>
+                    <span class="pl-review-card__user-info">초6 학부모</span>
                   </div>
                 </article>
               </div>
