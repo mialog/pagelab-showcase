@@ -1,10 +1,10 @@
 /**
  * PageLab Section Screenshot Generator
- * 모든 섹션 HTML 파일을 자동으로 스크린샷해서 images/showcase/ 에 저장
+ * AI가 생성한 섹션만 자동으로 스크린샷해서 images/showcase/ 에 저장
  *
  * 사용법:
- *   npm run screenshot          -- 누락된 것만 생성
- *   npm run screenshot -- --all -- 전체 재생성
+ *   npm run screenshot       -- AI 섹션 중 누락된 것만 생성
+ *   npm run screenshot -- --all -- AI 섹션 전체 재생성
  */
 
 import puppeteer from 'puppeteer';
@@ -14,73 +14,23 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const SECTIONS_DIR = path.join(ROOT, 'sections');
 const OUTPUT_DIR = path.join(ROOT, 'images', 'showcase');
 
 const VIEWPORT_WIDTH = 1440;
-const VIEWPORT_HEIGHT = 1200; // 클립 높이(720)보다 충분히 크게
+const VIEWPORT_HEIGHT = 900;
 const DEVICE_SCALE_FACTOR = 2; // Retina 품질 (2x)
 
-// 카테고리 디렉토리 → 출력 파일명 prefix 매핑
-const CATEGORY_MAP = {
-  hero: 'hero',
-  intro: 'intro',
-  about: 'about',
-  review: 'review',
-  benefit: 'benefit',
-  step: 'step',
-  etc: 'etc',
-  cta: 'cta',
-  navigation: 'navi',
-  faq: 'faq',
-};
-
-/**
- * 섹션 파일 목록과 출력 파일명 매핑을 반환
- */
-function getSectionFiles() {
-  const files = [];
-
-  for (const category of fs.readdirSync(SECTIONS_DIR)) {
-    const categoryDir = path.join(SECTIONS_DIR, category);
-    if (!fs.statSync(categoryDir).isDirectory()) continue;
-
-    const prefix = CATEGORY_MAP[category] || category;
-
-    for (const file of fs.readdirSync(categoryDir).sort()) {
-      if (!file.endsWith('.html')) continue;
-
-      let outputName;
-
-      // type-{letter}-*.html 패턴
-      const typeMatch = file.match(/^type-([a-z])-/);
-      if (typeMatch) {
-        const letter = typeMatch[1].toUpperCase();
-        outputName = `${prefix} ${letter}.png`;
-      } else if (file === 'index.html') {
-        outputName = `${prefix}.png`;
-      } else {
-        // caution.html 등 기타 파일 → 파일명 그대로
-        const name = file.replace('.html', '');
-        outputName = `${prefix} ${name}.png`;
-      }
-
-      files.push({
-        filePath: path.join(categoryDir, file),
-        outputPath: path.join(OUTPUT_DIR, outputName),
-        label: outputName.replace('.png', ''),
-      });
-    }
-  }
-
-  return files;
-}
+// AI가 생성한 섹션만 대상 (수동으로 관리하는 썸네일 제외)
+const AI_SECTIONS = [
+  { filePath: 'sections/about/type-g-feature-alt.html', outputName: 'about G.png' },
+  { filePath: 'sections/hero/type-d-video.html',        outputName: 'hero D.png'  },
+  { filePath: 'sections/intro/type-d-product-split.html', outputName: 'intro D.png' },
+];
 
 async function screenshotSection(page, filePath) {
-  const url = `file://${filePath}`;
+  const url = `file://${path.join(ROOT, filePath)}`;
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 15000 });
 
-  // 프리뷰 헤더 숨기기 + 배경 정리
   await page.evaluate(() => {
     const header = document.querySelector('.preview-header');
     if (header) header.remove();
@@ -101,31 +51,26 @@ async function screenshotSection(page, filePath) {
     document.body.style.minHeight = 'unset';
   });
 
-  // 섹션 요소 찾기
   const section = await page.$('section.pl-section');
   if (!section) {
-    // fallback: preview-content 전체
-    const content = await page.$('.preview-content');
-    return content;
+    return await page.$('.preview-content');
   }
   return section;
 }
 
 async function main() {
   const forceAll = process.argv.includes('--all');
-  const files = getSectionFiles();
 
-  // 스킵할 파일 필터링
   const targets = forceAll
-    ? files
-    : files.filter((f) => !fs.existsSync(f.outputPath));
+    ? AI_SECTIONS
+    : AI_SECTIONS.filter((s) => !fs.existsSync(path.join(OUTPUT_DIR, s.outputName)));
 
   if (targets.length === 0) {
-    console.log('✅ 모든 썸네일이 최신 상태입니다. (--all 옵션으로 전체 재생성 가능)');
+    console.log('✅ AI 섹션 썸네일이 모두 최신 상태입니다. (--all 옵션으로 재생성 가능)');
     return;
   }
 
-  console.log(`📸 ${targets.length}개 섹션 스크린샷 시작...\n`);
+  console.log(`📸 AI 섹션 ${targets.length}개 스크린샷 시작...\n`);
 
   const browser = await puppeteer.launch({
     headless: 'new',
@@ -138,19 +83,19 @@ async function main() {
   let success = 0;
   let fail = 0;
 
-  for (const { filePath, outputPath, label } of targets) {
+  for (const { filePath, outputName } of targets) {
+    const outputPath = path.join(OUTPUT_DIR, outputName);
     try {
       const element = await screenshotSection(page, filePath);
       if (!element) {
-        console.warn(`  ⚠️  섹션 요소 없음: ${label}`);
+        console.warn(`  ⚠️  섹션 요소 없음: ${outputName}`);
         fail++;
         continue;
       }
 
-      // 항상 2:1 비율로 클리핑 (섹션이 짧아도 고정 높이 유지)
       const box = await element.boundingBox();
       const clipWidth = Math.min(box.width, VIEWPORT_WIDTH);
-      const clipHeight = Math.round(clipWidth / 2); // 항상 2:1
+      const clipHeight = Math.round(clipWidth / 2); // 2:1 고정
 
       await page.screenshot({
         path: outputPath,
@@ -158,20 +103,19 @@ async function main() {
           x: box.x,
           y: box.y,
           width: clipWidth,
-          height: clipHeight, // 섹션이 짧으면 흰 배경으로 채워짐
+          height: clipHeight,
         },
       });
 
-      console.log(`  ✓  ${label}`);
+      console.log(`  ✓  ${outputName}`);
       success++;
     } catch (err) {
-      console.error(`  ✗  ${label}: ${err.message}`);
+      console.error(`  ✗  ${outputName}: ${err.message}`);
       fail++;
     }
   }
 
   await browser.close();
-
   console.log(`\n완료: ${success}개 성공, ${fail}개 실패`);
 }
 
