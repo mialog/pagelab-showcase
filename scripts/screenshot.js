@@ -18,7 +18,7 @@ const SECTIONS_DIR = path.join(ROOT, 'sections');
 const OUTPUT_DIR = path.join(ROOT, 'images', 'showcase');
 
 const VIEWPORT_WIDTH = 1440;
-const VIEWPORT_HEIGHT = 900;
+const VIEWPORT_HEIGHT = 1200; // 클립 높이(720)보다 충분히 크게
 const DEVICE_SCALE_FACTOR = 2; // Retina 품질 (2x)
 
 // 카테고리 디렉토리 → 출력 파일명 prefix 매핑
@@ -147,17 +147,18 @@ async function main() {
         continue;
       }
 
-      // 섹션 높이를 2:1 비율로 클리핑
+      // 항상 2:1 비율로 클리핑 (섹션이 짧아도 고정 높이 유지)
       const box = await element.boundingBox();
-      const clipHeight = Math.round(VIEWPORT_WIDTH / 2); // 2:1
+      const clipWidth = Math.min(box.width, VIEWPORT_WIDTH);
+      const clipHeight = Math.round(clipWidth / 2); // 항상 2:1
 
       await page.screenshot({
         path: outputPath,
         clip: {
           x: box.x,
           y: box.y,
-          width: Math.min(box.width, VIEWPORT_WIDTH),
-          height: Math.min(box.height, clipHeight),
+          width: clipWidth,
+          height: clipHeight, // 섹션이 짧으면 흰 배경으로 채워짐
         },
       });
 
