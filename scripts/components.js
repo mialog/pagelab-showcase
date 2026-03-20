@@ -79,39 +79,42 @@ customElements.define('pl-section-title', PLSectionTitle);
  */
 class PLButton extends HTMLElement {
   connectedCallback() {
-    const variant = this.getAttribute('variant') || 'primary';
-    const size = this.getAttribute('size') || '';
-    const href = this.getAttribute('href') || '';
-    const disabled = this.hasAttribute('disabled');
-    const full = this.hasAttribute('full');
-    const iconOnly = this.hasAttribute('icon-only');
-    const loading = this.hasAttribute('loading');
-    const type = this.getAttribute('type') || 'button';
-    const ariaLabel = this.getAttribute('aria-label') || '';
+    // setTimeout으로 자식 노드 파싱 완료 후 실행
+    setTimeout(() => {
+      const variant = this.getAttribute('variant') || 'primary';
+      const size = this.getAttribute('size') || '';
+      const href = this.getAttribute('href') || '';
+      const disabled = this.hasAttribute('disabled');
+      const full = this.hasAttribute('full');
+      const iconOnly = this.hasAttribute('icon-only');
+      const loading = this.hasAttribute('loading');
+      const type = this.getAttribute('type') || 'button';
+      const ariaLabel = this.getAttribute('aria-label') || '';
 
-    // Preserve inner content
-    const content = this.innerHTML;
+      // Preserve inner content
+      const content = this.innerHTML;
 
-    // Build class list
-    const classes = ['pl-btn', `pl-btn--${variant}`];
-    if (size) classes.push(`pl-btn--${size}`);
-    if (full) classes.push('pl-btn--full');
-    if (iconOnly) classes.push('pl-btn--icon-only');
-    if (loading) classes.push('pl-btn--loading');
-    const classStr = classes.join(' ');
+      // Build class list
+      const classes = ['pl-btn', `pl-btn--${variant}`];
+      if (size) classes.push(`pl-btn--${size}`);
+      if (full) classes.push('pl-btn--full');
+      if (iconOnly) classes.push('pl-btn--icon-only');
+      if (loading) classes.push('pl-btn--loading');
+      const classStr = classes.join(' ');
 
-    const ariaAttr = ariaLabel ? ` aria-label="${ariaLabel}"` : '';
+      const ariaAttr = ariaLabel ? ` aria-label="${ariaLabel}"` : '';
 
-    let html;
-    if (href) {
-      const disabledAttr = disabled ? ' aria-disabled="true" tabindex="-1"' : '';
-      html = `<a href="${href}" class="${classStr}"${disabledAttr}${ariaAttr}>${content}</a>`;
-    } else {
-      const disabledAttr = disabled ? ' disabled' : '';
-      html = `<button type="${type}" class="${classStr}"${disabledAttr}${ariaAttr}>${content}</button>`;
-    }
+      let html;
+      if (href) {
+        const disabledAttr = disabled ? ' aria-disabled="true" tabindex="-1"' : '';
+        html = `<a href="${href}" class="${classStr}"${disabledAttr}${ariaAttr}>${content}</a>`;
+      } else {
+        const disabledAttr = disabled ? ' disabled' : '';
+        html = `<button type="${type}" class="${classStr}"${disabledAttr}${ariaAttr}>${content}</button>`;
+      }
 
-    this.innerHTML = html;
+      this.innerHTML = html;
+    }, 0);
   }
 }
 

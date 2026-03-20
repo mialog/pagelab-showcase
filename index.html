@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="./tokens/campaign.css">
   <link rel="stylesheet" href="./styles/sections.css">
   <link rel="stylesheet" href="./styles/showcase.css">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./tokens/fonts.css">
 </head>
 <body>
   <div class="showcase">
@@ -43,16 +43,16 @@
           <h3 class="sidebar__title">섹션 타입</h3>
           <ul class="sidebar__list">
             <li class="sidebar__item is-active" data-filter="all">
-              전체 <span class="sidebar__count">27</span>
+              전체 <span class="sidebar__count">30</span>
             </li>
             <li class="sidebar__item" data-filter="hero">
-              메인 비주얼 (Hero) <span class="sidebar__count">3</span>
+              메인 비주얼 (Hero) <span class="sidebar__count">4</span>
             </li>
             <li class="sidebar__item" data-filter="intro">
-              인트로 (Intro) <span class="sidebar__count">3</span>
+              인트로 (Intro) <span class="sidebar__count">4</span>
             </li>
             <li class="sidebar__item" data-filter="about">
-              콘텐츠 설명 (About) <span class="sidebar__count">7</span>
+              콘텐츠 설명 (About) <span class="sidebar__count">8</span>
             </li>
             <li class="sidebar__item" data-filter="review">
               고객 후기 (Review) <span class="sidebar__count">3</span>
@@ -97,7 +97,7 @@
 
           <!-- ==================== 메인 비주얼 ==================== -->
           <div class="section-divider" data-category="hero">
-            <h2 class="section-divider__title">메인 비주얼 (Hero)<span class="section-divider__count">3</span></h2>
+            <h2 class="section-divider__title">메인 비주얼 (Hero)<span class="section-divider__count">4</span></h2>
           </div>
 
           <a href="sections/hero/type-a-split.html" class="section-card" data-type="hero" data-layout="split">
@@ -139,9 +139,27 @@
             </div>
           </a>
 
+          <a href="sections/hero/type-d-video.html" class="section-card" data-type="hero" data-layout="center">
+            <div class="section-card__preview">
+              <img src="images/showcase/hero D.png" alt="Hero Type D Preview">
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">메인 비주얼</span>
+                <h3 class="section-card__name">영상 배경형</h3>
+                <span class="section-card__ai-badge">
+                  ✦ AI 생성
+                  <button class="section-card__ai-help" aria-label="AI 생성 섹션 설명">?</button>
+                  <span class="section-card__ai-tooltip">PageLab 컴포넌트와 디자인 토큰을 학습한 AI가 자동으로 생성한 섹션입니다.</span>
+                </span>
+              </div>
+              <p class="section-card__desc">영상 배경 + 중앙 텍스트. 시즌 캠페인, 브랜드 감성 강조, 런칭 이벤트에 적합</p>
+            </div>
+          </a>
+
           <!-- ==================== 인트로 ==================== -->
           <div class="section-divider" data-category="intro">
-            <h2 class="section-divider__title">인트로 (Intro)<span class="section-divider__count">3</span></h2>
+            <h2 class="section-divider__title">인트로 (Intro)<span class="section-divider__count">4</span></h2>
           </div>
 
           <a href="sections/intro/type-a-textblock.html" class="section-card" data-type="intro" data-layout="center">
@@ -186,9 +204,28 @@
             </div>
           </a>
 
+          <a href="sections/intro/type-d-product-split.html" class="section-card" data-type="intro" data-layout="split">
+            <div class="section-card__preview">
+              <img src="images/showcase/intro D.png" alt="Intro Type D Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">인트로</span>
+                <h3 class="section-card__name">제품소개형</h3>
+                <span class="section-card__ai-badge">
+                  ✦ AI 생성
+                  <button class="section-card__ai-help" aria-label="AI 생성 섹션 설명">?</button>
+                  <span class="section-card__ai-tooltip">PageLab 컴포넌트와 디자인 토큰을 학습한 AI가 자동으로 생성한 섹션입니다.</span>
+                </span>
+              </div>
+              <p class="section-card__desc">제품 이미지 + 특징 리스트 + CTA. 방문학습, 구독 서비스 등 제품 소개에 적합</p>
+            </div>
+          </a>
+
           <!-- ==================== About/Feature ==================== -->
           <div class="section-divider" data-category="about">
-            <h2 class="section-divider__title">콘텐츠 설명 (About)<span class="section-divider__count">6</span></h2>
+            <h2 class="section-divider__title">콘텐츠 설명 (About)<span class="section-divider__count">8</span></h2>
           </div>
 
           <a href="sections/about/type-a-list.html" class="section-card" data-type="about" data-layout="center">
@@ -272,6 +309,25 @@
                 <h3 class="section-card__name">미디어형</h3>
               </div>
               <p class="section-card__desc">단일 이미지 / 영상 삽입 시</p>
+            </div>
+          </a>
+
+          <a href="sections/about/type-g-feature-alt.html" class="section-card" data-type="about" data-layout="split">
+            <div class="section-card__preview">
+              <img src="images/showcase/about G.png" alt="About Type G Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="section-card__preview-placeholder" style="display:none;">Preview</span>
+            </div>
+            <div class="section-card__info">
+              <div class="section-card__header">
+                <span class="section-card__tag">콘텐츠 설명</span>
+                <h3 class="section-card__name">기능 교대형</h3>
+                <span class="section-card__ai-badge">
+                  ✦ AI 생성
+                  <button class="section-card__ai-help" aria-label="AI 생성 섹션 설명">?</button>
+                  <span class="section-card__ai-tooltip">PageLab 컴포넌트와 디자인 토큰을 학습한 AI가 자동으로 생성한 섹션입니다.</span>
+                </span>
+              </div>
+              <p class="section-card__desc">텍스트↔이미지 교대 배치. 기능/서비스를 순서대로 소개할 때 적합</p>
             </div>
           </a>
 

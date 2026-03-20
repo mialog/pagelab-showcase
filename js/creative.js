@@ -218,8 +218,9 @@ class SectionCreative {
           isFixed: isHeader || isFooter,
           // Add card count for benefit plus type
           cardCount: (type === 'benefit' && variant === 'type-a-plus') ? 4 : undefined,
-          // Add card functionality for about card types
-          hasAddCard: type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe'].includes(variant),
+          // Add card functionality for about card types and step image type
+          hasAddCard: (type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe'].includes(variant)) ||
+                      (type === 'step' && variant === 'type-a-img'),
           // Add card style selection for grid, swipe, and tab types
           hasStyleControl: type === 'about' && ['type-b-grid', 'type-d-card-swipe', 'type-e-tab'].includes(variant),
           cardStyle: (type === 'about' && variant === 'type-b-grid') ? 'image-top' :
@@ -416,6 +417,11 @@ class SectionCreative {
   }
 
   makeEditable(wrapper) {
+    // Detect section type (about/step preserve existing behavior; others get uniform delete)
+    const sectionEl = wrapper.querySelector('section[data-section]');
+    const sectionType = sectionEl?.dataset?.section;
+    const isAboutOrStep = sectionType === 'about' || sectionType === 'step';
+
     // All text elements - editable and deletable
     const textSelectors = [
       'h1, h2, h3, h4, h5, h6',
@@ -470,7 +476,13 @@ class SectionCreative {
 
       // section-title 선택 요소 (label, desc, note) — 삭제 버튼 추가
       const isOptionalTitleEl = sectionTitleOptionalSelectors.some(sel => el.matches(sel));
-      if (isOptionalTitleEl) {
+      // about/step 외 섹션: 카드 블록 밖의 텍스트는 모두 삭제 가능 (heading, 버튼 제외)
+      const isInsideBlock = !!el.closest(blockSelectors.join(', '));
+      const isSectionHeading = el.matches('.pl-section-title__heading');
+      const needsDeleteBtn = isOptionalTitleEl ||
+        (!isAboutOrStep && !isInsideBlock && !isSectionHeading);
+
+      if (needsDeleteBtn) {
         el.style.position = 'relative';
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'creative__text-delete';
@@ -480,7 +492,7 @@ class SectionCreative {
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         `;
-        deleteBtn.title = '삭제 (선택)';
+        deleteBtn.title = '삭제';
         deleteBtn.addEventListener('click', async (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -564,26 +576,20 @@ class SectionCreative {
       // Description: already handled by card desc block below
     });
 
-    // Card body/desc elements — editable + deletable (title은 삭제 불가)
+    // Card body/desc elements — about/step 섹션에서만 카드 내부 텍스트 개별 삭제 가능
+    // (그 외 섹션은 카드 블록 전체 삭제 or 위의 일반 텍스트 삭제 로직 적용)
     const cardDescSelectors = [
       // 콘텐츠설명 (About)
       '.pl-grid-card__desc',
       '.pl-slide-card__desc',
       '.pl-list-card__desc',
       '.pl-swipe-card__desc',
-      // 혜택
-      '.pl-benefit__card-sub',
-      // 고객후기 (Review) — content는 삭제, name은 유지, info/stars는 선택
-      '.pl-review-card__content',
-      '.pl-review-card__user-info',
-      '.pl-review-card__info',
-      '.pl-review-card__stars',
       // 이용방법 (Step) — label(Step 01)은 선택, title은 유지
       '.pl-step-text__label',
       '.pl-step-text__desc',
       '.pl-step-img__desc',
     ];
-    wrapper.querySelectorAll(cardDescSelectors.join(', ')).forEach(desc => {
+    if (isAboutOrStep) wrapper.querySelectorAll(cardDescSelectors.join(', ')).forEach(desc => {
       if (desc.querySelector('.creative__text-delete')) return;
 
       // stars 같은 non-text 요소는 contenteditable 제외
@@ -609,7 +615,7 @@ class SectionCreative {
         }
       });
       desc.appendChild(deleteBtn);
-    });
+    }); // end isAboutOrStep cardDescSelectors
 
     // Special handling for tabs (탭형)
     const tabButtons = wrapper.querySelectorAll('.pl-tab-btn, .pl-tab-nav button');
@@ -691,6 +697,30 @@ class SectionCreative {
           e.preventDefault();
         }
       });
+    });
+
+    // Replace images immediately with gray placeholder + text input
+    wrapper.querySelectorAll('img').forEach(img => {
+      const w = img.offsetWidth;
+      const h = img.offsetHeight;
+
+      const placeholder = document.createElement('div');
+      placeholder.className = 'creative__img-placeholder';
+      if (w) placeholder.style.width = w + 'px';
+      if (h) placeholder.style.minHeight = h + 'px';
+
+      placeholder.innerHTML = `
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
+      `;
+
+      placeholder.querySelector('input').addEventListener('click', (e) => e.stopPropagation());
+
+      img.replaceWith(placeholder);
     });
   }
 
@@ -1222,6 +1252,79 @@ class SectionCreative {
           return; // Early return for slide type
         }
       }
+    }
+
+    // Step image type — add new step item
+    if (section.type === 'step' && section.variant === 'type-a-img') {
+      const itemsContainer = wrapper.querySelector('.pl-step__items');
+      if (!itemsContainer) return;
+
+      // Remove --last from current last item and add arrow
+      const prevLast = itemsContainer.querySelector('.pl-step__item--last');
+      if (prevLast) {
+        prevLast.classList.remove('pl-step__item--last');
+        const arrow = document.createElement('div');
+        arrow.className = 'pl-step__arrow';
+        arrow.innerHTML = `
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M10 24H38M38 24L26 12M38 24L26 36" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+        prevLast.appendChild(arrow);
+      }
+
+      // Create new step item
+      const newItem = document.createElement('div');
+      newItem.className = 'pl-step__item pl-step__item--last';
+
+      // Image placeholder
+      const imgDiv = document.createElement('div');
+      imgDiv.className = 'pl-step__image';
+      imgDiv.style.position = 'relative';
+      const placeholder = document.createElement('div');
+      placeholder.className = 'creative__img-placeholder';
+      placeholder.style.width = '320px';
+      placeholder.style.minHeight = '320px';
+      placeholder.innerHTML = `
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
+      `;
+      placeholder.querySelector('input').addEventListener('click', e => e.stopPropagation());
+      imgDiv.appendChild(placeholder);
+      newItem.appendChild(imgDiv);
+
+      // Delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__block-delete';
+      deleteBtn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      `;
+      deleteBtn.title = '스텝 삭제';
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (await this.showConfirmModal('이 스텝을 삭제하시겠습니까?')) {
+          newItem.remove();
+          // Fix last item: remove arrow, add --last
+          const remaining = itemsContainer.querySelectorAll('.pl-step__item');
+          const newLastItem = remaining[remaining.length - 1];
+          if (newLastItem) {
+            newLastItem.classList.add('pl-step__item--last');
+            newLastItem.querySelector('.pl-step__arrow')?.remove();
+          }
+        }
+      });
+      imgDiv.appendChild(deleteBtn);
+
+      itemsContainer.appendChild(newItem);
+      return;
     }
 
     // Add the new card to container (for grid and swipe types)

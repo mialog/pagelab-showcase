@@ -7,6 +7,11 @@
     "tokens:validate": "node scripts/validate-tokens.js",
     "tokens:sync": "npm run tokens && npm run tokens:validate",
     "new-section": "node scripts/new-section.js",
-    "validate": "node scripts/validate-sections.js"
+    "validate": "node scripts/validate-sections.js",
+    "screenshot": "node scripts/screenshot.js",
+    "screenshot:all": "node scripts/screenshot.js --all"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.39.1"
   }
 }

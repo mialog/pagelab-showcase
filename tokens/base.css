@@ -73,7 +73,7 @@
   --pl-font-ja: 'Noto Sans JP', sans-serif;
   --pl-font-zh-tw: 'Noto Sans TC', sans-serif;
   --pl-font-zh-cn: 'Noto Sans SC', sans-serif;
-  --pl-font-kids: 'Hakgyoansim Dunggeunmiso TTF', sans-serif;
+  --pl-font-kids: 'Black Han Sans', sans-serif;
 
   /* ----------------------------------------
      Typography - Font Size (PC 기준)
@@ -118,18 +118,18 @@
   /* ----------------------------------------
      Core Colors - Neutral
      ---------------------------------------- */
-  --pl-neutral-0: #ffffff;
-  --pl-neutral-5: #f1f4f8;
-  --pl-neutral-10: #e3e8ed;
-  --pl-neutral-20: #d4dce2;
-  --pl-neutral-30: #c6cfd6;
-  --pl-neutral-40: #aab6bf;
-  --pl-neutral-50: #8c97a0;
-  --pl-neutral-60: #6a747c;
-  --pl-neutral-70: #545d64;
-  --pl-neutral-80: #394046;
-  --pl-neutral-90: #202427;
-  --pl-neutral-100: #0b0d11;
+  --pl-grayscale-0: #ffffff;
+  --pl-grayscale-5: #f1f4f8;
+  --pl-grayscale-10: #e3e8ed;
+  --pl-grayscale-20: #d4dce2;
+  --pl-grayscale-30: #c6cfd6;
+  --pl-grayscale-40: #aab6bf;
+  --pl-grayscale-50: #8c97a0;
+  --pl-grayscale-60: #6a747c;
+  --pl-grayscale-70: #545d64;
+  --pl-grayscale-80: #394046;
+  --pl-grayscale-90: #202427;
+  --pl-grayscale-100: #0b0d11;
 
   /* ----------------------------------------
      Core Colors - Blue (Accent)
@@ -279,6 +279,12 @@
   --pl-bg-brand: #15b1f1;
   --pl-bg-disabled: #8c98a13d;
   --pl-bg-neutral-darker: #8c97a0;
+  /* Neutral scale tokens (preview scaffolding용) */
+  --pl-neutral-5: #f8f9fa;
+  --pl-neutral-10: #f0f2f5;
+  --pl-neutral-20: #e3e8ed;
+  --pl-neutral-40: #b8c4cc;
+  --pl-neutral-70: #52606b;
   --pl-bg-toast: #0b0d11cc;
   --pl-bg-dim: #0b0d1199;
   --pl-bg-neutral: #e3e8ed;
@@ -450,7 +456,7 @@
   --pl-alpha-brand-24: var(--pl-alpha-lightblue-24);
   --pl-alpha-brand-32: var(--pl-alpha-lightblue-32);
   /* Static white (Dark bg에서 텍스트/아이콘용) */
-  --pl-static-white: var(--pl-neutral-0);
+  --pl-static-white: var(--pl-grayscale-0);
   /* Alpha white 72 (Figma JSON에 없는 단계 — 직접 정의) */
   --pl-alpha-white-72: rgba(255, 255, 255, 0.72);
 

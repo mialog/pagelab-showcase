@@ -8,7 +8,7 @@
    Preview Background (global)
    ============================================ */
 .preview-content[data-theme="dark"] {
-  background: var(--pl-neutral-100);
+  background: var(--pl-grayscale-100);
 }
 
 /* ============================================
@@ -39,7 +39,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-list-card__title {
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-list-card__desc {
@@ -57,11 +57,11 @@
    About - Type C Card Slide
    ============================================ */
 .preview-content[data-theme="dark"] .pl-slide-card__title {
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-slide-card__desc {
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
 }
 
 /* ============================================
@@ -92,20 +92,20 @@
 }
 
 .preview-content[data-theme="dark"] .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn {
-  background: var(--pl-neutral-0);
+  background: var(--pl-grayscale-0);
   color: var(--pl-text-accent);
   border-color: var(--pl-border-accent-light);
 }
 
 .preview-content[data-theme="dark"] .pl-tab-nav:not(.pl-tab-nav--style-b) .pl-tab-btn.is-active {
   background: var(--pl-text-accent);
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
   border-color: var(--pl-text-accent);
 }
 
 .preview-content[data-theme="dark"] .pl-tab-nav--style-b .pl-tab-btn.is-active {
   color: var(--pl-text-link);
-  background: var(--pl-neutral-0);
+  background: var(--pl-grayscale-0);
 }
 
 /* ============================================
@@ -116,7 +116,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-benefit__card-title {
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-benefit__card-sub {
@@ -258,13 +258,13 @@
    Navigation - Type A GNB Footer
    ============================================ */
 .preview-content[data-theme="dark"] .pl-nav-content {
-  background: var(--pl-neutral-100);
+  background: var(--pl-grayscale-100);
   margin-top: -74px;
   padding-top: calc(74px + var(--pl-layout-body-top));
 }
 
 .preview-content[data-theme="dark"] .pl-footer {
-  background: var(--pl-neutral-100);
+  background: var(--pl-grayscale-100);
   border-top-color: var(--pl-text-lowest);
 }
 
@@ -285,7 +285,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-footer__company-toggle svg {
-  stroke: var(--pl-neutral-0);
+  stroke: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-footer__address p {
@@ -321,21 +321,21 @@
 }
 
 .preview-content[data-theme="dark"] .pl-footer__dropdown {
-  background: var(--pl-neutral-80);
+  background: var(--pl-grayscale-80);
   border-color: var(--pl-border-default);
   color: var(--pl-text-primary);
 }
 
 .preview-content[data-theme="dark"] .pl-footer__dropdown svg {
-  stroke: var(--pl-neutral-0);
+  stroke: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-footer__dropdown:hover {
-  border-color: var(--pl-neutral-0);
+  border-color: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-footer__dropdown-list {
-  background: var(--pl-neutral-80);
+  background: var(--pl-grayscale-80);
   border-color: var(--pl-border-default);
 }
 
@@ -351,14 +351,14 @@
    CTA - Type A Finish
    ============================================ */
 .preview-content[data-theme="dark"] .pl-cta--finish {
-  background: var(--pl-neutral-90);
+  background: var(--pl-grayscale-90);
 }
 
 /* ============================================
    FAQ
    ============================================ */
 .preview-content[data-theme="dark"] .pl-faq {
-  background: var(--pl-neutral-100);
+  background: var(--pl-grayscale-100);
 }
 
 .preview-content[data-theme="dark"] .pl-faq__item {
@@ -366,11 +366,11 @@
 }
 
 .preview-content[data-theme="dark"] .pl-faq__question {
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-faq__icon {
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-faq__header:hover {
@@ -383,7 +383,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-faq__answer-title {
-  color: var(--pl-neutral-0);
+  color: var(--pl-grayscale-0);
 }
 
 .preview-content[data-theme="dark"] .pl-faq__answer-text {

@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intro Section - Type B Textgrid | PageLab</title>
+  <title>Hero - Type D Video Background | PageLab</title>
   <link rel="stylesheet" href="./../../tokens/base.css">
   <link rel="stylesheet" href="./../../tokens/campaign.css">
   <link rel="stylesheet" href="./../../styles/components.css">
   <link rel="stylesheet" href="./../../styles/dark-mode.css">
   <link rel="stylesheet" href="./../../styles/sections.css">
-  
   <link rel="stylesheet" href="./../../tokens/fonts.css">
   <script src="./../../scripts/components.js"></script>
   <style>
@@ -72,8 +71,8 @@
     .preview-header__tag {
       font-size: var(--pl-font-size-label-sm);
       font-weight: var(--pl-font-weight-bold);
-      color: var(--pl-static-violet);
-      background: var(--pl-violet-5);
+      color: var(--pl-text-brand);
+      background: var(--pl-bg-brand-light);
       padding: 3px 10px;
       border-radius: var(--pl-radius-1);
     }
@@ -110,9 +109,7 @@
       transition: all 0.2s;
     }
 
-    .device-btn:hover {
-      color: var(--pl-text-primary);
-    }
+    .device-btn:hover { color: var(--pl-text-primary); }
 
     .device-btn.is-active {
       color: var(--pl-text-primary);
@@ -121,10 +118,7 @@
       font-weight: var(--pl-font-weight-bold);
     }
 
-    .device-btn__size {
-      color: var(--pl-text-lowest);
-      font-weight: var(--pl-font-weight-default);
-    }
+    .device-btn__size { color: var(--pl-text-lowest); font-weight: var(--pl-font-weight-default); }
 
     /* Preview Container */
     .preview-container {
@@ -146,19 +140,10 @@
       height: fit-content;
     }
 
-    .preview-frame[data-device="pc"] {
-      width: 1920px;
-    }
+    .preview-frame[data-device="pc"]     { width: 1920px; }
+    .preview-frame[data-device="tablet"] { width: 720px; }
+    .preview-frame[data-device="mobile"] { width: 360px; }
 
-    .preview-frame[data-device="tablet"] {
-      width: 720px;
-    }
-
-    .preview-frame[data-device="mobile"] {
-      width: 360px;
-    }
-
-    /* Section Content */
     .preview-content {
       width: 100%;
       container-type: inline-size;
@@ -198,9 +183,7 @@
       transition: all 0.2s;
     }
 
-    .theme-btn:hover {
-      color: var(--pl-text-primary);
-    }
+    .theme-btn:hover { color: var(--pl-text-primary); }
 
     .theme-btn.is-active {
       color: var(--pl-text-primary);
@@ -208,7 +191,77 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       font-weight: var(--pl-font-weight-bold);
     }
-</style>
+
+    /* AI 생성 배지 + 툴팁 */
+    .preview-ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      padding: 3px 10px 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .preview-ai-badge__help {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 50%;
+      font-size: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      color: #fff;
+      padding: 0;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .preview-ai-badge__help:focus { outline: none; }
+
+    .preview-ai-tooltip {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 260px;
+      background: #1e1b4b;
+      color: #e9d5ff;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.6;
+      padding: 10px 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      text-align: left;
+      pointer-events: none;
+      z-index: 2000;
+      white-space: normal;
+    }
+
+    .preview-ai-tooltip::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 12px;
+      border: 5px solid transparent;
+      border-top: none;
+      border-bottom-color: #1e1b4b;
+    }
+
+    .preview-ai-badge__help:hover .preview-ai-tooltip,
+    .preview-ai-badge__help:focus .preview-ai-tooltip {
+      display: block;
+    }
+
+  </style>
 </head>
 <body>
 
@@ -222,8 +275,15 @@
         갤러리
       </a>
       <div class="preview-header__info">
-        <span class="preview-header__tag">인트로</span>
-        <h1 class="preview-header__title">통계 강조형</h1>
+        <span class="preview-header__tag">메인 비주얼</span>
+        <h1 class="preview-header__title">영상 배경형</h1>
+        <span class="preview-ai-badge">
+          ✦ AI 생성
+          <button class="preview-ai-badge__help" aria-label="AI 생성 섹션 설명">
+            ?
+            <span class="preview-ai-tooltip" role="tooltip">PageLab 컴포넌트와 디자인 토큰을 학습한 AI가 자동으로 생성한 섹션입니다. 토큰 규칙과 구조 표준을 준수합니다.</span>
+          </button>
+        </span>
       </div>
     </div>
 
@@ -278,36 +338,61 @@
       <div class="preview-content">
         <!--
           ========================================
-          Intro Section - Type B Textgrid
-          피그마 디자인 그대로 구현
-          Figma 스펙: 1920x523, bg #ffffff
+          Hero - Type D Video Background
+          영상 배경형 - 전체 배경 영상 + 중앙 텍스트
           ========================================
         -->
-        <section class="pl-section pl-intro pl-intro--textgrid" data-section="intro">
-          <div class="pl-section__container pl-intro__container">
+        <section class="pl-section pl-hero pl-hero--video" data-section="hero">
 
-            <!-- Section Title Component -->
-            <pl-section-title label="눈높이의 성과" heading="숫자로 보는 눈높이" description="40년 이상 대한민국 학부모가 선택한 교육 브랜드<br>우리 아이의 성장을 함께 확인하세요" note="*부가 설명 (선택)"></pl-section-title>
+          <!-- Video Background -->
+          <div class="pl-hero__video">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              poster="./../../images/hero/hero-c-bg.png">
+              <!-- 실제 사용 시 영상 파일 경로로 교체하세요 -->
+              <source src="./../../images/hero/hero-d-video.mp4" type="video/mp4">
+            </video>
+          </div>
 
-            <!-- Stats Grid -->
-            <div class="pl-stats-grid">
-              <div class="pl-stats-grid__item">
-                <span class="pl-stats-grid__number">96%</span>
-                <span class="pl-stats-grid__label">학부모 만족도</span>
+          <div class="pl-section__container pl-hero__container">
+
+            <!-- Content -->
+            <div class="pl-hero__content">
+              <div class="pl-hero__text">
+                <span class="pl-label pl-label--filled">캠페인 타이틀</span>
+                <h1 class="pl-hero__title">감성적인 영상으로<br>브랜드 스토리를 전하세요</h1>
+                <p class="pl-hero__desc">시즌 캠페인, 신규 런칭, 브랜드 감성 강조에 최적화된 레이아웃입니다.<br>배경 영상이 메시지를 더욱 풍부하게 만듭니다.</p>
               </div>
-              <div class="pl-stats-grid__divider"></div>
-              <div class="pl-stats-grid__item">
-                <span class="pl-stats-grid__number">150만+</span>
-                <span class="pl-stats-grid__label">누적 수강생</span>
-              </div>
-              <div class="pl-stats-grid__divider"></div>
-              <div class="pl-stats-grid__item">
-                <span class="pl-stats-grid__number">40년+</span>
-                <span class="pl-stats-grid__label">교육 전문 경력</span>
+              <div class="pl-hero__actions">
+                <pl-button variant="primary" size="large" href="#">지금 시작하기</pl-button>
+                <pl-button variant="outline-secondary" size="large" href="#">더 알아보기</pl-button>
               </div>
             </div>
 
           </div>
+
+          <!-- Video Controls -->
+          <div class="pl-hero__video-controls">
+            <button class="pl-hero__video-ctrl pl-hero__video-ctrl--play" aria-label="영상 일시정지">
+              <!-- Pause icon (default: video is playing) -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                <rect x="14" y="4" width="4" height="16" rx="1"/>
+              </svg>
+            </button>
+            <button class="pl-hero__video-ctrl pl-hero__video-ctrl--mute" aria-label="음소거">
+              <!-- Sound on icon (default: muted due to autoplay) -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <line x1="23" y1="9" x2="17" y2="15"/>
+                <line x1="17" y1="9" x2="23" y2="15"/>
+              </svg>
+            </button>
+          </div>
+
         </section>
 
       </div>
@@ -323,8 +408,7 @@
       btn.addEventListener('click', () => {
         deviceBtns.forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
-        const device = btn.dataset.device;
-        previewFrame.dataset.device = device;
+        previewFrame.dataset.device = btn.dataset.device;
       });
     });
 
@@ -336,14 +420,58 @@
       btn.addEventListener('click', () => {
         themeBtns.forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
-        const theme = btn.dataset.theme;
-        if (theme === 'dark') {
+        if (btn.dataset.theme === 'dark') {
           previewContent.setAttribute('data-theme', 'dark');
         } else {
           previewContent.removeAttribute('data-theme');
         }
       });
     });
+
+    // Video Play/Pause
+    const video = document.querySelector('.pl-hero__video video');
+    const playBtn = document.querySelector('.pl-hero__video-ctrl--play');
+    const muteBtn = document.querySelector('.pl-hero__video-ctrl--mute');
+
+    const pauseIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <rect x="6" y="4" width="4" height="16" rx="1"/>
+      <rect x="14" y="4" width="4" height="16" rx="1"/>
+    </svg>`;
+    const playIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="5 3 19 12 5 21 5 3"/>
+    </svg>`;
+    const soundOnIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>`;
+    const muteIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/>
+      <line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>`;
+
+    if (video && playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+          playBtn.innerHTML = pauseIcon;
+          playBtn.setAttribute('aria-label', '영상 일시정지');
+        } else {
+          video.pause();
+          playBtn.innerHTML = playIcon;
+          playBtn.setAttribute('aria-label', '영상 재생');
+        }
+      });
+    }
+
+    if (video && muteBtn) {
+      muteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        muteBtn.innerHTML = video.muted ? muteIcon : soundOnIcon;
+        muteBtn.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
+      });
+    }
   </script>
 
 </body>
