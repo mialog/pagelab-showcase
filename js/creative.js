@@ -703,11 +703,16 @@ class SectionCreative {
     wrapper.querySelectorAll('img').forEach(img => {
       const w = img.offsetWidth;
       const h = img.offsetHeight;
+      const isInsideTabPanel = !!img.closest('.pl-tab-panel');
 
       const placeholder = document.createElement('div');
       placeholder.className = 'creative__img-placeholder';
       if (w) placeholder.style.width = w + 'px';
       if (h) placeholder.style.minHeight = h + 'px';
+
+      const inputEl = isInsideTabPanel
+        ? `<textarea class="creative__img-placeholder-input creative__img-placeholder-input--tab" placeholder="어떤 이미지를 넣을지 설명해주세요 (탭 내용, 레이아웃, 분위기 등)"></textarea>`
+        : `<input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">`;
 
       placeholder.innerHTML = `
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -715,10 +720,10 @@ class SectionCreative {
           <circle cx="8.5" cy="8.5" r="1.5"/>
           <polyline points="21 15 16 10 5 21"/>
         </svg>
-        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
+        ${inputEl}
       `;
 
-      placeholder.querySelector('input').addEventListener('click', (e) => e.stopPropagation());
+      placeholder.querySelector('input, textarea').addEventListener('click', (e) => e.stopPropagation());
 
       img.replaceWith(placeholder);
     });
@@ -888,6 +893,11 @@ class SectionCreative {
               <button class="creative__card-style-btn ${section.cardStyle === 'style-a' ? 'is-active' : ''}" data-style="style-a">탭 A</button>
               <button class="creative__card-style-btn ${section.cardStyle === 'style-b' ? 'is-active' : ''}" data-style="style-b">탭 B</button>
             </div>
+            <div class="creative__layer-control">
+              <button class="creative__storyboard-btn" title="모든 탭을 세로로 펼쳐서 전체 콘텐츠를 한 눈에 확인합니다">
+                ☰ 스토리보드 보기
+              </button>
+            </div>
           `;
         }
       }
@@ -973,6 +983,28 @@ class SectionCreative {
           const style = btn.dataset.style;
           this.updateCardStyle(section.id, style);
         });
+      });
+    }
+
+    // Storyboard toggle button (for type-e-tab sections)
+    const storyboardBtn = layer.querySelector('.creative__storyboard-btn');
+    if (storyboardBtn) {
+      storyboardBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wrapper = this.mainContent.querySelector(`[data-section-id="${section.id}"]`);
+        if (!wrapper) return;
+
+        const isOn = storyboardBtn.classList.toggle('is-active');
+        const activeStyleSection = wrapper.querySelector('.tab-style-section.is-active');
+        if (!activeStyleSection) return;
+
+        if (isOn) {
+          activeStyleSection.classList.add('is-storyboard');
+          storyboardBtn.textContent = '✕ 스토리보드 끄기';
+        } else {
+          activeStyleSection.classList.remove('is-storyboard');
+          storyboardBtn.textContent = '☰ 스토리보드 보기';
+        }
       });
     }
 
@@ -1132,10 +1164,11 @@ class SectionCreative {
       });
     } else if (variant === 'type-e-tab') {
       // Handle tab type - show/hide tab style sections
+      // Also reset storyboard mode when switching styles
       const tabStyleSections = wrapper.querySelectorAll('.tab-style-section');
       tabStyleSections.forEach(section => {
-        const sectionType = section.dataset.tabStyle;
-        if (sectionType === style) {
+        section.classList.remove('is-storyboard');
+        if (section.dataset.tabStyle === style) {
           section.classList.add('is-active');
           section.style.display = '';
         } else {
