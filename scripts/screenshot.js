@@ -17,8 +17,9 @@ const ROOT = path.join(__dirname, '..');
 const SECTIONS_DIR = path.join(ROOT, 'sections');
 const OUTPUT_DIR = path.join(ROOT, 'images', 'showcase');
 
-const VIEWPORT_WIDTH = 1280;
-const VIEWPORT_HEIGHT = 800;
+const VIEWPORT_WIDTH = 1440;
+const VIEWPORT_HEIGHT = 900;
+const DEVICE_SCALE_FACTOR = 2; // Retina 품질 (2x)
 
 // 카테고리 디렉토리 → 출력 파일명 prefix 매핑
 const CATEGORY_MAP = {
@@ -132,7 +133,7 @@ async function main() {
   });
 
   const page = await browser.newPage();
-  await page.setViewport({ width: VIEWPORT_WIDTH, height: VIEWPORT_HEIGHT });
+  await page.setViewport({ width: VIEWPORT_WIDTH, height: VIEWPORT_HEIGHT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
 
   let success = 0;
   let fail = 0;
