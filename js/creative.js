@@ -704,15 +704,19 @@ class SectionCreative {
       const w = img.offsetWidth;
       const h = img.offsetHeight;
       const isInsideTabPanel = !!img.closest('.pl-tab-panel');
+      const isInsideSlideCard = !!img.closest('.pl-slide-card, .pl-swipe-card');
 
       const placeholder = document.createElement('div');
       placeholder.className = 'creative__img-placeholder';
       if (w) placeholder.style.width = w + 'px';
       if (h) placeholder.style.minHeight = h + 'px';
 
-      const inputEl = isInsideTabPanel
-        ? `<textarea class="creative__img-placeholder-input creative__img-placeholder-input--tab" placeholder="어떤 이미지를 넣을지 설명해주세요 (탭 내용, 레이아웃, 분위기 등)"></textarea>`
-        : `<input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">`;
+      let inputEl = '';
+      if (isInsideTabPanel) {
+        inputEl = `<textarea class="creative__img-placeholder-input creative__img-placeholder-input--tab" placeholder="어떤 이미지를 넣을지 설명해주세요 (탭 내용, 레이아웃, 분위기 등)"></textarea>`;
+      } else if (!isInsideSlideCard) {
+        inputEl = `<input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">`;
+      }
 
       placeholder.innerHTML = `
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -723,7 +727,7 @@ class SectionCreative {
         ${inputEl}
       `;
 
-      placeholder.querySelector('input, textarea').addEventListener('click', (e) => e.stopPropagation());
+      placeholder.querySelector('input, textarea')?.addEventListener('click', (e) => e.stopPropagation());
 
       img.replaceWith(placeholder);
     });
