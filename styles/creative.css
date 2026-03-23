@@ -8,7 +8,7 @@
   grid-template-columns: 260px 1fr 240px;
   height: calc(100vh - var(--pl-gnb-height));
   margin-top: var(--pl-gnb-height);
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
 }
 
 /* ============================================
@@ -982,7 +982,7 @@
 
 .creative__section-wrapper .pl-tab-nav--style-b .pl-tab-btn.is-active {
   color: var(--pl-violet-50) !important;
-  background: var(--pl-grayscale-0) !important;
+  background: var(--pl-neutral-0) !important;
 }
 
 /* Mobile Tab Styles - Only show in mobile view */
@@ -1037,7 +1037,7 @@
 
   .creative__section-wrapper .pl-tab-nav-mobile--style-b .pl-tab-btn.is-active {
     color: var(--pl-violet-50) !important;
-    background: var(--pl-grayscale-0) !important;
+    background: var(--pl-neutral-0) !important;
   }
 
   /* Mobile Style A */
@@ -1307,19 +1307,19 @@
 /* Dark Theme - Nav Content */
 .creative__preview[data-theme="dark"] .pl-nav-content,
 .creative__preview-content[data-theme="dark"] .pl-nav-content {
-  background: var(--pl-grayscale-100);
+  background: var(--pl-neutral-100);
 }
 
 /* Dark Theme - Footer */
 .creative__preview[data-theme="dark"] .pl-footer,
 .creative__preview-content[data-theme="dark"] .pl-footer {
-  background: var(--pl-grayscale-100);
+  background: var(--pl-neutral-100);
   color: var(--pl-text-invert);
 }
 
 .creative__preview[data-theme="dark"] .pl-footer a,
 .creative__preview-content[data-theme="dark"] .pl-footer a {
-  color: var(--pl-grayscale-30);
+  color: var(--pl-neutral-30);
 }
 
 .creative__preview[data-theme="dark"] .pl-footer__title,
@@ -1335,7 +1335,7 @@
 
 .creative__preview[data-theme="dark"] .pl-section-title__description,
 .creative__preview-content[data-theme="dark"] .pl-section-title__description {
-  color: var(--pl-grayscale-30);
+  color: var(--pl-neutral-30);
 }
 
 /* Dark Theme - Hero */
@@ -1346,7 +1346,7 @@
 
 .creative__preview[data-theme="dark"] .pl-hero__desc,
 .creative__preview-content[data-theme="dark"] .pl-hero__desc {
-  color: var(--pl-grayscale-30);
+  color: var(--pl-neutral-30);
 }
 
 /* ============================================

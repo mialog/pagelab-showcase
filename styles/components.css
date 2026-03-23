@@ -136,7 +136,7 @@
    brand cyan 배경은 다크모드에서도 유지되므로 텍스트는 항상 흰색 */
 .pl-btn--primary {
   background: var(--pl-bg-brand);
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 .pl-btn--primary::before {

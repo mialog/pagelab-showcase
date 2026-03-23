@@ -196,7 +196,7 @@
 .pl-hero--center .pl-btn--outline {
   border-color: var(--pl-lightblue-50); /* 스케일 토큰: 항상 #15b1f1 */
   color: var(--pl-lightblue-50);
-  background: var(--pl-grayscale-0); /* 스케일 토큰: 항상 white */
+  background: var(--pl-neutral-0); /* 스케일 토큰: 항상 white */
 }
 
 .pl-hero--center .pl-btn--outline::before {
@@ -516,7 +516,7 @@
 .pl-hero--video {
   position: relative;
   overflow: hidden;
-  background: var(--pl-grayscale-90); /* 영상 로드 전 fallback */
+  background: var(--pl-neutral-90); /* 영상 로드 전 fallback */
   min-height: 760px; /* 960px 기본보다 낮게 - 영상 비율 최적화 */
 }
 
@@ -573,12 +573,12 @@
 
 /* 텍스트 항상 흰색 (영상 배경 고정) */
 .pl-hero--video .pl-hero__title {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   font-size: var(--pl-font-size-display-lg); /* 56px */
 }
 
 .pl-hero--video .pl-hero__desc {
-  color: var(--pl-grayscale-10);
+  color: var(--pl-neutral-10);
 }
 
 .pl-hero--video .pl-hero__actions {
@@ -588,7 +588,7 @@
 /* 아웃라인 버튼 - 영상 배경 위 화이트 처리 */
 .pl-hero--video .pl-btn--outline-secondary {
   border-color: rgba(255, 255, 255, 0.55);
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 .pl-hero--video .pl-btn--outline-secondary:hover::before {
@@ -614,7 +614,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.35);
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   cursor: pointer;
   transition: background 0.2s;
   backdrop-filter: blur(6px);
@@ -1454,7 +1454,7 @@
 /* Grid Card - Small Variant (Text Top) */
 .pl-grid-card--small {
   flex-direction: column;
-  border: 1px solid var(--pl-grayscale-20); /* Figma: #d4dce2 - only small cards have border */
+  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 - only small cards have border */
 }
 
 .pl-grid-card--small .pl-grid-card__content {
@@ -1843,7 +1843,7 @@
   width: 68px;
   height: 68px;
   border-radius: 999px;
-  border: 1px solid var(--pl-grayscale-20);
+  border: 1px solid var(--pl-neutral-20);
   background: var(--pl-bg-default);
   display: flex;
   align-items: center;
@@ -1856,11 +1856,11 @@
 }
 
 .pl-swipe-btn:hover {
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
 }
 
 .pl-swipe-btn:active {
-  background: var(--pl-grayscale-20);
+  background: var(--pl-neutral-20);
 }
 
 .pl-swipe-btn svg {
@@ -2079,7 +2079,7 @@
   height: 463px; /* Figma PC: 463px */
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--pl-grayscale-20); /* Figma: #d4dce2 */
+  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 */
 }
 
 /* Figma: hover = white 12%, pressed = white 24% */
@@ -2407,7 +2407,7 @@
 .pl-tab-panel__image {
   width: 100%;
   aspect-ratio: 1280 / 600;
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   border-radius: var(--pl-radius-5); /* Figma: 24px */
   overflow: hidden;
 }
@@ -2509,7 +2509,7 @@
 
 .pl-tab-nav--style-b .pl-tab-btn.is-active {
   color: var(--pl-violet-50);
-  background: var(--pl-grayscale-0);
+  background: var(--pl-neutral-0);
 }
 
 /* Style B - Tablet */
@@ -2639,7 +2639,7 @@
   .pl-tab-nav-mobile--style-b .pl-tab-btn.is-active {
     font-weight: var(--pl-font-weight-bold);
     color: var(--pl-violet-50);
-    background: var(--pl-grayscale-0);
+    background: var(--pl-neutral-0);
   }
 }
 
@@ -2667,7 +2667,7 @@
 .pl-about-image__wrapper {
   width: 100%;
   aspect-ratio: 1280 / 600; /* Figma: 1280x600 */
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   border-radius: var(--pl-radius-5); /* Figma: 24px */
   overflow: hidden;
 }
@@ -3012,7 +3012,7 @@
   width: 60px; /* Figma: 60px */
   height: 60px;
   border-radius: 50%;
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   overflow: hidden;
 }
 
@@ -3260,7 +3260,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   overflow: hidden;
 }
 
@@ -4184,7 +4184,7 @@
   width: 100%;
   max-width: 1280px;
   aspect-ratio: 1280 / 600;
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   border-radius: var(--pl-radius-4); /* Figma: 24px */
   overflow: hidden;
 }
@@ -4291,7 +4291,7 @@
 .pl-step__image {
   width: 320px; /* Figma: 320x320px */
   height: 320px;
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   border-radius: var(--pl-radius-6); /* Figma: 32px */
   overflow: hidden;
   flex-shrink: 0;
@@ -5011,7 +5011,7 @@
    FAQ - Dark Mode (data-theme="dark" 컨텍스트)
    ============================================ */
 [data-theme="dark"] .pl-faq {
-  background: var(--pl-grayscale-90);
+  background: var(--pl-neutral-90);
 }
 
 [data-theme="dark"] .pl-faq__item {
@@ -5019,11 +5019,11 @@
 }
 
 [data-theme="dark"] .pl-faq__question {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 [data-theme="dark"] .pl-faq__icon {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 [data-theme="dark"] .pl-faq__header:hover {
@@ -5036,7 +5036,7 @@
 }
 
 [data-theme="dark"] .pl-faq__answer-title {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 [data-theme="dark"] .pl-faq__answer-text {
@@ -5327,7 +5327,7 @@
    CTA Finish - Dark Mode (data-theme="dark" 컨텍스트)
    ============================================ */
 [data-theme="dark"] .pl-cta--finish {
-  background: var(--pl-grayscale-90);
+  background: var(--pl-neutral-90);
 }
 
 /* ============================================
@@ -5361,7 +5361,7 @@
 .pl-cta-floating__bg .pl-about-image__wrapper {
   width: 100%;
   aspect-ratio: 1280 / 300; /* Half height for floating CTA visibility */
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   border-radius: var(--pl-radius-5); /* 24px */
   overflow: hidden;
 }
@@ -6087,7 +6087,7 @@
 
 .pl-gnb--dark .pl-gnb__logo svg text,
 .pl-gnb--dark .pl-gnb__logo svg path {
-  fill: var(--pl-grayscale-0);
+  fill: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item {
@@ -6095,24 +6095,24 @@
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:hover {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:focus {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   background: var(--pl-alpha-white-12);
   font-weight: 700;
 }
 
 .pl-gnb--dark .pl-gnb__menu-item:active {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   font-weight: 700;
   background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item.is-active {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   font-weight: 700;
   background: rgba(21, 177, 241, 0.12);
 }
@@ -6122,11 +6122,11 @@
 }
 
 .pl-gnb--dark .pl-gnb__mobile-menu {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark .pl-gnb__mobile-menu svg {
-  stroke: var(--pl-grayscale-0);
+  stroke: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark .pl-gnb__mobile-menu:hover {
@@ -6147,11 +6147,11 @@
    배경: #394046, 텍스트/아이콘: #ffffff
    ============================================ */
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay {
-  background: var(--pl-grayscale-80); /* Figma: #394046 */
+  background: var(--pl-neutral-80); /* Figma: #394046 */
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close svg {
-  stroke: var(--pl-grayscale-0);
+  stroke: var(--pl-neutral-0);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:hover {
@@ -6171,24 +6171,24 @@
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:hover {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:focus {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   background: var(--pl-alpha-white-12);
   font-weight: 700;
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:active {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   font-weight: 700;
   background: var(--pl-alpha-white-12);
 }
 
 .pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   font-weight: 700;
 }
 
@@ -6213,7 +6213,7 @@
 
 [data-theme="dark"] .pl-gnb__logo svg text,
 [data-theme="dark"] .pl-gnb__logo svg path {
-  fill: var(--pl-grayscale-0);
+  fill: var(--pl-neutral-0);
 }
 
 [data-theme="dark"] .pl-gnb__menu-item {
@@ -6221,29 +6221,29 @@
 }
 
 [data-theme="dark"] .pl-gnb__menu-item:hover {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   background: var(--pl-alpha-white-12);
 }
 
 [data-theme="dark"] .pl-gnb__menu-item.is-active {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
   background: rgba(21, 177, 241, 0.12);
 }
 
 [data-theme="dark"] .pl-gnb__mobile-menu {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 [data-theme="dark"] .pl-gnb__mobile-menu svg {
-  stroke: var(--pl-grayscale-0);
+  stroke: var(--pl-neutral-0);
 }
 
 [data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay {
-  background: var(--pl-grayscale-100); /* Figma: #0b0d11 solid */
+  background: var(--pl-neutral-100); /* Figma: #0b0d11 solid */
 }
 
 [data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close svg {
-  stroke: var(--pl-grayscale-0);
+  stroke: var(--pl-neutral-0);
 }
 
 [data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item {
@@ -6251,7 +6251,7 @@
 }
 
 [data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 
@@ -6277,7 +6277,7 @@
 .pl-nav-content__image {
   width: 100%;
   aspect-ratio: 1920 / 422;
-  background: var(--pl-grayscale-10);
+  background: var(--pl-neutral-10);
   overflow: hidden;
 }
 
@@ -6644,7 +6644,7 @@
    Figma: dark=on 변형 - bg #394046
    ============================================ */
 .pl-footer--dark {
-  background: var(--pl-grayscale-100); /* Figma: #0b0d11 */
+  background: var(--pl-neutral-100); /* Figma: #0b0d11 */
   border-top-color: var(--pl-text-lowest);
 }
 
@@ -6653,11 +6653,11 @@
 }
 
 .pl-footer--dark .pl-footer__category-link--bold {
-  color: var(--pl-grayscale-0); /* Figma: white bold */
+  color: var(--pl-neutral-0); /* Figma: white bold */
 }
 
 .pl-footer--dark .pl-footer__company-toggle {
-  color: var(--pl-grayscale-0); /* Figma: white bold */
+  color: var(--pl-neutral-0); /* Figma: white bold */
 }
 
 .pl-footer--dark .pl-footer__address p {
@@ -6665,11 +6665,11 @@
 }
 
 .pl-footer--dark .pl-footer__call-label {
-  color: var(--pl-grayscale-10); /* Figma: #e3e8ed */
+  color: var(--pl-neutral-10); /* Figma: #e3e8ed */
 }
 
 .pl-footer--dark .pl-footer__call-number {
-  color: var(--pl-grayscale-10); /* Figma: #e3e8ed */
+  color: var(--pl-neutral-10); /* Figma: #e3e8ed */
 }
 
 .pl-footer--dark .pl-footer__call-time {
@@ -6690,12 +6690,12 @@
 
 /* Dark mode - hover states */
 .pl-footer--dark .pl-footer__category-link:hover {
-  color: var(--pl-grayscale-0);
+  color: var(--pl-neutral-0);
 }
 
 /* Dark mode - arrow icon color */
 .pl-footer--dark .pl-footer__company-toggle svg {
-  stroke: var(--pl-grayscale-0);
+  stroke: var(--pl-neutral-0);
 }
 
 
