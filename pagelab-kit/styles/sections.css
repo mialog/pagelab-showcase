@@ -28,6 +28,11 @@
 }
 
 /* Common Section Base Styles */
+/* Heading margin reset (browser UA 기본값 제거) */
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+p { margin: 0; }
+
+
 .pl-section {
   /* 최소한의 공통 레이아웃 - 각 섹션은 필요시 오버라이드 */
   container-type: inline-size;
@@ -58,6 +63,8 @@
 
 .pl-hero--split {
   background: var(--pl-bg-default);
+  /* .pl-section 기본 40px padding 유지 */
+  /* Container max-width: 1337px + margin: 0 auto → 1920px 기준 291.5px 좌우 여백 자동 확보 */
 }
 
 .pl-hero--split .pl-hero__container {
@@ -72,11 +79,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--pl-spacing-10);
-  padding-top: var(--pl-spacing-14);
+  padding-top: var(--pl-spacing-5); /* Figma: 16px (수정: 100px → 16px) */
   padding-bottom: var(--pl-spacing-5);
-  flex-shrink: 0;
-  width: 657px; /* Figma: content width 657px */
-  max-width: 657px;
+  flex: 1; /* flex:1 로 좁은 뷰포트에서 유연하게 축소 */
+  min-width: 0;
+  max-width: 657px; /* Figma: content width 657px */
 }
 
 .pl-hero__text {
@@ -147,9 +154,10 @@
 }
 
 .pl-hero--center .pl-hero__title {
-  color: var(--pl-text-primary); /* 시맨틱: 라이트 #0b0d11 / 다크 #ffffff */
+  font-family: var(--pl-font-point); /* ONE Mobile Title */
+  color: var(--pl-lightblue-50); /* Figma: #15b2f1 - 스케일 토큰 고정 (라이트/다크 공통) */
   font-size: var(--pl-font-size-display-md); /* Figma: 48px */
-  font-weight: var(--pl-font-weight-bold); /* Figma: Bold 700 */
+  font-weight: 400; /* ONE Mobile Title은 400 단일 weight */
 }
 
 .pl-hero--center .pl-hero__desc {
@@ -214,7 +222,7 @@
    ============================================ */
 .pl-hero--full {
   position: relative;
-  background: var(--pl-neutral-50); /* 스케일 토큰: #8c97a0, 모드 무관 고정 */
+  background: rgba(0, 0, 0, 0.12); /* 라이트/다크 공통 - gray 12% alpha */
   overflow: hidden;
 }
 
@@ -228,8 +236,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.20; /* Figma: 20% image texture */
-  filter: saturate(0.48); /* Figma: saturation -52% */
+  opacity: 1;
 }
 
 .pl-hero--full .pl-hero__bg::after {
@@ -265,8 +272,9 @@
 }
 
 .pl-hero--full .pl-hero__title {
+  font-family: var(--pl-font-point); /* Figma: ONE Mobile Title */
   color: var(--pl-text-primary); /* 시맨틱: 라이트 #0b0d11 / 다크 #ffffff */
-  font-weight: var(--pl-font-weight-bold);
+  font-weight: 400; /* ONE Mobile Title은 400 단일 weight */
 }
 
 .pl-hero--full .pl-hero__desc {
@@ -502,6 +510,152 @@
 
   .pl-hero--full .pl-hero__text {
     gap: var(--pl-spacing-8); /* Figma: 32px (label↔heading, heading↔desc) */
+  }
+}
+
+/* ============================================
+   Hero Section - Type D (Video Background)
+   영상 배경형 - 전체 영상 배경 + 중앙 정렬 텍스트
+   항상 어두운 오버레이 → 텍스트 항상 흰색 고정 (라이트/다크 공통)
+   ============================================ */
+.pl-hero--video {
+  position: relative;
+  overflow: hidden;
+  background: var(--pl-neutral-90); /* 영상 로드 전 fallback */
+  min-height: 760px; /* 960px 기본보다 낮게 - 영상 비율 최적화 */
+}
+
+.pl-hero--video .pl-hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.pl-hero--video .pl-hero__video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* 영상 위 어두운 그라디언트 오버레이 */
+.pl-hero--video .pl-hero__video::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+.pl-hero--video .pl-hero__container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: inherit;
+  padding: var(--pl-spacing-10) 0 var(--pl-spacing-13) 0; /* 40px top, 80px bottom */
+}
+
+.pl-hero--video .pl-hero__content {
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-10); /* text→button 40px */
+}
+
+.pl-hero--video .pl-hero__text {
+  align-items: center;
+  gap: var(--pl-spacing-6); /* label→title→desc 20px */
+}
+
+/* 텍스트 항상 흰색 (영상 배경 고정) */
+.pl-hero--video .pl-hero__title {
+  color: var(--pl-neutral-0);
+  font-size: var(--pl-font-size-display-lg); /* 56px */
+}
+
+.pl-hero--video .pl-hero__desc {
+  color: var(--pl-neutral-10);
+}
+
+.pl-hero--video .pl-hero__actions {
+  justify-content: center;
+}
+
+/* 아웃라인 버튼 - 영상 배경 위 화이트 처리 */
+.pl-hero--video .pl-btn--outline-secondary {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: var(--pl-neutral-0);
+}
+
+.pl-hero--video .pl-btn--outline-secondary:hover::before {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* 영상 컨트롤 버튼 그룹 */
+.pl-hero__video-controls {
+  position: absolute;
+  bottom: var(--pl-spacing-8);
+  right: var(--pl-spacing-8);
+  z-index: 2;
+  display: flex;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-hero__video-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--pl-neutral-0);
+  cursor: pointer;
+  transition: background 0.2s;
+  backdrop-filter: blur(6px);
+  padding: 0;
+}
+
+.pl-hero__video-ctrl:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Type D 반응형 */
+@container section (max-width: 1199px) {
+  .pl-hero--video .pl-hero__content {
+    max-width: 680px;
+  }
+  .pl-hero--video .pl-hero__title {
+    font-size: 44px;
+  }
+}
+
+@container section (max-width: 600px) {
+  .pl-hero--video .pl-hero__content {
+    max-width: 100%;
+  }
+  .pl-hero--video .pl-hero__title {
+    font-size: var(--pl-font-size-header-md); /* 30px */
+  }
+  .pl-hero--video .pl-hero__desc {
+    font-size: var(--pl-font-size-body-md); /* 18px */
+  }
+  .pl-hero--video .pl-hero__container {
+    padding: var(--pl-spacing-13) 0;
+  }
+  .pl-hero__video-controls {
+    bottom: var(--pl-spacing-5);
+    right: var(--pl-spacing-5);
   }
 }
 
@@ -870,6 +1024,187 @@
 
   .pl-intro__image {
     height: 280px;
+  }
+}
+
+/* ============================================
+   Intro Section - Type D (Product Split)
+   제품 소개: 상단 섹션 타이틀 + 이미지/정보 좌우 분할
+   ============================================ */
+
+.pl-intro--product-split {
+  background: var(--pl-bg-default);
+  padding: 0;
+}
+
+.pl-intro--product-split__container {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-12);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+  max-width: var(--pl-container-default);
+  width: 100%;
+}
+
+/* 좌우 분할 레이아웃 */
+.pl-intro__product-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pl-spacing-12);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* 왼쪽: 제품 이미지 */
+.pl-intro__product-image {
+  width: 100%;
+  height: 600px;
+  background: var(--pl-bg-neutral);
+  border-radius: var(--pl-radius-4);
+  overflow: hidden;
+}
+
+.pl-intro__product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-intro__product-image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-intro__product-image--placeholder::after {
+  content: 'Product Image';
+  font-size: var(--pl-font-size-body-md);
+  color: var(--pl-text-lowest);
+}
+
+/* 오른쪽: 제품 정보 */
+.pl-intro__product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--pl-spacing-7);
+}
+
+.pl-intro__product-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+}
+
+.pl-intro__product-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-brand);
+  background: var(--pl-bg-brand-light);
+  padding: var(--pl-spacing-2) var(--pl-spacing-5);
+  border-radius: var(--pl-radius-1);
+  width: fit-content;
+}
+
+.pl-intro__product-name {
+  font-size: var(--pl-font-size-header-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+}
+
+.pl-intro__product-subtitle {
+  font-size: var(--pl-font-size-body-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+/* 주요 특징 리스트 */
+.pl-intro__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+  list-style: none;
+  padding: 0;
+}
+
+.pl-intro__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-intro__feature-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pl-bg-brand-light);
+  color: var(--pl-text-brand);
+  border-radius: var(--pl-radius-1);
+  margin-top: 2px;
+}
+
+.pl-intro__feature-text {
+  font-size: var(--pl-font-size-label-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+.pl-intro__feature-text strong {
+  color: var(--pl-text-primary);
+  font-weight: var(--pl-font-weight-bold);
+}
+
+/* CTA 버튼 영역 */
+.pl-intro__product-cta {
+  display: flex;
+  gap: var(--pl-spacing-4);
+  flex-wrap: wrap;
+}
+
+
+/* ── Tablet ── */
+@container section (max-width: 1199px) {
+  .pl-intro--product-split__container {
+    gap: var(--pl-spacing-11);
+  }
+
+  .pl-intro__product-split {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-intro__product-name {
+    font-size: var(--pl-font-size-title-lg);
+  }
+}
+
+/* ── Mobile ── */
+@container section (max-width: 639px) {
+  .pl-intro--product-split__container {
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-intro__product-split {
+    grid-template-columns: 1fr;
+    gap: var(--pl-spacing-8);
+  }
+
+  .pl-intro__product-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .pl-intro__product-cta {
+    flex-direction: column;
+  }
+
+  .pl-intro__product-cta pl-button {
+    width: 100%;
   }
 }
 
@@ -1642,7 +1977,7 @@
 
 .pl-swipe-card__desc {
   font-size: var(--pl-font-size-title-sm); /* Figma PC: 20px */
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   line-height: 1.68; /* Figma: 33.6px / 20px */
   color: var(--pl-text-secondary);
   margin: 0;
@@ -1715,7 +2050,7 @@
 
 .pl-swipe-card--overlay .pl-swipe-card__desc {
   font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   line-height: 1.68; /* Figma: 26.88px / 16px */
   margin-bottom: var(--pl-spacing-3);
 }
@@ -1786,7 +2121,7 @@
 
 .pl-swipe-card--split .pl-swipe-card__desc {
   font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   line-height: 1.68; /* Figma: 26.88px / 16px */
   margin-bottom: var(--pl-spacing-3);
 }
@@ -2041,7 +2376,7 @@
   padding: var(--pl-spacing-2) var(--pl-spacing-5);
   font-family: var(--pl-font-main);
   font-size: var(--pl-font-size-title-sm);
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   color: var(--pl-text-accent);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-border-accent-light);
@@ -2220,7 +2555,7 @@
     gap: var(--pl-spacing-3); /* Figma: 12px between rows */
   }
 
-  .pl-tab-nav-row-a {
+  .pl-tab-nav-row--a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2230,7 +2565,7 @@
   .pl-tab-nav-mobile--style-a .pl-tab-btn {
     font-family: var(--pl-font-main);
     font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
-    font-weight: var(--pl-font-weight-medium);
+    font-weight: var(--pl-font-weight-default);
     color: var(--pl-text-accent);
     background: var(--pl-bg-default);
     border: 1px solid var(--pl-border-accent-light);
@@ -2284,7 +2619,7 @@
   .pl-tab-nav-mobile--style-b .pl-tab-btn {
     font-family: var(--pl-font-main);
     font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
-    font-weight: var(--pl-font-weight-medium);
+    font-weight: var(--pl-font-weight-default);
     color: var(--pl-text-primary);
     background: transparent;
     border: none;
@@ -3940,6 +4275,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: var(--pl-spacing-5); /* Figma: 20px */
   max-width: 1400px; /* Figma: 1400px container width on PC */
   width: 100%;
@@ -4133,7 +4469,7 @@
   align-items: center;
   padding: var(--pl-spacing-1) var(--pl-spacing-3);
   font-size: var(--pl-font-size-label-sm);
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   color: var(--pl-text-brand);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-text-brand);
@@ -4354,7 +4690,7 @@
   align-items: center;
   padding: var(--pl-spacing-1) var(--pl-spacing-3);
   font-size: var(--pl-font-size-label-sm);
-  font-weight: var(--pl-font-weight-medium);
+  font-weight: var(--pl-font-weight-default);
   color: var(--pl-text-brand);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-text-brand);
@@ -4883,20 +5219,13 @@
   flex-shrink: 0;
 }
 
+/* CTA Finish button: extends pl-btn with CTA-specific sizing and pill shape */
 .pl-cta__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   min-width: 156px; /* Figma: 156px */
   height: 59px; /* Figma: 59px */
   padding: 0 24px;
   font-size: 19px; /* Figma: 19px */
-  font-weight: var(--pl-font-weight-medium);
-  line-height: 1.44;
-  text-decoration: none;
   border-radius: 999px; /* Pill shape */
-  transition: all 0.2s;
-  cursor: pointer;
 }
 
 .pl-cta__btn--outline {
@@ -6600,5 +6929,330 @@
 
   .pl-footer__company {
     margin-bottom: -16px; /* 24px - 8px = 16px 감소하여 address와의 간격을 8px로 */
+  }
+}
+
+
+/* ============================================
+   About - Type G (Feature Alt)
+   텍스트↔이미지 교대 레이아웃
+   ============================================ */
+
+.pl-about--feature-alt {
+  background: var(--pl-bg-default);
+}
+
+.pl-about__feature-alt-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-15);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+  max-width: var(--pl-container-default);
+  width: 100%;
+}
+
+/* ── 각 피처 아이템 (좌우 분할) ── */
+.pl-about__feature-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pl-spacing-13);
+  align-items: center;
+}
+
+/* 역순: 이미지 좌 / 텍스트 우 */
+.pl-about__feature-item--reverse .pl-about__feature-text { order: 2; }
+.pl-about__feature-item--reverse .pl-about__feature-image { order: 1; }
+
+/* ── 텍스트 영역 ── */
+.pl-about__feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-7);
+}
+
+.pl-about__feature-label {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+  font-size: var(--pl-font-size-body-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-brand);
+}
+
+.pl-about__feature-heading {
+  font-size: var(--pl-font-size-display-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+}
+
+.pl-about__feature-desc {
+  font-size: var(--pl-font-size-body-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+/* ── 이미지 영역 ── */
+.pl-about__feature-image {
+  border-radius: var(--pl-radius-5);
+  padding: var(--pl-spacing-10);
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.pl-about__feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pl-about__feature-image--pink {
+  background: var(--pl-pink-5);
+}
+
+.pl-about__feature-image--violet {
+  background: var(--pl-violet-5);
+}
+
+/* ── 인라인 목업 (이미지 없을 때) ── */
+.pl-about__feature-mockup {
+  width: 100%;
+}
+
+/* 트리 목업 */
+.pl-mockup-tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-4);
+  width: 100%;
+}
+
+.pl-mockup-tree__node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+  background: var(--pl-bg-default);
+  border: 1.5px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-2);
+  padding: var(--pl-spacing-3) var(--pl-spacing-5);
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+}
+
+.pl-mockup-tree__node--top {
+  border-color: var(--pl-static-green);
+  color: var(--pl-static-green);
+}
+
+.pl-mockup-tree__node--highlight {
+  border-color: var(--pl-static-red);
+}
+
+.pl-mockup-tree__row {
+  display: flex;
+  gap: var(--pl-spacing-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pl-mockup-tree__row--center .pl-mockup-tree__node {
+  border-color: var(--pl-static-red);
+}
+
+.pl-mockup-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--pl-spacing-3);
+  border-radius: var(--pl-radius-1);
+  font-size: 12px;
+  font-weight: var(--pl-font-weight-bold);
+}
+
+.pl-mockup-badge--pass {
+  background: var(--pl-static-green);
+  color: var(--pl-static-white);
+}
+
+.pl-mockup-badge--fail {
+  background: var(--pl-static-red);
+  color: var(--pl-static-white);
+}
+
+/* 카드 목업 */
+.pl-about__feature-mockup--cards {
+  display: flex;
+  gap: var(--pl-spacing-5);
+  align-items: flex-start;
+}
+
+.pl-mockup-card {
+  flex: 1;
+  background: var(--pl-bg-default);
+  border-radius: var(--pl-radius-3);
+  padding: var(--pl-spacing-6);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.pl-mockup-card__title {
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  margin-bottom: var(--pl-spacing-4);
+}
+
+.pl-mockup-card__body {
+  background: var(--pl-violet-5);
+  border-radius: var(--pl-radius-2);
+  padding: var(--pl-spacing-5);
+  font-size: var(--pl-font-size-label-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+  text-align: center;
+  margin-bottom: var(--pl-spacing-4);
+}
+
+.pl-mockup-prereq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-mockup-prereq__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pl-spacing-3);
+  border: 1.5px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-2);
+  padding: var(--pl-spacing-4) var(--pl-spacing-5);
+}
+
+.pl-mockup-prereq__item--warn {
+  border-color: var(--pl-static-orange);
+}
+
+.pl-mockup-prereq__grade {
+  font-size: 11px;
+  color: var(--pl-text-tertiary);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.pl-mockup-prereq__name {
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+}
+
+.pl-mockup-prereq__icon {
+  color: var(--pl-static-orange);
+  flex-shrink: 0;
+}
+
+.pl-mockup-seq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-5);
+}
+
+.pl-mockup-seq__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pl-spacing-4);
+}
+
+.pl-mockup-seq__check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--pl-static-violet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pl-mockup-seq__check--done { color: var(--pl-static-violet); }
+.pl-mockup-seq__check--check { color: var(--pl-static-violet); }
+
+.pl-mockup-seq__name {
+  font-size: var(--pl-font-size-label-md);
+  color: var(--pl-text-primary);
+  margin-bottom: var(--pl-spacing-2);
+}
+
+.pl-mockup-seq__badge {
+  display: inline-flex;
+  padding: 2px var(--pl-spacing-3);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-static-white);
+}
+
+.pl-mockup-seq__badge--great { background: var(--pl-static-violet); }
+.pl-mockup-seq__badge--good  { background: var(--pl-static-green); }
+.pl-mockup-seq__badge--low   { background: var(--pl-static-orange); }
+
+/* ── Tablet ── */
+@container section (max-width: 1199px) {
+  .pl-about__feature-alt-container {
+    gap: var(--pl-spacing-13);
+  }
+
+  .pl-about__feature-item {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-about__feature-heading {
+    font-size: var(--pl-font-size-display-sm);
+  }
+
+  .pl-about__feature-image {
+    min-height: 380px;
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-about__feature-mockup--cards {
+    flex-direction: column;
+  }
+}
+
+/* ── Mobile ── */
+@container section (max-width: 639px) {
+  .pl-about__feature-alt-container {
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
+    gap: var(--pl-spacing-12);
+  }
+
+  .pl-about__feature-item {
+    grid-template-columns: 1fr;
+    gap: var(--pl-spacing-7);
+  }
+
+  /* 모바일은 항상 텍스트 위, 이미지 아래 */
+  .pl-about__feature-item--reverse .pl-about__feature-text { order: 1; }
+  .pl-about__feature-item--reverse .pl-about__feature-image { order: 2; }
+
+  .pl-about__feature-heading {
+    font-size: var(--pl-font-size-header-md);
+  }
+
+  .pl-about__feature-image {
+    min-height: 300px;
+    padding: var(--pl-spacing-6);
+  }
+
+  .pl-mockup-tree__node {
+    font-size: 12px;
+    padding: var(--pl-spacing-2) var(--pl-spacing-4);
   }
 }

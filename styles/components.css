@@ -102,7 +102,7 @@
   font-weight: var(--pl-font-weight-default);
   line-height: var(--pl-line-height-default);
   border-radius: var(--comp-btn-radius);
-  border: none;
+  border: var(--pl-border-2) solid transparent;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;

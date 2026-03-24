@@ -28,6 +28,11 @@
 }
 
 /* Common Section Base Styles */
+/* Heading margin reset (browser UA 기본값 제거) */
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+p { margin: 0; }
+
+
 .pl-section {
   /* 최소한의 공통 레이아웃 - 각 섹션은 필요시 오버라이드 */
   container-type: inline-size;
@@ -1046,14 +1051,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--pl-spacing-12);
-  align-items: center;
+  align-items: stretch;
   width: 100%;
 }
 
 /* 왼쪽: 제품 이미지 */
 .pl-intro__product-image {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 600px;
   background: var(--pl-bg-neutral);
   border-radius: var(--pl-radius-4);
   overflow: hidden;
@@ -1081,7 +1086,8 @@
 .pl-intro__product-info {
   display: flex;
   flex-direction: column;
-  gap: var(--pl-spacing-9);
+  justify-content: center;
+  gap: var(--pl-spacing-7);
 }
 
 .pl-intro__product-header {
@@ -1103,7 +1109,7 @@
 }
 
 .pl-intro__product-name {
-  font-size: var(--pl-font-size-header-lg);
+  font-size: var(--pl-font-size-header-sm);
   font-weight: var(--pl-font-weight-bold);
   color: var(--pl-text-primary);
   line-height: var(--pl-line-height-title);
@@ -1119,7 +1125,7 @@
 .pl-intro__features {
   display: flex;
   flex-direction: column;
-  gap: var(--pl-spacing-5);
+  gap: var(--pl-spacing-4);
   list-style: none;
   padding: 0;
 }
@@ -1127,24 +1133,24 @@
 .pl-intro__feature {
   display: flex;
   align-items: flex-start;
-  gap: var(--pl-spacing-4);
+  gap: var(--pl-spacing-3);
 }
 
 .pl-intro__feature-icon {
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--pl-bg-brand-light);
   color: var(--pl-text-brand);
   border-radius: var(--pl-radius-1);
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .pl-intro__feature-text {
-  font-size: var(--pl-font-size-body-md);
+  font-size: var(--pl-font-size-label-md);
   color: var(--pl-text-secondary);
   line-height: var(--pl-line-height-body);
 }
@@ -1190,7 +1196,7 @@
   }
 
   .pl-intro__product-image {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
   }
 
   .pl-intro__product-cta {
