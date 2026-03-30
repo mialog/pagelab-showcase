@@ -290,7 +290,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-section {
-    padding: 0 32px; /* Tablet: Figma 32px 좌우 패딩 */
+    padding: 0 var(--pl-spacing-8); /* Tablet: Figma 32px 좌우 패딩 */
   }
 
   .pl-hero--split .pl-hero__content {
@@ -373,7 +373,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-section {
-    padding: 0 20px; /* Mo: layout-padding 20px 좌우 패딩 */
+    padding: 0 var(--pl-spacing-6); /* Mo: layout-padding 20px 좌우 패딩 */
   }
 
   /* Type A (Split) 모바일 */
@@ -388,7 +388,7 @@ p { margin: 0; }
     gap: var(--pl-spacing-10); /* Figma: 48px */
     align-items: flex-start;
     align-content: flex-start;
-    padding-top: 80px; /* 라벨 위 여백 */
+    padding-top: var(--pl-spacing-13); /* 라벨 위 여백: 80px */
     padding-bottom: 0;
   }
 
@@ -491,7 +491,7 @@ p { margin: 0; }
   }
 
   .pl-hero--center .pl-hero__title {
-    font-size: 30px; /* Figma Mo: 30px = --pl-font-size-display-md @ Mo */
+    font-size: var(--pl-font-size-header-md); /* Figma Mo: 30px */
   }
 
   /* Type C (Full) 모바일 - Figma: 360x800 */
@@ -500,7 +500,7 @@ p { margin: 0; }
   }
 
   .pl-hero--full .pl-hero__container {
-    padding: var(--pl-spacing-13) 20px 40px 20px;
+    padding: var(--pl-spacing-13) var(--pl-spacing-6) var(--pl-spacing-10) var(--pl-spacing-6);
     min-height: 800px; /* Figma 모바일 높이 */
   }
 
@@ -1167,6 +1167,8 @@ p { margin: 0; }
   flex-wrap: wrap;
 }
 
+.pl-intro__cta-mo { display: none; }
+
 
 /* ── Tablet ── */
 @container section (max-width: 1199px) {
@@ -1180,6 +1182,18 @@ p { margin: 0; }
 
   .pl-intro__product-name {
     font-size: var(--pl-font-size-title-lg);
+  }
+
+  .pl-intro__product-cta {
+    flex-wrap: nowrap;
+  }
+
+  .pl-intro__product-cta pl-button {
+    flex: 1;
+  }
+
+  .pl-intro__product-cta .pl-btn {
+    width: 100%;
   }
 }
 
@@ -1196,16 +1210,18 @@ p { margin: 0; }
   }
 
   .pl-intro__product-image {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
+    height: auto;
   }
 
   .pl-intro__product-cta {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 
-  .pl-intro__product-cta pl-button {
-    width: 100%;
-  }
+  .pl-intro__cta-pc { display: none; }
+  .pl-intro__cta-mo { display: inline-flex; flex: 1; }
+  .pl-intro__cta-mo .pl-btn { width: 100%; }
 }
 
 /* ============================================
@@ -1248,7 +1264,7 @@ p { margin: 0; }
   gap: var(--pl-spacing-7);
   padding: var(--pl-spacing-5);
   background: var(--pl-bg-default);
-  border: 1px solid #fff; /* Figma: stroke #ffffff */
+  border: 1px solid var(--pl-static-white); /* Figma: stroke #ffffff */
   border-radius: var(--pl-radius-3);
 }
 
@@ -1466,6 +1482,12 @@ p { margin: 0; }
 .pl-grid-card--small .pl-grid-card__content {
   order: -1; /* Text on top */
   padding: var(--pl-spacing-5) 20px var(--pl-spacing-4); /* Figma: 20px horizontal (286px in 326px card) */
+  min-height: calc(
+    var(--pl-spacing-5) + var(--pl-spacing-4) +
+    var(--pl-font-size-title-md) * var(--pl-line-height-default) +
+    var(--pl-spacing-2) +
+    var(--pl-font-size-body-md) * var(--pl-line-height-body) * 2
+  ); /* Reserve space for 2-line desc so image tops align across cards */
 }
 
 .pl-grid-card--small .pl-grid-card__image {
@@ -1482,7 +1504,7 @@ p { margin: 0; }
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(11, 13, 17, 0); /* Figma: #0b0d11 */
+  background: transparent; /* Figma: #0b0d11 초기 상태 */
   transition: background 0.2s ease;
   pointer-events: none;
 }
@@ -1835,7 +1857,7 @@ p { margin: 0; }
   top: var(--pl-spacing-8); /* Same as track padding-top */
   width: 212px;
   height: 466px; /* Match card A height (largest) */
-  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, var(--pl-bg-default) 0%, transparent 100%);
   z-index: 110; /* Above card ::after overlay (100) */
   display: flex;
   align-items: flex-start;
@@ -1849,7 +1871,7 @@ p { margin: 0; }
   width: 68px;
   height: 68px;
   border-radius: 999px;
-  border: 1px solid var(--pl-neutral-20);
+  border: 1px solid var(--pl-border-light);
   background: var(--pl-bg-default);
   display: flex;
   align-items: center;
@@ -2085,7 +2107,7 @@ p { margin: 0; }
   height: 463px; /* Figma PC: 463px */
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 */
+  border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
 }
 
 /* Figma: hover = white 12%, pressed = white 24% */
@@ -2620,7 +2642,7 @@ p { margin: 0; }
     font-family: var(--pl-font-main);
     font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
     font-weight: var(--pl-font-weight-default);
-    color: var(--pl-text-primary);
+    color: var(--pl-text-invert);
     background: transparent;
     border: none;
     border-radius: 999px;
@@ -2771,7 +2793,7 @@ p { margin: 0; }
   font-size: var(--pl-font-size-display-md); /* Figma: 48px */
   font-weight: var(--pl-font-weight-bold);
   line-height: 1.36; /* Figma: 65.28px / 48px */
-  color: var(--pl-blue-50); /* Figma: #416df0 */
+  color: var(--pl-text-brand); /* Figma: #416df0 */
   margin: 0;
 }
 
@@ -4297,7 +4319,7 @@ p { margin: 0; }
 .pl-step__image {
   width: 320px; /* Figma: 320x320px */
   height: 320px;
-  background: var(--pl-neutral-10);
+  background: var(--pl-bg-neutral);
   border-radius: var(--pl-radius-6); /* Figma: 32px */
   overflow: hidden;
   flex-shrink: 0;
@@ -5017,32 +5039,32 @@ p { margin: 0; }
    FAQ - Dark Mode (data-theme="dark" 컨텍스트)
    ============================================ */
 [data-theme="dark"] .pl-faq {
-  background: var(--pl-neutral-90);
+  background: var(--pl-bg-default);
 }
 
 [data-theme="dark"] .pl-faq__item {
-  border-bottom-color: rgba(255, 255, 255, 0.12);
+  border-bottom-color: var(--pl-border-light);
 }
 
 [data-theme="dark"] .pl-faq__question {
-  color: var(--pl-neutral-0);
+  color: var(--pl-text-primary);
 }
 
 [data-theme="dark"] .pl-faq__icon {
-  color: var(--pl-neutral-0);
+  color: var(--pl-text-primary);
 }
 
 [data-theme="dark"] .pl-faq__header:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--pl-bg-neutral);
 }
 
 [data-theme="dark"] .pl-faq__answer {
   background: transparent;
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: var(--pl-border-light);
 }
 
 [data-theme="dark"] .pl-faq__answer-title {
-  color: var(--pl-neutral-0);
+  color: var(--pl-text-primary);
 }
 
 [data-theme="dark"] .pl-faq__answer-text {
@@ -5125,7 +5147,6 @@ p { margin: 0; }
     gap: var(--pl-spacing-9);
     padding: 0 var(--pl-spacing-8);
   }
-  }
 
   .pl-caution__list {
     width: 100%;
@@ -5172,7 +5193,7 @@ p { margin: 0; }
    ============================================ */
 .pl-cta--finish {
   width: 100%;
-  background: #dae3ff; /* Figma: light blue */
+  background: var(--pl-bg-brand-light); /* Figma: light blue */
   padding: 100px 0; /* Figma: 100px top/bottom */
   container-type: inline-size;
   container-name: section;
@@ -5329,12 +5350,7 @@ p { margin: 0; }
   }
 }
 
-/* ============================================
-   CTA Finish - Dark Mode (data-theme="dark" 컨텍스트)
-   ============================================ */
-[data-theme="dark"] .pl-cta--finish {
-  background: var(--pl-neutral-90);
-}
+/* CTA Finish dark mode → dark-mode.css에서 관리 */
 
 /* ============================================
    CTA Section - Type B Floating (플로팅 버튼형)
@@ -5454,7 +5470,7 @@ p { margin: 0; }
   z-index: 2;
   font-size: 19px;
   font-weight: var(--pl-font-weight-bold);
-  color: #ffffff;
+  color: var(--pl-static-white);
 }
 
 .pl-cta-floating__icon {
@@ -5462,7 +5478,7 @@ p { margin: 0; }
   z-index: 2;
   width: 24px;
   height: 24px;
-  stroke: #ffffff;
+  stroke: var(--pl-static-white);
 }
 
 /* Green Gradient Button */
@@ -5607,8 +5623,8 @@ p { margin: 0; }
   box-sizing: border-box;
   height: 91px; /* Figma: 91px */
   padding: 0 20px 0 40px;
-  background: #edf8fc;
-  border: 2px solid #8ddaf9;
+  background: var(--pl-bg-brand-light);
+  border: 2px solid var(--pl-border-brand-light, #8ddaf9);
   border-radius: 999px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
@@ -5737,14 +5753,16 @@ p { margin: 0; }
     flex-direction: column;
     align-items: stretch;
     gap: 22px; /* Figma: text-button gap 22px */
-    width: 100%;
+    width: calc(100% + var(--pl-spacing-8) * 2);
+    margin-left: calc(var(--pl-spacing-8) * -1);
+    margin-right: calc(var(--pl-spacing-8) * -1);
     height: auto;
-    padding: 22px 18px 30px 18px; /* Figma: top 22, sides 18, bottom 30 */
+    padding: 22px var(--pl-spacing-8) 30px;
     border-radius: 0;
     border-width: 2px 0 0 0; /* Top border only */
     border-style: solid;
-    border-color: #8ddaf9;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border-color: var(--pl-border-brand-light, #8ddaf9);
+    box-shadow: none;
   }
 
   .pl-cta-floating-b__text {
@@ -5778,8 +5796,10 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) {
   .pl-cta-floating-b {
-    width: 100%;
-    padding: 20px 16px 24px 16px; /* Figma: top 20, sides 16, bottom 24 */
+    width: calc(100% + var(--pl-spacing-6) * 2);
+    margin-left: calc(var(--pl-spacing-6) * -1);
+    margin-right: calc(var(--pl-spacing-6) * -1);
+    padding: 20px var(--pl-spacing-6) 24px;
     gap: 20px; /* Figma: text-button gap 20px */
   }
 
@@ -6271,7 +6291,7 @@ p { margin: 0; }
   align-items: center;
   gap: var(--pl-spacing-8);
   padding: var(--pl-layout-body-top) 0 100px 0; /* Figma: 100px bottom padding on PC */
-  background: #ffffff;
+  background: var(--pl-bg-default);
 }
 
 .pl-nav-content__container {
@@ -7206,6 +7226,7 @@ p { margin: 0; }
 @container section (max-width: 1199px) {
   .pl-about__feature-alt-container {
     gap: var(--pl-spacing-13);
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom);
   }
 
   .pl-about__feature-item {
@@ -7213,7 +7234,7 @@ p { margin: 0; }
   }
 
   .pl-about__feature-heading {
-    font-size: var(--pl-font-size-display-sm);
+    font-size: var(--pl-font-size-header-lg);
   }
 
   .pl-about__feature-image {
@@ -7229,7 +7250,7 @@ p { margin: 0; }
 /* ── Mobile ── */
 @container section (max-width: 639px) {
   .pl-about__feature-alt-container {
-    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
+    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom);
     gap: var(--pl-spacing-12);
   }
 

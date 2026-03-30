@@ -121,7 +121,7 @@
     }
 
     .device-btn__size {
-      font-size: 11px;
+      font-size: var(--pl-font-size-label-sm);
       color: var(--pl-text-lowest);
     }
 
@@ -320,8 +320,10 @@
         const theme = btn.dataset.theme;
         if (theme === 'dark') {
           previewContent.setAttribute('data-theme', 'dark');
+          previewFrame.setAttribute('data-theme', 'dark');
         } else {
           previewContent.removeAttribute('data-theme');
+          previewFrame.removeAttribute('data-theme');
         }
       });
     });

@@ -735,8 +735,11 @@
     document.querySelectorAll('.pl-swipe-btn--prev').forEach(btn => {
       btn.addEventListener('click', () => {
         const track = btn.closest('.pl-swipe-container').querySelector('.pl-swipe-track');
+        const card = track.querySelector('.pl-swipe-card');
+        const gap = parseInt(getComputedStyle(track.querySelector('.pl-swipe-track__inner')).gap) || 0;
+        const scrollAmount = card ? card.offsetWidth + gap : 384;
         track.scrollBy({
-          left: -384, // 360 + 24
+          left: -scrollAmount,
           behavior: 'smooth'
         });
       });
@@ -745,8 +748,11 @@
     document.querySelectorAll('.pl-swipe-btn--next').forEach(btn => {
       btn.addEventListener('click', () => {
         const track = btn.closest('.pl-swipe-container').querySelector('.pl-swipe-track');
+        const card = track.querySelector('.pl-swipe-card');
+        const gap = parseInt(getComputedStyle(track.querySelector('.pl-swipe-track__inner')).gap) || 0;
+        const scrollAmount = card ? card.offsetWidth + gap : 384;
         track.scrollBy({
-          left: 384,
+          left: scrollAmount,
           behavior: 'smooth'
         });
       });
