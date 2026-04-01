@@ -700,11 +700,14 @@ class SectionCreative {
     });
 
     // Replace images immediately with gray placeholder + text input
+    // Skip GNB/Footer logo images — keep them as actual logos
     wrapper.querySelectorAll('img').forEach(img => {
+      if (img.closest('.pl-gnb__logo, .pl-gnb__mobile-overlay-header')) return;
       const w = img.offsetWidth;
       const h = img.offsetHeight;
       const isInsideTabPanel = !!img.closest('.pl-tab-panel');
       const isInsideSlideCard = !!img.closest('.pl-slide-card, .pl-swipe-card');
+      const isHeroBg = !!img.closest('.pl-hero__bg, .pl-hero__video');
 
       const placeholder = document.createElement('div');
       placeholder.className = 'creative__img-placeholder';
@@ -714,7 +717,7 @@ class SectionCreative {
       let inputEl = '';
       if (isInsideTabPanel) {
         inputEl = `<textarea class="creative__img-placeholder-input creative__img-placeholder-input--tab" placeholder="어떤 이미지를 넣을지 설명해주세요 (탭 내용, 레이아웃, 분위기 등)"></textarea>`;
-      } else if (!isInsideSlideCard) {
+      } else if (!isInsideSlideCard && !isHeroBg) {
         inputEl = `<input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">`;
       }
 
@@ -731,6 +734,40 @@ class SectionCreative {
 
       img.replaceWith(placeholder);
     });
+
+    // Add image description input for hero full/video background (below CTA)
+    wrapper.querySelectorAll('.pl-hero--full, .pl-hero--video').forEach(hero => {
+      const target = hero.querySelector('.pl-hero__actions') || hero.querySelector('.pl-hero__content');
+      if (!target || target.querySelector('.creative__img-placeholder-input')) return;
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'creative__img-placeholder-input';
+      input.placeholder = '배경 이미지 설명';
+      input.style.marginTop = '16px';
+      input.addEventListener('click', (e) => e.stopPropagation());
+      target.appendChild(input);
+    });
+
+    // Add image description input inside slide/swipe cards
+    wrapper.querySelectorAll('.pl-slide-card, .pl-swipe-card').forEach(card => {
+      if (card.querySelector('.creative__img-placeholder-input')) return;
+      const isBgCard = card.classList.contains('pl-slide-card')
+        || card.classList.contains('pl-swipe-card--full')
+        || card.classList.contains('pl-swipe-card--overlay');
+      // Background cards: put in __content (visible above overlay)
+      // Split cards: put in __image (gray placeholder area)
+      const target = isBgCard
+        ? card.querySelector('.pl-slide-card__content, .pl-swipe-card__content')
+        : card.querySelector('.pl-swipe-card__image');
+      if (!target) return;
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'creative__img-placeholder-input';
+      input.placeholder = '이미지 설명';
+      input.style.marginTop = '8px';
+      input.addEventListener('click', (e) => e.stopPropagation());
+      target.appendChild(input);
+    });
   }
 
   initSectionJS(wrapper, type) {
@@ -743,6 +780,33 @@ class SectionCreative {
           item.classList.toggle('is-open', !isOpen);
           header.setAttribute('aria-expanded', !isOpen);
         });
+      });
+    }
+
+    // Stop card slide animation and unwrap swipe tracks in builder
+    if (type === 'about') {
+      wrapper.querySelectorAll('.pl-card-track').forEach(track => {
+        track.style.overflow = 'visible';
+      });
+      wrapper.querySelectorAll('.pl-card-track__inner').forEach(inner => {
+        inner.style.animation = 'none';
+        inner.style.width = 'auto';
+        inner.style.flexWrap = 'wrap';
+        inner.style.justifyContent = 'center';
+        inner.style.padding = '0 24px';
+        // Remove duplicate cards (kept for loop animation)
+        const cards = inner.querySelectorAll('.pl-slide-card');
+        const half = Math.ceil(cards.length / 2);
+        cards.forEach((card, i) => { if (i >= half) card.remove(); });
+      });
+      wrapper.querySelectorAll('.pl-swipe-track').forEach(track => {
+        track.style.overflowX = 'visible';
+      });
+      wrapper.querySelectorAll('.pl-swipe-track__inner').forEach(inner => {
+        inner.style.width = 'auto';
+        inner.style.flexWrap = 'wrap';
+        inner.style.justifyContent = 'center';
+        inner.style.paddingLeft = 'var(--pl-layout-padding)';
       });
     }
 
@@ -1587,11 +1651,15 @@ class SectionCreative {
   extractSectionText(wrapper, sectionType) {
     let text = '';
 
-    // Extract text content by element type
+    // Extract text content by element type (deduplicate, skip hidden)
+    const extracted = new Set();
     const extractText = (selector) => {
       const elements = wrapper.querySelectorAll(selector);
       if (elements.length > 0) {
         elements.forEach(el => {
+          if (extracted.has(el)) return;
+          if (el.closest('[style*="display: none"], [style*="display:none"]')) return;
+          extracted.add(el);
           const content = el.textContent.trim();
           if (content && content.length > 0) {
             text += `${content}\n`;
@@ -1603,16 +1671,39 @@ class SectionCreative {
 
     // Section title
     extractText('.pl-section-title__label');
-    extractText('.pl-section-title__heading, h1, h2');
-    extractText('.pl-section-title__description');
+    extractText('.pl-section-title__heading');
+    extractText('.pl-section-title__desc');
+    extractText('.pl-section-title__note');
 
     // Hero
     extractText('.pl-hero__title');
     extractText('.pl-hero__desc');
 
-    // Cards and items
-    extractText('.pl-list-card__title, .pl-benefit__card-title, .pl-step-text__title');
-    extractText('.pl-list-card__desc, .pl-benefit__card-sub, .pl-step-text__desc');
+    // Intro
+    extractText('.pl-intro__product-name');
+    extractText('.pl-intro__product-subtitle');
+    extractText('.pl-intro__feature-text');
+
+    // Cards and items (list, grid, slide, swipe)
+    extractText('.pl-list-card__title, .pl-grid-card__title, .pl-slide-card__title, .pl-swipe-card__title');
+    extractText('.pl-list-card__desc, .pl-grid-card__desc, .pl-slide-card__desc, .pl-swipe-card__desc');
+
+    // Benefit
+    extractText('.pl-benefit__card-title');
+    extractText('.pl-benefit__card-sub');
+
+    // Step
+    extractText('.pl-step-text__title, .pl-step-textonly__title');
+    extractText('.pl-step-text__desc, .pl-step-textonly__desc');
+
+    // About feature
+    extractText('.pl-about__feature-label');
+    extractText('.pl-about__feature-heading');
+    extractText('.pl-about__feature-desc');
+
+    // Review
+    extractText('.pl-review-highlight__desc');
+    extractText('.pl-review-card__content');
 
     // FAQ
     extractText('.pl-faq__question');
@@ -1621,6 +1712,10 @@ class SectionCreative {
     // CTA
     extractText('.pl-cta__title');
     extractText('.pl-cta__desc');
+    extractText('.pl-cta-floating__label, .pl-cta-floating-b__text');
+
+    // Caution
+    extractText('.pl-caution__text');
 
     // Buttons
     const buttons = wrapper.querySelectorAll('.pl-btn, .pl-cta__btn');
@@ -1629,6 +1724,21 @@ class SectionCreative {
       buttons.forEach(btn => {
         const btnText = btn.textContent.trim();
         if (btnText) text += `- ${btnText}\n`;
+      });
+      text += '\n';
+    }
+
+    // Image descriptions
+    const imgInputs = wrapper.querySelectorAll('.creative__img-placeholder-input');
+    const imgDescs = [];
+    imgInputs.forEach(input => {
+      const val = input.value.trim();
+      if (val) imgDescs.push(val);
+    });
+    if (imgDescs.length > 0) {
+      text += '이미지 설명:\n';
+      imgDescs.forEach(desc => {
+        text += `- ${desc}\n`;
       });
       text += '\n';
     }
@@ -1647,12 +1757,32 @@ class SectionCreative {
       btn.innerHTML = '<span class="creative__loading"></span>';
       btn.disabled = true;
 
+      // Replace inputs/textareas with visible text spans for capture
+      const replacements = [];
+      this.previewContent.querySelectorAll('.creative__img-placeholder-input').forEach(input => {
+        const val = input.value.trim();
+        if (val) {
+          const span = document.createElement('span');
+          span.textContent = val;
+          span.style.cssText = `font-size:15px;color:var(--pl-text-primary);white-space:pre-wrap;word-break:break-word;text-align:center;max-width:${input.classList.contains('creative__img-placeholder-input--tab') ? '640px' : '320px'};display:inline-block;`;
+          input.style.display = 'none';
+          input.parentNode.insertBefore(span, input.nextSibling);
+          replacements.push({ input, span });
+        }
+      });
+
       // Capture preview content
       const canvas = await html2canvas(this.previewContent, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
         backgroundColor: '#ffffff'
+      });
+
+      // Restore inputs
+      replacements.forEach(({ input, span }) => {
+        input.style.display = '';
+        span.remove();
       });
 
       // Download

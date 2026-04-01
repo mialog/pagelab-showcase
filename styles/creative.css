@@ -847,8 +847,8 @@
   width: 100%;
   max-width: 320px;
   padding: 8px 12px;
-  font-size: 13px;
-  color: var(--pl-text-secondary);
+  font-size: 15px;
+  color: var(--pl-text-primary);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-border-default);
   border-radius: 6px;
@@ -865,8 +865,8 @@
   text-align: left;
   line-height: 1.5;
   font-family: var(--pl-font-main);
-  font-size: 13px;
-  color: var(--pl-text-secondary);
+  font-size: 15px;
+  color: var(--pl-text-primary);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-border-default);
   border-radius: 6px;
@@ -880,6 +880,36 @@
 
 .creative__img-placeholder-input:focus {
   border-color: var(--pl-border-brand);
+}
+
+/* Input inside full-background cards (slide, swipe A/B) — above overlay */
+.pl-slide-card .creative__img-placeholder-input,
+.pl-swipe-card--full .creative__img-placeholder-input,
+.pl-swipe-card--overlay .creative__img-placeholder-input {
+  position: relative;
+  z-index: 5;
+}
+
+/* Slide/Swipe card image description input */
+.creative__img-placeholder-input--card {
+  max-width: 100%;
+  margin-top: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: #fff;
+  text-align: left;
+}
+
+.creative__img-placeholder-input--card::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.creative__img-placeholder-input--card:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 /* Fix button contenteditable styling */
