@@ -327,6 +327,11 @@
   border-top: 2px dashed var(--pl-border-light);
 }
 
+.creative__fixed-slot--floating-cta {
+  position: relative;
+  z-index: 10;
+}
+
 .creative__fixed-slot:has(.creative__section-wrapper) {
   border: none;
 }

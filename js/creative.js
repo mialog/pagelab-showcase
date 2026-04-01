@@ -11,6 +11,7 @@ class SectionCreative {
     this.currentTheme = 'light';
     this.headerSection = null;
     this.footerSection = null;
+    this.floatingCtaSection = null;
 
     // Section file mappings
     this.sectionFiles = {
@@ -60,6 +61,7 @@ class SectionCreative {
     this.bindElements();
     this.bindEvents();
     this.openAllCategories();
+    this.loadDefaultFixedSections();
   }
 
   bindElements() {
@@ -67,6 +69,7 @@ class SectionCreative {
     this.mainContent = document.getElementById('mainContent');
     this.headerSlot = document.getElementById('headerSlot');
     this.footerSlot = document.getElementById('footerSlot');
+    this.floatingCtaSlot = document.getElementById('floatingCtaSlot');
     this.emptyState = document.getElementById('emptyState');
     this.layersList = document.getElementById('layersList');
     this.layersEmpty = document.getElementById('layersEmpty');
@@ -171,6 +174,16 @@ class SectionCreative {
     });
   }
 
+  async loadDefaultFixedSections() {
+    // Auto-load GNB
+    const gnbItem = document.querySelector('.creative__item[data-type="navigation"][data-variant="gnb"]');
+    if (gnbItem) await this.addSection(gnbItem);
+
+    // Auto-load Footer
+    const footerItem = document.querySelector('.creative__item[data-type="navigation"][data-variant="footer"]');
+    if (footerItem) await this.addSection(footerItem);
+  }
+
   toggleCategory(header) {
     const category = header.closest('.creative__category');
     category.classList.toggle('is-open');
@@ -198,6 +211,10 @@ class SectionCreative {
     }
     if (isFooter && this.footerSection) {
       alert('푸터는 한 개만 추가할 수 있습니다.');
+      return;
+    }
+    if (type === 'cta' && variant === 'type-b-floating' && this.floatingCtaSection) {
+      alert('플로팅 CTA는 한 개만 추가할 수 있습니다.');
       return;
     }
 
@@ -228,12 +245,18 @@ class SectionCreative {
                      (type === 'about' && variant === 'type-e-tab') ? 'style-a' : undefined
         };
 
+        const isFloatingCta = type === 'cta' && variant === 'type-b-floating';
+
         if (isHeader) {
           this.headerSection = section;
           this.renderFixedSection(section, 'header');
         } else if (isFooter) {
           this.footerSection = section;
           this.renderFixedSection(section, 'footer');
+        } else if (isFloatingCta) {
+          section.isFixed = true;
+          this.floatingCtaSection = section;
+          this.renderFixedSection(section, 'floating-cta');
         } else {
           this.sections.push(section);
           this.renderSection(section);
@@ -335,6 +358,22 @@ class SectionCreative {
           html += '</div>';
           return this.adjustImagePaths(html);
         }
+      } else if (type === 'cta' && variant === 'type-b-floating') {
+        // Floating CTA: extract only buttons, not the background section
+        const styleSections = doc.querySelectorAll('.section-style');
+        if (styleSections.length > 0) {
+          let html = '<div class="creative__floating-cta-wrapper">';
+          styleSections.forEach(section => {
+            const buttons = section.querySelector('.pl-cta-floating__buttons');
+            if (buttons) {
+              const style = section.dataset.style;
+              const display = section.style.display;
+              html += `<div class="section-style" data-style="${style}" style="display:${display || 'block'};">${buttons.outerHTML}</div>`;
+            }
+          });
+          html += '</div>';
+          return this.adjustImagePaths(html);
+        }
       } else {
         // Get section element
         sectionEl = doc.querySelector('.pl-section, .pl-faq, .pl-benefit, .pl-step, .pl-cta');
@@ -396,7 +435,13 @@ class SectionCreative {
     wrapper.innerHTML = section.html;
 
     // Add to appropriate slot
-    const slot = position === 'header' ? this.headerSlot : this.footerSlot;
+    const slot = position === 'header' ? this.headerSlot
+      : position === 'floating-cta' ? this.floatingCtaSlot
+      : this.footerSlot;
+
+    if (position === 'floating-cta') {
+      slot.style.display = '';
+    }
 
     // Clear placeholder
     const placeholder = slot.querySelector('.creative__fixed-placeholder');
@@ -1120,6 +1165,11 @@ class SectionCreative {
             <span>푸터를 추가하려면 푸터 카테고리에서 Footer를 선택하세요</span>
           </div>
         `;
+      } else if (this.floatingCtaSection && this.floatingCtaSection.id === id) {
+        this.floatingCtaSection = null;
+        const wrapper = this.floatingCtaSlot.querySelector(`[data-section-id="${id}"]`);
+        if (wrapper) wrapper.remove();
+        this.floatingCtaSlot.style.display = 'none';
       }
     } else {
       // Remove from array

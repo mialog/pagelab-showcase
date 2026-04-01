@@ -50,14 +50,8 @@
 
         <!-- Section Categories -->
         <div class="creative__sections">
-          <!-- Navigation -->
-          <div class="creative__category">
-            <button class="creative__category-header" data-category="navigation">
-              <span>네비게이션</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </button>
+          <!-- Navigation (auto-loaded, hidden from sidebar) -->
+          <div class="creative__category" style="display:none;">
             <div class="creative__category-items" data-category="navigation">
               <button class="creative__item" data-type="navigation" data-variant="gnb">
                 <span class="creative__item-name">GNB (헤더)</span>
@@ -227,14 +221,8 @@
             </div>
           </div>
 
-          <!-- Footer -->
-          <div class="creative__category">
-            <button class="creative__category-header" data-category="footer">
-              <span>푸터</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </button>
+          <!-- Footer (auto-loaded, hidden from sidebar) -->
+          <div class="creative__category" style="display:none;">
             <div class="creative__category-items" data-category="footer">
               <button class="creative__item" data-type="navigation" data-variant="footer">
                 <span class="creative__item-name">Footer</span>
@@ -349,6 +337,9 @@
                 </div>
                 <!-- Sections will be inserted here -->
               </div>
+
+              <!-- Floating CTA Slot (above footer) -->
+              <div class="creative__fixed-slot creative__fixed-slot--floating-cta" id="floatingCtaSlot" style="display:none;"></div>
 
               <!-- Fixed Footer Slot -->
               <div class="creative__fixed-slot creative__fixed-slot--footer" id="footerSlot">
