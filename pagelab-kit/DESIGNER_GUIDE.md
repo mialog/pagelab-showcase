@@ -12,20 +12,22 @@ PageLab의 섹션 시스템을 실제 프로젝트에 활용하기 위한 최소
 
 ```
 pagelab-kit/
-├── index.html          ← 실제 랜딩 페이지 (여기에 섹션 조합)
+├── index.html                  ← 실제 랜딩 페이지 (여기에 섹션 조합)
 ├── tokens/
-│   └── base.css        ← 브랜드 컬러 등 디자인 토큰 (여기만 수정)
+│   ├── base.css                ← PageLab 시스템 토큰 (수정 금지)
+│   └── campaign-project.css    ← 캠페인 시즌 컬러 (시즌마다 교체)
 ├── styles/
-│   ├── sections.css    ← 섹션 스타일 (수정 금지)
-│   └── components.css  ← 버튼 등 공통 컴포넌트 (수정 금지)
+│   ├── sections.css            ← 섹션 스타일 (수정 금지)
+│   └── components.css          ← 버튼 등 공통 컴포넌트 (수정 금지)
 ├── scripts/
-│   └── components.js   ← pl-section-title Web Component (수정 금지)
-├── images/             ← 실제 프로젝트 이미지 여기에 넣기
-└── AI_GUIDE.md         ← Claude Code 규칙서 (Claude에게 참고시킬 것)
+│   └── components.js           ← pl-section-title Web Component (수정 금지)
+├── images/                     ← 실제 프로젝트 이미지 여기에 넣기
+├── CLAUDE.md                   ← Claude Code 규칙 요약
+└── AI_GUIDE.md                 ← Claude Code 상세 규칙서
 ```
 
-> **sections.css, components.css, components.js는 수정하지 않습니다.**
-> 커스터마이징은 반드시 `tokens/base.css` 토큰 값 변경으로만 합니다.
+> **sections.css, components.css, components.js, base.css는 수정하지 않습니다.**
+> 브랜드 컬러 변경은 Figma 변수로 하거나, brand-override.css를 추가합니다.
 
 ---
 
@@ -46,11 +48,28 @@ pagelab-kit/
 이 폴더를 열고 Claude Code에게 아래 순서로 요청합니다.
 
 **① 브랜드 컬러 적용**
+
+Figma가 있는 경우:
+- Figma Variables에서 brand 토큰 값을 변경 → JSON export → base.css 재생성
+- 별도 파일 필요 없음
+
+Figma 없이 직접 지정하는 경우:
 ```
-tokens/base.css의 브랜드 토큰을 아래 컬러로 바꿔줘.
-- 브랜드 메인: #FF6B35
-- 브랜드 라이트: #FFF0EA
-AI_GUIDE.md 기준으로 시맨틱 토큰 체계 유지해줘.
+brand-override.css 파일을 tokens/ 폴더에 만들고
+아래 컬러로 브랜드 토큰을 오버라이드해줘.
+
+브랜드 메인: #FF6B35
+브랜드 서브: #2D4A52
+```
+(자세한 방법은 아래 "Figma 없이 브랜드 컬러 변경하기" 참고)
+
+**② 캠페인 컬러 적용**
+```
+campaign-project.css 파일명을 프로젝트명으로 바꾸고
+아래 캠페인 컬러를 적용해줘.
+
+캠페인 포인트: #9B6BF4
+캠페인 배경: #F6F2FC
 ```
 
 **② 섹션 조합**
@@ -106,21 +125,70 @@ PageLab Showcase에서 섹션 미리보기 확인:
 
 ---
 
-## 브랜드 토큰 변경 위치
+## 토큰 구조
 
-`tokens/base.css`에서 아래 변수만 수정합니다.
+### 기본 동작
+`base.css`에 모든 시맨틱 토큰이 정의되어 있고, `sections.css`가 이 토큰을 참조합니다.
+브랜드 컬러를 바꾸면 전체 UI가 한번에 바뀝니다.
+
+### 캠페인 토큰 (`tokens/campaign-project.css`)
+시즌/캠페인마다 교체. 이 파일만 바꾸면 분위기 전환됩니다.
 
 ```css
-/* 브랜드 컬러 — 여기만 수정 */
---pl-bg-brand-light: #YOUR_COLOR;
---pl-bg-brand-dark:  #YOUR_DARK_COLOR;
---pl-text-brand-light: #YOUR_COLOR;
---pl-text-brand-dark:  #YOUR_DARK_COLOR;
---pl-border-brand-light: #YOUR_COLOR;
---pl-border-brand-dark:  #YOUR_DARK_COLOR;
+--pl-campaign-primary: #YOUR_COLOR;  /* 탭, 포인트 컬러 */
+--pl-campaign-bg:      #YOUR_BG;     /* intro/about 배경 등 넓은 면적 */
 ```
 
-> 스케일 토큰(`--pl-color-*`)은 직접 수정하지 않습니다.
+---
+
+## Figma 없이 브랜드 컬러 변경하기
+
+Figma 변수 파이프라인 없이도 브랜드 컬러를 변경할 수 있습니다.
+`tokens/brand-override.css` 파일을 만들고 sections.css **뒤에** 로드합니다.
+
+**index.html 로드 순서:**
+```html
+<link rel="stylesheet" href="tokens/base.css">
+<link rel="stylesheet" href="tokens/campaign-project.css">
+<link rel="stylesheet" href="styles/sections.css">
+<link rel="stylesheet" href="styles/dark-mode.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="tokens/brand-override.css"> <!-- 마지막에 로드 -->
+```
+
+**brand-override.css 예시:**
+```css
+:root {
+  /* 브랜드 메인 — 헥스값만 교체 */
+  --pl-text-brand:        #E60012;
+  --pl-bg-brand:          #E60012;
+  --pl-border-brand:      #E60012;
+  --pl-icon-brand:        #E60012;
+  --pl-bg-brand-light:    #FEF2F3;
+
+  /* 브랜드 서브 */
+  --pl-text-brand-sub:    #5A7781;
+  --pl-bg-brand-sub:      #5A7781;
+  --pl-border-brand-sub:  #5A7781;
+  --pl-icon-brand-sub:    #5A7781;
+
+  /* Alpha (브랜드 메인 + 투명도) */
+  --pl-alpha-brand-08:    #E6001214;
+  --pl-alpha-brand-12:    #E600121e;
+  --pl-alpha-brand-24:    #E600123d;
+  --pl-alpha-brand-32:    #E6001251;
+  --pl-alpha-brand-48:    #E600127a;
+
+  /* Shadow */
+  --pl-shadow-brand:      0 4px 20px rgba(230, 0, 18, 0.12);
+  --pl-shadow-accent:     0 4px 16px rgba(230, 0, 18, 0.08);
+}
+```
+
+> alpha 값은 `브랜드 헥스코드 + 투명도 hex`로 구성됩니다.
+> 예: `#E60012` + `14`(8%) = `#E6001214`
+
+> `base.css`, `sections.css`, `components.css`는 수정하지 않습니다.
 
 ---
 

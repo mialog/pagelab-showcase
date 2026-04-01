@@ -28,7 +28,8 @@
 }
 
 /* Common Section Base Styles */
-/* Heading margin reset (browser UA 기본값 제거) */
+/* Browser UA 기본값 제거 */
+body { margin: 0; overflow-x: hidden; }
 h1, h2, h3, h4, h5, h6 { margin: 0; }
 p { margin: 0; }
 
@@ -39,7 +40,7 @@ p { margin: 0; }
   container-name: section;
   width: 100%;
   margin: 0 auto;
-  padding: 0 var(--pl-layout-hor-padding, 40px); /* 기본 좌우 패딩 */
+  padding: 0;
 }
 
 .pl-section__container {
@@ -47,6 +48,8 @@ p { margin: 0; }
   width: 100%;
   max-width: var(--pl-container-default);
   margin: 0 auto;
+  padding-left: var(--pl-layout-padding);
+  padding-right: var(--pl-layout-padding);
 }
 
 /* NOTE: Label and Button styles moved to components.css */
@@ -155,7 +158,7 @@ p { margin: 0; }
 
 .pl-hero--center .pl-hero__title {
   font-family: var(--pl-font-point); /* ONE Mobile Title */
-  color: var(--pl-lightblue-50); /* Figma: #15b2f1 - 스케일 토큰 고정 (라이트/다크 공통) */
+  color: var(--pl-text-brand);
   font-size: var(--pl-font-size-display-md); /* Figma: 48px */
   font-weight: 400; /* ONE Mobile Title은 400 단일 weight */
 }
@@ -169,7 +172,7 @@ p { margin: 0; }
   flex-direction: column;
   align-items: center;
   gap: var(--pl-spacing-9); /* Figma: 40px, content→image gap */
-  padding: var(--pl-spacing-11) 0 0 0; /* Figma: 60px top padding */
+  padding-top: var(--pl-spacing-11); /* Figma: 60px top padding */
 }
 
 .pl-hero--center .pl-hero__content {
@@ -199,8 +202,8 @@ p { margin: 0; }
 
 /* Hero Type B - Outlined Button (Cyan/시안 색상) - Figma 스펙 */
 .pl-hero--center .pl-btn--outline {
-  border-color: var(--pl-lightblue-50); /* 스케일 토큰: 항상 #15b1f1 */
-  color: var(--pl-lightblue-50);
+  border-color: var(--pl-border-brand);
+  color: var(--pl-text-brand);
   background: var(--pl-neutral-0); /* 스케일 토큰: 항상 white */
 }
 
@@ -209,11 +212,11 @@ p { margin: 0; }
 }
 
 .pl-hero--center .pl-btn--outline:hover::before {
-  background: rgba(21, 178, 241, 0.12); /* var(--pl-text-brand) at 12% */
+  background: var(--pl-alpha-brand-12); /* var(--pl-text-brand) at 12% */
 }
 
 .pl-hero--center .pl-btn--outline:active::before {
-  background: rgba(21, 178, 241, 0.24); /* var(--pl-text-brand) at 24% */
+  background: var(--pl-alpha-brand-24); /* var(--pl-text-brand) at 24% */
 }
 
 /* ============================================
@@ -289,10 +292,6 @@ p { margin: 0; }
    Hero Responsive - Tablet (Container Query)
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
-  .pl-section {
-    padding: 0 var(--pl-spacing-8); /* Tablet: Figma 32px 좌우 패딩 */
-  }
-
   .pl-hero--split .pl-hero__content {
     max-width: 50%;
   }
@@ -372,10 +371,6 @@ p { margin: 0; }
    text gap: var(--pl-spacing-7), title: 30px, desc: 16px, label: 17px
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
-  .pl-section {
-    padding: 0 var(--pl-spacing-6); /* Mo: layout-padding 20px 좌우 패딩 */
-  }
-
   /* Type A (Split) 모바일 */
   .pl-hero--split {
     min-height: auto;
@@ -464,7 +459,7 @@ p { margin: 0; }
   }
 
   .pl-hero--center .pl-hero__container {
-    padding: var(--pl-spacing-13) 0 0 0; /* spacing-13 전체 해상도 통일 */
+    padding-top: var(--pl-spacing-13); /* spacing-13 전체 해상도 통일 */
     gap: var(--pl-spacing-9); /* Figma: 40px gap between content and image */
   }
 
@@ -671,7 +666,7 @@ p { margin: 0; }
 }
 
 .pl-intro--textblock {
-  background: var(--pl-violet-5);
+  background: var(--pl-campaign-bg);
   padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
 }
 
@@ -696,7 +691,7 @@ p { margin: 0; }
   font-size: var(--pl-font-size-label-md);
   font-weight: var(--pl-font-weight-bold);
   line-height: var(--pl-line-height-default);
-  color: var(--pl-static-violet);
+  color: var(--pl-text-brand);
   text-align: center;
 }
 
@@ -859,7 +854,7 @@ p { margin: 0; }
   font-size: var(--pl-font-size-display-lg);
   font-weight: var(--pl-font-weight-bold);
   line-height: var(--pl-line-height-title);
-  color: var(--pl-text-accent);
+  color: var(--pl-text-brand-sub);
   text-align: center;
 }
 
@@ -1236,7 +1231,7 @@ p { margin: 0; }
 }
 
 .pl-about--list {
-  background: var(--pl-violet-5); /* Figma: #f6f2fc */
+  background: var(--pl-campaign-bg);
   padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-14);
 }
 
@@ -1960,11 +1955,11 @@ p { margin: 0; }
 
 /* Figma: hover = accent 12%, pressed = accent 24% */
 .pl-swipe-card--full:hover::after {
-  background: rgba(21, 178, 241, 0.12);
+  background: var(--pl-alpha-brand-12);
 }
 
 .pl-swipe-card--full:active::after {
-  background: rgba(21, 178, 241, 0.24);
+  background: var(--pl-alpha-brand-24);
 }
 
 .pl-swipe-card__image {
@@ -2094,7 +2089,7 @@ p { margin: 0; }
 }
 
 .pl-swipe-card--overlay .pl-swipe-card__link:hover {
-  background: rgba(21, 178, 241, 0.08);
+  background: var(--pl-alpha-brand-08);
 }
 
 .pl-swipe-card--overlay .pl-swipe-card__link svg {
@@ -2165,7 +2160,7 @@ p { margin: 0; }
 }
 
 .pl-swipe-card--split .pl-swipe-card__link:hover {
-  background: rgba(21, 178, 241, 0.08);
+  background: var(--pl-alpha-brand-08);
 }
 
 .pl-swipe-card--split .pl-swipe-card__link svg {
@@ -2409,7 +2404,7 @@ p { margin: 0; }
 }
 
 .pl-tab-btn:hover {
-  background: var(--pl-blue-5);
+  background: var(--pl-bg-brand-light);
 }
 
 .pl-tab-btn.is-active {
@@ -2518,7 +2513,7 @@ p { margin: 0; }
    Type E Tab - Style B (Pill Style)
    ============================================ */
 .pl-tab-nav--style-b {
-  background: var(--pl-violet-50);
+  background: var(--pl-campaign-primary);
   border-radius: var(--pl-radius-5); /* Figma: 32px */
   padding: var(--pl-spacing-3) var(--pl-spacing-4); /* Figma: 12px 16px */
   gap: var(--pl-spacing-3); /* Figma: 12px */
@@ -2536,7 +2531,7 @@ p { margin: 0; }
 }
 
 .pl-tab-nav--style-b .pl-tab-btn.is-active {
-  color: var(--pl-violet-50);
+  color: var(--pl-campaign-primary);
   background: var(--pl-neutral-0);
 }
 
@@ -2599,7 +2594,7 @@ p { margin: 0; }
   }
 
   .pl-tab-nav-mobile--style-a .pl-tab-btn:hover {
-    background: var(--pl-blue-5);
+    background: var(--pl-bg-brand-light);
   }
 
   .pl-tab-nav-mobile--style-a .pl-tab-btn.is-active {
@@ -2624,7 +2619,7 @@ p { margin: 0; }
     align-items: center;
     justify-content: center;
     gap: var(--pl-spacing-3); /* Figma: 12px */
-    background: var(--pl-violet-50);
+    background: var(--pl-campaign-primary);
     border-radius: 999px;
     padding: var(--pl-spacing-3) var(--pl-spacing-3); /* Figma: 8px horizontal padding */
     width: 320px; /* Figma: 320px */
@@ -2666,7 +2661,7 @@ p { margin: 0; }
 
   .pl-tab-nav-mobile--style-b .pl-tab-btn.is-active {
     font-weight: var(--pl-font-weight-bold);
-    color: var(--pl-violet-50);
+    color: var(--pl-campaign-primary);
     background: var(--pl-neutral-0);
   }
 }
@@ -2751,7 +2746,8 @@ p { margin: 0; }
   display: flex;
   flex-direction: column;
   gap: var(--pl-spacing-12); /* Figma: title to cards gap */
-  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  padding-top: var(--pl-layout-body-top);
+  padding-bottom: var(--pl-layout-body-bottom);
 }
 
 /* Star Icons */
@@ -2894,7 +2890,8 @@ p { margin: 0; }
 @container section (max-width: 1199px) /* Ta */ {
   .pl-review__container {
     gap: var(--pl-spacing-10);
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0;
+    padding-top: var(--pl-layout-body-top);
+    padding-bottom: var(--pl-layout-body-bottom);
   }
 
   .pl-star {
@@ -2924,7 +2921,8 @@ p { margin: 0; }
 @container section (max-width: 639px) /* Mo */ {
   .pl-review__container {
     gap: 52px; /* Figma: title to cards gap */
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+    padding-top: var(--pl-layout-body-top);
+    padding-bottom: var(--pl-layout-body-bottom);
   }
 
   .pl-star {
@@ -2985,7 +2983,8 @@ p { margin: 0; }
   flex-direction: column;
   align-items: center;
   gap: var(--pl-spacing-12); /* Figma: title to grid gap */
-  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  padding-top: var(--pl-layout-body-top);
+  padding-bottom: var(--pl-layout-body-bottom);
 }
 
 /* Review Card Grid */
@@ -3090,7 +3089,8 @@ p { margin: 0; }
 @container section (max-width: 1199px) /* Ta */ {
   .pl-review--grid .pl-review__container {
     gap: var(--pl-spacing-11); /* Figma: title to grid gap */
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+    padding-top: var(--pl-layout-body-top);
+    padding-bottom: var(--pl-layout-body-bottom);
   }
 
   .pl-review-grid {
@@ -3141,7 +3141,8 @@ p { margin: 0; }
 @container section (max-width: 639px) /* Mo */ {
   .pl-review--grid .pl-review__container {
     gap: 52px;
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+    padding-top: var(--pl-layout-body-top);
+    padding-bottom: var(--pl-layout-body-bottom);
   }
 
   .pl-review-grid {
@@ -3201,7 +3202,8 @@ p { margin: 0; }
   flex-direction: column;
   align-items: center;
   gap: var(--pl-spacing-12); /* Figma: title to slider gap */
-  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+  padding-top: var(--pl-layout-body-top);
+  padding-bottom: var(--pl-layout-body-bottom);
 }
 
 /* Review Slider */
@@ -3322,7 +3324,8 @@ p { margin: 0; }
 @container section (max-width: 1199px) /* Ta */ {
   .pl-review--slider .pl-review__container {
     gap: var(--pl-spacing-11);
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0;
+    padding-top: var(--pl-layout-body-top);
+    padding-bottom: var(--pl-layout-body-bottom);
   }
 
   .pl-review-slider {
@@ -3350,7 +3353,8 @@ p { margin: 0; }
 @container section (max-width: 639px) /* Mo */ {
   .pl-review--slider .pl-review__container {
     gap: 52px;
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+    padding-top: var(--pl-layout-body-top);
+    padding-bottom: var(--pl-layout-body-bottom);
   }
 
   .pl-review-slider {
@@ -3427,7 +3431,7 @@ p { margin: 0; }
 
 /* Small Benefit Card */
 .pl-benefit__card--small {
-  background: var(--pl-blue-5); /* #edf8fc from Figma */
+  background: var(--pl-bg-brand-light); /* #edf8fc from Figma */
   padding: var(--pl-spacing-8) var(--pl-spacing-10); /* 32px 40px from Figma */
   display: flex;
   flex-direction: column;
@@ -4702,7 +4706,7 @@ p { margin: 0; }
   width: 284px; /* Figma: 284px card width */
   height: 273px; /* Figma: 273px card height */
   padding: 40px 20px 60px; /* Figma: 40px top, 20px left/right, 60px bottom */
-  background: #edf8fc; /* Figma: light blue background */
+  background: var(--pl-bg-brand-light);
   border-radius: 18px; /* Figma: 18px border radius */
 }
 
@@ -5256,7 +5260,7 @@ p { margin: 0; }
 }
 
 .pl-cta__btn--outline:hover {
-  background: var(--pl-blue-5);
+  background: var(--pl-bg-brand-light);
 }
 
 .pl-cta__btn--filled {
@@ -5266,8 +5270,8 @@ p { margin: 0; }
 }
 
 .pl-cta__btn--filled:hover {
-  background: var(--pl-blue-60);
-  border-color: var(--pl-blue-60);
+  background: var(--pl-alpha-brand-12);
+  border-color: var(--pl-alpha-brand-12);
 }
 
 /* ============================================
@@ -5439,13 +5443,13 @@ p { margin: 0; }
 
 /* Active/Pressed: 시안색 24% 오버레이 (테두리 없음) */
 .pl-cta-floating__btn:active::before {
-  background: rgba(21, 178, 241, 0.24);
+  background: var(--pl-alpha-brand-24);
 }
 
 /* Focus: 시안색 24% 오버레이 + 48% 테두리 */
 .pl-cta-floating__btn:focus-visible::before {
-  background: rgba(21, 178, 241, 0.24);
-  box-shadow: inset 0 0 0 2px rgba(21, 178, 241, 0.48);
+  background: var(--pl-alpha-brand-24);
+  box-shadow: inset 0 0 0 2px var(--pl-alpha-brand-48);
 }
 
 /* Disabled 상태 */
@@ -6140,7 +6144,7 @@ p { margin: 0; }
 .pl-gnb--dark .pl-gnb__menu-item.is-active {
   color: var(--pl-neutral-0);
   font-weight: 700;
-  background: rgba(21, 177, 241, 0.12);
+  background: var(--pl-alpha-brand-12);
 }
 
 .pl-gnb--dark .pl-gnb__menu-item.is-disabled {
@@ -6253,7 +6257,7 @@ p { margin: 0; }
 
 [data-theme="dark"] .pl-gnb__menu-item.is-active {
   color: var(--pl-neutral-0);
-  background: rgba(21, 177, 241, 0.12);
+  background: var(--pl-alpha-brand-12);
 }
 
 [data-theme="dark"] .pl-gnb__mobile-menu {
@@ -6653,7 +6657,7 @@ p { margin: 0; }
 }
 
 .pl-footer__app-btn:hover {
-  background: rgba(21, 178, 241, 0.08);
+  background: var(--pl-alpha-brand-08);
 }
 
 /* Footer Copyright */
@@ -7030,12 +7034,8 @@ p { margin: 0; }
   object-fit: contain;
 }
 
-.pl-about__feature-image--pink {
-  background: var(--pl-pink-5);
-}
-
-.pl-about__feature-image--violet {
-  background: var(--pl-violet-5);
+.pl-about__feature-image--grey {
+  background: var(--pl-bg-neutral);
 }
 
 /* ── 인라인 목업 (이미지 없을 때) ── */
@@ -7127,7 +7127,7 @@ p { margin: 0; }
 }
 
 .pl-mockup-card__body {
-  background: var(--pl-violet-5);
+  background: var(--pl-campaign-bg);
   border-radius: var(--pl-radius-2);
   padding: var(--pl-spacing-5);
   font-size: var(--pl-font-size-label-md);
@@ -7191,7 +7191,7 @@ p { margin: 0; }
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 2px solid var(--pl-static-violet);
+  border: 2px solid var(--pl-border-brand);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7200,8 +7200,8 @@ p { margin: 0; }
   margin-top: 2px;
 }
 
-.pl-mockup-seq__check--done { color: var(--pl-static-violet); }
-.pl-mockup-seq__check--check { color: var(--pl-static-violet); }
+.pl-mockup-seq__check--done { color: var(--pl-icon-brand); }
+.pl-mockup-seq__check--check { color: var(--pl-icon-brand); }
 
 .pl-mockup-seq__name {
   font-size: var(--pl-font-size-label-md);

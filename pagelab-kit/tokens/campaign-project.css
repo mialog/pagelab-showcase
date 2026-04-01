@@ -1,0 +1,29 @@
+/* ============================================
+   Campaign Tokens — 템플릿
+
+   사용 방법:
+   1. 이 파일을 campaign-[캠페인명].css로 복사
+   2. --pl-campaign-* 값을 캠페인 컬러로 교체
+   3. 시즌/캠페인 교체 시 이 파일만 새 파일로 바꿈
+   ============================================ */
+
+:root {
+  --pl-campaign-primary:   #000000;  /* 캠페인 포인트 컬러 */
+  --pl-campaign-bg:        #F5F5F5;  /* 캠페인 배경 컬러 */
+  /* --pl-campaign-secondary: 필요시 추가 */
+}
+
+/* ============================================
+   sections.css 선택적 오버라이드
+   필요한 항목만 주석 해제하여 사용
+   ============================================ */
+
+/* Intro textblock 배경 */
+.pl-intro--textblock {
+  background: var(--pl-campaign-bg);
+}
+
+/* 섹션 타이틀 라벨 (기본값: --pl-static-violet 고정) */
+.pl-section-title__label {
+  color: var(--pl-campaign-primary);
+}

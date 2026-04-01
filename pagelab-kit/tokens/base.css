@@ -267,6 +267,7 @@
   --pl-text-caution-dark: #a37402;
   --pl-text-brand: #15b1f1;
   --pl-text-brand-dark: #06435b;
+  --pl-text-brand-sub: #45b97c;
   --pl-text-positive: #45b97c;
   --pl-text-negative: #e04d52;
 
@@ -297,6 +298,7 @@
   --pl-bg-neutral-dark: #d4dce2;
   --pl-bg-positive-dark: #167d46;
   --pl-bg-negative: #e04d52;
+  --pl-bg-brand-sub: #45b97c;
   --pl-bg-default: #ffffff;
   --pl-bg-negative-light: #fef5f5;
 
@@ -323,6 +325,7 @@
   --pl-border-dark: #8c97a0;
   --pl-border-positive-dark: #167d46;
   --pl-border-brand-light: #8ddaf9;
+  --pl-border-brand-sub: #45b97c;
   --pl-border-caution-dark: #a37402;
   --pl-border-light: #d4dce2;
 
@@ -350,6 +353,7 @@
   --pl-icon-accent: #416df0;
   --pl-icon-accent-dark: #082271;
   --pl-icon-accent-light: #b7c8ff;
+  --pl-icon-brand-sub: #45b97c;
   --pl-icon-link: #9b6bf4;
   --pl-icon-link-sub: #8c97a0;
 
