@@ -64,7 +64,8 @@ button {
 }
 
 .showcase__header-inner {
-  padding: var(--pl-spacing-4) var(--pl-layout-padding);
+  height: var(--pl-gnb-height);
+  padding: 0 var(--pl-layout-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;

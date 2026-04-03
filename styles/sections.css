@@ -1072,9 +1072,7 @@ p { margin: 0; }
 }
 
 .pl-intro__product-image--placeholder::after {
-  content: 'Product Image';
-  font-size: var(--pl-font-size-body-md);
-  color: var(--pl-text-lowest);
+  content: '';
 }
 
 /* 오른쪽: 제품 정보 */
