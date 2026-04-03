@@ -37,8 +37,12 @@ class SectionCreative {
       'review-type-b-card-grid': 'sections/review/type-b-card-grid.html',
       'review-type-c-card-slider': 'sections/review/type-c-card-slider.html',
       'faq-index': 'sections/faq/index.html',
+      'hero-type-d-video': 'sections/hero/type-d-video.html',
+      'intro-type-d-product-split': 'sections/intro/type-d-product-split.html',
+      'about-type-g-feature-alt': 'sections/about/type-g-feature-alt.html',
       'cta-type-a-finish': 'sections/cta/type-a-finish.html',
       'cta-type-b-floating': 'sections/cta/type-b-floating.html',
+      'cta-type-c-floating-b': 'sections/cta/type-c-floating-b.html',
     };
 
     // Section display names
@@ -61,7 +65,6 @@ class SectionCreative {
     this.bindElements();
     this.bindEvents();
     this.openAllCategories();
-    this.loadDefaultFixedSections();
   }
 
   bindElements() {
@@ -175,13 +178,30 @@ class SectionCreative {
   }
 
   async loadDefaultFixedSections() {
-    // Auto-load GNB
-    const gnbItem = document.querySelector('.creative__item[data-type="navigation"][data-variant="gnb"]');
-    if (gnbItem) await this.addSection(gnbItem);
+    // GNB/Footer 로딩 중 auto-save 억제 (타이밍 충돌 방지)
+    this._suppressAutoSave = true;
+    let changed = false;
 
-    // Auto-load Footer
-    const footerItem = document.querySelector('.creative__item[data-type="navigation"][data-variant="footer"]');
-    if (footerItem) await this.addSection(footerItem);
+    // Auto-load GNB — 슬롯에 실제로 렌더링된 래퍼가 없을 때만 로드
+    const headerRendered = this.headerSlot?.querySelector('.creative__section-wrapper');
+    if (!headerRendered) {
+      this.headerSection = null;
+      const gnbItem = document.querySelector('.creative__item[data-type="navigation"][data-variant="gnb"]');
+      if (gnbItem) { await this.addSection(gnbItem); changed = true; }
+    }
+
+    // Auto-load Footer — 슬롯에 실제로 렌더링된 래퍼가 없을 때만 로드
+    const footerRendered = this.footerSlot?.querySelector('.creative__section-wrapper');
+    if (!footerRendered) {
+      this.footerSection = null;
+      const footerItem = document.querySelector('.creative__item[data-type="navigation"][data-variant="footer"]');
+      if (footerItem) { await this.addSection(footerItem); changed = true; }
+    }
+
+    this._suppressAutoSave = false;
+
+    // GNB/Footer 새로 로드된 경우 한 번만 저장
+    if (changed) this.saveState();
   }
 
   toggleCategory(header) {
@@ -236,13 +256,16 @@ class SectionCreative {
           // Add card count for benefit plus type
           cardCount: (type === 'benefit' && variant === 'type-a-plus') ? 4 : undefined,
           // Add card functionality for about card types and step image type
-          hasAddCard: (type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe'].includes(variant)) ||
+          hasAddCard: (type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe', 'type-g-feature-alt'].includes(variant)) ||
                       (type === 'step' && variant === 'type-a-img'),
-          // Add card style selection for grid, swipe, and tab types
-          hasStyleControl: type === 'about' && ['type-b-grid', 'type-d-card-swipe', 'type-e-tab'].includes(variant),
+          // Add card style selection for grid, swipe, tab types and floating CTA
+          hasStyleControl: (type === 'about' && ['type-b-grid', 'type-d-card-swipe', 'type-e-tab'].includes(variant)) ||
+                           (type === 'cta' && variant === 'type-b-floating'),
           cardStyle: (type === 'about' && variant === 'type-b-grid') ? 'image-top' :
                      (type === 'about' && variant === 'type-d-card-swipe') ? 'card-a' :
-                     (type === 'about' && variant === 'type-e-tab') ? 'style-a' : undefined
+                     (type === 'about' && variant === 'type-e-tab') ? 'style-a' :
+                     (type === 'cta' && variant === 'type-b-floating') ? 'style-a' : undefined,
+          btnCount: (type === 'cta' && variant === 'type-b-floating') ? '2btn' : undefined
         };
 
         const isFloatingCta = type === 'cta' && variant === 'type-b-floating';
@@ -264,6 +287,7 @@ class SectionCreative {
 
         this.updateLayersList();
         this.updateUI();
+        this.scheduleAutoSave(); // 섹션 추가 즉시 저장
       }
     } catch (error) {
       console.error('Failed to load section:', error);
@@ -283,7 +307,6 @@ class SectionCreative {
           `<!DOCTYPE html><html><body>${match}</body></html>`, 'text/html'
         );
         const el = miniDoc.body.querySelector('pl-section-title');
-        console.log('[expand inner]', 'el found:', !!el, 'note attr:', el ? el.getAttribute('note') : 'NO_EL', 'match preview:', match.slice(0, 100));
         if (!el) return match;
 
         const label = el.getAttribute('label') || '';
@@ -311,10 +334,6 @@ class SectionCreative {
       // Expand pl-section-title to plain HTML before DOMParser sees it
       // (avoids all custom element lifecycle issues)
       const text = this.expandSectionTitlesInText(rawText);
-      // DEBUG: check if transformation worked
-      const m = text.match(/pl-section-title__note[^<]*<\/p>/);
-      console.log('[pl-section-title debug]', filePath, 'has note:', text.includes('pl-section-title__note'), 'note sample:', m ? m[0].slice(0, 60) : 'NONE', 'still has custom el:', text.includes('<pl-section-title'));
-
       // Parse the HTML
       const parser = new DOMParser();
       const doc = parser.parseFromString(text, 'text/html');
@@ -359,21 +378,38 @@ class SectionCreative {
           return this.adjustImagePaths(html);
         }
       } else if (type === 'cta' && variant === 'type-b-floating') {
-        // Floating CTA: extract only buttons, not the background section
-        const styleSections = doc.querySelectorAll('.section-style');
-        if (styleSections.length > 0) {
-          let html = '<div class="creative__floating-cta-wrapper">';
-          styleSections.forEach(section => {
-            const buttons = section.querySelector('.pl-cta-floating__buttons');
-            if (buttons) {
-              const style = section.dataset.style;
-              const display = section.style.display;
-              html += `<div class="section-style" data-style="${style}" style="display:${display || 'block'};">${buttons.outerHTML}</div>`;
+        // Floating CTA: load both type-b and type-c, combine as style-a/style-b
+        const extractFloatingHtml = (d, isTypeC) => {
+          const styleSections = d.querySelectorAll('.section-style');
+          let html = '';
+          styleSections.forEach(s => {
+            const inner = isTypeC
+              ? s.querySelector('.pl-cta-floating-b')
+              : s.querySelector('.pl-cta-floating__buttons');
+            if (inner) {
+              const st = s.dataset.style;
+              const disp = s.style.display;
+              html += `<div class="section-style" data-style="${st}" style="display:${disp || 'block'};">${inner.outerHTML}</div>`;
             }
           });
-          html += '</div>';
-          return this.adjustImagePaths(html);
-        }
+          return html;
+        };
+
+        const styleAHtml = extractFloatingHtml(doc, false);
+
+        let styleBHtml = '';
+        try {
+          const respC = await fetch('sections/cta/type-c-floating-b.html');
+          const rawC = this.expandSectionTitlesInText(await respC.text());
+          const docC = new DOMParser().parseFromString(rawC, 'text/html');
+          styleBHtml = extractFloatingHtml(docC, true);
+        } catch (e) { console.warn('type-c-floating-b load failed', e); }
+
+        const html = `<div class="creative__floating-cta-wrapper">
+          <div class="creative__cta-variant" data-cta-variant="style-a">${styleAHtml}</div>
+          <div class="creative__cta-variant" data-cta-variant="style-b" style="display:none;">${styleBHtml}</div>
+        </div>`;
+        return this.adjustImagePaths(html);
       } else {
         // Get section element
         sectionEl = doc.querySelector('.pl-section, .pl-faq, .pl-benefit, .pl-step, .pl-cta');
@@ -461,11 +497,31 @@ class SectionCreative {
     this.initSectionJS(wrapper, section.type);
   }
 
+  stripEditableArtifacts(wrapper) {
+    // 저장된 HTML에 포함된 편집 흔적 제거 (이벤트 없는 버튼 + contenteditable)
+    wrapper.querySelectorAll(
+      '.creative__text-delete, .creative__block-delete, .creative__tab-delete, .creative__btn-delete, .creative__img-placeholder-input'
+    ).forEach(el => el.remove());
+    // feature-label 텍스트 span 언래핑 (저장 시 이미 처리되지만 안전장치)
+    wrapper.querySelectorAll('.creative__feature-label-text').forEach(span => {
+      span.replaceWith(document.createTextNode(span.textContent));
+    });
+    wrapper.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    wrapper.querySelectorAll('.creative__img-placeholder').forEach(el => {
+      // 이미지 플레이스홀더는 유지하되 내부 input만 제거 (위에서 이미 처리됨)
+    });
+  }
+
   makeEditable(wrapper) {
+    // 복원된 HTML의 편집 흔적 먼저 제거
+    this.stripEditableArtifacts(wrapper);
+
     // Detect section type (about/step preserve existing behavior; others get uniform delete)
     const sectionEl = wrapper.querySelector('section[data-section]');
     const sectionType = sectionEl?.dataset?.section;
     const isAboutOrStep = sectionType === 'about' || sectionType === 'step';
+    const isFloatingCta = wrapper.dataset.fixed === 'floating-cta';
+    const isFooter = wrapper.dataset.fixed === 'footer';
 
     // All text elements - editable and deletable
     const textSelectors = [
@@ -475,6 +531,7 @@ class SectionCreative {
       '.pl-section-title__heading, .pl-section-title__label, .pl-section-title__desc, .pl-section-title__note',
       '.pl-hero__title, .pl-hero__desc',
       '.pl-label',
+      '.pl-about__feature-label, .pl-about__feature-heading, .pl-about__feature-desc',
       '.pl-list-card__title, .pl-list-card__desc',
       '.pl-benefit__card-title, .pl-benefit__card-sub',
       '.pl-step-text__title, .pl-step-text__desc',
@@ -494,7 +551,8 @@ class SectionCreative {
       '.pl-benefit__card',
       '.pl-step-card',
       '.pl-review__card',
-      '.pl-faq__item'
+      '.pl-faq__item',
+      '.pl-about__feature-item'
     ];
 
     // section-title 선택 삭제 가능 요소 (heading 제외)
@@ -517,6 +575,11 @@ class SectionCreative {
         return;
       }
 
+      // Footer 요소는 아래 전용 코드에서 처리 (중복 방지)
+      if (isFooter) {
+        return;
+      }
+
       el.setAttribute('contenteditable', 'true');
 
       // section-title 선택 요소 (label, desc, note) — 삭제 버튼 추가
@@ -524,8 +587,8 @@ class SectionCreative {
       // about/step 외 섹션: 카드 블록 밖의 텍스트는 모두 삭제 가능 (heading, 버튼 제외)
       const isInsideBlock = !!el.closest(blockSelectors.join(', '));
       const isSectionHeading = el.matches('.pl-section-title__heading');
-      const needsDeleteBtn = isOptionalTitleEl ||
-        (!isAboutOrStep && !isInsideBlock && !isSectionHeading);
+      const needsDeleteBtn = !isFloatingCta && (isOptionalTitleEl ||
+        (!isAboutOrStep && !isInsideBlock && !isSectionHeading));
 
       if (needsDeleteBtn) {
         el.style.position = 'relative';
@@ -557,6 +620,9 @@ class SectionCreative {
         });
       }
     });
+
+    // 텍스트 편집 시 2초 디바운스 자동저장
+    wrapper.addEventListener('input', () => this.scheduleAutoSave(2000));
 
     // Make block elements deletable (cards, items)
     const blockElements = wrapper.querySelectorAll(blockSelectors.join(', '));
@@ -592,7 +658,7 @@ class SectionCreative {
       el.appendChild(deleteBtn);
     });
 
-    // Make buttons editable
+    // Make buttons editable + deletable
     const buttons = wrapper.querySelectorAll('.pl-btn, .pl-cta__btn');
     buttons.forEach(btn => {
       btn.setAttribute('contenteditable', 'true');
@@ -605,6 +671,25 @@ class SectionCreative {
           e.preventDefault();
         }
       });
+      // Add delete button (span to avoid invalid nested <button>)
+      if (!btn.querySelector('.creative__btn-delete')) {
+        btn.style.position = 'relative';
+        const delSpan = document.createElement('span');
+        delSpan.className = 'creative__btn-delete';
+        delSpan.setAttribute('role', 'button');
+        delSpan.setAttribute('aria-label', '버튼 삭제');
+        delSpan.innerHTML = `<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+        delSpan.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (await this.showConfirmModal('이 버튼을 삭제하시겠습니까?')) {
+            // If wrapped in a pl-button host, remove the host; otherwise just the button
+            const host = btn.closest('pl-button') || btn;
+            host.remove();
+          }
+        });
+        btn.appendChild(delSpan);
+      }
     });
 
     // Special handling for slide cards (카드 슬라이드형)
@@ -621,6 +706,21 @@ class SectionCreative {
       // Description: already handled by card desc block below
     });
 
+    // Feature-alt label: SVG + text node → wrap text in editable span
+    wrapper.querySelectorAll('.pl-about__feature-label').forEach(label => {
+      if (label.querySelector('.creative__feature-label-text')) return;
+      // Find text nodes (skip SVG)
+      const textNodes = Array.from(label.childNodes).filter(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+      if (textNodes.length === 0) return;
+      const span = document.createElement('span');
+      span.className = 'creative__feature-label-text';
+      span.setAttribute('contenteditable', 'true');
+      span.style.outline = 'none';
+      span.style.cursor = 'text';
+      span.textContent = textNodes[0].textContent.trim();
+      textNodes[0].replaceWith(span);
+    });
+
     // Card body/desc elements — about/step 섹션에서만 카드 내부 텍스트 개별 삭제 가능
     // (그 외 섹션은 카드 블록 전체 삭제 or 위의 일반 텍스트 삭제 로직 적용)
     const cardDescSelectors = [
@@ -629,6 +729,9 @@ class SectionCreative {
       '.pl-slide-card__desc',
       '.pl-list-card__desc',
       '.pl-swipe-card__desc',
+      // 기능교대형 (Feature Alt)
+      '.pl-about__feature-heading',
+      '.pl-about__feature-desc',
       // 이용방법 (Step) — label(Step 01)은 선택, title은 유지
       '.pl-step-text__label',
       '.pl-step-text__desc',
@@ -662,8 +765,28 @@ class SectionCreative {
       desc.appendChild(deleteBtn);
     }); // end isAboutOrStep cardDescSelectors
 
-    // Special handling for tabs (탭형)
-    const tabButtons = wrapper.querySelectorAll('.pl-tab-btn, .pl-tab-nav button');
+    // Feature-alt label text span — deletable
+    if (isAboutOrStep) {
+      wrapper.querySelectorAll('.creative__feature-label-text').forEach(span => {
+        if (span.querySelector('.creative__text-delete')) return;
+        span.style.position = 'relative';
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'creative__text-delete';
+        deleteBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+        deleteBtn.title = '라벨 삭제';
+        deleteBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (await this.showConfirmModal('이 라벨 텍스트를 삭제하시겠습니까?')) {
+            span.remove();
+          }
+        });
+        span.appendChild(deleteBtn);
+      });
+    }
+
+    // Special handling for tabs (탭형) — 탭 섹션 내부로 스코프 제한
+    const tabButtons = wrapper.querySelectorAll('.pl-about--tab .pl-tab-btn, .pl-about--tab .pl-tab-nav button');
     tabButtons.forEach(btn => {
       if (btn.hasAttribute('contenteditable')) return;
 
@@ -744,6 +867,46 @@ class SectionCreative {
       });
     });
 
+    // Footer: 개별 요소 삭제 가능
+    if (isFooter) {
+      const footerDeletableSelectors = [
+        '.pl-footer__category-link',
+        '.pl-footer__address p',
+        '.pl-footer__call-label, .pl-footer__call-number, .pl-footer__call-time',
+        '.pl-footer__sns-icon',
+        '.pl-footer__app-btn',
+        '.pl-footer__dropdown-wrapper',
+        '.pl-footer__copyright',
+      ];
+      wrapper.querySelectorAll(footerDeletableSelectors.join(', ')).forEach(el => {
+        el.style.position = 'relative';
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'creative__block-delete';
+        deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+        deleteBtn.title = '삭제';
+        deleteBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (await this.showConfirmModal('이 요소를 삭제하시겠습니까?')) {
+            el.remove();
+          }
+        });
+        el.appendChild(deleteBtn);
+      });
+
+      // 푸터 텍스트 요소 편집 가능
+      wrapper.querySelectorAll([
+        '.pl-footer__category-link',
+        '.pl-footer__address p',
+        '.pl-footer__call-label, .pl-footer__call-number, .pl-footer__call-time',
+        '.pl-footer__copyright',
+      ].join(', ')).forEach(el => {
+        if (!el.hasAttribute('contenteditable')) {
+          el.setAttribute('contenteditable', 'true');
+        }
+      });
+    }
+
     // Replace images immediately with gray placeholder + text input
     // Skip GNB/Footer logo images — keep them as actual logos
     wrapper.querySelectorAll('img').forEach(img => {
@@ -780,6 +943,30 @@ class SectionCreative {
       img.replaceWith(placeholder);
     });
 
+    // 복원된 플레이스홀더에 input 다시 추가 (저장 시 input 제거됐으므로)
+    wrapper.querySelectorAll('.creative__img-placeholder').forEach(placeholder => {
+      if (placeholder.querySelector('input, textarea')) return; // 이미 input 있으면 스킵
+      const isInsideTabPanel = !!placeholder.closest('.pl-tab-panel');
+      const isInsideSlideCard = !!placeholder.closest('.pl-slide-card, .pl-swipe-card');
+      const isHeroBg = !!placeholder.closest('.pl-hero__bg, .pl-hero__video');
+      placeholder.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+      let input;
+      if (isInsideTabPanel) {
+        input = document.createElement('textarea');
+        input.className = 'creative__img-placeholder-input creative__img-placeholder-input--tab';
+        input.placeholder = '어떤 이미지를 넣을지 설명해주세요 (탭 내용, 레이아웃, 분위기 등)';
+      } else if (!isInsideSlideCard && !isHeroBg) {
+        input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'creative__img-placeholder-input';
+        input.placeholder = '어떤 이미지를 넣을지 설명해주세요';
+      }
+      if (input) {
+        input.addEventListener('click', (e) => e.stopPropagation());
+        placeholder.appendChild(input);
+      }
+    });
+
     // Add image description input for hero full/video background (below CTA)
     wrapper.querySelectorAll('.pl-hero--full, .pl-hero--video').forEach(hero => {
       const target = hero.querySelector('.pl-hero__actions') || hero.querySelector('.pl-hero__content');
@@ -796,22 +983,48 @@ class SectionCreative {
     // Add image description input inside slide/swipe cards
     wrapper.querySelectorAll('.pl-slide-card, .pl-swipe-card').forEach(card => {
       if (card.querySelector('.creative__img-placeholder-input')) return;
-      const isBgCard = card.classList.contains('pl-slide-card')
-        || card.classList.contains('pl-swipe-card--full')
-        || card.classList.contains('pl-swipe-card--overlay');
-      // Background cards: put in __content (visible above overlay)
-      // Split cards: put in __image (gray placeholder area)
-      const target = isBgCard
-        ? card.querySelector('.pl-slide-card__content, .pl-swipe-card__content')
-        : card.querySelector('.pl-swipe-card__image');
-      if (!target) return;
+      const isBgFull = card.classList.contains('pl-slide-card') || card.classList.contains('pl-swipe-card--full');
+      const isOverlay = card.classList.contains('pl-swipe-card--overlay');
+      const isSplit = card.classList.contains('pl-swipe-card--split');
       const input = document.createElement('input');
       input.type = 'text';
       input.className = 'creative__img-placeholder-input';
       input.placeholder = '이미지 설명';
-      input.style.marginTop = '8px';
       input.addEventListener('click', (e) => e.stopPropagation());
-      target.appendChild(input);
+      if (isSplit || isOverlay) {
+        // Position input absolutely inside __image (gray placeholder area)
+        const imageEl = card.querySelector('.pl-swipe-card__image');
+        if (!imageEl) return;
+        imageEl.appendChild(input);
+      } else if (isBgFull) {
+        // Full-background cards: put in __content (visible above overlay)
+        const target = card.querySelector('.pl-slide-card__content, .pl-swipe-card__content');
+        if (!target) return;
+        input.style.marginTop = '8px';
+        target.appendChild(input);
+      } else {
+        const target = card.querySelector('.pl-swipe-card__image');
+        if (!target) return;
+        input.style.marginTop = '8px';
+        target.appendChild(input);
+      }
+    });
+
+    // Add image placeholder (icon + input) to feature-alt gray image areas
+    wrapper.querySelectorAll('.pl-about__feature-image').forEach(imgArea => {
+      if (imgArea.querySelector('.creative__img-placeholder')) return;
+      const placeholder = document.createElement('div');
+      placeholder.className = 'creative__img-placeholder';
+      placeholder.innerHTML = `
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
+      `;
+      placeholder.querySelector('input').addEventListener('click', (e) => e.stopPropagation());
+      imgArea.appendChild(placeholder);
     });
   }
 
@@ -826,6 +1039,29 @@ class SectionCreative {
           header.setAttribute('aria-expanded', !isOpen);
         });
       });
+    }
+
+    // Review slider: 애니메이션 중지, 6개 고정 그리드로 표시
+    if (type === 'review') {
+      const slider = wrapper.querySelector('.pl-review-slider');
+      const track = wrapper.querySelector('.pl-review-slider__track');
+      if (slider && track) {
+        slider.style.overflow = 'visible';
+        slider.style.maskImage = 'none';
+        slider.style.webkitMaskImage = 'none';
+        slider.style.padding = '0';
+
+        track.style.animation = 'none';
+        track.style.width = 'auto';
+        track.style.flexWrap = 'wrap';
+        track.style.justifyContent = 'center';
+        track.style.gap = '16px';
+
+        // 루프용 복제 제거 후 6개만 유지
+        const cards = Array.from(track.querySelectorAll('.pl-review-card--slider'));
+        const half = Math.ceil(cards.length / 2);
+        cards.forEach((card, i) => { if (i >= Math.min(6, half)) card.remove(); });
+      }
     }
 
     // Stop card slide animation and unwrap swipe tracks in builder
@@ -928,7 +1164,7 @@ class SectionCreative {
     // Clear existing layers
     this.layersList.innerHTML = '';
 
-    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection || this.floatingCtaSection;
 
     if (!hasContent) {
       this.layersList.innerHTML = '<div class="creative__layers-empty">추가된 섹션이 없습니다</div>';
@@ -944,6 +1180,11 @@ class SectionCreative {
     this.sections.forEach((section, index) => {
       this.layersList.appendChild(this.createLayerItem(section, false));
     });
+
+    // Add floating CTA if exists
+    if (this.floatingCtaSection) {
+      this.layersList.appendChild(this.createLayerItem(this.floatingCtaSection, true));
+    }
 
     // Add footer if exists
     if (this.footerSection) {
@@ -962,18 +1203,51 @@ class SectionCreative {
 
     // Different HTML for fixed vs regular layers
     if (isFixed) {
-      layer.innerHTML = `
-        <div class="creative__layer-info">
-          <span class="creative__layer-type">${this.sectionNames[section.type] || section.type}</span>
-          <span class="creative__layer-name">${section.name} (고정)</span>
+      const isFloatingCta = section.type === 'cta' && section.variant === 'type-b-floating';
+      const floatingStyleControl = isFloatingCta ? `
+        <div class="creative__layer-control creative__layer-control--style">
+          <span class="creative__layer-control-label">스타일</span>
+          <button class="creative__card-style-btn ${section.cardStyle === 'style-a' ? 'is-active' : ''}" data-style="style-a">스타일 A</button>
+          <button class="creative__card-style-btn ${section.cardStyle === 'style-b' ? 'is-active' : ''}" data-style="style-b">스타일 B</button>
         </div>
-        <button class="creative__layer-delete" title="삭제">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+        <div class="creative__layer-control creative__layer-control--style">
+          <span class="creative__layer-control-label">버튼 수</span>
+          <button class="creative__btn-count-btn ${section.btnCount === '2btn' ? 'is-active' : ''}" data-count="2btn">2개</button>
+          <button class="creative__btn-count-btn ${section.btnCount === '1btn' ? 'is-active' : ''}" data-count="1btn">1개</button>
+        </div>
+      ` : '';
+
+      const isNavSection = section.type === 'navigation';
+      layer.innerHTML = `
+        <div class="creative__layer-main">
+          <div class="creative__layer-info">
+            <span class="creative__layer-type">${this.sectionNames[section.type] || section.type}</span>
+            <span class="creative__layer-name">${section.name} (고정)</span>
+          </div>
+          ${!isNavSection ? `<button class="creative__layer-delete" title="삭제">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>` : ''}
+        </div>
+        ${floatingStyleControl}
       `;
+
+      if (isFloatingCta) {
+        layer.querySelectorAll('.creative__card-style-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.updateFloatingCtaStyle(section.id, btn.dataset.style);
+          });
+        });
+        layer.querySelectorAll('.creative__btn-count-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.updateFloatingCtaBtnCount(section.id, btn.dataset.count);
+          });
+        });
+      }
     } else {
       const hasCardControl = section.cardCount !== undefined;
       const hasAddCard = section.hasAddCard || false;
@@ -1060,11 +1334,14 @@ class SectionCreative {
       `;
     }
 
-    // Delete button
-    layer.querySelector('.creative__layer-delete').addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.removeSection(section.id, isFixed);
-    });
+    // Delete button (네비게이션 제외)
+    const deleteBtn = layer.querySelector('.creative__layer-delete');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.removeSection(section.id, isFixed);
+      });
+    }
 
     // Card count buttons (for benefit sections)
     if (section.cardCount !== undefined) {
@@ -1138,33 +1415,11 @@ class SectionCreative {
       if (this.headerSection && this.headerSection.id === id) {
         this.headerSection = null;
         const wrapper = this.headerSlot.querySelector(`[data-section-id="${id}"]`);
-        if (wrapper) {
-          wrapper.remove();
-        }
-        // Restore placeholder
-        this.headerSlot.innerHTML = `
-          <div class="creative__fixed-placeholder">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="4" rx="1"></rect>
-            </svg>
-            <span>헤더를 추가하려면 네비게이션 카테고리에서 GNB를 선택하세요</span>
-          </div>
-        `;
+        if (wrapper) wrapper.remove();
       } else if (this.footerSection && this.footerSection.id === id) {
         this.footerSection = null;
         const wrapper = this.footerSlot.querySelector(`[data-section-id="${id}"]`);
-        if (wrapper) {
-          wrapper.remove();
-        }
-        // Restore placeholder
-        this.footerSlot.innerHTML = `
-          <div class="creative__fixed-placeholder">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="3" y="17" width="18" height="4" rx="1"></rect>
-            </svg>
-            <span>푸터를 추가하려면 푸터 카테고리에서 Footer를 선택하세요</span>
-          </div>
-        `;
+        if (wrapper) wrapper.remove();
       } else if (this.floatingCtaSection && this.floatingCtaSection.id === id) {
         this.floatingCtaSection = null;
         const wrapper = this.floatingCtaSlot.querySelector(`[data-section-id="${id}"]`);
@@ -1187,6 +1442,7 @@ class SectionCreative {
 
     this.updateLayersList();
     this.updateUI();
+    this.scheduleAutoSave(); // 섹션 삭제 즉시 저장
   }
 
   updateBenefitCardCount(sectionId, count) {
@@ -1251,6 +1507,37 @@ class SectionCreative {
 
     // Refresh layers list to update active button
     this.updateLayersList();
+    this.scheduleAutoSave();
+  }
+
+  updateFloatingCtaBtnCount(sectionId, count) {
+    if (!this.floatingCtaSection || this.floatingCtaSection.id !== sectionId) return;
+    this.floatingCtaSection.btnCount = count;
+
+    const wrapper = this.floatingCtaSlot.querySelector(`[data-section-id="${sectionId}"]`);
+    if (!wrapper) return;
+
+    wrapper.querySelectorAll('.section-style').forEach(s => {
+      s.style.display = s.dataset.style === count ? 'block' : 'none';
+    });
+
+    this.updateLayersList();
+    this.scheduleAutoSave();
+  }
+
+  updateFloatingCtaStyle(sectionId, style) {
+    if (!this.floatingCtaSection || this.floatingCtaSection.id !== sectionId) return;
+    this.floatingCtaSection.cardStyle = style;
+
+    const wrapper = this.floatingCtaSlot.querySelector(`[data-section-id="${sectionId}"]`);
+    if (!wrapper) return;
+
+    wrapper.querySelectorAll('.creative__cta-variant').forEach(variant => {
+      variant.style.display = variant.dataset.ctaVariant === style ? '' : 'none';
+    });
+
+    this.updateLayersList();
+    this.scheduleAutoSave();
   }
 
   setCardStyleVisibility(wrapper, variant, style) {
@@ -1363,46 +1650,122 @@ class SectionCreative {
         }
       }
     } else if (section.variant === 'type-c-card-slide') {
-      // Card slide type (auto-sliding)
+      // Card slide type — in builder mode duplicates are already removed by initSectionJS
       const trackInner = wrapper.querySelector('.pl-card-track__inner');
       if (trackInner) {
         container = trackInner;
-        // Get the first card as template (before duplicates)
         const allCards = Array.from(container.querySelectorAll('.pl-slide-card'));
-        // Assume first half is original, second half is duplicate
-        const originalCount = Math.floor(allCards.length / 2);
         templateCard = allCards[0];
 
         if (templateCard) {
           newCard = templateCard.cloneNode(true);
-          // Reset text content to default
           const title = newCard.querySelector('.pl-slide-card__title');
           const desc = newCard.querySelector('.pl-slide-card__desc');
           if (title) title.textContent = '새 카드 타이틀';
           if (desc) desc.textContent = '새 카드 설명을 입력하세요.';
 
-          // Add to both original and duplicate sections
-          const duplicateCard = newCard.cloneNode(true);
-
-          // Insert before the duplicate section starts
-          const insertIndex = originalCount;
-          if (allCards[insertIndex]) {
-            container.insertBefore(newCard, allCards[insertIndex]);
-            // Add duplicate at the end
-            container.appendChild(duplicateCard);
-          } else {
-            // Add to end if no duplicates yet
-            container.appendChild(newCard);
-            container.appendChild(duplicateCard);
-          }
-
-          // Make the new cards editable
+          container.appendChild(newCard);
           this.makeEditableCard(newCard);
-          this.makeEditableCard(duplicateCard);
-
-          return; // Early return for slide type
+          return;
         }
       }
+    }
+
+    // Feature-alt type — add new feature item with alternating layout
+    if (section.type === 'about' && section.variant === 'type-g-feature-alt') {
+      const container = wrapper.querySelector('.pl-about__feature-alt-container');
+      if (!container) return;
+
+      const currentItems = container.querySelectorAll('.pl-about__feature-item');
+      // Even count (0,2,4...) → next item is at odd index → --reverse
+      const isReverse = currentItems.length % 2 === 1;
+
+      const newItem = document.createElement('div');
+      newItem.className = 'pl-about__feature-item' + (isReverse ? ' pl-about__feature-item--reverse' : '');
+      newItem.style.position = 'relative';
+
+      // Text area
+      const textDiv = document.createElement('div');
+      textDiv.className = 'pl-about__feature-text';
+
+      const labelDiv = document.createElement('div');
+      labelDiv.className = 'pl-about__feature-label';
+      labelDiv.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#7c3aed" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const labelSpan = document.createElement('span');
+      labelSpan.className = 'creative__feature-label-text';
+      labelSpan.setAttribute('contenteditable', 'true');
+      labelSpan.style.cssText = 'outline:none;cursor:text;position:relative;';
+      labelSpan.textContent = '새 기능';
+      labelDiv.appendChild(labelSpan);
+
+      const heading = document.createElement('h2');
+      heading.className = 'pl-about__feature-heading';
+      heading.setAttribute('contenteditable', 'true');
+      heading.style.cssText = 'position:relative;cursor:text;outline:none;';
+      heading.textContent = '새 기능 제목을 입력하세요';
+
+      const desc = document.createElement('p');
+      desc.className = 'pl-about__feature-desc';
+      desc.setAttribute('contenteditable', 'true');
+      desc.style.cssText = 'position:relative;cursor:text;outline:none;';
+      desc.textContent = '기능에 대한 설명을 입력하세요.';
+
+      textDiv.appendChild(labelDiv);
+      textDiv.appendChild(heading);
+      textDiv.appendChild(desc);
+
+      // Image area
+      const imageDiv = document.createElement('div');
+      imageDiv.className = 'pl-about__feature-image pl-about__feature-image--grey';
+      const imgPlaceholder = document.createElement('div');
+      imgPlaceholder.className = 'creative__img-placeholder';
+      imgPlaceholder.innerHTML = `
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
+      `;
+      imgPlaceholder.querySelector('input').addEventListener('click', e => e.stopPropagation());
+      imageDiv.appendChild(imgPlaceholder);
+
+      newItem.appendChild(textDiv);
+      newItem.appendChild(imageDiv);
+
+      // Delete button for item
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__block-delete';
+      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+      deleteBtn.title = '항목 삭제';
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (await this.showConfirmModal('이 항목을 삭제하시겠습니까?')) {
+          newItem.remove();
+        }
+      });
+      newItem.appendChild(deleteBtn);
+
+      // Delete buttons for heading/desc
+      const mkDelBtn = (target, msg) => {
+        const btn = document.createElement('button');
+        btn.className = 'creative__text-delete';
+        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+        btn.title = msg;
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (await this.showConfirmModal(`${msg}을 삭제하시겠습니까?`)) target.remove();
+        });
+        target.appendChild(btn);
+      };
+      mkDelBtn(heading, '제목');
+      mkDelBtn(desc, '설명');
+      mkDelBtn(labelSpan, '라벨');
+
+      container.appendChild(newItem);
+      return;
     }
 
     // Step image type — add new step item
@@ -1591,6 +1954,7 @@ class SectionCreative {
 
       this.reorderPreview();
       this.updateLayersList();
+      this.scheduleAutoSave(); // 순서 변경 즉시 저장
     }
   }
 
@@ -1654,44 +2018,36 @@ class SectionCreative {
     this.emptyState.style.display = this.sections.length === 0 ? 'flex' : 'none';
 
     // Enable/disable export buttons
-    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection || this.floatingCtaSection;
     document.getElementById('exportImageBtn').disabled = !hasContent;
     document.getElementById('exportTextBtn').disabled = !hasContent;
   }
 
   async reset() {
-    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection || this.floatingCtaSection;
     if (!hasContent) return;
 
     if (await this.showConfirmModal('모든 섹션을 초기화하시겠습니까?', '전체 초기화')) {
       this.sections = [];
       this.headerSection = null;
       this.footerSection = null;
+      this.floatingCtaSection = null;
+      localStorage.removeItem('pagelab_creative_state');
+      const saveStatus = document.getElementById('saveStatus');
+      if (saveStatus) saveStatus.textContent = '';
 
       // Clear main content
       this.mainContent.innerHTML = '';
       this.mainContent.appendChild(this.emptyState);
       this.emptyState.style.display = 'flex';
 
-      // Reset header slot
-      this.headerSlot.innerHTML = `
-        <div class="creative__fixed-placeholder">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="4" rx="1"></rect>
-          </svg>
-          <span>헤더를 추가하려면 네비게이션 카테고리에서 GNB를 선택하세요</span>
-        </div>
-      `;
+      // Reset header/footer slots
+      this.headerSlot.innerHTML = '';
+      this.footerSlot.innerHTML = '';
 
-      // Reset footer slot
-      this.footerSlot.innerHTML = `
-        <div class="creative__fixed-placeholder">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="17" width="18" height="4" rx="1"></rect>
-          </svg>
-          <span>푸터를 추가하려면 푸터 카테고리에서 Footer를 선택하세요</span>
-        </div>
-      `;
+      // Reset floating CTA slot
+      this.floatingCtaSlot.innerHTML = '';
+      this.floatingCtaSlot.style.display = 'none';
 
       this.updateLayersList();
       this.updateUI();
@@ -1700,23 +2056,41 @@ class SectionCreative {
 
   extractSectionText(wrapper, sectionType) {
     let text = '';
-
-    // Extract text content by element type (deduplicate, skip hidden)
     const extracted = new Set();
+
+    const isHidden = (el) => !!el.closest('[style*="display: none"], [style*="display:none"]');
+
+    // 단일 셀렉터 → 모두 추출 (그룹 없음)
     const extractText = (selector) => {
       const elements = wrapper.querySelectorAll(selector);
-      if (elements.length > 0) {
-        elements.forEach(el => {
-          if (extracted.has(el)) return;
-          if (el.closest('[style*="display: none"], [style*="display:none"]')) return;
-          extracted.add(el);
-          const content = el.textContent.trim();
-          if (content && content.length > 0) {
-            text += `${content}\n`;
+      if (elements.length === 0) return;
+      elements.forEach(el => {
+        if (extracted.has(el) || isHidden(el)) return;
+        extracted.add(el);
+        const content = el.textContent.trim();
+        if (content) text += `${content}\n`;
+      });
+      text += '\n';
+    };
+
+    // 컨테이너 단위로 묶어서 추출 (title + desc 쌍)
+    const extractGrouped = (containerSel, ...fieldSelectors) => {
+      const containers = wrapper.querySelectorAll(containerSel);
+      if (containers.length === 0) return;
+      containers.forEach(container => {
+        if (extracted.has(container) || isHidden(container)) return;
+        extracted.add(container);
+        let itemText = '';
+        fieldSelectors.forEach(fieldSel => {
+          const field = container.querySelector(fieldSel);
+          if (field && !extracted.has(field)) {
+            extracted.add(field);
+            const content = field.textContent.trim();
+            if (content) itemText += `${content}\n`;
           }
         });
-        text += '\n';
-      }
+        if (itemText) text += itemText + '\n';
+      });
     };
 
     // Section title
@@ -1725,7 +2099,8 @@ class SectionCreative {
     extractText('.pl-section-title__desc');
     extractText('.pl-section-title__note');
 
-    // Hero
+    // Hero (라벨 포함)
+    extractText('.pl-label');
     extractText('.pl-hero__title');
     extractText('.pl-hero__desc');
 
@@ -1734,30 +2109,29 @@ class SectionCreative {
     extractText('.pl-intro__product-subtitle');
     extractText('.pl-intro__feature-text');
 
-    // Cards and items (list, grid, slide, swipe)
-    extractText('.pl-list-card__title, .pl-grid-card__title, .pl-slide-card__title, .pl-swipe-card__title');
-    extractText('.pl-list-card__desc, .pl-grid-card__desc, .pl-slide-card__desc, .pl-swipe-card__desc');
+    // Cards: 컨테이너별 그루핑
+    extractGrouped('.pl-list-card', '.pl-list-card__title', '.pl-list-card__desc');
+    extractGrouped('.pl-grid-card', '.pl-grid-card__title', '.pl-grid-card__desc');
+    extractGrouped('.pl-slide-card', '.pl-slide-card__title', '.pl-slide-card__desc');
+    extractGrouped('.pl-swipe-card', '.pl-swipe-card__title', '.pl-swipe-card__desc');
 
     // Benefit
-    extractText('.pl-benefit__card-title');
-    extractText('.pl-benefit__card-sub');
+    extractGrouped('.pl-benefit__card', '.pl-benefit__card-title', '.pl-benefit__card-sub');
 
     // Step
-    extractText('.pl-step-text__title, .pl-step-textonly__title');
-    extractText('.pl-step-text__desc, .pl-step-textonly__desc');
+    extractGrouped('.pl-step-text__item', '.pl-step-text__title', '.pl-step-text__desc');
+    extractGrouped('.pl-step-textonly__item', '.pl-step-textonly__title', '.pl-step-textonly__desc');
 
     // About feature
-    extractText('.pl-about__feature-label');
-    extractText('.pl-about__feature-heading');
-    extractText('.pl-about__feature-desc');
+    extractGrouped('.pl-about__feature-item',
+      '.pl-about__feature-label', '.pl-about__feature-heading', '.pl-about__feature-desc');
 
     // Review
     extractText('.pl-review-highlight__desc');
-    extractText('.pl-review-card__content');
+    extractGrouped('.pl-review-card', '.pl-review__name', '.pl-review__text, .pl-review-card__content');
 
     // FAQ
-    extractText('.pl-faq__question');
-    extractText('.pl-faq__answer-title, .pl-faq__answer-text');
+    extractGrouped('.pl-faq__item', '.pl-faq__question', '.pl-faq__answer-title', '.pl-faq__answer-text');
 
     // CTA
     extractText('.pl-cta__title');
@@ -1852,7 +2226,7 @@ class SectionCreative {
 
   // Export as Text
   exportText() {
-    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection || this.floatingCtaSection;
     if (!hasContent) return;
 
     let textContent = '=== PageLab Section Creative ===\n';
@@ -1901,9 +2275,201 @@ class SectionCreative {
     link.click();
     URL.revokeObjectURL(link.href);
   }
+
+  // ============================================================
+  //  저장 / 복원
+  // ============================================================
+
+  serializeState() {
+    const getHtml = (slot, id) => {
+      const w = slot.querySelector(`[data-section-id="${id}"]`);
+      if (!w) return null;
+      // 편집 흔적 없는 클린 복사본으로 저장
+      const clone = w.cloneNode(true);
+      clone.querySelectorAll(
+        '.creative__text-delete, .creative__block-delete, .creative__tab-delete, .creative__btn-delete'
+      ).forEach(el => el.remove());
+      clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+      // feature-label 텍스트 span 제거 — 텍스트 노드만 남김 (null이면 라벨 전체 삭제된 것)
+      clone.querySelectorAll('.creative__feature-label-text').forEach(span => {
+        span.replaceWith(document.createTextNode(span.textContent));
+      });
+      // 이미지 플레이스홀더 내부 input 제거 (SVG만 남김)
+      clone.querySelectorAll('.creative__img-placeholder-input').forEach(el => el.remove());
+      // pl-button 웹 컴포넌트를 렌더링된 .pl-btn으로 교체 (복원 시 중복 렌더링 방지)
+      // 호스트 클래스(pl-intro__cta-pc 등)도 함께 이전해야 display:none 규칙이 유지됨
+      clone.querySelectorAll('pl-button').forEach(plBtn => {
+        const rendered = plBtn.querySelector('.pl-btn');
+        if (rendered) {
+          const btn = rendered.cloneNode(true);
+          plBtn.classList.forEach(cls => btn.classList.add(cls));
+          plBtn.replaceWith(btn);
+        }
+      });
+      // pl-card 웹 컴포넌트를 렌더링된 .pl-card로 교체
+      clone.querySelectorAll('pl-card').forEach(plCard => {
+        const rendered = plCard.querySelector('.pl-card');
+        if (rendered) plCard.replaceWith(rendered.cloneNode(true));
+      });
+      return clone.innerHTML;
+    };
+
+    return {
+      savedAt: new Date().toISOString(),
+      device: this.currentDevice,
+      theme: this.currentTheme,
+      headerSection: this.headerSection ? {
+        id: this.headerSection.id, type: this.headerSection.type,
+        variant: this.headerSection.variant, name: this.headerSection.name,
+        html: getHtml(this.headerSlot, this.headerSection.id)
+      } : null,
+      floatingCtaSection: this.floatingCtaSection ? {
+        id: this.floatingCtaSection.id, type: this.floatingCtaSection.type,
+        variant: this.floatingCtaSection.variant, name: this.floatingCtaSection.name,
+        cardStyle: this.floatingCtaSection.cardStyle, btnCount: this.floatingCtaSection.btnCount,
+        html: getHtml(this.floatingCtaSlot, this.floatingCtaSection.id)
+      } : null,
+      footerSection: this.footerSection ? {
+        id: this.footerSection.id, type: this.footerSection.type,
+        variant: this.footerSection.variant, name: this.footerSection.name,
+        html: getHtml(this.footerSlot, this.footerSection.id)
+      } : null,
+      sections: this.sections.map(s => ({
+        id: s.id, type: s.type, variant: s.variant, name: s.name,
+        cardStyle: s.cardStyle, cardCount: s.cardCount, btnCount: s.btnCount,
+        hasAddCard: s.hasAddCard, hasStyleControl: s.hasStyleControl,
+        html: getHtml(this.mainContent, s.id)
+      })),
+      sectionId: this.sectionId
+    };
+  }
+
+  saveState(showToast = false) {
+    try {
+      localStorage.setItem('pagelab_creative_state', JSON.stringify(this.serializeState()));
+      this.updateSaveStatus();
+      if (showToast) this.showSaveToast();
+    } catch (e) {
+      console.warn('저장 실패:', e);
+    }
+  }
+
+  showSaveToast() {
+    let toast = document.getElementById('saveToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'saveToast';
+      toast.className = 'creative__save-toast';
+      toast.textContent = '저장되었습니다.';
+      document.body.appendChild(toast);
+    }
+    toast.classList.remove('is-visible');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.classList.add('is-visible');
+        clearTimeout(this._toastTimer);
+        this._toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2000);
+      });
+    });
+  }
+
+  updateSaveStatus() {
+    const el = document.getElementById('saveStatus');
+    if (!el) return;
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    el.textContent = `저장됨 ${hh}:${mm}`;
+    el.classList.add('is-saved');
+    clearTimeout(this._saveStatusTimer);
+    this._saveStatusTimer = setTimeout(() => el.classList.remove('is-saved'), 2000);
+  }
+
+  scheduleAutoSave(delay = 0) {
+    if (this._suppressAutoSave) return;
+    clearTimeout(this._autoSaveTimer);
+    this._autoSaveTimer = setTimeout(() => this.saveState(), delay);
+  }
+
+  async restoreState() {
+    try {
+      const raw = localStorage.getItem('pagelab_creative_state');
+      if (!raw) return false;
+      const state = JSON.parse(raw);
+      if (!state) return false;
+
+      this.sectionId = state.sectionId || 0;
+
+      const renderSaved = (section, slot, position) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'creative__section-wrapper';
+        wrapper.dataset.sectionId = section.id;
+        wrapper.dataset.fixed = position;
+        wrapper.innerHTML = section.html;
+        const placeholder = slot.querySelector('.creative__fixed-placeholder');
+        if (placeholder) placeholder.remove();
+        slot.appendChild(wrapper);
+        if (position === 'floating-cta') slot.style.display = '';
+        requestAnimationFrame(() => this.makeEditable(wrapper));
+      };
+
+      if (state.headerSection?.html) {
+        this.headerSection = state.headerSection;
+        renderSaved(state.headerSection, this.headerSlot, 'header');
+      }
+
+      if (state.floatingCtaSection?.html) {
+        this.floatingCtaSection = state.floatingCtaSection;
+        renderSaved(state.floatingCtaSection, this.floatingCtaSlot, 'floating-cta');
+      }
+
+      if (state.footerSection?.html) {
+        this.footerSection = state.footerSection;
+        renderSaved(state.footerSection, this.footerSlot, 'footer');
+      }
+
+      for (const s of (state.sections || [])) {
+        if (!s.html) continue;
+        this.sections.push(s);
+        const wrapper = document.createElement('div');
+        wrapper.className = 'creative__section-wrapper';
+        wrapper.dataset.sectionId = s.id;
+        wrapper.innerHTML = s.html;
+        this.emptyState.style.display = 'none';
+        this.mainContent.appendChild(wrapper);
+        requestAnimationFrame(() => {
+          this.makeEditable(wrapper);
+          this.initSectionJS(wrapper, s.type);
+        });
+      }
+
+      if (state.device) this.switchDevice(state.device);
+      if (state.theme) this.switchTheme(state.theme);
+
+      this.updateLayersList();
+      this.updateUI();
+      this.updateSaveStatus();
+      return true;
+    } catch (e) {
+      console.warn('복원 실패:', e);
+      return false;
+    }
+  }
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   window.sectionCreative = new SectionCreative();
+  await window.sectionCreative.restoreState();
+  await window.sectionCreative.loadDefaultFixedSections();
+
+  // 저장 버튼
+  document.getElementById('saveBtn')?.addEventListener('click', () => {
+    window.sectionCreative.saveState(true);
+  });
+
+  // 페이지 이탈 시 자동저장
+  window.addEventListener('beforeunload', () => {
+    window.sectionCreative.saveState();
+  });
 });

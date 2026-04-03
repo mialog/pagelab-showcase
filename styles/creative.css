@@ -26,7 +26,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--pl-spacing-5) var(--pl-spacing-5);
+  height: var(--pl-gnb-height);
+  padding: 0 var(--pl-spacing-5);
   border-bottom: 1px solid var(--pl-border-light);
   flex-shrink: 0;
 }
@@ -40,27 +41,29 @@
 .creative__reset-btn {
   display: flex;
   align-items: center;
-  gap: var(--pl-spacing-2);
-  padding: 6px 10px;
+  gap: 6px;
+  padding: var(--pl-spacing-3) 14px;
   font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-bold);
   color: var(--pl-text-tertiary);
-  background: transparent;
-  border: 1px solid var(--pl-border-light);
-  border-radius: var(--pl-radius-1);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-default);
+  border-radius: var(--pl-radius-2);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .creative__reset-btn:hover {
-  color: var(--pl-text-primary);
-  background: var(--pl-bg-neutral);
+  color: var(--pl-static-red);
+  border-color: var(--pl-static-red);
+  background: var(--pl-bg-default);
 }
 
 /* Section Categories */
 .creative__sections {
   flex: 1;
   overflow-y: auto;
-  padding: var(--pl-spacing-3) 0;
+  padding: var(--pl-spacing-7) 0 var(--pl-spacing-5);
 }
 
 .creative__category {
@@ -132,6 +135,7 @@
   flex: 1;
 }
 
+
 /* ============================================
    Main Area - Preview Canvas
    ============================================ */
@@ -146,7 +150,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--pl-spacing-4) var(--pl-spacing-5);
+  height: var(--pl-gnb-height);
+  padding: 0 var(--pl-spacing-5);
   background: var(--pl-bg-default);
   border-bottom: 1px solid var(--pl-border-light);
   flex-shrink: 0;
@@ -156,20 +161,13 @@
   display: flex;
   align-items: center;
   gap: var(--pl-spacing-4);
+  flex: 1;
 }
 
 .creative__title {
   font-size: var(--pl-font-size-body-md);
   font-weight: var(--pl-font-weight-bold);
   color: var(--pl-text-primary);
-}
-
-.creative__section-count {
-  font-size: var(--pl-font-size-label-sm);
-  color: var(--pl-text-tertiary);
-  background: var(--pl-bg-neutral);
-  padding: var(--pl-spacing-2) 10px;
-  border-radius: var(--pl-radius-1);
 }
 
 .creative__toolbar-center {
@@ -248,6 +246,8 @@
   display: flex;
   align-items: center;
   gap: var(--pl-spacing-3);
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .creative__export-btn {
@@ -273,6 +273,60 @@
 .creative__export-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.creative__save-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--pl-spacing-3) 14px;
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-brand);
+  border: 1px solid var(--pl-bg-brand);
+  border-radius: var(--pl-radius-2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.creative__save-btn:hover {
+  opacity: 0.85;
+}
+
+.creative__save-status {
+  font-size: var(--pl-font-size-label-sm);
+  color: var(--pl-text-tertiary);
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.creative__save-status.is-saved {
+  color: var(--pl-text-brand);
+}
+
+.creative__save-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
+  background: #1a1a1a;
+  color: #fff;
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-bold);
+  padding: 10px 20px;
+  border-radius: var(--pl-radius-2);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 9999;
+  white-space: nowrap;
+}
+
+.creative__save-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Preview Wrapper */
@@ -330,6 +384,23 @@
 .creative__fixed-slot--floating-cta {
   position: relative;
   z-index: 10;
+  border-top: 2px dashed var(--pl-border-light);
+}
+
+/* 빌더 내에서 플로팅 CTA는 absolute 대신 일반 흐름으로 고정 */
+.creative__fixed-slot--floating-cta .creative__floating-cta-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+.creative__fixed-slot--floating-cta .pl-cta-floating__buttons,
+.creative__fixed-slot--floating-cta .pl-cta-floating-b {
+  position: static;
+  transform: none;
+  bottom: auto;
+  left: auto;
+  margin: 0 auto;
 }
 
 .creative__fixed-slot:has(.creative__section-wrapper) {
@@ -397,7 +468,11 @@
 }
 
 .creative__layers-header {
-  padding: var(--pl-spacing-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--pl-gnb-height);
+  padding: 0 var(--pl-spacing-5);
   border-bottom: 1px solid var(--pl-border-light);
   flex-shrink: 0;
 }
@@ -408,10 +483,19 @@
   color: var(--pl-text-primary);
 }
 
+.creative__section-count {
+  font-size: var(--pl-font-size-label-sm);
+  color: var(--pl-text-tertiary);
+  background: var(--pl-bg-neutral);
+  padding: var(--pl-spacing-1) var(--pl-spacing-3);
+  border-radius: var(--pl-radius-circle);
+  font-weight: var(--pl-font-weight-bold);
+}
+
 .creative__layers-list {
   flex: 1;
   overflow-y: auto;
-  padding: var(--pl-spacing-3);
+  padding: var(--pl-spacing-7) var(--pl-spacing-4) var(--pl-spacing-5);
 }
 
 .creative__layers-empty {
@@ -570,7 +654,8 @@
 }
 
 /* Card Style Buttons */
-.creative__card-style-btn {
+.creative__card-style-btn,
+.creative__btn-count-btn {
   padding: 5px 10px;
   font-size: 11px;
   font-weight: var(--pl-font-weight-default);
@@ -584,13 +669,15 @@
   text-align: center;
 }
 
-.creative__card-style-btn:hover {
+.creative__card-style-btn:hover,
+.creative__btn-count-btn:hover {
   color: var(--pl-text-primary);
   border-color: var(--pl-border-brand);
   background: var(--pl-bg-neutral);
 }
 
-.creative__card-style-btn.is-active {
+.creative__card-style-btn.is-active,
+.creative__btn-count-btn.is-active {
   color: var(--pl-text-invert);
   background: var(--pl-bg-brand);
   border-color: var(--pl-bg-brand);
@@ -788,6 +875,37 @@
   display: flex !important;
 }
 
+/* Allow delete badge to overflow button bounds */
+.pl-btn:has(.creative__btn-delete) {
+  overflow: visible;
+}
+
+/* Button delete (span inside .pl-btn) */
+.creative__btn-delete {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  background: var(--pl-static-red);
+  border: 2px solid var(--pl-bg-default);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+.creative__btn-delete svg {
+  pointer-events: none;
+}
+.pl-btn:hover .creative__btn-delete {
+  display: flex;
+}
+
 /* Block delete button (for cards) */
 .creative__block-delete {
   position: absolute;
@@ -819,6 +937,12 @@
   stroke-width: 2.5;
 }
 
+/* Swipe/Slide full-bg cards: raise above __content (z-index:101) */
+.pl-swipe-card .creative__block-delete,
+.pl-slide-card .creative__block-delete {
+  z-index: 105;
+}
+
 .pl-list-card:hover .creative__block-delete,
 .pl-grid-card:hover .creative__block-delete,
 .pl-swipe-card:hover .creative__block-delete,
@@ -827,8 +951,34 @@
 .pl-step-card:hover .creative__block-delete,
 .pl-step__image:hover .creative__block-delete,
 .pl-review__card:hover .creative__block-delete,
-.pl-faq__item:hover .creative__block-delete {
+.pl-faq__item:hover .creative__block-delete,
+.pl-about__feature-item:hover > .creative__block-delete {
   display: flex;
+}
+
+/* Footer deletable elements */
+.pl-footer__category-link:hover .creative__block-delete,
+.pl-footer__sns-icon:hover .creative__block-delete,
+.pl-footer__dropdown-wrapper:hover .creative__block-delete,
+.pl-footer__app-btn:hover .creative__block-delete,
+.pl-footer__address p:hover .creative__block-delete,
+.pl-footer__call-label:hover .creative__block-delete,
+.pl-footer__call-number:hover .creative__block-delete,
+.pl-footer__call-time:hover .creative__block-delete,
+.pl-footer__copyright:hover .creative__block-delete {
+  display: flex;
+}
+
+/* Footer sns icon: 작은 아이콘이므로 버튼 크기 조정 */
+.pl-footer__sns-icon .creative__block-delete {
+  width: 18px;
+  height: 18px;
+  top: -6px;
+  right: -6px;
+}
+.pl-footer__sns-icon .creative__block-delete svg {
+  width: 10px;
+  height: 10px;
 }
 
 /* Image placeholder (gray box) */
@@ -838,6 +988,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
+  height: 100%;
   background: var(--pl-bg-neutral);
   border: 2px dashed var(--pl-bg-neutral-dark);
   border-radius: 8px;
@@ -887,12 +1038,59 @@
   border-color: var(--pl-border-brand);
 }
 
-/* Input inside full-background cards (slide, swipe A/B) — above overlay */
+/* Feature-alt image area: placeholder fills gray area, transparent bg */
+.pl-about__feature-image .creative__img-placeholder {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: none;
+  border-radius: inherit;
+  min-height: unset;
+}
+.pl-about__feature-image .creative__img-placeholder-input {
+  max-width: 280px;
+  width: 100%;
+}
+
+/* Grid card image container: placeholder fills full aspect-ratio height */
+.pl-grid-card__image .creative__img-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  min-height: unset;
+  height: 100%;
+}
+
+/* Input inside full-background cards (slide, swipe full) — above overlay */
 .pl-slide-card .creative__img-placeholder-input,
-.pl-swipe-card--full .creative__img-placeholder-input,
-.pl-swipe-card--overlay .creative__img-placeholder-input {
+.pl-swipe-card--full .creative__img-placeholder-input {
   position: relative;
   z-index: 5;
+}
+
+/* Input inside overlay cards: absolute at top of image area */
+.pl-swipe-card--overlay .pl-swipe-card__image {
+  overflow: visible;
+}
+.pl-swipe-card--overlay .pl-swipe-card__image .creative__img-placeholder-input {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  width: auto;
+  max-width: none;
+  z-index: 2;
+}
+
+/* Input inside split cards: absolute at bottom of image area */
+.pl-swipe-card--split .pl-swipe-card__image .creative__img-placeholder-input {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  width: auto;
+  max-width: none;
+  z-index: 10;
 }
 
 /* Slide/Swipe card image description input */
