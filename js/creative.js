@@ -110,7 +110,7 @@ class SectionCreative {
   }
 
   // Custom confirm modal
-  showConfirmModal(message, title = '삭제 확인') {
+  showConfirmModal(message, title = '삭제 확인', confirmLabel = '삭제') {
     return new Promise((resolve) => {
       this._pendingResolve = resolve;
 
@@ -156,6 +156,7 @@ class SectionCreative {
       // Set content
       modal.querySelector('.creative__modal-title').textContent = title;
       modal.querySelector('.creative__modal-message').textContent = message;
+      modal.querySelector('.creative__modal-btn--confirm').textContent = confirmLabel;
 
       // Show modal
       modal.style.display = 'flex';
@@ -829,15 +830,18 @@ class SectionCreative {
         e.preventDefault();
         e.stopPropagation();
         if (await this.showConfirmModal('이 탭을 삭제하시겠습니까?')) {
-          // Find associated panel
           const tabId = btn.dataset.tab;
-          if (tabId) {
-            const panel = wrapper.querySelector(`[data-tab="${tabId}"]`);
-            if (panel && panel.classList.contains('pl-tab-panel')) {
-              panel.remove();
-            }
+          const styleSection = btn.closest('.tab-style-section');
+
+          // Remove all nav buttons with same data-tab (desktop + mobile)
+          if (tabId && styleSection) {
+            styleSection.querySelectorAll(`[data-tab="${tabId}"]`).forEach(el => {
+              if (el.tagName === 'BUTTON' || el.classList.contains('pl-tab-btn')) el.remove();
+              else if (el.classList.contains('pl-tab-panel')) el.remove();
+            });
+          } else {
+            btn.remove();
           }
-          btn.remove();
         }
       });
 
@@ -911,6 +915,8 @@ class SectionCreative {
     // Skip GNB/Footer logo images — keep them as actual logos
     wrapper.querySelectorAll('img').forEach(img => {
       if (img.closest('.pl-gnb__logo, .pl-gnb__mobile-overlay-header')) return;
+      // 리뷰 카드 프로필 이미지 — 회색 원 그대로 노출 (숨김 처리만)
+      if (img.closest('.pl-review-card__photo')) { img.style.display = 'none'; return; }
       const w = img.offsetWidth;
       const h = img.offsetHeight;
       const isInsideTabPanel = !!img.closest('.pl-tab-panel');
@@ -1029,20 +1035,20 @@ class SectionCreative {
   }
 
   initSectionJS(wrapper, type) {
-    // Initialize FAQ accordion
+    // FAQ: 빌더에서는 모두 펼친 상태 고정 (아코디언 토글 비활성)
     if (type === 'faq') {
       wrapper.querySelectorAll('.pl-faq__item').forEach(item => {
+        item.classList.add('is-open');
         const header = item.querySelector('.pl-faq__header');
-        header?.addEventListener('click', () => {
-          const isOpen = item.classList.contains('is-open');
-          item.classList.toggle('is-open', !isOpen);
-          header.setAttribute('aria-expanded', !isOpen);
-        });
+        if (header) header.setAttribute('aria-expanded', 'true');
+        // 클릭으로 접히지 않도록 토글 막기
+        header?.addEventListener('click', (e) => e.stopPropagation());
       });
     }
 
     // Review slider: 애니메이션 중지, 6개 고정 그리드로 표시
     if (type === 'review') {
+      // type-c-card-slider: 슬라이더 트랙 펼치기
       const slider = wrapper.querySelector('.pl-review-slider');
       const track = wrapper.querySelector('.pl-review-slider__track');
       if (slider && track) {
@@ -1061,6 +1067,25 @@ class SectionCreative {
         const cards = Array.from(track.querySelectorAll('.pl-review-card--slider'));
         const half = Math.ceil(cards.length / 2);
         cards.forEach((card, i) => { if (i >= Math.min(6, half)) card.remove(); });
+      }
+
+      // type-a-highlight: 마키 애니메이션 중지, 카드 그리드로 펼치기
+      const reviewList = wrapper.querySelector('.pl-review-list');
+      const reviewTrack = wrapper.querySelector('.pl-review-track');
+      if (reviewList && reviewTrack) {
+        reviewList.style.overflow = 'visible';
+        reviewList.style.maskImage = 'none';
+        reviewList.style.webkitMaskImage = 'none';
+
+        reviewTrack.style.animation = 'none';
+        reviewTrack.style.width = 'auto';
+        reviewTrack.style.flexWrap = 'wrap';
+        reviewTrack.style.justifyContent = 'center';
+
+        // 루프용 복제 카드 제거 (원본만 유지)
+        const allCards = Array.from(reviewTrack.querySelectorAll('.pl-review-card'));
+        const half = Math.ceil(allCards.length / 2);
+        allCards.forEach((card, i) => { if (i >= half) card.remove(); });
       }
     }
 
@@ -1281,8 +1306,8 @@ class SectionCreative {
               <button class="creative__card-style-btn ${section.cardStyle === 'style-b' ? 'is-active' : ''}" data-style="style-b">탭 B</button>
             </div>
             <div class="creative__layer-control">
-              <button class="creative__storyboard-btn" title="모든 탭을 세로로 펼쳐서 전체 콘텐츠를 한 눈에 확인합니다">
-                ☰ 스토리보드 보기
+              <button class="creative__storyboard-btn" title="탭별 이미지를 한 번에 모두 표시합니다">
+                ⊞ 이미지 전체보기
               </button>
             </div>
           `;
@@ -1329,6 +1354,16 @@ class SectionCreative {
             </svg>
             카드 추가
           </button>
+        </div>
+        ` : ''}
+        ${section.type === 'review' ? `
+        <div class="creative__layer-control creative__layer-control--toggles">
+          <span class="creative__layer-control-label">옵션</span>
+          <div class="creative__layer-control-btns">
+            <button class="creative__review-toggle is-active" data-target="stars" title="별점 표시/숨김">★ 별점</button>
+            ${section.variant !== 'type-a-highlight' ? `<button class="creative__review-toggle is-active" data-target="photo" title="인물사진 표시/숨김">● 사진</button>` : ''}
+            <button class="creative__review-toggle is-active" data-target="info" title="부가정보 표시/숨김">i 정보</button>
+          </div>
         </div>
         ` : ''}
       `;
@@ -1389,14 +1424,42 @@ class SectionCreative {
         if (!activeStyleSection) return;
 
         if (isOn) {
+          // 패널 순서 번호 부여 (탭 버튼 텍스트 기준)
+          const tabBtns = Array.from(activeStyleSection.querySelectorAll('.pl-tab-nav--desktop .pl-tab-btn'));
+          activeStyleSection.querySelectorAll('.pl-tab-panel').forEach((panel, i) => {
+            const btnClone = tabBtns[i]?.cloneNode(true);
+            btnClone?.querySelector('.creative__tab-delete')?.remove();
+            const label = btnClone?.textContent?.trim() || String(i + 1);
+            panel.setAttribute('data-tab-index', label);
+          });
           activeStyleSection.classList.add('is-storyboard');
-          storyboardBtn.textContent = '✕ 스토리보드 끄기';
+          storyboardBtn.textContent = '✕ 전체보기 끄기';
         } else {
           activeStyleSection.classList.remove('is-storyboard');
-          storyboardBtn.textContent = '☰ 스토리보드 보기';
+          storyboardBtn.textContent = '⊞ 이미지 전체보기';
         }
       });
     }
+
+    // Review element toggle buttons
+    layer.querySelectorAll('.creative__review-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const target = btn.dataset.target;
+        const isActive = btn.classList.toggle('is-active');
+        const wrapper = this.mainContent.querySelector(`[data-section-id="${section.id}"]`);
+        if (!wrapper) return;
+
+        const selectorMap = {
+          stars: '.pl-review-card__stars, .pl-review-highlight__stars',
+          photo: '.pl-review-card__photo',
+          info:  '.pl-review-card__user-info, .pl-review-card__info'
+        };
+        wrapper.querySelectorAll(selectorMap[target]).forEach(el => {
+          el.style.display = isActive ? '' : 'none';
+        });
+      });
+    });
 
     // Drag events (only for non-fixed sections)
     if (!isFixed) {
@@ -2027,7 +2090,7 @@ class SectionCreative {
     const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection || this.floatingCtaSection;
     if (!hasContent) return;
 
-    if (await this.showConfirmModal('모든 섹션을 초기화하시겠습니까?', '전체 초기화')) {
+    if (await this.showConfirmModal('모든 섹션이 삭제되고 처음 상태로 돌아갑니다.\n이 작업은 되돌릴 수 없습니다.', '전체 초기화', '초기화')) {
       this.sections = [];
       this.headerSection = null;
       this.footerSection = null;

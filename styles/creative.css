@@ -611,8 +611,19 @@
 /* Layer Controls (Card Count) */
 .creative__layer-control {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
   gap: var(--pl-spacing-2);
   padding-left: var(--pl-spacing-7);
+}
+
+.creative__layer-control-btns {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--pl-spacing-2);
+  flex: 1;
+  min-width: 0;
 }
 
 .creative__layer-control--style {
@@ -627,6 +638,8 @@
   color: var(--pl-text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .creative__card-count-btn {
@@ -658,6 +671,7 @@
 .creative__btn-count-btn {
   padding: 5px 10px;
   font-size: 11px;
+  line-height: 1;
   font-weight: var(--pl-font-weight-default);
   color: var(--pl-text-tertiary);
   background: var(--pl-bg-default);
@@ -682,6 +696,34 @@
   background: var(--pl-bg-brand);
   border-color: var(--pl-bg-brand);
   font-weight: var(--pl-font-weight-bold);
+}
+
+/* Review element toggle buttons */
+.creative__review-toggle {
+  padding: 3px 8px;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-tertiary);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-1);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  opacity: 0.45;
+}
+.creative__review-toggle:hover {
+  border-color: var(--pl-border-brand);
+  color: var(--pl-text-primary);
+  opacity: 1;
+}
+.creative__review-toggle.is-active {
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-brand);
+  border-color: var(--pl-bg-brand);
+  font-weight: var(--pl-font-weight-bold);
+  opacity: 1;
 }
 
 /* Add Card Button */
@@ -745,33 +787,40 @@
   border-color: var(--pl-border-brand);
 }
 
-/* Storyboard Mode: all tab panels stacked vertically */
-.creative__section-wrapper .tab-style-section.is-storyboard .pl-tab-panel {
-  display: block !important;
+/* 이미지 전체보기 모드: 탭 패널 이미지 그리드 표시 */
+.creative__section-wrapper .tab-style-section.is-storyboard .pl-tab-content {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--pl-spacing-4);
+  padding: var(--pl-spacing-6) 0;
 }
 
-.creative__section-wrapper .tab-style-section.is-storyboard .pl-tab-panel + .pl-tab-panel {
-  border-top: 2px dashed var(--pl-border-light);
-  margin-top: var(--pl-spacing-4);
-  padding-top: var(--pl-spacing-4);
+.creative__section-wrapper .tab-style-section.is-storyboard .pl-tab-panel {
+  display: block !important;
+  border: 1px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-2);
+  overflow: hidden;
+  position: relative;
+}
+
+/* 탭 번호 뱃지 */
+.creative__section-wrapper .tab-style-section.is-storyboard .pl-tab-panel::before {
+  content: attr(data-tab-index);
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--pl-bg-invert);
+  color: var(--pl-text-invert);
+  font-size: 10px;
+  font-weight: var(--pl-font-weight-bold);
+  padding: 2px 7px;
+  border-radius: var(--pl-radius-circle);
+  z-index: 2;
+  line-height: 1.6;
 }
 
 .creative__section-wrapper .tab-style-section.is-storyboard .pl-tab-label-divider {
-  display: flex;
-  align-items: center;
-  gap: var(--pl-spacing-3);
-  padding: var(--pl-spacing-3) 0;
-  font-size: 11px;
-  font-weight: var(--pl-font-weight-bold);
-  color: var(--pl-text-tertiary);
-  letter-spacing: 0.5px;
-}
-
-.creative__section-wrapper .tab-style-section.is-storyboard .pl-tab-label-divider::before {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--pl-border-light);
+  display: none;
 }
 
 /* ============================================
@@ -1374,10 +1423,11 @@
   z-index: 200;
 }
 
-/* faq item: 헤더 높이에 맞게 수직 중앙 정렬 */
+/* faq item: 헤더 행 우측, 드롭다운 아이콘과 겹치지 않게 right:40px */
 .creative__section-wrapper .pl-faq__item .creative__block-delete {
-  top: 50%;
-  transform: translateY(-50%);
+  top: 16px;
+  right: 40px;
+  transform: none;
 }
 
 /* ============================================
@@ -1429,6 +1479,7 @@
   color: var(--pl-text-secondary);
   line-height: var(--pl-line-height-body);
   margin-bottom: var(--pl-spacing-8);
+  white-space: pre-line;
 }
 
 .creative__modal-actions {
