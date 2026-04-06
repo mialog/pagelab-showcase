@@ -1,7 +1,5 @@
 # PageLab Section Showcase
 
-상세 규칙: `AI_GUIDE.md`
-
 ## 핵심 원칙
 
 - 모든 색상·간격·폰트: `var(--pl-*)` 토큰 (hex, px 하드코딩 금지)
