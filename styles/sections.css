@@ -29,6 +29,7 @@
 
 /* Common Section Base Styles */
 /* Browser UA 기본값 제거 */
+*, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; overflow-x: hidden; }
 h1, h2, h3, h4, h5, h6 { margin: 0; }
 p { margin: 0; }
@@ -667,7 +668,7 @@ p { margin: 0; }
 
 .pl-intro--textblock {
   background: var(--pl-campaign-bg);
-  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-12);
 }
 
 .pl-intro__container {
@@ -684,6 +685,7 @@ p { margin: 0; }
   align-items: center;
   gap: var(--pl-spacing-5);
   padding-top: var(--pl-spacing-9); /* Figma: 40px, section(32px) + title(40px) = 72px */
+  width: 100%;
 }
 
 /* Figma: 17px/700, line-height 144%, color violet-50 (#9b6bf4) */
@@ -766,7 +768,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-intro--textblock {
-    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 32px var(--pl-spacing-11);
   }
 
   .pl-section-title__label {
@@ -787,7 +789,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-intro--textblock {
-    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 20px var(--pl-spacing-10);
   }
 
   .pl-section-title {
@@ -819,7 +821,7 @@ p { margin: 0; }
    ============================================ */
 .pl-intro--textgrid {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-12);
 }
 
 .pl-intro--textgrid .pl-intro__container {
@@ -907,7 +909,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-intro--textgrid {
-    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 20px var(--pl-spacing-10);
   }
 
   .pl-intro--textgrid .pl-intro__container {
@@ -954,7 +956,7 @@ p { margin: 0; }
 }
 
 .pl-intro__header {
-  padding: var(--pl-spacing-8) var(--pl-layout-padding); /* top: 32px */
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding);
   padding-bottom: var(--pl-spacing-12); /* gap: var(--pl-spacing-12) */
   display: flex;
   justify-content: center;
@@ -1230,7 +1232,7 @@ p { margin: 0; }
 
 .pl-about--list {
   background: var(--pl-campaign-bg);
-  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-14);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-14);
 }
 
 .pl-about__container {
@@ -1309,7 +1311,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--list {
-    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-13);
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-13);
   }
 
   .pl-about__container {
@@ -1345,7 +1347,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--list {
-    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 20px var(--pl-spacing-10);
   }
 
   .pl-about__container {
@@ -1388,7 +1390,7 @@ p { margin: 0; }
    ============================================ */
 .pl-about--grid {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-14);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-14);
 }
 
 .pl-about--grid .pl-about__container {
@@ -1404,6 +1406,7 @@ p { margin: 0; }
   display: flex;
   flex-direction: column;
   gap: var(--pl-spacing-7);
+  width: 100%;
 }
 
 /* Row 1: Large Cards - 3 columns */
@@ -1547,7 +1550,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--grid {
-    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-12);
   }
 
   .pl-card-grid__row--large {
@@ -1572,7 +1575,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--grid {
-    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 20px var(--pl-spacing-10);
   }
 
   .pl-card-grid__row--large,
@@ -1615,7 +1618,7 @@ p { margin: 0; }
    ============================================ */
 .pl-about--slide {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
   overflow: hidden;
 }
 
@@ -1628,7 +1631,8 @@ p { margin: 0; }
 
 /* Section Title in Card Slide: 가로 padding 유지 (섹션이 full-width라 수평 여백 직접 지정) */
 .pl-about--slide .pl-section-title {
-  padding: 0 var(--pl-layout-padding);
+  padding-left: var(--pl-layout-padding);
+  padding-right: var(--pl-layout-padding);
 }
 
 /* Card Track Container */
@@ -1740,7 +1744,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--slide {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
   }
 
   .pl-about--slide .pl-about__container {
@@ -1748,7 +1752,8 @@ p { margin: 0; }
   }
 
   .pl-about--slide .pl-section-title {
-    padding: 0 var(--pl-layout-padding);
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
   }
 
   .pl-slide-card {
@@ -1776,7 +1781,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--slide {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-8);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-8);
   }
 
   .pl-about--slide .pl-about__container {
@@ -1784,7 +1789,8 @@ p { margin: 0; }
   }
 
   .pl-about--slide .pl-section-title {
-    padding: 0 var(--pl-layout-padding);
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
   }
 
   .pl-card-track__inner {
@@ -1821,7 +1827,7 @@ p { margin: 0; }
    ============================================ */
 .pl-about--swipe {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
 }
 
 .pl-about--swipe .pl-about__container {
@@ -1833,7 +1839,8 @@ p { margin: 0; }
 
 /* Section Title in Card Swipe: 가로 padding 유지 (섹션이 full-width라 수평 여백 직접 지정) */
 .pl-about--swipe .pl-section-title {
-  padding: 0 var(--pl-layout-padding);
+  padding-left: var(--pl-layout-padding);
+  padding-right: var(--pl-layout-padding);
 }
 
 /* Swipe Container */
@@ -1906,7 +1913,7 @@ p { margin: 0; }
 .pl-swipe-track__inner {
   display: flex;
   gap: var(--pl-spacing-6); /* Figma: 24px */
-  padding: var(--pl-spacing-8) var(--pl-layout-padding);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding);
   padding-left: 236px; /* 212px gradient + 24px gap */
   padding-bottom: var(--pl-spacing-6); /* shadow visible */
   width: max-content;
@@ -2171,7 +2178,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--swipe {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
   }
 
   .pl-about--swipe .pl-about__container {
@@ -2179,7 +2186,8 @@ p { margin: 0; }
   }
 
   .pl-about--swipe .pl-section-title {
-    padding: 0 var(--pl-layout-padding);
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
   }
 
   .pl-swipe-controls {
@@ -2262,7 +2270,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--swipe {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-8);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-8);
   }
 
   .pl-about--swipe .pl-about__container {
@@ -2270,7 +2278,8 @@ p { margin: 0; }
   }
 
   .pl-about--swipe .pl-section-title {
-    padding: 0 var(--pl-layout-padding);
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
   }
 
   .pl-swipe-controls {
@@ -2357,7 +2366,7 @@ p { margin: 0; }
    ============================================ */
 .pl-about--tab {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-8) 0 var(--pl-spacing-13);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-13);
 }
 
 .pl-about--tab .pl-about__container {
@@ -2444,7 +2453,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--tab {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
   }
 
   .pl-about--tab .pl-about__container {
@@ -2477,7 +2486,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--tab {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
   }
 
   .pl-about--tab .pl-about__container {
@@ -2670,7 +2679,7 @@ p { margin: 0; }
    ============================================ */
 .pl-about--image {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-14);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-14);
 }
 
 .pl-about--image .pl-about__container {
@@ -2702,7 +2711,7 @@ p { margin: 0; }
 /* Type F - Tablet */
 @container section (max-width: 1199px) /* Ta */ {
   .pl-about--image {
-    padding: var(--pl-spacing-8) var(--pl-layout-padding) var(--pl-spacing-12);
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-12);
   }
 
   .pl-about--image .pl-about__container {
@@ -2718,7 +2727,7 @@ p { margin: 0; }
 /* Type F - Mobile */
 @container section (max-width: 639px) /* Mo */ {
   .pl-about--image {
-    padding: var(--pl-spacing-8) 20px var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 20px var(--pl-spacing-10);
   }
 
   .pl-about--image .pl-about__container {
@@ -2919,8 +2928,7 @@ p { margin: 0; }
 @container section (max-width: 639px) /* Mo */ {
   .pl-review__container {
     gap: 52px; /* Figma: title to cards gap */
-    padding-top: var(--pl-layout-body-top);
-    padding-bottom: var(--pl-layout-body-bottom);
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
   }
 
   .pl-star {
@@ -3139,8 +3147,7 @@ p { margin: 0; }
 @container section (max-width: 639px) /* Mo */ {
   .pl-review--grid .pl-review__container {
     gap: 52px;
-    padding-top: var(--pl-layout-body-top);
-    padding-bottom: var(--pl-layout-body-bottom);
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
   }
 
   .pl-review-grid {
@@ -3351,8 +3358,7 @@ p { margin: 0; }
 @container section (max-width: 639px) /* Mo */ {
   .pl-review--slider .pl-review__container {
     gap: 52px;
-    padding-top: var(--pl-layout-body-top);
-    padding-bottom: var(--pl-layout-body-bottom);
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
   }
 
   .pl-review-slider {
@@ -3765,9 +3771,7 @@ p { margin: 0; }
 /* ----- Mobile (max-width: 639px) ----- */
 @media (max-width: 639px) {
   .pl-benefit__container {
-    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
-    padding-left: var(--pl-layout-padding) !important;
-    padding-right: var(--pl-layout-padding) !important;
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
   }
 
   .pl-benefit__grid {
@@ -4041,9 +4045,7 @@ p { margin: 0; }
 
 @container section (max-width: 639px) {
   .pl-benefit__container {
-    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
-    padding-left: var(--pl-layout-padding) !important;
-    padding-right: var(--pl-layout-padding) !important;
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
   }
 
   .pl-benefit__grid {
@@ -4196,7 +4198,7 @@ p { margin: 0; }
    ============================================ */
 .pl-benefit--img {
   background: var(--pl-bg-default);
-  padding: var(--pl-spacing-8) 0 var(--pl-spacing-13);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-13);
 }
 
 .pl-benefit--img .pl-benefit__container {
@@ -4236,7 +4238,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-benefit--img {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-10);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
   }
 
   .pl-benefit--img .pl-benefit__container {
@@ -4254,7 +4256,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) {
   .pl-benefit--img {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
   }
 
   .pl-benefit--img .pl-benefit__container {
@@ -4358,7 +4360,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-step--img {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
   }
 
   .pl-step__container {
@@ -4414,12 +4416,12 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) {
   .pl-step--img {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
   }
 
   .pl-step__container {
     gap: var(--pl-spacing-8);
-    padding: 0 var(--pl-spacing-6); /* Figma: 20px left/right margin */
+    padding: 0 20px; /* Figma: 20px left/right */
   }
 
   .pl-step__items {
@@ -4560,7 +4562,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-step--text {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
   }
 
   .pl-step--text .pl-step__container {
@@ -4616,11 +4618,11 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) {
   .pl-step--text {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
   }
 
   .pl-step--text .pl-step__container {
-    padding: 0 var(--pl-spacing-6); /* Figma: 20px left/right margin */
+    padding: 0 20px; /* Figma: 20px left/right */
   }
 
   .pl-step-text__items {
@@ -4766,7 +4768,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-step--textonly {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
   }
 
   .pl-step-textonly__items {
@@ -4805,7 +4807,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) {
   .pl-step--textonly {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
   }
 
   .pl-step-textonly__items {
@@ -4813,12 +4815,12 @@ p { margin: 0; }
     flex-direction: column;
     align-items: center;
     gap: var(--pl-spacing-5); /* Figma: 16px gap */
-    max-width: 320px;
-    margin: 0 auto;
+    max-width: none;
+    width: 100%;
   }
 
   .pl-step-textonly__item {
-    width: 284px;
+    width: 100%;
   }
 
   .pl-step-textonly__arrow {
@@ -4948,7 +4950,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-faq {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
   }
 
   .pl-faq__container {
@@ -4997,12 +4999,12 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) {
   .pl-faq {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
   }
 
   .pl-faq__container {
     gap: var(--pl-spacing-8); /* 32px - Figma: 52px between title and items */
-    padding: 0 var(--pl-spacing-5); /* 20px horizontal padding - Figma spec */
+    padding: 0 20px; /* Figma: 20px left/right */
   }
 
   .pl-faq__header {
@@ -5142,7 +5144,7 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 1199px) {
   .pl-caution {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-11);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
   }
 
   .pl-caution__container {
@@ -5166,12 +5168,12 @@ p { margin: 0; }
    ============================================ */
 @container section (max-width: 639px) {
   .pl-caution {
-    padding: var(--pl-spacing-8) 0 var(--pl-spacing-9);
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
   }
 
   .pl-caution__container {
     gap: var(--pl-spacing-8);
-    padding: 0 var(--pl-spacing-6);
+    padding: 0 20px; /* Figma: 20px left/right */
   }
 
   .pl-caution__list {
@@ -5321,7 +5323,7 @@ p { margin: 0; }
 
   .pl-cta__container {
     gap: 48px; /* Figma: gap between text and buttons */
-    padding: 0 var(--pl-spacing-6); /* 20px */
+    padding: 0 20px; /* Figma: 20px */
   }
 
   .pl-cta__text {
@@ -5345,9 +5347,9 @@ p { margin: 0; }
   .pl-cta__btn {
     flex: 1;
     min-width: auto;
-    height: 56px; /* Figma: 56px */
-    font-size: 15px;
-    padding: 0 14px;
+    height: 48px; /* Mo: 48px */
+    font-size: 14px;
+    padding: 0 12px;
     white-space: nowrap;
   }
 }
@@ -6730,7 +6732,7 @@ p { margin: 0; }
 /* ============================================
    GNB Responsive - Tablet
    ============================================ */
-@container section (max-width: 1199px) {
+@media (max-width: 1199px) {
   .pl-gnb {
     height: 60px;
   }
@@ -6835,7 +6837,7 @@ p { margin: 0; }
 /* ============================================
    GNB Responsive - Mobile
    ============================================ */
-@container section (max-width: 639px) {
+@media (max-width: 639px) {
   .pl-gnb {
     height: 66px; /* Figma: 66px */
   }
@@ -6968,9 +6970,8 @@ p { margin: 0; }
   display: flex;
   flex-direction: column;
   gap: var(--pl-spacing-15);
-  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
-  max-width: var(--pl-container-default);
-  width: 100%;
+  padding-top: var(--pl-layout-body-top);
+  padding-bottom: var(--pl-layout-body-bottom);
 }
 
 /* ── 각 피처 아이템 (좌우 분할) ── */
@@ -7224,7 +7225,8 @@ p { margin: 0; }
 @container section (max-width: 1199px) {
   .pl-about__feature-alt-container {
     gap: var(--pl-spacing-13);
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom);
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   .pl-about__feature-item {
@@ -7248,8 +7250,9 @@ p { margin: 0; }
 /* ── Mobile ── */
 @container section (max-width: 639px) {
   .pl-about__feature-alt-container {
-    padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom);
     gap: var(--pl-spacing-12);
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .pl-about__feature-item {
