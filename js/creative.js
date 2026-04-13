@@ -259,13 +259,15 @@ class SectionCreative {
           // Add card functionality for about card types and step image type
           hasAddCard: (type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe', 'type-g-feature-alt'].includes(variant)) ||
                       (type === 'step' && variant === 'type-a-img'),
-          // Add card style selection for grid, swipe, tab types and floating CTA
+          // Add card style selection for grid, swipe, tab types, floating CTA, and step-b-text
           hasStyleControl: (type === 'about' && ['type-b-grid', 'type-d-card-swipe', 'type-e-tab'].includes(variant)) ||
-                           (type === 'cta' && variant === 'type-b-floating'),
+                           (type === 'cta' && variant === 'type-b-floating') ||
+                           (type === 'step' && variant === 'type-b-text'),
           cardStyle: (type === 'about' && variant === 'type-b-grid') ? 'image-top' :
                      (type === 'about' && variant === 'type-d-card-swipe') ? 'card-a' :
                      (type === 'about' && variant === 'type-e-tab') ? 'style-a' :
-                     (type === 'cta' && variant === 'type-b-floating') ? 'style-a' : undefined,
+                     (type === 'cta' && variant === 'type-b-floating') ? 'style-a' :
+                     (type === 'step' && variant === 'type-b-text') ? 'style-a' : undefined,
           btnCount: (type === 'cta' && variant === 'type-b-floating') ? '2btn' : undefined
         };
 
@@ -411,6 +413,15 @@ class SectionCreative {
           <div class="creative__cta-variant" data-cta-variant="style-b" style="display:none;">${styleBHtml}</div>
         </div>`;
         return this.adjustImagePaths(html);
+      } else if (type === 'step' && variant === 'type-b-text') {
+        // Load both style sections (썸네일형 + 텍스트형) into a wrapper
+        const styleSections = doc.querySelectorAll('.section-style');
+        if (styleSections.length > 0) {
+          let html = '<div class="creative__step-b-wrapper">';
+          styleSections.forEach(s => { html += s.outerHTML; });
+          html += '</div>';
+          return this.adjustImagePaths(html);
+        }
       } else {
         // Get section element
         sectionEl = doc.querySelector('.pl-section, .pl-faq, .pl-benefit, .pl-step, .pl-cta');
@@ -659,6 +670,88 @@ class SectionCreative {
       el.appendChild(deleteBtn);
     });
 
+    // Step image items — deletable (type-a-img)
+    wrapper.querySelectorAll('.pl-step__item').forEach(item => {
+      if (item.querySelector('.creative__block-delete')) return; // already has delete btn
+      item.style.position = 'relative';
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__block-delete';
+      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+      deleteBtn.title = '단계 삭제';
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) {
+          const itemsContainer = item.parentElement;
+          item.remove();
+          // Update last item: remove arrow, add --last class
+          const remaining = itemsContainer?.querySelectorAll('.pl-step__item');
+          if (remaining?.length) {
+            remaining.forEach((it, i) => {
+              if (i === remaining.length - 1) {
+                it.classList.add('pl-step__item--last');
+                it.querySelector('.pl-step__arrow')?.remove();
+              } else {
+                it.classList.remove('pl-step__item--last');
+              }
+            });
+          }
+        }
+      });
+      item.appendChild(deleteBtn);
+    });
+
+    // Step textonly items — deletable (type-b-text style B)
+    wrapper.querySelectorAll('.pl-step-textonly__item').forEach(item => {
+      if (item.querySelector('.creative__block-delete')) return;
+      item.style.position = 'relative';
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__block-delete';
+      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+      deleteBtn.title = '단계 삭제';
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) {
+          const next = item.nextElementSibling;
+          const prev = item.previousElementSibling;
+          if (next?.classList.contains('pl-step-textonly__arrow')) {
+            next.remove();
+          } else if (prev?.classList.contains('pl-step-textonly__arrow')) {
+            prev.remove();
+          }
+          item.remove();
+        }
+      });
+      item.appendChild(deleteBtn);
+    });
+
+    // Step text items — deletable (type-b-text style A)
+    wrapper.querySelectorAll('.pl-step-text__item').forEach(item => {
+      if (item.querySelector('.creative__block-delete')) return;
+      item.style.position = 'relative';
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__block-delete';
+      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+      deleteBtn.title = '단계 삭제';
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) {
+          // Remove adjacent arrow (prefer next sibling, fallback to prev)
+          const next = item.nextElementSibling;
+          const prev = item.previousElementSibling;
+          if (next?.classList.contains('pl-step-text__arrow')) {
+            next.remove();
+          } else if (prev?.classList.contains('pl-step-text__arrow')) {
+            prev.remove();
+          }
+          item.remove();
+        }
+      });
+      item.appendChild(deleteBtn);
+    });
+
     // Make buttons editable + deletable
     const buttons = wrapper.querySelectorAll('.pl-btn, .pl-cta__btn');
     buttons.forEach(btn => {
@@ -733,10 +826,7 @@ class SectionCreative {
       // 기능교대형 (Feature Alt)
       '.pl-about__feature-heading',
       '.pl-about__feature-desc',
-      // 이용방법 (Step) — label(Step 01)은 선택, title은 유지
-      '.pl-step-text__label',
-      '.pl-step-text__desc',
-      '.pl-step-img__desc',
+      // 이용방법 (Step) — 카드 전체 삭제로 처리하므로 개별 삭제 없음
     ];
     if (isAboutOrStep) wrapper.querySelectorAll(cardDescSelectors.join(', ')).forEach(desc => {
       if (desc.querySelector('.creative__text-delete')) return;
@@ -930,19 +1020,12 @@ class SectionCreative {
 
       let inputEl = '';
       if (isInsideTabPanel) {
-        inputEl = `<textarea class="creative__img-placeholder-input creative__img-placeholder-input--tab" placeholder="어떤 이미지를 넣을지 설명해주세요 (탭 내용, 레이아웃, 분위기 등)"></textarea>`;
+        inputEl = `<textarea class="creative__img-placeholder-input creative__img-placeholder-input--tab" placeholder="설명"></textarea>`;
       } else if (!isInsideSlideCard && !isHeroBg) {
-        inputEl = `<input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">`;
+        inputEl = `<input type="text" class="creative__img-placeholder-input" placeholder="설명">`;
       }
 
-      placeholder.innerHTML = `
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <polyline points="21 15 16 10 5 21"/>
-        </svg>
-        ${inputEl}
-      `;
+      placeholder.innerHTML = `${inputEl}`;
 
       placeholder.querySelector('input, textarea')?.addEventListener('click', (e) => e.stopPropagation());
 
@@ -960,12 +1043,12 @@ class SectionCreative {
       if (isInsideTabPanel) {
         input = document.createElement('textarea');
         input.className = 'creative__img-placeholder-input creative__img-placeholder-input--tab';
-        input.placeholder = '어떤 이미지를 넣을지 설명해주세요 (탭 내용, 레이아웃, 분위기 등)';
+        input.placeholder = '설명';
       } else if (!isInsideSlideCard && !isHeroBg) {
         input = document.createElement('input');
         input.type = 'text';
         input.className = 'creative__img-placeholder-input';
-        input.placeholder = '어떤 이미지를 넣을지 설명해주세요';
+        input.placeholder = '설명';
       }
       if (input) {
         input.addEventListener('click', (e) => e.stopPropagation());
@@ -1021,14 +1104,7 @@ class SectionCreative {
       if (imgArea.querySelector('.creative__img-placeholder')) return;
       const placeholder = document.createElement('div');
       placeholder.className = 'creative__img-placeholder';
-      placeholder.innerHTML = `
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
-      `;
+      placeholder.innerHTML = `<input type="text" class="creative__img-placeholder-input" placeholder="설명">`;
       placeholder.querySelector('input').addEventListener('click', (e) => e.stopPropagation());
       imgArea.appendChild(placeholder);
     });
@@ -1309,6 +1385,14 @@ class SectionCreative {
               <button class="creative__storyboard-btn" title="탭별 이미지를 한 번에 모두 표시합니다">
                 ⊞ 이미지 전체보기
               </button>
+            </div>
+          `;
+        } else if (section.variant === 'type-b-text') {
+          styleButtons = `
+            <div class="creative__layer-control">
+              <span class="creative__layer-control-label">스타일</span>
+              <button class="creative__card-style-btn ${section.cardStyle === 'style-a' ? 'is-active' : ''}" data-style="style-a">썸네일형</button>
+              <button class="creative__card-style-btn ${section.cardStyle === 'style-b' ? 'is-active' : ''}" data-style="style-b">텍스트형</button>
             </div>
           `;
         }
@@ -1644,6 +1728,12 @@ class SectionCreative {
           section.style.display = 'none';
         }
       });
+    } else if (variant === 'type-b-text') {
+      // style-a → data-style="a" (썸네일형), style-b → data-style="b" (텍스트형)
+      const dataStyle = style === 'style-a' ? 'a' : 'b';
+      wrapper.querySelectorAll('.section-style').forEach(s => {
+        s.style.display = s.dataset.style === dataStyle ? '' : 'none';
+      });
     }
   }
 
@@ -1782,14 +1872,8 @@ class SectionCreative {
       imageDiv.className = 'pl-about__feature-image pl-about__feature-image--grey';
       const imgPlaceholder = document.createElement('div');
       imgPlaceholder.className = 'creative__img-placeholder';
-      imgPlaceholder.innerHTML = `
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
-      `;
+      imgPlaceholder.innerHTML = `<input type="text" class="creative__img-placeholder-input" placeholder="설명">`;
+
       imgPlaceholder.querySelector('input').addEventListener('click', e => e.stopPropagation());
       imageDiv.appendChild(imgPlaceholder);
 
@@ -1862,14 +1946,7 @@ class SectionCreative {
       placeholder.className = 'creative__img-placeholder';
       placeholder.style.width = '320px';
       placeholder.style.minHeight = '320px';
-      placeholder.innerHTML = `
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <input type="text" class="creative__img-placeholder-input" placeholder="어떤 이미지를 넣을지 설명해주세요">
-      `;
+      placeholder.innerHTML = `<input type="text" class="creative__img-placeholder-input" placeholder="설명">`;
       placeholder.querySelector('input').addEventListener('click', e => e.stopPropagation());
       imgDiv.appendChild(placeholder);
       newItem.appendChild(imgDiv);
@@ -2534,5 +2611,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 페이지 이탈 시 자동저장
   window.addEventListener('beforeunload', () => {
     window.sectionCreative.saveState();
+  });
+
+  // 사용법 모달
+  function showHelpModal() {
+    const modal = document.getElementById('helpModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('is-visible'), 10);
+  }
+
+  function hideHelpModal() {
+    const modal = document.getElementById('helpModal');
+    if (!modal) return;
+    modal.classList.remove('is-visible');
+    setTimeout(() => modal.style.display = 'none', 200);
+  }
+
+  document.getElementById('helpBtn')?.addEventListener('click', showHelpModal);
+  document.getElementById('helpClose')?.addEventListener('click', hideHelpModal);
+  document.getElementById('helpModal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) hideHelpModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('helpModal')?.classList.contains('is-visible')) {
+      hideHelpModal();
+    }
   });
 });
