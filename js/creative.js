@@ -3,6 +3,8 @@
  * Allows users to select, combine, edit, and export sections
  */
 
+const STATE_VERSION = 2; // 버전 올리면 모든 사용자 localStorage 초기화
+
 class SectionCreative {
   constructor() {
     this.sections = [];
@@ -2455,6 +2457,7 @@ class SectionCreative {
     };
 
     return {
+      version: STATE_VERSION,
       savedAt: new Date().toISOString(),
       device: this.currentDevice,
       theme: this.currentTheme,
@@ -2537,6 +2540,12 @@ class SectionCreative {
       if (!raw) return false;
       const state = JSON.parse(raw);
       if (!state) return false;
+
+      // 버전이 다르면 구버전 캐시 무효화
+      if ((state.version || 1) < STATE_VERSION) {
+        localStorage.removeItem('pagelab_creative_state');
+        return false;
+      }
 
       this.sectionId = state.sectionId || 0;
 
