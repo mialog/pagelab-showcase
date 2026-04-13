@@ -1782,16 +1782,22 @@
   margin-top: var(--pl-spacing-8);
 }
 
+[data-device="mobile"] .creative__guide-cards,
+[data-device="tablet"] .creative__guide-cards {
+  flex-direction: column;
+  align-items: center;
+}
+
 .creative__guide-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: var(--pl-spacing-6);
+  padding: var(--pl-spacing-4);
   background: var(--pl-bg-default);
   border: 1px solid var(--pl-border-light);
   border-radius: var(--pl-radius-3);
-  width: 148px;
+  width: 168px;
   gap: var(--pl-spacing-3);
 }
 
@@ -1804,6 +1810,16 @@
   background: var(--pl-bg-brand-light);
   border-radius: var(--pl-radius-2);
   color: var(--pl-text-brand);
+  flex-shrink: 0;
+}
+
+.creative__guide-icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  opacity: 1;
 }
 
 .creative__guide-card-title {
@@ -1815,7 +1831,8 @@
 .creative__guide-card-desc {
   font-size: var(--pl-font-size-body-sm);
   color: var(--pl-text-tertiary);
-  line-height: 1.5;
+  line-height: 1.6;
+  word-break: keep-all; /* 한글 단어 단위로만 줄바꿈 */
 }
 
 /* ============================================

@@ -9,9 +9,11 @@
     "new-section": "node scripts/new-section.js",
     "validate": "node scripts/validate-sections.js",
     "screenshot": "node scripts/screenshot.js",
-    "screenshot:all": "node scripts/screenshot.js --all"
+    "screenshot:all": "node scripts/screenshot.js --all",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "puppeteer": "^24.39.1"
   }
 }
