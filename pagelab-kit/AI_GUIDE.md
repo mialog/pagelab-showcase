@@ -23,7 +23,19 @@ pagelab-kit/
 │   ├── brand-[project].css   ← 브랜드 메인/서브 (여기만 수정)
 │   └── campaign-[name].css   ← 캠페인 시즌색 (시즌마다 교체)
 ├── styles/
-│   ├── sections.css          ← 모든 섹션 스타일 (수정 금지)
+│   ├── sections.css          ← 섹션 스타일 배럴 파일 (수정 금지)
+│   ├── sections/             ← 섹션 타입별 CSS (수정 금지)
+│   │   ├── common.css        ← 공통 리셋·베이스
+│   │   ├── hero.css          ← Hero 섹션
+│   │   ├── intro.css         ← Intro 섹션 + Section Title
+│   │   ├── about.css         ← About/Feature 섹션
+│   │   ├── review.css        ← Review 섹션
+│   │   ├── benefit.css       ← Benefit 섹션
+│   │   ├── step.css          ← Step 섹션
+│   │   ├── faq.css           ← FAQ 섹션
+│   │   ├── caution.css       ← 유의사항 섹션
+│   │   ├── cta.css           ← CTA 섹션
+│   │   └── navigation.css    ← GNB + Footer
 │   ├── components.css        ← 공통 컴포넌트 (수정 금지)
 │   └── dark-mode.css         ← 다크 모드 오버라이드
 ├── scripts/
@@ -40,7 +52,7 @@ pagelab-kit/
 | `campaign-[name].css` | ✅ 캠페인 색상 변경 |
 | `sections/*.html` | ✅ 섹션 HTML 편집 |
 | `index.html` | ✅ 페이지 구성 |
-| `base.css` / `sections.css` / `components.css` / `components.js` | ❌ 수정 금지 |
+| `base.css` / `sections.css` / `sections/*.css` / `components.css` / `components.js` | ❌ 수정 금지 |
 
 ### 1.3 핵심 원칙
 1. **토큰 우선**: 모든 스타일 값은 `var(--pl-*)` 토큰 사용
@@ -310,7 +322,35 @@ gap: 52px; /* Figma: 52px, 토큰 없음 */
 
 ⚠️ 직접 HTML 마크업 금지. 반드시 Web Component 사용.
 
-### 6.2 GNB
+### 6.2 Review Card (`<pl-review-card>`)
+
+```html
+<!-- highlight (기본) — 사진 없음 -->
+<pl-review-card stars="5" name="김이름" info="초3 학부모"
+  content="아이가 정말 좋아해요!"></pl-review-card>
+
+<!-- grid — 사진 + 리뷰어 정보가 상단 -->
+<pl-review-card variant="grid" stars="5" name="박소연" info="초2 자녀 엄마"
+  photo="./images/reviewer_1.jpg" photo-alt="리뷰어 1"
+  content="아이가 정말 좋아해요!"></pl-review-card>
+
+<!-- slider — 사진 + 리뷰어 정보가 하단 -->
+<pl-review-card variant="slider" stars="4" name="박소연" info="초2 자녀 엄마"
+  photo="./images/reviewer_1.jpg" photo-alt="리뷰어 1"
+  content="아이가 정말 좋아해요!"></pl-review-card>
+```
+
+| 속성 | 필수 | 설명 |
+|------|------|------|
+| `variant` | ❌ | `grid` \| `slider` (생략 시 highlight) |
+| `stars` | ❌ | 별점 1~5 (기본 5) |
+| `name` | ✅ | 작성자 이름 |
+| `info` | ❌ | 부가 정보 (예: "초3 학부모") |
+| `photo` | ❌ | 작성자 사진 URL (grid/slider에서 사용) |
+| `photo-alt` | ❌ | 사진 alt 텍스트 |
+| `content` | ✅ | 후기 본문 |
+
+### 6.3 GNB
 
 ```html
 <header class="pl-gnb">
@@ -358,7 +398,7 @@ function toggleMobileMenu() {
 }
 ```
 
-### 6.3 Footer
+### 6.4 Footer
 
 ```html
 <footer class="pl-footer">
@@ -388,7 +428,7 @@ function toggleMobileMenu() {
 </footer>
 ```
 
-### 6.4 GNB/Footer 체크리스트
+### 6.5 GNB/Footer 체크리스트
 
 - `<pl-section-title>` Web Component 사용
 - 현재 페이지 메뉴에 `.is-active` 클래스

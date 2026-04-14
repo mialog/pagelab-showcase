@@ -177,66 +177,71 @@ class PLCard extends HTMLElement {
 
 customElements.define('pl-card', PLCard);
 
-
 /**
- * PageLab Interactions
- * GNB 스크롤, 탭, 모바일 메뉴 — 키트 standalone 페이지용
+ * Review Card Component
+ * Usage:
+ * <pl-review-card stars="5" name="김이름" info="초3 학부모"
+ *   content="아이가 정말 좋아해요!"></pl-review-card>
+ *
+ * <pl-review-card variant="grid" stars="5" name="박소연" info="초2 자녀 엄마"
+ *   photo="./images/reviewer_1.jpg" photo-alt="리뷰어 1"
+ *   content="아이가 정말 좋아해요!"></pl-review-card>
+ *
+ * <pl-review-card variant="slider" stars="4" name="박소연" info="초2 자녀 엄마"
+ *   photo="./images/reviewer_1.jpg" photo-alt="리뷰어 1"
+ *   content="아이가 정말 좋아해요!"></pl-review-card>
+ *
+ * Attributes:
+ * - variant: (none) | grid | slider — 레이아웃 변형
+ * - stars: 1~5 — 별점 개수 (default: 5)
+ * - content: 후기 본문 (required)
+ * - name: 작성자 이름 (required)
+ * - info: 작성자 부가 정보 (optional)
+ * - photo: 작성자 사진 URL (optional, grid/slider에서 사용)
+ * - photo-alt: 사진 alt 텍스트 (optional)
  */
-document.addEventListener('DOMContentLoaded', () => {
+class PLReviewCard extends HTMLElement {
+  connectedCallback() {
+    const variant = this.getAttribute('variant') || '';
+    const stars = parseInt(this.getAttribute('stars') || '5', 10);
+    const content = this.getAttribute('content') || '';
+    const name = this.getAttribute('name') || '';
+    const info = this.getAttribute('info') || '';
+    const photo = this.getAttribute('photo') || '';
+    const photoAlt = this.getAttribute('photo-alt') || '';
 
-  // ── 1. GNB 스크롤 감지 ──────────────────────────────
-  const gnb = document.getElementById('mainGnb');
-  if (gnb) {
-    window.addEventListener('scroll', () => {
-      gnb.classList.toggle('is-scrolled', window.scrollY > 0);
-    }, { passive: true });
+    const starSvg = '<svg class="pl-star-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M13.0483 1.15337C12.6195 0.282209 11.3805 0.282211 10.9517 1.15337L8.14913 6.84682C7.97884 7.19276 7.64968 7.43254 7.26891 7.48801L1.00221 8.401C0.0433404 8.5407 -0.339532 9.72214 0.354315 10.4002L4.88894 14.832C5.16446 15.1013 5.29019 15.4892 5.22515 15.8694L4.15467 22.1272C3.99088 23.0847 4.99325 23.8148 5.85089 23.3628L11.456 20.4083C11.7966 20.2288 12.2034 20.2288 12.544 20.4083L18.1491 23.3628C19.0068 23.8148 20.0091 23.0847 19.8453 22.1272L18.7749 15.8694C18.7098 15.4892 18.8355 15.1013 19.1111 14.832L23.6457 10.4002C24.3395 9.72214 23.9567 8.5407 22.9978 8.401L16.7311 7.48801C16.3503 7.43254 16.0212 7.19276 15.8509 6.84682L13.0483 1.15337Z"/></svg>';
+
+    const starsHtml = `<div class="pl-review-card__stars" role="img" aria-label="별점 ${stars}점">${starSvg.repeat(stars)}</div>`;
+    const contentHtml = `<p class="pl-review-card__content">${content}</p>`;
+
+    // variant별 클래스·구조 분기
+    const modClass = variant ? ` pl-review-card--${variant}` : '';
+    let inner = '';
+
+    if (variant === 'grid') {
+      // grid: reviewer → stars → content
+      const reviewerHtml = this._buildReviewer(photo, photoAlt, name, info);
+      inner = reviewerHtml + starsHtml + contentHtml;
+    } else if (variant === 'slider') {
+      // slider: stars → content → reviewer
+      const reviewerHtml = this._buildReviewer(photo, photoAlt, name, info);
+      inner = starsHtml + contentHtml + reviewerHtml;
+    } else {
+      // highlight (default): stars → content → author
+      const authorHtml = `<div class="pl-review-card__author"><span class="pl-review-card__name">${name}</span>${info ? `<span class="pl-review-card__info">${info}</span>` : ''}</div>`;
+      inner = starsHtml + contentHtml + authorHtml;
+    }
+
+    this.innerHTML = `<article class="pl-review-card${modClass}">${inner}</article>`;
   }
 
-  // ── 2. 탭 ───────────────────────────────────────────
-  document.querySelectorAll('.pl-tab-container').forEach(container => {
-    const allBtns   = container.querySelectorAll('.pl-tab-btn');
-    const allPanels = container.querySelectorAll('.pl-tab-panel');
+  _buildReviewer(photo, photoAlt, name, info) {
+    const photoHtml = photo
+      ? `<div class="pl-review-card__photo"><img src="${photo}" alt="${photoAlt}" onerror="this.style.display='none'"></div>`
+      : '';
+    return `<div class="pl-review-card__reviewer">${photoHtml}<div class="pl-review-card__user"><span class="pl-review-card__user-name">${name}</span>${info ? `<span class="pl-review-card__user-info">${info}</span>` : ''}</div></div>`;
+  }
+}
 
-    allBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const tabId = btn.dataset.tab;
-        allBtns.forEach(b => b.classList.toggle('is-active', b.dataset.tab === tabId));
-        allPanels.forEach(p => p.classList.toggle('is-active', p.dataset.tab === tabId));
-      });
-    });
-  });
-
-  // ── 3. 모바일 메뉴 ──────────────────────────────────
-  window.toggleMobileMenu = function () {
-    const overlay = document.getElementById('mobileMenuOverlay');
-    const gnb     = document.getElementById('mainGnb');
-    if (!overlay) return;
-
-    const isOpen = overlay.classList.contains('is-open');
-    overlay.classList.toggle('is-open', !isOpen);
-    if (gnb) gnb.classList.toggle('is-menu-open', !isOpen);
-    document.body.style.overflow = isOpen ? '' : 'hidden';
-  };
-
-  // ── 4. 푸터 드롭다운 ────────────────────────────────
-  window.toggleDropdown = function (el) {
-    document.querySelectorAll('.pl-footer__dropdown.is-open').forEach(d => {
-      if (d !== el) d.classList.remove('is-open');
-    });
-    el.classList.toggle('is-open');
-  };
-
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.pl-footer__dropdown-wrapper')) {
-      document.querySelectorAll('.pl-footer__dropdown.is-open')
-        .forEach(d => d.classList.remove('is-open'));
-    }
-  });
-
-  // ── 5. 회사 정보 토글 (모바일) ──────────────────────
-  window.toggleCompanyInfo = function (btn) {
-    btn.classList.toggle('is-open');
-    document.getElementById('companyAddress')?.classList.toggle('is-open');
-  };
-
-});
+customElements.define('pl-review-card', PLReviewCard);

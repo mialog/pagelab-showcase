@@ -17,7 +17,8 @@ pagelab-kit/
 │   ├── base.css                ← PageLab 시스템 토큰 (수정 금지)
 │   └── campaign-project.css    ← 캠페인 시즌 컬러 (시즌마다 교체)
 ├── styles/
-│   ├── sections.css            ← 섹션 스타일 (수정 금지)
+│   ├── sections.css            ← 섹션 스타일 배럴 (수정 금지)
+│   ├── sections/               ← 섹션 타입별 CSS (수정 금지)
 │   └── components.css          ← 버튼 등 공통 컴포넌트 (수정 금지)
 ├── scripts/
 │   └── components.js           ← pl-section-title Web Component (수정 금지)
@@ -26,7 +27,7 @@ pagelab-kit/
 └── AI_GUIDE.md                 ← Claude Code 상세 규칙서
 ```
 
-> **sections.css, components.css, components.js, base.css는 수정하지 않습니다.**
+> **sections.css, sections/*.css, components.css, components.js, base.css는 수정하지 않습니다.**
 > 브랜드 컬러 변경은 Figma 변수로 하거나, brand-override.css를 추가합니다.
 
 ---

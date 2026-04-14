@@ -1,0 +1,645 @@
+/* ============================================
+   CTA Section - Type A Finish (마무리형)
+   Figma: 1920x293, bg #dae3ff
+   ============================================ */
+.pl-cta--finish {
+  width: 100%;
+  background: var(--pl-bg-brand-light); /* Figma: light blue */
+  padding: 100px 0; /* Figma: 100px top/bottom */
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-cta__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px; /* Figma: 1280px content width */
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+  gap: 60px; /* Figma: gap between text and buttons */
+}
+
+.pl-cta__text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Figma: 12px between title and desc */
+  flex: 1;
+  max-width: 900px;
+}
+
+.pl-cta__title {
+  font-size: 38px; /* Figma: 38px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: 1.36; /* Figma: 51.68px / 38px */
+  color: var(--pl-text-primary); /* #0b0d11 */
+  margin: 0;
+}
+
+.pl-cta__desc {
+  font-size: 20px; /* Figma: 20px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.44; /* Figma: 28.8px / 20px */
+  color: var(--pl-text-tertiary); /* #6a747c */
+  margin: 0;
+}
+
+.pl-cta__buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Figma: 8px between buttons */
+  flex-shrink: 0;
+}
+
+/* CTA Finish button: extends pl-btn with CTA-specific sizing and pill shape */
+.pl-cta__btn {
+  min-width: 156px; /* Figma: 156px */
+  height: 59px; /* Figma: 59px */
+  padding: 0 24px;
+  font-size: 19px; /* Figma: 19px */
+  border-radius: 999px; /* Pill shape */
+}
+
+.pl-cta__btn--outline {
+  color: var(--pl-text-brand); /* var(--pl-text-brand) */
+  background: var(--pl-bg-default); /* white */
+  border: 1px solid var(--pl-text-brand);
+}
+
+.pl-cta__btn--outline:hover {
+  background: var(--pl-bg-brand-light);
+}
+
+.pl-cta__btn--filled {
+  color: var(--pl-bg-default); /* white */
+  background: var(--pl-text-brand); /* var(--pl-text-brand) */
+  border: 1px solid var(--pl-text-brand);
+}
+
+.pl-cta__btn--filled:hover {
+  background: var(--pl-alpha-brand-12);
+  border-color: var(--pl-alpha-brand-12);
+}
+
+/* ============================================
+   CTA Finish Responsive - Tablet
+   Figma: 720x376, padding 92px top/bottom
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-cta--finish {
+    padding: 92px 0; /* Figma: 92px top/bottom */
+  }
+
+  .pl-cta__container {
+    flex-direction: column;
+    align-items: center;
+    gap: 52px; /* Figma: gap between text and buttons */
+    padding: 0 var(--pl-spacing-8); /* 32px */
+  }
+
+  .pl-cta__text {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    gap: 10px; /* Figma: gap between title and desc */
+  }
+
+  .pl-cta__title {
+    font-size: 34px; /* Figma: 34px */
+  }
+
+  .pl-cta__desc {
+    font-size: 18px; /* Figma: 18px */
+  }
+
+  .pl-cta__btn {
+    min-width: 156px; /* Figma: 156px */
+    height: 58px; /* Figma: 58px */
+    font-size: 18px; /* Figma: 18px */
+  }
+}
+
+/* ============================================
+   CTA Finish Responsive - Mobile
+   Figma: 360x371, padding 80px top/bottom
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-cta--finish {
+    padding: 80px 0; /* Figma: 80px top/bottom */
+  }
+
+  .pl-cta__container {
+    gap: 48px; /* Figma: gap between text and buttons */
+    padding: 0 20px; /* Figma: 20px */
+  }
+
+  .pl-cta__text {
+    gap: 8px; /* Figma: gap between title and desc */
+  }
+
+  .pl-cta__title {
+    font-size: 28px; /* Figma: 28px */
+  }
+
+  .pl-cta__desc {
+    font-size: 16px; /* Figma: 16px */
+  }
+
+  .pl-cta__buttons {
+    flex-direction: row; /* Figma: horizontal buttons */
+    width: 100%;
+    gap: 6px; /* Figma: gap between buttons */
+  }
+
+  .pl-cta__btn {
+    flex: 1;
+    min-width: auto;
+    height: 48px; /* Mo: 48px */
+    font-size: 14px;
+    padding: 0 12px;
+    white-space: nowrap;
+  }
+}
+
+/* CTA Finish dark mode → dark-mode.css에서 관리 */
+
+/* ============================================
+   CTA Section - Type B Floating (플로팅 버튼형)
+   Figma: 1920x1011, floating buttons over image
+   Uses same structure as About Image section
+   ============================================ */
+.pl-cta--floating {
+  position: relative;
+  width: 100%;
+  background: var(--pl-bg-default);
+  container-type: inline-size;
+  container-name: section;
+}
+
+/* Use same container structure as About Image section */
+.pl-cta-floating__bg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8); /* Same as .pl-about--image: 32px */
+  padding: var(--pl-layout-body-top) 0 var(--pl-layout-body-bottom) 0; /* Standard section padding */
+}
+
+/* Use same image styles as About Image section */
+.pl-cta-floating__bg .pl-about-image {
+  width: 100%;
+  max-width: var(--pl-container-default); /* 1280px */
+}
+
+.pl-cta-floating__bg .pl-about-image__wrapper {
+  width: 100%;
+  aspect-ratio: 1280 / 300; /* Half height for floating CTA visibility */
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-5); /* 24px */
+  overflow: hidden;
+}
+
+.pl-cta-floating__bg .pl-about-image__wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating Buttons Container */
+.pl-cta-floating__buttons {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 600px;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Floating Button */
+.pl-cta-floating__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  height: 67px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+/* Interaction overlay - Figma 상태값 */
+.pl-cta-floating__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+/* Hover: 검은색 12% 오버레이 */
+.pl-cta-floating__btn:hover::before {
+  background: var(--pl-alpha-black-12);
+}
+
+/* Active/Pressed: 시안색 24% 오버레이 (테두리 없음) */
+.pl-cta-floating__btn:active::before {
+  background: var(--pl-alpha-brand-24);
+}
+
+/* Focus: 시안색 24% 오버레이 + 48% 테두리 */
+.pl-cta-floating__btn:focus-visible::before {
+  background: var(--pl-alpha-brand-24);
+  box-shadow: inset 0 0 0 2px var(--pl-alpha-brand-48);
+}
+
+/* Disabled 상태 */
+.pl-cta-floating__btn:disabled,
+.pl-cta-floating__btn.is-disabled {
+  background: rgba(140, 152, 161, 0.24) !important;
+  pointer-events: none;
+}
+
+.pl-cta-floating__btn:disabled .pl-cta-floating__label,
+.pl-cta-floating__btn.is-disabled .pl-cta-floating__label {
+  color: var(--pl-text-lowest);
+}
+
+.pl-cta-floating__btn:disabled .pl-cta-floating__icon,
+.pl-cta-floating__btn.is-disabled .pl-cta-floating__icon {
+  stroke: var(--pl-text-lowest);
+}
+
+.pl-cta-floating__label {
+  position: relative;
+  z-index: 2;
+  font-size: 19px;
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-static-white);
+}
+
+.pl-cta-floating__icon {
+  position: relative;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  stroke: var(--pl-static-white);
+}
+
+/* Green Gradient Button */
+.pl-cta-floating__btn--green {
+  background: linear-gradient(135deg, #42e6ba 0%, #18c493 100%);
+}
+
+/* Blue Gradient Button */
+.pl-cta-floating__btn--blue {
+  background: linear-gradient(135deg, #577eff 0%, #142cc6 100%);
+}
+
+/* Single Button Variant - PC */
+.pl-cta-floating__buttons--single {
+  width: 300px; /* Figma: 300px for single button */
+}
+
+.pl-cta-floating__buttons--single .pl-cta-floating__btn {
+  flex: none;
+  width: 100%;
+}
+
+/* ============================================
+   CTA Floating Responsive - Tablet
+   Figma: 720x719, full-width buttons at bottom
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-cta-floating__bg {
+    gap: var(--pl-spacing-6);
+    padding: var(--pl-layout-body-top) var(--pl-spacing-8) 0 var(--pl-spacing-8); /* Side padding for title */
+  }
+
+  .pl-cta-floating__bg .pl-about-image {
+    width: calc(100% + var(--pl-spacing-8) * 2); /* Full width - cancel side padding */
+    max-width: none;
+    margin-left: calc(var(--pl-spacing-8) * -1);
+    margin-right: calc(var(--pl-spacing-8) * -1);
+  }
+
+  .pl-cta-floating__bg .pl-about-image__wrapper {
+    aspect-ratio: 720 / 400; /* Figma: 720x400 */
+    border-radius: 0; /* No border-radius on tablet */
+  }
+
+  /* Full-width squared buttons at bottom */
+  .pl-cta-floating__buttons {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: calc(100% + var(--pl-spacing-8) * 2);
+    margin-left: calc(var(--pl-spacing-8) * -1);
+    margin-right: calc(var(--pl-spacing-8) * -1);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .pl-cta-floating__btn {
+    height: 62px; /* Figma: 62px */
+    border-radius: 0; /* Squared corners */
+  }
+
+  .pl-cta-floating__label {
+    font-size: 18px; /* Figma: 18px */
+  }
+
+  /* Single button - full width on tablet */
+  .pl-cta-floating__buttons--single {
+    width: calc(100% + var(--pl-spacing-8) * 2);
+  }
+}
+
+/* ============================================
+   CTA Floating Responsive - Mobile
+   Figma: 360x640, full-width buttons at bottom
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-cta-floating__bg {
+    gap: 52px;
+    padding: var(--pl-layout-body-top) var(--pl-spacing-6) 0 var(--pl-spacing-6); /* 20px side padding for title */
+  }
+
+  .pl-cta-floating__bg .pl-about-image {
+    width: calc(100% + var(--pl-spacing-6) * 2); /* Full width - cancel side padding */
+    max-width: none;
+    margin-left: calc(var(--pl-spacing-6) * -1);
+    margin-right: calc(var(--pl-spacing-6) * -1);
+  }
+
+  .pl-cta-floating__bg .pl-about-image__wrapper {
+    aspect-ratio: 360 / 360; /* Figma: 360x360 (1:1) */
+    border-radius: 0;
+  }
+
+  /* Full-width squared buttons at bottom */
+  .pl-cta-floating__buttons {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: calc(100% + var(--pl-spacing-6) * 2);
+    max-width: none;
+    margin-left: calc(var(--pl-spacing-6) * -1);
+    margin-right: calc(var(--pl-spacing-6) * -1);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .pl-cta-floating__btn {
+    height: 56px; /* Figma: 56px */
+    border-radius: 0;
+  }
+
+  .pl-cta-floating__label {
+    font-size: 17px; /* Figma: 17px */
+  }
+
+  .pl-cta-floating__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Single button - full width on mobile */
+  .pl-cta-floating__buttons--single {
+    width: calc(100% + var(--pl-spacing-6) * 2);
+  }
+}
+
+/* ============================================
+   CTA Section - Floating B (플로팅 버튼 B)
+   Figma: Container with text + buttons
+   ============================================ */
+.pl-cta-floating-b {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-sizing: border-box;
+  height: 91px; /* Figma: 91px */
+  padding: 0 20px 0 40px;
+  background: var(--pl-bg-brand-light);
+  border: 2px solid var(--pl-border-brand-light, #8ddaf9);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.pl-cta-floating-b__text {
+  font-size: 20px; /* Figma: 20px */
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-accent);
+  white-space: nowrap;
+}
+
+.pl-cta-floating-b__buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pl-cta-floating-b__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 280px; /* Figma: 280px */
+  height: 51px; /* Figma: 51px */
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+/* Interaction overlay - Figma 상태값 */
+.pl-cta-floating-b__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: transparent;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+/* Hover: 흰색 12% 오버레이 */
+.pl-cta-floating-b__btn:hover::before {
+  background: var(--pl-alpha-white-12);
+}
+
+/* Active/Pressed: 흰색 24% 오버레이 (테두리 없음) */
+.pl-cta-floating-b__btn:active::before {
+  background: var(--pl-alpha-white-24);
+}
+
+/* Focus: 흰색 24% 오버레이 + 버튼 색상 테두리 */
+.pl-cta-floating-b__btn:focus-visible::before {
+  background: var(--pl-alpha-white-24);
+}
+
+/* Focus 테두리 - Purple 버튼 */
+.pl-cta-floating-b__btn--purple:focus-visible::before {
+  box-shadow: inset 0 0 0 2px var(--pl-text-link);
+}
+
+/* Focus 테두리 - Cyan 버튼 */
+.pl-cta-floating-b__btn--cyan:focus-visible::before {
+  box-shadow: inset 0 0 0 2px var(--pl-text-brand);
+}
+
+/* Disabled 상태 */
+.pl-cta-floating-b__btn:disabled,
+.pl-cta-floating-b__btn.is-disabled {
+  background: rgba(140, 152, 161, 0.24) !important;
+  pointer-events: none;
+}
+
+.pl-cta-floating-b__btn:disabled .pl-cta-floating-b__label,
+.pl-cta-floating-b__btn.is-disabled .pl-cta-floating-b__label {
+  color: var(--pl-text-lowest);
+}
+
+.pl-cta-floating-b__btn:disabled .pl-cta-floating-b__icon,
+.pl-cta-floating-b__btn.is-disabled .pl-cta-floating-b__icon {
+  stroke: var(--pl-text-lowest);
+}
+
+.pl-cta-floating-b__label {
+  position: relative;
+  z-index: 2;
+  font-size: 19px;
+  font-weight: var(--pl-font-weight-bold);
+  color: #ffffff;
+}
+
+.pl-cta-floating-b__icon {
+  position: relative;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+}
+
+/* Purple Button */
+.pl-cta-floating-b__btn--purple {
+  background: var(--pl-text-link);
+}
+
+/* Cyan Button */
+.pl-cta-floating-b__btn--cyan {
+  background: var(--pl-text-brand);
+}
+
+/* Single Button Variant */
+.pl-cta-floating-b--single .pl-cta-floating-b__btn {
+  min-width: 360px;
+}
+
+/* ============================================
+   CTA Floating B Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-cta-floating-b {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px; /* Figma: text-button gap 22px */
+    width: calc(100% + var(--pl-spacing-8) * 2);
+    margin-left: calc(var(--pl-spacing-8) * -1);
+    margin-right: calc(var(--pl-spacing-8) * -1);
+    height: auto;
+    padding: 22px var(--pl-spacing-8) 30px;
+    border-radius: 0;
+    border-width: 2px 0 0 0; /* Top border only */
+    border-style: solid;
+    border-color: var(--pl-border-brand-light, #8ddaf9);
+    box-shadow: none;
+  }
+
+  .pl-cta-floating-b__text {
+    font-size: 18px; /* Figma: 18px */
+    text-align: center;
+    white-space: normal;
+  }
+
+  .pl-cta-floating-b__buttons {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .pl-cta-floating-b__btn {
+    flex: 1;
+    min-width: auto;
+    height: 50px; /* Figma: 50px */
+  }
+
+  .pl-cta-floating-b__label {
+    font-size: 18px; /* Figma: 18px */
+  }
+
+  .pl-cta-floating-b--single .pl-cta-floating-b__btn {
+    min-width: auto;
+  }
+}
+
+/* ============================================
+   CTA Floating B Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-cta-floating-b {
+    width: calc(100% + var(--pl-spacing-6) * 2);
+    margin-left: calc(var(--pl-spacing-6) * -1);
+    margin-right: calc(var(--pl-spacing-6) * -1);
+    padding: 20px var(--pl-spacing-6) 24px;
+    gap: 20px; /* Figma: text-button gap 20px */
+  }
+
+  .pl-cta-floating-b__text {
+    font-size: 16px; /* Figma: 16px */
+  }
+
+  .pl-cta-floating-b__buttons {
+    flex-direction: row; /* Figma: horizontal layout */
+    gap: 6px; /* Figma: 6px */
+  }
+
+  .pl-cta-floating-b__btn {
+    flex: 1;
+    min-width: auto;
+    height: 48px; /* Figma: 48px */
+    border-radius: 999px; /* Figma: pill shape */
+  }
+
+  .pl-cta-floating-b__label {
+    font-size: 17px; /* Figma: 17px */
+  }
+
+  .pl-cta-floating-b__label {
+    font-size: 17px; /* Figma: 17px */
+  }
+
+  .pl-cta-floating-b__icon {
+    width: 24px;
+    height: 24px;
+  }
+}

@@ -458,41 +458,7 @@
   /* Alpha white 72 (Figma JSON에 없는 단계 — 직접 정의) */
   --pl-alpha-white-72: rgba(255, 255, 255, 0.72);
 
-  /* ----------------------------------------
-     Component Tokens (Button)
-     ---------------------------------------- */
-  --comp-btn-radius: 999px;
-  --comp-btn-large-padding-hor: 32px;
-  --comp-btn-large-padding-ver: 16px;
-  --comp-btn-large-gap: 8px;
-  --comp-btn-medium-padding-hor: 24px;
-  --comp-btn-medium-padding-ver: 12px;
-  --comp-btn-medium-gap: 6px;
-  --comp-btn-small-padding-hor: 20px;
-  --comp-btn-small-padding-ver: 8px;
-  --comp-btn-small-gap: 4px;
-  --comp-btn-ghost-radius: 8px;
-  --comp-btn-ic-large-padding: 16px;
-  --comp-btn-ic-medium-padding: 12px;
-  --comp-btn-ic-small-padding: 8px;
-  --comp-btn-ic-radius: 999px;
-  --comp-btn-ic-ghost-large-padding: 8px;
-  --comp-btn-ic-ghost-medium-padding: 4px;
-  --comp-btn-ic-ghost-small-padding: 2px;
-  --comp-btn-ghost-small-padding-ver: 10px;
-  --comp-btn-ghost-large-padding-hor: 16px;
-  --comp-btn-ghost-large-padding-ver: 16px;
-  --comp-btn-ghost-medium-padding-hor: 10px;
-  --comp-btn-ghost-medium-padding-ver: 12px;
-  --comp-btn-ghost-small-padding-hor: 8px;
-  --comp-btn-xsmall-padding-ver: 6px;
-  --comp-btn-xsmall-gap: 4px;
-  --comp-btn-xsmall-padding-hor: 14px;
-  --comp-btn-ghost-xsmall-padding-ver: 4px;
-  --comp-btn-ghost-xsmall-padding-hor: 6px;
-  --comp-btn-max-width: 400px;
-  --comp-btn-group-max-width: 480px;
-  --comp-btn-ic-ghost-radius: 8px;
+  /* Component Tokens → styles/components.css에서 단독 관리 (Token ↔ Component 레이어 분리) */
 }
 
 /* ============================================

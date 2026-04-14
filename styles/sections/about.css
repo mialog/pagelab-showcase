@@ -1,0 +1,1844 @@
+/* ============================================
+   About/Feature Section - Type A (List)
+   Figma 스펙: 1920x733, bg #f6f2fc (violet-5)
+   section title + 3x2 list card grid
+   ============================================ */
+.pl-about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-about--list {
+  background: var(--pl-campaign-bg);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-14);
+}
+
+.pl-about__container {
+  max-width: var(--pl-container-wide);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-11);
+}
+
+/* List Card Grid - 3 columns */
+.pl-list-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--pl-spacing-5);
+  width: 100%;
+}
+
+/* List Card Component */
+.pl-list-card {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-7);
+  padding: var(--pl-spacing-5);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-static-white); /* Figma: stroke #ffffff */
+  border-radius: var(--pl-radius-3);
+}
+
+/* Figma: 106x106, radius 10px, bg yellow-5 */
+.pl-list-card__image {
+  width: 106px;
+  height: 106px;
+  flex-shrink: 0;
+  background: var(--pl-yellow-5);
+  border-radius: var(--pl-radius-2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-list-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-list-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+/* Figma: 22px/700, color neutral-100 */
+.pl-list-card__title {
+  font-size: var(--pl-font-size-title-md); /* Figma: 22px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-primary);
+  margin: 0;
+}
+
+/* Figma: 16px/500, color neutral-60 */
+.pl-list-card__desc {
+  font-size: var(--pl-font-size-body-sm);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-tertiary);
+  margin: 0;
+}
+
+/* ============================================
+   About List Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--list {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-13);
+  }
+
+  .pl-about__container {
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-list-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-list-card {
+    gap: var(--pl-spacing-5);
+    padding: var(--pl-spacing-4);
+  }
+
+  .pl-list-card__image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pl-list-card__title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-list-card__desc {
+    font-size: var(--pl-font-size-label-sm);
+  }
+}
+
+/* ============================================
+   About List Responsive - Mobile
+   Figma: padding 16px 20px 48px, gap 52px
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--list {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
+  }
+
+  .pl-about__container {
+    gap: 52px;
+  }
+
+  .pl-list-grid {
+    grid-template-columns: 1fr;
+    gap: var(--pl-spacing-4);
+    width: 100%;
+  }
+
+  .pl-list-card {
+    gap: var(--pl-spacing-4);
+    padding: var(--pl-spacing-4);
+    width: 100%;
+  }
+
+  .pl-list-card__image {
+    width: 64px;
+    height: 64px;
+  }
+
+  .pl-list-card__title {
+    font-size: var(--pl-font-size-title-sm);
+  }
+
+  .pl-list-card__desc {
+    font-size: var(--pl-font-size-label-sm);
+    line-height: var(--pl-line-height-default);
+  }
+}
+
+/* ============================================
+   About/Feature Section - Type B (Card Grid)
+   Figma 스펙: 1920x1364, bg #ffffff
+   section title + 2 rows of cards
+   Row 1: 3 large cards (image top)
+   Row 2: 4 small cards (text top)
+   ============================================ */
+.pl-about--grid {
+  background: var(--pl-bg-default);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-14);
+}
+
+.pl-about--grid .pl-about__container {
+  max-width: var(--pl-container-wide);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-10);
+}
+
+/* Card Grid Container */
+.pl-card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-7);
+  width: 100%;
+}
+
+/* Row 1: Large Cards - 3 columns */
+.pl-card-grid__row--large {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--pl-spacing-7);
+}
+
+/* Row 2: Small Cards - 4 columns */
+.pl-card-grid__row--small {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--pl-spacing-7);
+}
+
+/* Grid Card Component - Large (Image Top) */
+.pl-grid-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--pl-bg-default);
+  border-radius: var(--pl-radius-3); /* Figma: 18px */
+  overflow: hidden;
+}
+
+.pl-grid-card__image {
+  width: 100%;
+  aspect-ratio: 420 / 336; /* Figma: 420x336 */
+  background: var(--pl-bg-default);
+  border-radius: var(--pl-radius-3); /* Figma: 18px */
+  overflow: hidden;
+}
+
+.pl-grid-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-grid-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+  padding: var(--pl-spacing-5) 12px; /* Figma: 16px vertical, 12px horizontal (396px in 420px card) */
+}
+
+.pl-grid-card__title {
+  font-size: var(--pl-font-size-title-md); /* Figma: 22px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-primary); /* Figma: #0b0d11 */
+  margin: 0;
+}
+
+.pl-grid-card__desc {
+  font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-secondary); /* Figma: #394046 */
+  margin: 0;
+}
+
+/* Grid Card - Small Variant (Text Top) */
+.pl-grid-card--small {
+  flex-direction: column;
+  border: 1px solid var(--pl-neutral-20); /* Figma: #d4dce2 - only small cards have border */
+}
+
+.pl-grid-card--small .pl-grid-card__content {
+  order: -1; /* Text on top */
+  padding: var(--pl-spacing-5) 20px var(--pl-spacing-4); /* Figma: 20px horizontal (286px in 326px card) */
+  min-height: calc(
+    var(--pl-spacing-5) + var(--pl-spacing-4) +
+    var(--pl-font-size-title-md) * var(--pl-line-height-default) +
+    var(--pl-spacing-2) +
+    var(--pl-font-size-body-md) * var(--pl-line-height-body) * 2
+  ); /* Reserve space for 2-line desc so image tops align across cards */
+}
+
+.pl-grid-card--small .pl-grid-card__image {
+  aspect-ratio: 326 / 261; /* Figma: 326x260.8 */
+  border-radius: 0 0 var(--pl-radius-3) var(--pl-radius-3); /* Bottom only */
+}
+
+/* Grid Card - Interaction States (Image Top) */
+.pl-grid-card {
+  cursor: pointer;
+}
+
+.pl-grid-card__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent; /* Figma: #0b0d11 초기 상태 */
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+.pl-grid-card__image {
+  position: relative;
+}
+
+.pl-grid-card:hover .pl-grid-card__image::after {
+  background: var(--pl-alpha-black-12); /* Figma: hovered 12% */
+}
+
+.pl-grid-card:active .pl-grid-card__image::after {
+  background: var(--pl-alpha-black-12); /* Figma: pressed 12% */
+}
+
+/* Grid Card - Interaction States (Text Top / Small) */
+.pl-grid-card--small {
+  position: relative;
+}
+
+.pl-grid-card--small::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  border-radius: inherit;
+  transition: background 0.2s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pl-grid-card--small:hover {
+  background-color: transparent; /* Override image-top hover */
+}
+
+.pl-grid-card--small:hover::before {
+  background: var(--pl-alpha-white-12); /* Figma: hovered 12% */
+}
+
+.pl-grid-card--small:active::before {
+  background: var(--pl-alpha-white-24); /* Figma: pressed 24% */
+}
+
+/* ============================================
+   About Type B Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--grid {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-12);
+  }
+
+  .pl-card-grid__row--large {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-card-grid__row--small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-grid-card__title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-grid-card__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+}
+
+/* ============================================
+   About Type B Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--grid {
+    padding: var(--pl-layout-body-top) 20px var(--pl-spacing-10);
+  }
+
+  .pl-card-grid__row--large,
+  .pl-card-grid__row--small {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-grid-card {
+    border-radius: var(--pl-radius-2); /* Figma Mobile: 16px */
+  }
+
+  .pl-grid-card__image {
+    aspect-ratio: 320 / 200;
+    border-radius: var(--pl-radius-2); /* Figma Mobile: 16px */
+  }
+
+  .pl-grid-card--small .pl-grid-card__image {
+    aspect-ratio: 320 / 180;
+    border-radius: 0 0 var(--pl-radius-2) var(--pl-radius-2); /* Bottom only */
+  }
+
+  .pl-grid-card__content {
+    padding: var(--pl-spacing-4);
+  }
+
+  .pl-grid-card__title {
+    font-size: var(--pl-font-size-title-sm);
+  }
+
+  .pl-grid-card__desc {
+    font-size: var(--pl-font-size-label-md);
+  }
+}
+
+/* ============================================
+   About/Feature Section - Type C (Card Slide)
+   Figma 스펙: 1920x763, bg #ffffff
+   section title + horizontal loop animation cards
+   Card: 330x330, gap 24px
+   ============================================ */
+.pl-about--slide {
+  background: var(--pl-bg-default);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  overflow: hidden;
+}
+
+.pl-about--slide .pl-about__container {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  gap: var(--pl-spacing-12);
+}
+
+/* Section Title in Card Slide: 가로 padding 유지 (섹션이 full-width라 수평 여백 직접 지정) */
+.pl-about--slide .pl-section-title {
+  padding-left: var(--pl-layout-padding);
+  padding-right: var(--pl-layout-padding);
+}
+
+/* Card Track Container */
+.pl-card-track {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Card Track Inner - Animated */
+.pl-card-track__inner {
+  display: flex;
+  gap: var(--pl-spacing-6); /* Figma: 24px */
+  width: max-content;
+  animation: card-slide 30s linear infinite;
+}
+
+/* Pause animation on hover */
+.pl-card-track:hover .pl-card-track__inner {
+  animation-play-state: paused;
+}
+
+/* Loop Animation */
+@keyframes card-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Slide Card Component (Box Style) */
+.pl-slide-card {
+  width: 330px;
+  height: 330px;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: var(--pl-radius-3); /* Figma: 18px */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Background Image */
+.pl-slide-card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.pl-slide-card__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark Overlay - 32% */
+.pl-slide-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--pl-alpha-black-32); /* Figma: #0b0d11 at 32% */
+  z-index: 2;
+  transition: background 0.2s ease;
+}
+
+/* Hover - +12% overlay (44% total) */
+.pl-slide-card:hover .pl-slide-card__overlay {
+  background: rgba(11, 13, 17, 0.44);
+}
+
+/* Active - +24% overlay (56% total) */
+.pl-slide-card:active .pl-slide-card__overlay {
+  background: rgba(11, 13, 17, 0.56);
+}
+
+/* Card Content */
+.pl-slide-card__content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--pl-spacing-6); /* Figma: 24px */
+  gap: var(--pl-spacing-2);
+}
+
+/* Figma: 30px/700, white */
+.pl-slide-card__title {
+  font-size: var(--pl-font-size-header-md); /* 30px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-invert); /* white */
+  margin: 0;
+}
+
+/* Figma: 18px/400, white */
+.pl-slide-card__desc {
+  font-size: var(--pl-font-size-body-md); /* 18px */
+  font-weight: 400;
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-invert); /* white */
+  margin: 0;
+}
+
+/* ============================================
+   Card Slide Responsive - Tablet
+   Figma 스펙: 720px, card 330x330
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--slide {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
+  }
+
+  .pl-about--slide .pl-about__container {
+    gap: var(--pl-spacing-11); /* Figma: 60px */
+  }
+
+  .pl-about--slide .pl-section-title {
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
+  }
+
+  .pl-slide-card {
+    width: 330px;
+    height: 330px;
+  }
+
+  .pl-slide-card__content {
+    padding: var(--pl-spacing-6); /* Figma: 22px */
+  }
+
+  .pl-slide-card__title {
+    font-size: var(--pl-font-size-header-sm); /* Figma: 28px */
+  }
+
+  .pl-slide-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: 400;
+  }
+}
+
+/* ============================================
+   Card Slide Responsive - Mobile
+   Figma 스펙: 360px, card 240x240
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--slide {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-8);
+  }
+
+  .pl-about--slide .pl-about__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-about--slide .pl-section-title {
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
+  }
+
+  .pl-card-track__inner {
+    gap: var(--pl-spacing-5); /* Figma: 20px */
+  }
+
+  .pl-slide-card {
+    width: 240px;
+    height: 240px;
+    border-radius: var(--pl-radius-2); /* Figma: 16px */
+  }
+
+  .pl-slide-card__content {
+    padding: var(--pl-spacing-5); /* Figma: 20px */
+    gap: var(--pl-spacing-2);
+  }
+
+  .pl-slide-card__title {
+    font-size: var(--pl-font-size-title-lg); /* Figma: 24px */
+  }
+
+  .pl-slide-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: 400;
+    line-height: var(--pl-line-height-body);
+  }
+}
+
+/* ============================================
+   About/Feature Section - Type D (Card Swipe)
+   Figma 스펙: 1920x937, bg #ffffff
+   section title + manual swipe cards
+   Card: 360x504, gap 24px, radius 32px
+   ============================================ */
+.pl-about--swipe {
+  background: var(--pl-bg-default);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+}
+
+.pl-about--swipe .pl-about__container {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  gap: var(--pl-spacing-12);
+}
+
+/* Section Title in Card Swipe: 가로 padding 유지 (섹션이 full-width라 수평 여백 직접 지정) */
+.pl-about--swipe .pl-section-title {
+  padding-left: var(--pl-layout-padding);
+  padding-right: var(--pl-layout-padding);
+}
+
+/* Swipe Container */
+.pl-swipe-container {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Swipe Controls (Left Side) */
+.pl-swipe-controls {
+  position: absolute;
+  left: 0;
+  top: var(--pl-spacing-8); /* Same as track padding-top */
+  width: 212px;
+  height: 466px; /* Match card A height (largest) */
+  background: linear-gradient(90deg, var(--pl-bg-default) 0%, transparent 100%);
+  z-index: 110; /* Above card ::after overlay (100) */
+  display: flex;
+  align-items: flex-start;
+  padding-top: var(--pl-spacing-8); /* Figma: 32px from card top */
+  padding-left: 48px; /* Figma: 48px from left */
+  gap: var(--pl-spacing-3);
+  pointer-events: none; /* Allow clicks to pass through gradient */
+}
+
+.pl-swipe-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border-light);
+  background: var(--pl-bg-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  pointer-events: auto;
+  position: relative;
+  z-index: 102; /* Above card ::after overlay (100) */
+}
+
+.pl-swipe-btn:hover {
+  background: var(--pl-neutral-10);
+}
+
+.pl-swipe-btn:active {
+  background: var(--pl-neutral-20);
+}
+
+.pl-swipe-btn svg {
+  width: 32px;
+  height: 32px;
+  color: var(--pl-text-primary);
+}
+
+/* Card Swipe Track */
+.pl-swipe-track {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pl-swipe-track::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-swipe-track__inner {
+  display: flex;
+  gap: var(--pl-spacing-6); /* Figma: 24px */
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding);
+  padding-left: 236px; /* 212px gradient + 24px gap */
+  padding-bottom: var(--pl-spacing-6); /* shadow visible */
+  width: max-content;
+}
+
+/* Swipe Card Component */
+.pl-swipe-card {
+  width: 360px;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: var(--pl-radius-4); /* Figma: 32px */
+  overflow: hidden;
+  background: var(--pl-bg-default);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* medium */
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+/* Hover/Press: Large shadow */
+.pl-swipe-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.pl-swipe-card:active {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Interaction Overlay for all cards */
+.pl-swipe-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+
+/* Card Type 1: Full Image with Top Overlay (img fill) */
+.pl-swipe-card--full {
+  height: 466px; /* Figma PC: 466px */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Figma: hover = accent 12%, pressed = accent 24% */
+.pl-swipe-card--full:hover::after {
+  background: var(--pl-alpha-brand-12);
+}
+
+.pl-swipe-card--full:active::after {
+  background: var(--pl-alpha-brand-24);
+}
+
+.pl-swipe-card__image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.pl-swipe-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-swipe-card__content {
+  position: relative;
+  z-index: 101; /* Above ::after overlay */
+  padding: var(--pl-spacing-10); /* Figma: 40px */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-swipe-card__title {
+  font-size: var(--pl-font-size-header-sm); /* Figma PC: 26px */
+  font-weight: var(--pl-font-weight-bold);
+  line-height: 1.44; /* Figma: 37.44px / 26px */
+  color: var(--pl-text-primary);
+  margin: 0;
+}
+
+.pl-swipe-card__desc {
+  font-size: var(--pl-font-size-title-sm); /* Figma PC: 20px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68; /* Figma: 33.6px / 20px */
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+.pl-swipe-card__btn {
+  position: relative;
+  z-index: 101; /* Above ::after overlay */
+  margin-top: auto;
+  padding: 0 var(--pl-spacing-11);
+  padding-bottom: var(--pl-spacing-10);
+  display: flex;
+  justify-content: center;
+}
+
+.pl-swipe-card__btn .pl-btn {
+  width: 240px; /* Figma: 240px */
+  height: 48px; /* Figma: 48px */
+}
+
+.pl-swipe-card__btn .pl-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Card Type 2: Full Image with Bottom Overlay (blur) */
+.pl-swipe-card--overlay {
+  height: 452px; /* Figma PC: 452px */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Figma: hover = white 12%, pressed = white 24% */
+.pl-swipe-card--overlay:hover::after {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-swipe-card--overlay:active::after {
+  background: var(--pl-alpha-white-24);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__overlay-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 197px;
+  background: var(--pl-alpha-white-80);
+  z-index: 2; /* Below content but above image */
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 101; /* Above ::after overlay */
+  padding: var(--pl-spacing-8); /* Figma: 32px */
+  padding-bottom: var(--pl-spacing-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__title {
+  font-size: var(--pl-font-size-title-lg); /* Figma PC: 24px */
+  line-height: 1.44; /* Figma: 34.56px / 24px */
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__desc {
+  font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68; /* Figma: 26.88px / 16px */
+  margin-bottom: var(--pl-spacing-3);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__link {
+  position: relative;
+  z-index: 101;
+  align-self: flex-end;
+  font-size: var(--pl-font-size-label-sm); /* 14px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-1);
+  padding: var(--pl-spacing-1) var(--pl-spacing-2);
+  border-radius: var(--pl-radius-1);
+  transition: background 0.2s;
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__link:hover {
+  background: var(--pl-alpha-brand-08);
+}
+
+.pl-swipe-card--overlay .pl-swipe-card__link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Card Type 3: Top Image + Bottom Content (textbox) */
+.pl-swipe-card--split {
+  height: 463px; /* Figma PC: 463px */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--pl-border-light); /* Figma: #d4dce2 */
+}
+
+/* Figma: hover = white 12%, pressed = white 24% */
+.pl-swipe-card--split:hover::after {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-swipe-card--split:active::after {
+  background: var(--pl-alpha-white-24);
+}
+
+.pl-swipe-card--split .pl-swipe-card__image {
+  position: relative;
+  height: 257px;
+  flex-shrink: 0;
+}
+
+.pl-swipe-card--split .pl-swipe-card__content {
+  position: relative;
+  z-index: 101; /* Above ::after overlay */
+  padding: var(--pl-spacing-8);
+  padding-bottom: var(--pl-spacing-7);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-swipe-card--split .pl-swipe-card__title {
+  font-size: var(--pl-font-size-title-md); /* Figma PC: 22px */
+  line-height: 1.44; /* Figma: 31.68px / 22px */
+}
+
+.pl-swipe-card--split .pl-swipe-card__desc {
+  font-size: var(--pl-font-size-body-sm); /* Figma PC: 16px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 1.68; /* Figma: 26.88px / 16px */
+  margin-bottom: var(--pl-spacing-3);
+}
+
+.pl-swipe-card--split .pl-swipe-card__link {
+  position: relative;
+  z-index: 101;
+  align-self: flex-end;
+  font-size: var(--pl-font-size-label-sm); /* 14px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-2);
+  padding: var(--pl-spacing-2) var(--pl-spacing-3);
+  border-radius: var(--pl-radius-1);
+  transition: background 0.2s;
+}
+
+.pl-swipe-card--split .pl-swipe-card__link:hover {
+  background: var(--pl-alpha-brand-08);
+}
+
+.pl-swipe-card--split .pl-swipe-card__link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================
+   Card Swipe Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--swipe {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
+  }
+
+  .pl-about--swipe .pl-about__container {
+    gap: var(--pl-spacing-11);
+  }
+
+  .pl-about--swipe .pl-section-title {
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
+  }
+
+  .pl-swipe-controls {
+    display: none; /* Hide swipe buttons on tablet, use touch */
+  }
+
+  .pl-swipe-track__inner {
+    padding-left: var(--pl-layout-padding); /* Reset to normal padding without buttons */
+    padding-bottom: var(--pl-spacing-6); /* shadow visible */
+  }
+
+  .pl-swipe-card {
+    width: 280px;
+    border-radius: 24px; /* Figma tablet/mobile: 24px */
+  }
+
+  /* Card A (full): 280x392 */
+  .pl-swipe-card--full {
+    height: 392px;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-md); /* Figma: 22px */
+    line-height: 1.44;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+    line-height: 1.68;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__btn .pl-btn {
+    width: 176px;
+    height: 48px;
+  }
+
+  /* Card B (overlay): 280x392 */
+  .pl-swipe-card--overlay {
+    height: 392px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__overlay-bg {
+    height: 167px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-sm); /* Figma: 20px */
+    line-height: 1.44;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  }
+
+  /* Card C (split): 280x409 */
+  .pl-swipe-card--split {
+    height: 409px;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__image {
+    height: 200px; /* Figma: 200px */
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-lg); /* Figma: 24px */
+    line-height: 1.44;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+  }
+
+  .pl-swipe-card__content {
+    padding: var(--pl-spacing-8);
+  }
+}
+
+/* ============================================
+   Card Swipe Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--swipe {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-8);
+  }
+
+  .pl-about--swipe .pl-about__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-about--swipe .pl-section-title {
+    padding-left: var(--pl-layout-padding);
+    padding-right: var(--pl-layout-padding);
+  }
+
+  .pl-swipe-controls {
+    display: none; /* Hide swipe buttons on mobile */
+  }
+
+  .pl-swipe-track__inner {
+    padding: var(--pl-spacing-4) 20px;
+    padding-bottom: var(--pl-spacing-6); /* shadow visible */
+    gap: var(--pl-spacing-4);
+  }
+
+  .pl-swipe-card {
+    width: 280px;
+    border-radius: 24px; /* Figma: 24px */
+  }
+
+  /* Card A (full): 280x392 - same as tablet */
+  .pl-swipe-card--full {
+    height: 392px;
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-md);
+  }
+
+  .pl-swipe-card--full .pl-swipe-card__btn .pl-btn {
+    width: 176px;
+    height: 48px;
+  }
+
+  /* Card B (overlay): 280x392 */
+  .pl-swipe-card--overlay {
+    height: 392px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__overlay-bg {
+    height: 167px;
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-sm);
+  }
+
+  .pl-swipe-card--overlay .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  /* Card C (split): 280x409 */
+  .pl-swipe-card--split {
+    height: 409px;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__image {
+    height: 200px;
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__title {
+    font-size: var(--pl-font-size-title-lg);
+  }
+
+  .pl-swipe-card--split .pl-swipe-card__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-swipe-card__content {
+    padding: var(--pl-spacing-6);
+  }
+
+  .pl-swipe-card__btn {
+    padding: 0 var(--pl-spacing-6);
+    padding-bottom: var(--pl-spacing-6);
+  }
+}
+
+/* ============================================
+   About/Feature - Type E Tab
+   탭 네비게이션 + 이미지 콘텐츠
+   Figma 스펙: 1920x1052, bg #ffffff
+   ============================================ */
+.pl-about--tab {
+  background: var(--pl-bg-default);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-13);
+}
+
+.pl-about--tab .pl-about__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-12);
+}
+
+/* Tab Container */
+.pl-tab-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8);
+  width: 100%;
+  max-width: var(--pl-container-default);
+  padding: 0 var(--pl-layout-padding);
+}
+
+/* Tab Navigation */
+.pl-tab-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pl-spacing-3);
+  padding: var(--pl-spacing-2);
+}
+
+.pl-tab-btn {
+  padding: var(--pl-spacing-2) var(--pl-spacing-5);
+  font-family: var(--pl-font-main);
+  font-size: var(--pl-font-size-title-sm);
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-accent);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-accent-light);
+  border-radius: var(--pl-radius-2);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.pl-tab-btn:hover {
+  background: var(--pl-bg-brand-light);
+}
+
+.pl-tab-btn.is-active {
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-accent);
+  border-color: var(--pl-bg-accent);
+}
+
+/* Tab Content */
+.pl-tab-content {
+  width: 100%;
+}
+
+.pl-tab-panel {
+  display: none;
+}
+
+.pl-tab-panel.is-active {
+  display: block;
+}
+
+.pl-tab-panel__image {
+  width: 100%;
+  aspect-ratio: 1280 / 600;
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-5); /* Figma: 24px */
+  overflow: hidden;
+}
+
+.pl-tab-panel__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
+   Type E Tab Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--tab {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  }
+
+  .pl-about--tab .pl-about__container {
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-tab-container {
+    gap: var(--pl-spacing-6);
+    max-width: none;
+  }
+
+  .pl-tab-nav {
+    flex-wrap: wrap;
+    gap: var(--pl-spacing-4); /* Figma: 10px */
+  }
+
+  .pl-tab-btn {
+    font-size: var(--pl-font-size-title-sm);
+    padding: var(--pl-spacing-2) var(--pl-spacing-4);
+    border-radius: 8px; /* Figma: 8px */
+  }
+
+  .pl-tab-panel__image {
+    aspect-ratio: 640 / 400;
+  }
+}
+
+/* ============================================
+   Type E Tab Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--tab {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
+  }
+
+  .pl-about--tab .pl-about__container {
+    gap: var(--pl-spacing-8);
+  }
+
+  .pl-tab-container {
+    gap: var(--pl-spacing-5);
+    max-width: none;
+  }
+
+  .pl-tab-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--pl-spacing-2);
+  }
+
+  .pl-tab-btn {
+    font-size: var(--pl-font-size-body-sm);
+    padding: var(--pl-spacing-1) var(--pl-spacing-4);
+    border-radius: var(--pl-radius-2);
+  }
+
+  .pl-tab-panel__image {
+    aspect-ratio: 320 / 360;
+    border-radius: var(--pl-radius-4);
+  }
+}
+
+/* ============================================
+   Type E Tab - Style B (Pill Style)
+   ============================================ */
+.pl-tab-nav--style-b {
+  background: var(--pl-campaign-primary);
+  border-radius: var(--pl-radius-5); /* Figma: 32px */
+  padding: var(--pl-spacing-3) var(--pl-spacing-4); /* Figma: 12px 16px */
+  gap: var(--pl-spacing-3); /* Figma: 12px */
+}
+
+.pl-tab-nav--style-b .pl-tab-btn {
+  color: var(--pl-text-invert);
+  background: transparent;
+  border: none;
+  border-radius: var(--pl-radius-circle);
+}
+
+.pl-tab-nav--style-b .pl-tab-btn:hover {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-tab-nav--style-b .pl-tab-btn.is-active {
+  color: var(--pl-campaign-primary);
+  background: var(--pl-neutral-0);
+}
+
+/* Style B - Tablet */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-tab-nav--style-b {
+    border-radius: var(--pl-radius-4);
+  }
+
+  .pl-tab-nav--style-b .pl-tab-btn {
+    font-size: var(--pl-font-size-title-sm);
+    border-radius: var(--pl-radius-circle);
+  }
+}
+
+/* Mobile Navigation - Hidden by default */
+.pl-tab-nav-mobile {
+  display: none;
+}
+
+/* Desktop Navigation - Shown by default */
+.pl-tab-nav--desktop {
+  display: flex;
+}
+
+/* Mobile: Two row structure for both styles */
+@container section (max-width: 639px) /* Mo */ {
+  /* Hide desktop nav on mobile */
+  .pl-tab-nav--desktop {
+    display: none;
+  }
+
+  /* ========== Style A Mobile ========== */
+  .pl-tab-nav-mobile--style-a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px between rows */
+  }
+
+  .pl-tab-nav-row--a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px */
+  }
+
+  .pl-tab-nav-mobile--style-a .pl-tab-btn {
+    font-family: var(--pl-font-main);
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: var(--pl-font-weight-default);
+    color: var(--pl-text-accent);
+    background: var(--pl-bg-default);
+    border: 1px solid var(--pl-border-accent-light);
+    border-radius: var(--pl-radius-2); /* Figma: 10px */
+    padding: var(--pl-spacing-3) var(--pl-spacing-6); /* Figma button padding */
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .pl-tab-nav-mobile--style-a .pl-tab-btn:hover {
+    background: var(--pl-bg-brand-light);
+  }
+
+  .pl-tab-nav-mobile--style-a .pl-tab-btn.is-active {
+    font-weight: var(--pl-font-weight-bold);
+    color: var(--pl-text-invert);
+    background: var(--pl-bg-accent);
+    border-color: var(--pl-bg-accent);
+  }
+
+  /* ========== Style B Mobile ========== */
+  /* Show mobile nav structure */
+  .pl-tab-nav-mobile--style-b {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px between rows */
+  }
+
+  /* Each row is a separate pill */
+  .pl-tab-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--pl-spacing-3); /* Figma: 12px */
+    background: var(--pl-campaign-primary);
+    border-radius: 999px;
+    padding: var(--pl-spacing-3) var(--pl-spacing-3); /* Figma: 8px horizontal padding */
+    width: 320px; /* Figma: 320px */
+    height: 41px; /* Figma: 41px */
+    box-sizing: border-box;
+  }
+
+  /* Second row: narrower (230px) */
+  .pl-tab-nav-row--narrow {
+    width: 230px; /* Figma: 230px */
+  }
+
+  /* Row 1 buttons: flexible width */
+  .pl-tab-nav-mobile--style-b .pl-tab-btn {
+    font-family: var(--pl-font-main);
+    font-size: var(--pl-font-size-body-sm); /* Figma: 16px */
+    font-weight: var(--pl-font-weight-default);
+    color: var(--pl-text-invert);
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    height: 29px; /* Figma: 29px */
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1; /* Flexible: fill available space */
+    box-sizing: border-box;
+  }
+
+  /* Row 2 buttons: fixed 101px width */
+  .pl-tab-nav-row--narrow .pl-tab-btn {
+    flex: 0 0 101px; /* Figma: 101px fixed */
+    width: 101px;
+  }
+
+  .pl-tab-nav-mobile--style-b .pl-tab-btn:hover {
+    background: var(--pl-alpha-white-12);
+  }
+
+  .pl-tab-nav-mobile--style-b .pl-tab-btn.is-active {
+    font-weight: var(--pl-font-weight-bold);
+    color: var(--pl-campaign-primary);
+    background: var(--pl-neutral-0);
+  }
+}
+
+/* ============================================
+   Type F - Image Section
+   Figma 스펙: 섹션 타이틀 + 단일 이미지
+   ============================================ */
+.pl-about--image {
+  background: var(--pl-bg-default);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-14);
+}
+
+.pl-about--image .pl-about__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8); /* Figma: 32px */
+}
+
+.pl-about-image {
+  width: 100%;
+  max-width: var(--pl-container-default); /* Figma: 1280px */
+}
+
+.pl-about-image__wrapper {
+  width: 100%;
+  aspect-ratio: 1280 / 600; /* Figma: 1280x600 */
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-5); /* Figma: 24px */
+  overflow: hidden;
+}
+
+.pl-about-image__wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Type F - Tablet */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-about--image {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-spacing-12);
+  }
+
+  .pl-about--image .pl-about__container {
+    gap: var(--pl-spacing-6);
+  }
+
+  .pl-about-image__wrapper {
+    aspect-ratio: 640 / 400; /* Figma: 640x400 */
+    border-radius: var(--pl-radius-5); /* Figma: 24px */
+  }
+}
+
+/* Type F - Mobile */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-about--image {
+    padding: var(--pl-layout-body-top) 20px var(--pl-spacing-10);
+  }
+
+  .pl-about--image .pl-about__container {
+    gap: 52px; /* Figma: 52px */
+  }
+
+  .pl-about-image__wrapper {
+    aspect-ratio: 320 / 360; /* Figma: 320x360 */
+    border-radius: var(--pl-radius-4); /* Figma: 20px */
+  }
+}
+
+
+/* ============================================
+   About - Type G (Feature Alt)
+   텍스트↔이미지 교대 레이아웃
+   ============================================ */
+
+.pl-about--feature-alt {
+  background: var(--pl-bg-default);
+}
+
+.pl-about__feature-alt-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-15);
+  padding-top: var(--pl-layout-body-top);
+  padding-bottom: var(--pl-layout-body-bottom);
+}
+
+/* ── 각 피처 아이템 (좌우 분할) ── */
+.pl-about__feature-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pl-spacing-13);
+  align-items: center;
+}
+
+/* 역순: 이미지 좌 / 텍스트 우 */
+.pl-about__feature-item--reverse .pl-about__feature-text { order: 2; }
+.pl-about__feature-item--reverse .pl-about__feature-image { order: 1; }
+
+/* ── 텍스트 영역 ── */
+.pl-about__feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-7);
+}
+
+.pl-about__feature-label {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+  font-size: var(--pl-font-size-body-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-brand);
+}
+
+.pl-about__feature-heading {
+  font-size: var(--pl-font-size-display-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+}
+
+.pl-about__feature-desc {
+  font-size: var(--pl-font-size-body-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+/* ── 이미지 영역 ── */
+.pl-about__feature-image {
+  border-radius: var(--pl-radius-5);
+  padding: var(--pl-spacing-10);
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.pl-about__feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pl-about__feature-image--grey {
+  background: var(--pl-bg-neutral);
+}
+
+/* ── 인라인 목업 (이미지 없을 때) ── */
+.pl-about__feature-mockup {
+  width: 100%;
+}
+
+/* 트리 목업 */
+.pl-mockup-tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-4);
+  width: 100%;
+}
+
+.pl-mockup-tree__node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+  background: var(--pl-bg-default);
+  border: 1.5px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-2);
+  padding: var(--pl-spacing-3) var(--pl-spacing-5);
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+}
+
+.pl-mockup-tree__node--top {
+  border-color: var(--pl-static-green);
+  color: var(--pl-static-green);
+}
+
+.pl-mockup-tree__node--highlight {
+  border-color: var(--pl-static-red);
+}
+
+.pl-mockup-tree__row {
+  display: flex;
+  gap: var(--pl-spacing-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pl-mockup-tree__row--center .pl-mockup-tree__node {
+  border-color: var(--pl-static-red);
+}
+
+.pl-mockup-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--pl-spacing-3);
+  border-radius: var(--pl-radius-1);
+  font-size: 12px;
+  font-weight: var(--pl-font-weight-bold);
+}
+
+.pl-mockup-badge--pass {
+  background: var(--pl-static-green);
+  color: var(--pl-static-white);
+}
+
+.pl-mockup-badge--fail {
+  background: var(--pl-static-red);
+  color: var(--pl-static-white);
+}
+
+/* 카드 목업 */
+.pl-about__feature-mockup--cards {
+  display: flex;
+  gap: var(--pl-spacing-5);
+  align-items: flex-start;
+}
+
+.pl-mockup-card {
+  flex: 1;
+  background: var(--pl-bg-default);
+  border-radius: var(--pl-radius-3);
+  padding: var(--pl-spacing-6);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.pl-mockup-card__title {
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  margin-bottom: var(--pl-spacing-4);
+}
+
+.pl-mockup-card__body {
+  background: var(--pl-campaign-bg);
+  border-radius: var(--pl-radius-2);
+  padding: var(--pl-spacing-5);
+  font-size: var(--pl-font-size-label-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+  text-align: center;
+  margin-bottom: var(--pl-spacing-4);
+}
+
+.pl-mockup-prereq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-mockup-prereq__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pl-spacing-3);
+  border: 1.5px solid var(--pl-border-light);
+  border-radius: var(--pl-radius-2);
+  padding: var(--pl-spacing-4) var(--pl-spacing-5);
+}
+
+.pl-mockup-prereq__item--warn {
+  border-color: var(--pl-static-orange);
+}
+
+.pl-mockup-prereq__grade {
+  font-size: 11px;
+  color: var(--pl-text-tertiary);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.pl-mockup-prereq__name {
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+}
+
+.pl-mockup-prereq__icon {
+  color: var(--pl-static-orange);
+  flex-shrink: 0;
+}
+
+.pl-mockup-seq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-5);
+}
+
+.pl-mockup-seq__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pl-spacing-4);
+}
+
+.pl-mockup-seq__check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--pl-border-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pl-mockup-seq__check--done { color: var(--pl-icon-brand); }
+.pl-mockup-seq__check--check { color: var(--pl-icon-brand); }
+
+.pl-mockup-seq__name {
+  font-size: var(--pl-font-size-label-md);
+  color: var(--pl-text-primary);
+  margin-bottom: var(--pl-spacing-2);
+}
+
+.pl-mockup-seq__badge {
+  display: inline-flex;
+  padding: 2px var(--pl-spacing-3);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-static-white);
+}
+
+.pl-mockup-seq__badge--great { background: var(--pl-static-violet); }
+.pl-mockup-seq__badge--good  { background: var(--pl-static-green); }
+.pl-mockup-seq__badge--low   { background: var(--pl-static-orange); }
+
+/* ── Tablet ── */
+@container section (max-width: 1199px) {
+  .pl-about__feature-alt-container {
+    gap: var(--pl-spacing-13);
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .pl-about__feature-item {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-about__feature-heading {
+    font-size: var(--pl-font-size-header-lg);
+  }
+
+  .pl-about__feature-image {
+    min-height: 380px;
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-about__feature-mockup--cards {
+    flex-direction: column;
+  }
+}
+
+/* ── Mobile ── */
+@container section (max-width: 639px) {
+  .pl-about__feature-alt-container {
+    gap: var(--pl-spacing-12);
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .pl-about__feature-item {
+    grid-template-columns: 1fr;
+    gap: var(--pl-spacing-7);
+  }
+
+  /* 모바일은 항상 텍스트 위, 이미지 아래 */
+  .pl-about__feature-item--reverse .pl-about__feature-text { order: 1; }
+  .pl-about__feature-item--reverse .pl-about__feature-image { order: 2; }
+
+  .pl-about__feature-heading {
+    font-size: var(--pl-font-size-header-md);
+  }
+
+  .pl-about__feature-image {
+    min-height: 300px;
+    padding: var(--pl-spacing-6);
+  }
+
+  .pl-mockup-tree__node {
+    font-size: 12px;
+    padding: var(--pl-spacing-2) var(--pl-spacing-4);
+  }
+}

@@ -1,0 +1,56 @@
+/* ============================================
+   PageLab Section Styles
+   Figma 디자인 스펙 기반 구현
+   ============================================ */
+
+/* ============================================
+   Common Section Styles
+   ============================================ */
+
+/* Common Section Layout Tokens (Figma 기반 일관된 레이아웃) */
+:root {
+  /* Layout Tokens */
+  --pl-layout-body-top: 32px;           /* 섹션 상단 패딩 */
+  --pl-layout-body-bottom: 100px;       /* 섹션 하단 패딩 */
+  --pl-layout-hor-padding: 40px;        /* 섹션 좌우 패딩 */
+
+  /* Spacing Tokens */
+  --pl-spacing-title-gap: 68px;         /* Section Title과 Content 사이 간격 (spacing-12) */
+
+  /* Device Tokens */
+  --pl-device-width-default: 1920px;    /* 기본 디바이스 너비 */
+  --pl-device-min-width: 1200px;        /* 최소 디바이스 너비 */
+
+  /* Legacy tokens (backward compatibility) */
+  --pl-section-padding-top: var(--pl-layout-body-top);
+  --pl-section-padding-bottom: var(--pl-layout-body-bottom);
+  --pl-section-title-gap: var(--pl-spacing-title-gap);
+}
+
+/* Common Section Base Styles */
+/* Browser UA 기본값 제거 */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; overflow-x: hidden; }
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+p { margin: 0; }
+
+
+.pl-section {
+  /* 최소한의 공통 레이아웃 - 각 섹션은 필요시 오버라이드 */
+  container-type: inline-size;
+  container-name: section;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.pl-section__container {
+  /* Container 공통 스타일 */
+  width: 100%;
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding-left: var(--pl-layout-padding);
+  padding-right: var(--pl-layout-padding);
+}
+
+/* NOTE: Label and Button styles moved to components.css */

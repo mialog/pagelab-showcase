@@ -1,0 +1,563 @@
+/* ============================================
+   Intro Section - Type A (Textblock)
+   Figma 스펙: 1920x330, bg #f6f2fc (violet-5)
+   center aligned text block
+   ============================================ */
+.pl-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-intro--textblock {
+  background: var(--pl-campaign-bg);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-12);
+}
+
+.pl-intro__container {
+  max-width: 1840px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Section Title Component (재사용 가능) */
+.pl-section-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-5);
+  padding-top: var(--pl-spacing-9); /* Figma: 40px, section(32px) + title(40px) = 72px */
+  width: 100%;
+}
+
+/* Figma: 17px/700, line-height 144%, color violet-50 (#9b6bf4) */
+.pl-section-title__label {
+  font-size: var(--pl-font-size-label-md);
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-brand);
+  text-align: center;
+}
+
+.pl-section-title__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+}
+
+/* Figma: 38px/700, line-height 136%, color neutral-100 (#0b0d11) */
+.pl-section-title__heading {
+  font-size: var(--pl-font-size-display-sm);
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-title);
+  color: var(--pl-text-primary);
+  text-align: center;
+  margin: 0;
+}
+
+/* Figma: 20px/500, line-height 144%, color neutral-80 (#394046) */
+.pl-section-title__desc {
+  font-size: var(--pl-font-size-body-lg);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+/* Figma: 16px/500, line-height 168%, color neutral-50 (#8c97a0) */
+.pl-section-title__note {
+  font-size: var(--pl-font-size-body-sm);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-body);
+  color: var(--pl-text-lowest);
+  text-align: center;
+  margin: 0;
+  margin-top: var(--pl-spacing-2);
+}
+
+/* ============================================
+   Section Title - Dark Mode Variant
+   부모가 다크모드일 때 자동으로 화이트 텍스트 적용
+   ============================================ */
+.pl-section-title--dark .pl-section-title__label,
+[data-theme="dark"] .pl-section-title__label {
+  color: var(--pl-text-brand-light);
+}
+
+.pl-section-title--dark .pl-section-title__heading {
+  color: var(--pl-text-invert);
+}
+[data-theme="dark"] .pl-section-title__heading {
+  color: var(--pl-text-primary);
+}
+
+.pl-section-title--dark .pl-section-title__desc {
+  color: var(--pl-text-invert);
+}
+[data-theme="dark"] .pl-section-title__desc {
+  color: var(--pl-text-secondary);
+}
+
+.pl-section-title--dark .pl-section-title__note,
+[data-theme="dark"] .pl-section-title__note {
+  color: var(--pl-text-lowest);
+}
+
+/* ============================================
+   Intro Responsive - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-intro--textblock {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  }
+
+  .pl-section-title__label {
+    font-size: var(--pl-font-size-label-md);
+  }
+
+  .pl-section-title__heading {
+    font-size: var(--pl-font-size-display-sm);
+  }
+
+  .pl-section-title__desc {
+    font-size: var(--pl-font-size-body-lg);
+  }
+}
+
+/* ============================================
+   Intro Responsive - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-intro--textblock {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
+  }
+
+  .pl-section-title {
+    gap: var(--pl-spacing-4);
+    padding-top: var(--pl-spacing-8); /* Figma: 32px internal top padding */
+  }
+
+  .pl-section-title__label {
+    font-size: var(--pl-font-size-label-sm);
+  }
+
+  .pl-section-title__heading {
+    font-size: var(--pl-font-size-header-md);
+  }
+
+  .pl-section-title__desc {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-section-title__note {
+    font-size: var(--pl-font-size-label-sm);
+  }
+}
+
+/* ============================================
+   Intro Section - Type B (Textgrid)
+   Figma 스펙: 1920x523, bg #ffffff
+   section title + stats grid
+   ============================================ */
+.pl-intro--textgrid {
+  background: var(--pl-bg-default);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-12);
+}
+
+.pl-intro--textgrid .pl-intro__container {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-11);
+}
+
+/* Section Title - Brand Color Variant */
+.pl-section-title--brand .pl-section-title__label {
+  color: var(--pl-text-brand);
+}
+
+/* Stats Grid Component */
+.pl-stats-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.pl-stats-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-2);
+  padding: var(--pl-spacing-3) var(--pl-spacing-11);
+}
+
+/* Figma: 56px/700, color blue-50 (#416df0) */
+.pl-stats-grid__number {
+  font-size: var(--pl-font-size-display-lg);
+  font-weight: var(--pl-font-weight-bold);
+  line-height: var(--pl-line-height-title);
+  color: var(--pl-text-brand-sub);
+  text-align: center;
+}
+
+/* Figma: 20px/500, color neutral-60 (#6a747c) */
+.pl-stats-grid__label {
+  font-size: var(--pl-font-size-body-lg);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-tertiary);
+  text-align: center;
+}
+
+/* Figma: 1px vertical line, color neutral-20 (#d4dce2), height 96px */
+.pl-stats-grid__divider {
+  width: 1px;
+  height: 96px;
+  background: var(--pl-border-light);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Stats Grid Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-intro--textgrid .pl-intro__container {
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-stats-grid__item {
+    padding: var(--pl-spacing-3) var(--pl-spacing-9);
+  }
+
+  .pl-stats-grid__number {
+    font-size: var(--pl-font-size-display-md);
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  .pl-stats-grid__label {
+    font-size: var(--pl-font-size-body-md);
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  .pl-stats-grid__divider {
+    height: 80px;
+  }
+}
+
+/* ============================================
+   Stats Grid Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-intro--textgrid {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
+  }
+
+  .pl-intro--textgrid .pl-intro__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-stats-grid {
+    flex-direction: column;
+    gap: var(--pl-spacing-6);
+    width: 100%;
+  }
+
+  .pl-stats-grid__item {
+    padding: var(--pl-spacing-5) 0;
+    width: 100%;
+  }
+
+  .pl-stats-grid__number {
+    font-size: var(--pl-font-size-display-sm);
+  }
+
+  .pl-stats-grid__label {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  .pl-stats-grid__divider {
+    width: 100%;
+    height: 1px;
+    max-width: 200px;
+  }
+}
+
+/* ============================================
+   Intro Section - Type C (Img)
+   Figma 스펙: 1920x998, bg #ffffff
+   section title + full-width image
+   header top: 32px, gap: var(--pl-spacing-12), img: 600px, bottom: 100px
+   ============================================ */
+.pl-intro--img {
+  background: var(--pl-bg-default);
+  padding: 0;
+  padding-bottom: var(--pl-spacing-14); /* 100px */
+  flex-direction: column;
+}
+
+.pl-intro__header {
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding);
+  padding-bottom: var(--pl-spacing-12); /* gap: var(--pl-spacing-12) */
+  display: flex;
+  justify-content: center;
+}
+
+/* Figma: 1920x600 full-width image */
+.pl-intro__image {
+  width: 100%;
+  height: 600px;
+  background: var(--pl-bg-neutral);
+  overflow: hidden;
+}
+
+.pl-intro__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-intro__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-intro__image--placeholder::after {
+  content: 'Image';
+  font-size: var(--pl-font-size-title-lg);
+  color: var(--pl-text-lowest);
+}
+
+/* ============================================
+   Intro Img Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) /* Ta */ {
+  .pl-intro--img {
+    padding-bottom: var(--pl-spacing-13); /* 80px */
+  }
+
+  .pl-intro__header {
+    padding: var(--pl-spacing-7) var(--pl-layout-padding);
+    padding-bottom: var(--pl-spacing-11);
+  }
+
+  .pl-intro__image {
+    height: 480px;
+  }
+}
+
+/* ============================================
+   Intro Img Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) /* Mo */ {
+  .pl-intro--img {
+    padding-bottom: var(--pl-spacing-11); /* 48px */
+  }
+
+  .pl-intro__header {
+    padding: var(--pl-spacing-5) 20px; /* Figma: top 16px */
+    padding-bottom: var(--pl-spacing-9);
+  }
+
+  .pl-intro__image {
+    height: 280px;
+  }
+}
+
+/* ============================================
+   Intro Section - Type D (Product Split)
+   제품 소개: 상단 섹션 타이틀 + 이미지/정보 좌우 분할
+   ============================================ */
+
+.pl-intro--product-split {
+  background: var(--pl-bg-default);
+  padding: 0;
+}
+
+.pl-intro--product-split__container {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-12);
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+  max-width: var(--pl-container-default);
+  width: 100%;
+}
+
+/* 좌우 분할 레이아웃 */
+.pl-intro__product-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pl-spacing-12);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* 왼쪽: 제품 이미지 */
+.pl-intro__product-image {
+  width: 100%;
+  height: 600px;
+  background: var(--pl-bg-neutral);
+  border-radius: var(--pl-radius-4);
+  overflow: hidden;
+}
+
+.pl-intro__product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl-intro__product-image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-intro__product-image--placeholder::after {
+  content: '';
+}
+
+/* 오른쪽: 제품 정보 */
+.pl-intro__product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--pl-spacing-7);
+}
+
+.pl-intro__product-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+}
+
+.pl-intro__product-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-brand);
+  background: var(--pl-bg-brand-light);
+  padding: var(--pl-spacing-2) var(--pl-spacing-5);
+  border-radius: var(--pl-radius-1);
+  width: fit-content;
+}
+
+.pl-intro__product-name {
+  font-size: var(--pl-font-size-header-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+}
+
+.pl-intro__product-subtitle {
+  font-size: var(--pl-font-size-body-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+/* 주요 특징 리스트 */
+.pl-intro__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+  list-style: none;
+  padding: 0;
+}
+
+.pl-intro__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-intro__feature-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pl-bg-brand-light);
+  color: var(--pl-text-brand);
+  border-radius: var(--pl-radius-1);
+  margin-top: 2px;
+}
+
+.pl-intro__feature-text {
+  font-size: var(--pl-font-size-label-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+.pl-intro__feature-text strong {
+  color: var(--pl-text-primary);
+  font-weight: var(--pl-font-weight-bold);
+}
+
+/* CTA 버튼 영역 */
+.pl-intro__product-cta {
+  display: flex;
+  gap: var(--pl-spacing-4);
+  flex-wrap: wrap;
+}
+
+.pl-intro__cta-mo { display: none; }
+
+
+/* ── Tablet ── */
+@container section (max-width: 1199px) {
+  .pl-intro--product-split__container {
+    gap: var(--pl-spacing-11);
+  }
+
+  .pl-intro__product-split {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-intro__product-name {
+    font-size: var(--pl-font-size-title-lg);
+  }
+
+  .pl-intro__product-cta {
+    flex-wrap: nowrap;
+  }
+
+  .pl-intro__product-cta pl-button {
+    flex: 1;
+  }
+
+  .pl-intro__product-cta .pl-btn {
+    width: 100%;
+  }
+}
+
+/* ── Mobile ── */
+@container section (max-width: 639px) {
+  .pl-intro--product-split__container {
+    padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
+    gap: var(--pl-spacing-10);
+  }
+
+  .pl-intro__product-split {
+    grid-template-columns: 1fr;
+    gap: var(--pl-spacing-8);
+  }
+
+  .pl-intro__product-image {
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .pl-intro__product-cta {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .pl-intro__cta-pc { display: none; }
+  .pl-intro__cta-mo { display: inline-flex; flex: 1; }
+  .pl-intro__cta-mo .pl-btn { width: 100%; }
+}

@@ -1,0 +1,887 @@
+/* ============================================
+   Benefit Section
+   ============================================ */
+
+/* ----- PC (Default) ----- */
+.pl-benefit {
+  width: 100%;
+  background: var(--pl-bg-default);
+}
+
+.pl-benefit__container {
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+}
+
+/* Section Title Spacing */
+.pl-benefit .pl-section-title {
+  margin-bottom: var(--pl-spacing-9);
+}
+
+/* Benefit Grid Layout */
+.pl-benefit__grid {
+  display: grid;
+  gap: var(--pl-spacing-2); /* 4px - narrow spacing */
+  margin-bottom: var(--pl-spacing-9);
+  align-items: center;
+  position: relative; /* For absolute positioned plus icons */
+}
+
+/* Grid Variations - simple repeat columns */
+.pl-benefit__grid--4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pl-benefit__grid--3col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pl-benefit__grid--2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Small Benefit Card */
+.pl-benefit__card--small {
+  background: var(--pl-bg-brand-light); /* #edf8fc from Figma */
+  padding: var(--pl-spacing-8) var(--pl-spacing-10); /* 32px 40px from Figma */
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3); /* 12px from Figma */
+  position: relative;
+  text-align: center;
+}
+
+/* First card - top-left radius */
+.pl-benefit__card--small:first-child {
+  border-top-left-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Last card in 4-column layout - top-right radius */
+.pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7) {
+  border-top-right-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Last card in 3-column layout - top-right radius */
+.pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5) {
+  border-top-right-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Last card in 2-column layout - top-right radius */
+.pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+  border-top-right-radius: var(--pl-radius-5); /* 20px */
+}
+
+/* Card Icon - Absolute positioned */
+.pl-benefit__card-icon {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: var(--pl-bg-brand);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pl-benefit__card-icon svg {
+  color: var(--pl-static-white);
+}
+
+.pl-benefit__card-icon--top-right {
+  top: var(--pl-spacing-8); /* 32px from Figma */
+  right: var(--pl-spacing-4); /* 16px from Figma */
+}
+
+.pl-benefit__card-icon--bottom-left {
+  bottom: var(--pl-spacing-4); /* 16px from Figma */
+  left: var(--pl-spacing-4); /* 16px from Figma */
+}
+
+/* Plus Icon Between Cards - Absolutely positioned to overlap */
+.pl-benefit__plus-icon {
+  position: absolute;
+  top: 32%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  background: var(--pl-bg-brand);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.pl-benefit__plus-icon svg {
+  color: var(--pl-static-white);
+}
+
+/* Positioning for 4-column layout */
+.pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(2) {
+  left: 25%;
+}
+
+.pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(4) {
+  left: 50%;
+}
+
+.pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(6) {
+  left: 75%;
+}
+
+/* Positioning for 3-column layout */
+.pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(2) {
+  left: 33.333%;
+}
+
+.pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(4) {
+  left: 66.666%;
+}
+
+/* Positioning for 2-column layout */
+.pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(2) {
+  left: 50%;
+}
+
+/* Hide plus icons when large card is removed in page builder */
+.pl-benefit__grid:not(:has(.pl-benefit__card--large)) .pl-benefit__plus-icon {
+  display: none;
+}
+
+/* Card Text Block - Center aligned */
+.pl-benefit__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2); /* 8px */
+  text-align: center;
+}
+
+.pl-benefit__card-title {
+  font-size: var(--pl-font-size-title-lg); /* 24px from Figma */
+  font-weight: var(--pl-font-weight-bold); /* 700 */
+  line-height: var(--pl-line-height-default); /* 1.44 */
+  color: var(--pl-text-primary); /* #0b0d11 */
+  text-align: center;
+}
+
+.pl-benefit__card-sub {
+  font-size: var(--pl-font-size-label-sm); /* 14px from Figma */
+  font-weight: var(--pl-font-weight-default); /* 500 */
+  line-height: var(--pl-line-height-default); /* 1.44 */
+  color: var(--pl-text-secondary); /* #394046 */
+  text-align: center;
+}
+
+/* Card Image */
+.pl-benefit__card-image {
+  width: 100%;
+  height: 112px; /* from Figma */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.pl-benefit__card-image img {
+  max-width: 190px; /* from Figma */
+  max-height: 95px; /* from Figma */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Card Note */
+.pl-benefit__card-note {
+  font-size: var(--pl-font-size-label-sm); /* 14px from Figma */
+  font-weight: var(--pl-font-weight-default); /* 500 */
+  line-height: var(--pl-line-height-default); /* 1.44 */
+  color: var(--pl-text-tertiary); /* #6a747c */
+  text-align: center;
+}
+
+/* Large Benefit Banner */
+.pl-benefit__card--large {
+  grid-column: 1 / -1;
+  background: var(--pl-bg-brand);
+  border-bottom-left-radius: var(--pl-radius-5); /* 20px */
+  border-bottom-right-radius: var(--pl-radius-5); /* 20px */
+  padding: var(--pl-spacing-9) var(--pl-spacing-10);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pl-spacing-10);
+  min-height: 176px;
+}
+
+.pl-benefit__card--large .pl-benefit__card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-benefit__card--large .pl-benefit__card-title {
+  font-size: var(--pl-font-size-title-lg);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-static-white);
+  line-height: var(--pl-line-height-title);
+  text-align: left;
+}
+
+.pl-benefit__card--large .pl-benefit__card-sub {
+  font-size: var(--pl-font-size-body-md);
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-static-white);
+  line-height: var(--pl-line-height-body);
+  text-align: left;
+}
+
+.pl-benefit__card--large .pl-benefit__card-image {
+  width: 224px;
+  height: 112px;
+  flex-shrink: 0;
+  border-radius: var(--pl-radius-4); /* 12px */
+  overflow: hidden;
+}
+
+/* CTA Button */
+.pl-benefit__cta {
+  display: flex;
+  justify-content: center;
+}
+
+/* ----- Tablet (max-width: 1199px) ----- */
+@media (max-width: 1199px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+  }
+
+  .pl-benefit__grid {
+    gap: var(--pl-spacing-2);
+    margin-bottom: var(--pl-spacing-8);
+  }
+
+  /* Hide plus icons on tablet and reset grid */
+  .pl-benefit__plus-icon {
+    display: none;
+  }
+
+  /* All grids -> 2col on tablet */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7) var(--pl-spacing-8);
+    gap: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  /* Tablet radius adjustments */
+  /* Reset all desktop radius explicitly with individual corner properties */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__card--large {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Reset desktop-specific radius rules */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: 0 !important;
+  }
+
+  /* 4 cards layout (2x2 grid + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__grid--4col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 3 cards layout (2 cards in row 1, 1 full-width card in row 2, banner in row 3) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Third card (적립) - position 5 in DOM (Plus icon is at 4) - Full width */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .pl-benefit__grid--3col .pl-benefit__card--large {
+    grid-column: 1 / -1 !important;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 2 cards layout (2 cards + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+}
+
+/* ----- Mobile (max-width: 639px) ----- */
+@media (max-width: 639px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+    padding-left: var(--pl-layout-padding) !important;
+    padding-right: var(--pl-layout-padding) !important;
+  }
+
+  .pl-benefit__grid {
+    gap: 0; /* Remove gap, plus-icon handles spacing */
+    margin-bottom: var(--pl-spacing-7);
+  }
+
+  /* Show plus icons on mobile - position between cards in gap space */
+  .pl-benefit__plus-icon {
+    display: flex;
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    margin: -12.5px 0; /* (28px - 3px) / 2 = 12.5px overlap each side for 3px visible gap */
+    justify-self: center; /* Center in grid cell */
+    background: var(--pl-bg-brand);
+  }
+
+  .pl-benefit__plus-icon svg {
+    color: var(--pl-static-white);
+  }
+
+  /* Reset PC left positioning for all plus icons on mobile */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(6),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(2) {
+    left: auto;
+  }
+
+  /* 4 cards: show 3 plus icons (hide 4th - position 8) */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(8) {
+    display: none;
+  }
+
+  /* 3 cards: show 2 plus icons (hide 3rd - position 6) */
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(6) {
+    display: none;
+  }
+
+  /* 2 cards: show 1 plus icon (hide 2nd - position 4) */
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(4) {
+    display: none;
+  }
+
+  /* All grids -> 1col on mobile */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card-title {
+    font-size: var(--pl-font-size-body-lg);
+  }
+
+  .pl-benefit__card-image {
+    height: 96px;
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7);
+    flex-direction: column;
+    gap: var(--pl-spacing-6);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-text {
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-sm);
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-label-lg);
+    text-align: center;
+  }
+
+  /* Mobile radius adjustments - 1 column layout */
+  /* Reset all small card radius */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset desktop-specific radius rules for mobile */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* First card gets both top corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset 2nd, 3rd, 4th card radius for mobile 1-column layout */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Banner card gets bottom corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--large,
+  .pl-benefit__grid--3col .pl-benefit__card--large,
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-image {
+    width: 100%;
+    max-width: 224px;
+    margin: 0 auto;
+  }
+}
+
+/* ----- Container Query ----- */
+@container section (max-width: 1199px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+  }
+
+  .pl-benefit__grid {
+    gap: var(--pl-spacing-2);
+    margin-bottom: var(--pl-spacing-8);
+  }
+
+  /* Hide plus icons on tablet and reset grid */
+  .pl-benefit__plus-icon {
+    display: none;
+  }
+
+  /* All grids -> 2col on tablet */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7) var(--pl-spacing-8);
+    gap: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-md);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-body-sm);
+  }
+
+  /* Tablet radius adjustments */
+  /* Reset all desktop radius explicitly with individual corner properties */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__card--large {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Reset desktop-specific radius rules */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: 0 !important;
+  }
+
+  /* 4 cards layout (2x2 grid + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .pl-benefit__grid--4col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 3 cards layout (2 cards in row 1, 1 full-width card in row 2, banner in row 3) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Third card (적립) - position 5 in DOM (Plus icon is at 4) - Full width */
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .pl-benefit__grid--3col .pl-benefit__card--large {
+    grid-column: 1 / -1 !important;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+
+  /* 2 cards layout (2 cards + full-width banner) */
+  /* First card (장학금) - position 1 in DOM */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+  }
+
+  /* Second card (할인) - position 3 in DOM (Plus icon is at 2) */
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    grid-column: 1 / -1;
+    border-bottom-left-radius: var(--pl-radius-5);
+    border-bottom-right-radius: var(--pl-radius-5);
+  }
+}
+
+@container section (max-width: 639px) {
+  .pl-benefit__container {
+    padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
+    padding-left: var(--pl-layout-padding) !important;
+    padding-right: var(--pl-layout-padding) !important;
+  }
+
+  .pl-benefit__grid {
+    gap: 0; /* Remove gap, plus-icon handles spacing */
+    margin-bottom: var(--pl-spacing-7);
+  }
+
+  /* Show plus icons on mobile - position between cards in gap space */
+  .pl-benefit__plus-icon {
+    display: flex;
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    margin: -12.5px 0; /* (28px - 3px) / 2 = 12.5px overlap each side for 3px visible gap */
+    justify-self: center; /* Center in grid cell */
+    background: var(--pl-bg-brand);
+  }
+
+  .pl-benefit__plus-icon svg {
+    color: var(--pl-static-white);
+  }
+
+  /* Reset PC left positioning for all plus icons on mobile */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(6),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(2),
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(4),
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(2) {
+    left: auto;
+  }
+
+  /* 4 cards: show 3 plus icons (hide 4th - position 8) */
+  .pl-benefit__grid--4col .pl-benefit__plus-icon:nth-of-type(8) {
+    display: none;
+  }
+
+  /* 3 cards: show 2 plus icons (hide 3rd - position 6) */
+  .pl-benefit__grid--3col .pl-benefit__plus-icon:nth-of-type(6) {
+    display: none;
+  }
+
+  /* 2 cards: show 1 plus icon (hide 2nd - position 4) */
+  .pl-benefit__grid--2col .pl-benefit__plus-icon:nth-of-type(4) {
+    display: none;
+  }
+
+  /* All grids -> 1col on mobile */
+  .pl-benefit__grid--4col,
+  .pl-benefit__grid--3col,
+  .pl-benefit__grid--2col {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-benefit__card--small {
+    padding: var(--pl-spacing-7);
+  }
+
+  .pl-benefit__card-title {
+    font-size: var(--pl-font-size-body-lg);
+  }
+
+  .pl-benefit__card-image {
+    height: 96px;
+  }
+
+  .pl-benefit__card--large {
+    padding: var(--pl-spacing-7);
+    flex-direction: column;
+    gap: var(--pl-spacing-6);
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-text {
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-title {
+    font-size: var(--pl-font-size-title-sm);
+    text-align: center;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-sub {
+    font-size: var(--pl-font-size-label-lg);
+    text-align: center;
+  }
+
+  /* Mobile radius adjustments - 1 column layout */
+  /* Reset all small card radius */
+  .pl-benefit__card--small {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset desktop-specific radius rules for mobile */
+  .pl-benefit__grid--4col > .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col > .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col > .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* First card gets both top corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(1),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(1) {
+    border-top-left-radius: var(--pl-radius-5) !important;
+    border-top-right-radius: var(--pl-radius-5) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Reset 2nd, 3rd, 4th card radius for mobile 1-column layout */
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--4col .pl-benefit__card--small:nth-child(7),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(3),
+  .pl-benefit__grid--3col .pl-benefit__card--small:nth-child(5),
+  .pl-benefit__grid--2col .pl-benefit__card--small:nth-child(3) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Banner card gets bottom corners for ALL layouts */
+  .pl-benefit__grid--4col .pl-benefit__card--large,
+  .pl-benefit__grid--3col .pl-benefit__card--large,
+  .pl-benefit__grid--2col .pl-benefit__card--large {
+    border-bottom-left-radius: var(--pl-radius-5) !important;
+    border-bottom-right-radius: var(--pl-radius-5) !important;
+  }
+
+  .pl-benefit__card--large .pl-benefit__card-image {
+    width: 100%;
+    max-width: 224px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================
+   Benefit Section - Type B (Image)
+   Figma: 1920x1160, bg #ffffff
+   Simple layout: section title + image + CTA
+   ============================================ */
+.pl-benefit--img {
+  background: var(--pl-bg-default);
+  padding: var(--pl-layout-body-top) 0 var(--pl-spacing-13);
+}
+
+.pl-benefit--img .pl-benefit__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-9);
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+}
+
+/* Benefit Image */
+.pl-benefit__image {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 1280 / 600;
+  background: var(--pl-neutral-10);
+  border-radius: var(--pl-radius-4); /* Figma: 24px */
+  overflow: hidden;
+}
+
+.pl-benefit__image img,
+.pl-benefit__image picture {
+  width: 100%;
+  height: 100%;
+}
+
+.pl-benefit__image picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
+   Benefit Type B - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-benefit--img {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-10);
+  }
+
+  .pl-benefit--img .pl-benefit__container {
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-benefit__image {
+    aspect-ratio: 640 / 400;
+    border-radius: var(--pl-radius-4); /* Figma: 24px */
+  }
+}
+
+/* ============================================
+   Benefit Type B - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-benefit--img {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
+  }
+
+  .pl-benefit--img .pl-benefit__container {
+    gap: var(--pl-spacing-9); /* Figma: ~52px */
+  }
+
+  .pl-benefit__image {
+    aspect-ratio: 320 / 360;
+    border-radius: var(--pl-radius-4); /* Figma: 20px (mobile token) */
+  }
+}

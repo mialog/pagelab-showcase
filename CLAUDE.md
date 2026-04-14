@@ -32,6 +32,7 @@
 | `<pl-section-title>` | `label`, `heading`, `description`, `note` |
 | `<pl-button>` | `variant`, `size`, `href`, `disabled` |
 | `<pl-card>` | `title`, `description`, `image`, `label` |
+| `<pl-review-card>` | `variant`(grid/slider), `stars`, `name`, `info`, `photo`, `content` |
 
 ## AI 생성 섹션 배지
 

@@ -1,0 +1,1117 @@
+/* ============================================
+   GNB (Global Navigation Bar)
+   Figma: 1920x74, bg #ffffff
+   ============================================ */
+.pl-gnb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 74px;
+  background: transparent; /* Figma: scroll=off 상태에서 투명 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* Scrolled State - Figma: bg #ffffff 80% opacity */
+.pl-gnb.is-scrolled {
+  background: var(--pl-alpha-white-80);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--pl-alpha-black-08);
+}
+
+.pl-gnb__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  height: 50px;
+  padding: 0 var(--pl-spacing-6);
+}
+
+.pl-gnb__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.pl-gnb__logo svg,
+.pl-gnb__logo img {
+  height: 31px;
+  width: auto;
+}
+
+.pl-gnb__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.pl-gnb__menu-item {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--pl-text-secondary); /* Figma: tertiary text */
+  text-decoration: none;
+  padding: 8px 4px;
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s, font-weight 0.2s;
+}
+
+.pl-gnb__menu-item:hover {
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12); /* Figma: alpha-black-12 */
+}
+
+.pl-gnb__menu-item:focus {
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12);
+  font-weight: 700;
+  outline: none;
+}
+
+.pl-gnb__menu-item:active {
+  color: var(--pl-text-primary);
+  font-weight: 700;
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-gnb__menu-item.is-active {
+  color: var(--pl-text-primary);
+  font-weight: 700;
+}
+
+.pl-gnb__menu-item.is-disabled {
+  color: var(--pl-alpha-black-24);
+  pointer-events: none;
+}
+
+.pl-gnb__mobile-menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+
+.pl-gnb__mobile-menu:hover {
+  background: var(--pl-alpha-black-08);
+}
+
+.pl-gnb__mobile-menu:focus {
+  background: var(--pl-alpha-black-08);
+  outline: none;
+}
+
+.pl-gnb__mobile-menu:active {
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-gnb__mobile-menu svg {
+  stroke: var(--pl-text-primary);
+}
+
+/* Mobile Menu Overlay */
+.pl-gnb__mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  background: var(--pl-bg-default);
+  z-index: 1001;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.pl-gnb__mobile-overlay.is-open {
+  display: flex;
+}
+
+/* 오버레이 열릴 때 GNB 전체 클릭 방지 + 숨김 */
+.pl-gnb.is-menu-open,
+.pl-gnb:has(~ .pl-gnb__mobile-overlay.is-open) {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* 프리뷰 컨테이너: transform으로 fixed 포지션의 containing block 생성 */
+.preview-content {
+  transform: translateZ(0);
+}
+
+/* 프리뷰 컨테이너 내 GNB: fixed → sticky (transformed 컨테이너 내 fixed는 absolute처럼 동작해 스크롤 시 사라짐) */
+.preview-content .pl-gnb {
+  position: sticky;
+  left: auto;
+  right: auto;
+}
+
+/* 프리뷰 컨테이너 내 오버레이: fixed 포지션이 preview-content 기준으로 동작 */
+.preview-content .pl-gnb__mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+}
+
+.pl-gnb__mobile-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--pl-spacing-6);
+  height: 74px; /* GNB와 동일한 높이 */
+  flex-shrink: 0; /* 스크롤 시 줄어들지 않도록 */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: inherit; /* 부모 배경색 상속 */
+}
+
+.pl-gnb__mobile-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+
+.pl-gnb__mobile-close:hover {
+  background: var(--pl-alpha-black-08);
+}
+
+.pl-gnb__mobile-close:focus {
+  background: var(--pl-alpha-black-08);
+  outline: none;
+}
+
+.pl-gnb__mobile-close:active {
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-gnb__mobile-close svg {
+  stroke: var(--pl-text-primary);
+}
+
+.pl-gnb__mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  gap: 24px;
+}
+
+.pl-gnb__mobile-nav-item {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.44;
+  color: var(--pl-text-secondary); /* Figma: tertiary text */
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s, font-weight 0.2s;
+}
+
+.pl-gnb__mobile-nav-item:hover {
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12); /* Figma: alpha-black-12 */
+}
+
+.pl-gnb__mobile-nav-item:focus {
+  color: var(--pl-text-primary);
+  background: var(--pl-alpha-black-12);
+  font-weight: 700;
+  outline: none;
+}
+
+.pl-gnb__mobile-nav-item:active {
+  color: var(--pl-text-primary);
+  font-weight: 700;
+  background: var(--pl-alpha-black-12);
+}
+
+.pl-gnb__mobile-nav-item.is-active {
+  color: var(--pl-text-primary);
+  font-weight: 700;
+}
+
+.pl-gnb__mobile-nav-item.is-disabled {
+  color: var(--pl-alpha-black-24);
+  pointer-events: none;
+}
+
+/* ============================================
+   GNB Dark Variant (White text/logo on dark background)
+   Figma: dark=on 변형
+   ============================================ */
+.pl-gnb--dark {
+  background: transparent;
+}
+
+.pl-gnb--dark.is-scrolled {
+  background: var(--pl-alpha-gray-32);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__logo svg text,
+.pl-gnb--dark .pl-gnb__logo svg path {
+  fill: var(--pl-neutral-0);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item {
+  color: var(--pl-alpha-white-72); /* Figma: tertiary on dark */
+}
+
+.pl-gnb--dark .pl-gnb__menu-item:hover {
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item:focus {
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
+  font-weight: 700;
+}
+
+.pl-gnb--dark .pl-gnb__menu-item:active {
+  color: var(--pl-neutral-0);
+  font-weight: 700;
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item.is-active {
+  color: var(--pl-neutral-0);
+  font-weight: 700;
+  background: var(--pl-alpha-brand-12);
+}
+
+.pl-gnb--dark .pl-gnb__menu-item.is-disabled {
+  color: var(--pl-alpha-white-24);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu {
+  color: var(--pl-neutral-0);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu svg {
+  stroke: var(--pl-neutral-0);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu:hover {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu:focus {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark .pl-gnb__mobile-menu:active {
+  background: var(--pl-alpha-white-24);
+}
+
+/* ============================================
+   GNB Dark Overlay (다크 GNB용 모바일 오버레이)
+   Figma: dark=on 오버레이 변형
+   배경: #394046, 텍스트/아이콘: #ffffff
+   ============================================ */
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay {
+  background: var(--pl-neutral-80); /* Figma: #394046 */
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close svg {
+  stroke: var(--pl-neutral-0);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:hover {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:focus {
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close:active {
+  background: var(--pl-alpha-white-24);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item {
+  color: var(--pl-alpha-white-72); /* no exact token */
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:hover {
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:focus {
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
+  font-weight: 700;
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item:active {
+  color: var(--pl-neutral-0);
+  font-weight: 700;
+  background: var(--pl-alpha-white-12);
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
+  color: var(--pl-neutral-0);
+  font-weight: 700;
+}
+
+.pl-gnb--dark ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-disabled {
+  color: var(--pl-alpha-white-24);
+}
+
+/* ============================================
+   GNB - Dark Mode (data-theme="dark" 컨텍스트)
+   라이트 GNB가 다크 테마 컨테이너 안에 있을 때
+   ============================================ */
+[data-theme="dark"] .pl-gnb {
+  background: transparent; /* Figma: scroll=off 상태에서 투명 */
+}
+
+[data-theme="dark"] .pl-gnb.is-scrolled {
+  background: var(--pl-alpha-black-80); /* Figma: #0b0d11 80% opacity */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--pl-alpha-white-12);
+}
+
+[data-theme="dark"] .pl-gnb__logo svg text,
+[data-theme="dark"] .pl-gnb__logo svg path {
+  fill: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb__menu-item {
+  color: var(--pl-alpha-white-72);
+}
+
+[data-theme="dark"] .pl-gnb__menu-item:hover {
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-white-12);
+}
+
+[data-theme="dark"] .pl-gnb__menu-item.is-active {
+  color: var(--pl-neutral-0);
+  background: var(--pl-alpha-brand-12);
+}
+
+[data-theme="dark"] .pl-gnb__mobile-menu {
+  color: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb__mobile-menu svg {
+  stroke: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay {
+  background: var(--pl-neutral-100); /* Figma: #0b0d11 solid */
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-close svg {
+  stroke: var(--pl-neutral-0);
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item {
+  color: var(--pl-alpha-white-72);
+}
+
+[data-theme="dark"] .pl-gnb ~ .pl-gnb__mobile-overlay .pl-gnb__mobile-nav-item.is-active {
+  color: var(--pl-neutral-0);
+}
+
+
+/* ============================================
+   Navigation Content Section
+   Figma: Section title + full width image
+   ============================================ */
+.pl-nav-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-8);
+  padding: var(--pl-layout-body-top) 0 100px 0; /* Figma: 100px bottom padding on PC */
+  background: var(--pl-bg-default);
+}
+
+.pl-nav-content__container {
+  width: 100%;
+  max-width: var(--pl-container-default);
+  padding: 0 var(--pl-spacing-10);
+}
+
+.pl-nav-content__image {
+  width: 100%;
+  aspect-ratio: 1920 / 422;
+  background: var(--pl-neutral-10);
+  overflow: hidden;
+}
+
+.pl-nav-content__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ============================================
+   Footer
+   Figma: 1920x546, bg #ffffff, border-top var(--pl-border-default)
+   ============================================ */
+.pl-footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: var(--pl-bg-default);
+  border-top: 1px solid var(--pl-border-default);
+}
+
+.pl-footer__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1400px;
+  padding: 40px 40px var(--pl-spacing-15) 40px; /* bottom: spacing-15 */
+}
+
+.pl-footer__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 32px;
+}
+
+/* Footer Info (Left) */
+.pl-footer__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.pl-footer__category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pl-footer__category-link {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--pl-text-tertiary);
+  text-decoration: none;
+  letter-spacing: 0.32px;
+  transition: color 0.2s;
+}
+
+.pl-footer__category-link:hover {
+  color: var(--pl-text-primary);
+}
+
+.pl-footer__category-link--bold {
+  font-weight: 700;
+  color: var(--pl-text-primary);
+}
+
+.pl-footer__business {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pl-footer__logo svg {
+  height: 44px;
+  width: auto;
+}
+
+.pl-footer__company-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pl-text-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.32px;
+}
+
+.pl-footer__company-toggle svg {
+  display: none; /* PC에서 숨김 - Tablet/Mobile에서만 표시 */
+  stroke: var(--pl-text-tertiary);
+  transition: transform 0.2s;
+}
+
+.pl-footer__company-toggle.is-open svg {
+  transform: rotate(180deg);
+}
+
+.pl-footer__address {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pl-footer__address p {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pl-text-tertiary);
+  letter-spacing: 0.32px;
+  line-height: 20px;
+}
+
+/* Footer Contact (Right) */
+.pl-footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 280px;
+}
+
+.pl-footer__call {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-footer__call-label {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--pl-text-secondary);
+}
+
+.pl-footer__call-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--pl-text-secondary);
+}
+
+.pl-footer__call-time {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pl-text-tertiary);
+  letter-spacing: 0.32px;
+}
+
+.pl-footer__sns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pl-footer__sns-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #e8eff4;
+}
+
+.pl-footer__sns-icon--instagram { background: url('../images/footer/footer_sns_instagram.png') center/contain no-repeat; }
+.pl-footer__sns-icon--kakao { background: url('../images/footer/footer_sns_kakao.png') center/contain no-repeat; }
+.pl-footer__sns-icon--blog { background: url('../images/footer/footer_sns_blog.png') center/contain no-repeat; }
+.pl-footer__sns-icon--youtube { background: url('../images/footer/footer_sns_youtube.png') center/contain no-repeat; }
+.pl-footer__sns-icon--place { background: url('../images/footer/footer_sns_place.png') center/contain no-repeat; }
+
+/* Footer Bottom */
+.pl-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 32px 0;
+  border-top: 1px solid var(--pl-border-default);
+}
+
+.pl-footer__marks {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pl-footer__mark-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pl-footer__mark .pl-footer__mark-icon {
+  background-image: url('../images/footer/footer_mark_eprivacy.png');
+}
+
+.pl-footer__isms .pl-footer__mark-icon {
+  background-image: url('../images/footer/footer_mark_isms.png');
+}
+
+.pl-footer__isms {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pl-footer__isms-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pl-footer__isms-text p {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pl-text-tertiary);
+  letter-spacing: 0.32px;
+}
+
+.pl-footer__isms-text strong {
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.pl-footer__sites {
+  display: flex;
+  gap: 24px;
+}
+
+.pl-footer__dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 240px;
+  height: 52px;
+  padding: 0 16px;
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-default);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pl-text-primary);
+  cursor: pointer;
+}
+
+.pl-footer__dropdown svg {
+  stroke: var(--pl-text-tertiary);
+  transition: transform 0.2s;
+}
+
+/* Dropdown Hover State */
+.pl-footer__dropdown:hover {
+  border-color: var(--pl-border-darker);
+}
+
+/* Dropdown Opened State */
+.pl-footer__dropdown.is-open {
+  border-color: var(--pl-border-darker);
+  border-radius: 4px 4px 0 0;
+}
+
+.pl-footer__dropdown.is-open svg {
+  transform: rotate(180deg);
+}
+
+/* Dropdown List */
+.pl-footer__dropdown-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-border-darker);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 176px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.pl-footer__dropdown.is-open + .pl-footer__dropdown-list {
+  display: block;
+}
+
+.pl-footer__dropdown-item {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pl-text-primary);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.pl-footer__dropdown-item:hover {
+  background: var(--pl-bg-neutral);
+}
+
+/* Dropdown List Scrollbar */
+.pl-footer__dropdown-list::-webkit-scrollbar {
+  width: 11px;
+}
+
+.pl-footer__dropdown-list::-webkit-scrollbar-track {
+  background: var(--pl-bg-default);
+}
+
+.pl-footer__dropdown-list::-webkit-scrollbar-thumb {
+  background: var(--pl-bg-scrollbar);
+  border-radius: 99px;
+  border: 4px solid var(--pl-bg-default);
+}
+
+/* Dropdown Wrapper for positioning */
+.pl-footer__dropdown-wrapper {
+  position: relative;
+}
+
+.pl-footer__dropdowns {
+  display: flex;
+  gap: 24px;
+}
+
+.pl-footer__app-btn {
+  display: none; /* PC에서는 숨김, Mobile에서만 표시 */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-text-brand);
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--pl-text-brand);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.pl-footer__app-btn:hover {
+  background: var(--pl-alpha-brand-08);
+}
+
+/* Footer Copyright */
+.pl-footer__copyright {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pl-text-lowest);
+  letter-spacing: 0.32px;
+  padding-top: 24px;
+}
+
+/* ============================================
+   Footer Dark Variant
+   Figma: dark=on 변형 - bg #394046
+   ============================================ */
+.pl-footer--dark {
+  background: var(--pl-neutral-100); /* Figma: #0b0d11 */
+  border-top-color: var(--pl-text-lowest);
+}
+
+.pl-footer--dark .pl-footer__category-link {
+  color: var(--pl-border-default); /* Figma: neutral-30 */
+}
+
+.pl-footer--dark .pl-footer__category-link--bold {
+  color: var(--pl-neutral-0); /* Figma: white bold */
+}
+
+.pl-footer--dark .pl-footer__company-toggle {
+  color: var(--pl-neutral-0); /* Figma: white bold */
+}
+
+.pl-footer--dark .pl-footer__address p {
+  color: var(--pl-border-default); /* Figma: neutral-30 */
+}
+
+.pl-footer--dark .pl-footer__call-label {
+  color: var(--pl-neutral-10); /* Figma: #e3e8ed */
+}
+
+.pl-footer--dark .pl-footer__call-number {
+  color: var(--pl-neutral-10); /* Figma: #e3e8ed */
+}
+
+.pl-footer--dark .pl-footer__call-time {
+  color: var(--pl-border-default); /* Figma: neutral-30 */
+}
+
+.pl-footer--dark .pl-footer__isms-text p {
+  color: var(--pl-border-default); /* Figma: neutral-30 */
+}
+
+.pl-footer--dark .pl-footer__isms-text strong {
+  color: var(--pl-border-default); /* Figma: neutral-30 */
+}
+
+.pl-footer--dark .pl-footer__copyright {
+  color: var(--pl-text-lowest); /* Figma: neutral-60 */
+}
+
+/* Dark mode - hover states */
+.pl-footer--dark .pl-footer__category-link:hover {
+  color: var(--pl-neutral-0);
+}
+
+/* Dark mode - arrow icon color */
+.pl-footer--dark .pl-footer__company-toggle svg {
+  stroke: var(--pl-neutral-0);
+}
+
+
+/* ============================================
+   GNB Responsive - Tablet
+   ============================================ */
+@media (max-width: 1199px) {
+  .pl-gnb {
+    height: 60px;
+  }
+
+  .pl-gnb__container {
+    max-width: none;
+    padding: 0 var(--pl-spacing-8);
+  }
+
+  .pl-gnb__nav {
+    display: none;
+  }
+
+  .pl-gnb__mobile-menu {
+    display: flex;
+  }
+
+  .pl-gnb__mobile-overlay-header {
+    padding: 0 var(--pl-spacing-8);
+    height: 60px; /* 태블릿 GNB와 동일 */
+  }
+
+  .pl-nav-content {
+    padding: var(--pl-layout-body-top) 0 60px 0; /* Figma: 60px bottom padding on Tablet */
+  }
+
+  .pl-nav-content__container {
+    padding: 0 var(--pl-spacing-8);
+  }
+
+  .pl-nav-content__image {
+    aspect-ratio: 720 / 400; /* Figma: 720x400 */
+  }
+
+  .pl-footer__container {
+    padding: 32px 32px var(--pl-spacing-15) 32px; /* bottom: spacing-15 */
+  }
+
+  .pl-footer__top {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Tablet/Mobile: 순서 재배치 - 카테고리 > 고객센터 > 사업자정보 */
+  .pl-footer__info {
+    display: contents; /* 자식 요소들이 부모 flex에 직접 참여 */
+  }
+
+  .pl-footer__category {
+    order: 1;
+  }
+
+  .pl-footer__contact {
+    order: 2;
+    min-width: auto;
+  }
+
+  .pl-footer__business {
+    order: 3;
+  }
+
+  /* Company Info Collapsible - Tablet/Mobile */
+  .pl-footer__company-toggle svg {
+    display: block; /* Tablet/Mobile에서 화살표 표시 */
+  }
+
+  .pl-footer__address {
+    display: none;
+  }
+
+  .pl-footer__address.is-open {
+    display: flex;
+  }
+
+  .pl-footer__bottom {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .pl-footer__sites {
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+  }
+
+  .pl-footer__dropdowns {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .pl-footer__dropdown-wrapper {
+    width: 100%;
+  }
+
+  .pl-footer__dropdown {
+    width: 100%;
+  }
+}
+
+
+/* ============================================
+   GNB Responsive - Mobile
+   ============================================ */
+@media (max-width: 639px) {
+  .pl-gnb {
+    height: 66px; /* Figma: 66px */
+  }
+
+  .pl-gnb__container {
+    padding: 0 var(--pl-spacing-6);
+  }
+
+  .pl-gnb__logo svg,
+  .pl-gnb__logo img {
+    height: 24px;
+  }
+
+  .pl-gnb__mobile-overlay-header {
+    padding: 0 var(--pl-spacing-6);
+    height: 66px; /* 모바일 GNB와 동일 */
+  }
+
+  .pl-nav-content {
+    gap: var(--pl-spacing-6);
+    padding: var(--pl-layout-body-top) 0 48px 0; /* Figma: 48px bottom padding */
+  }
+
+  .pl-nav-content__container {
+    padding: 0 var(--pl-spacing-6);
+  }
+
+  .pl-nav-content__image {
+    aspect-ratio: 1 / 1; /* Figma: 360x360 */
+  }
+
+  .pl-footer__container {
+    padding: 24px 20px var(--pl-spacing-15) 20px; /* bottom: spacing-15 */
+  }
+
+  .pl-footer__category {
+    gap: 12px 16px;
+  }
+
+  .pl-footer__category-link {
+    font-size: 14px;
+  }
+
+  .pl-footer__call-label {
+    font-size: 16px;
+  }
+
+  .pl-footer__call-number {
+    font-size: 20px;
+  }
+
+  .pl-footer__sns {
+    gap: 12px;
+  }
+
+  .pl-footer__sns-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pl-footer__marks {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .pl-footer__isms {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .pl-footer__isms-text {
+    flex: 1;
+  }
+
+  .pl-footer__isms-text p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .pl-footer__sites {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .pl-footer__app-btn {
+    display: flex;
+    max-width: 320px;
+  }
+
+  .pl-footer__dropdowns {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .pl-footer__dropdown-wrapper {
+    width: 240px;
+  }
+
+  .pl-footer__dropdown {
+    width: 100%;
+  }
+
+  /* Mobile: Business section spacing */
+  .pl-footer__business {
+    gap: 24px;
+  }
+
+  .pl-footer__company {
+    margin-bottom: -16px; /* 24px - 8px = 16px 감소하여 address와의 간격을 8px로 */
+  }
+}

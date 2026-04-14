@@ -267,7 +267,6 @@
   --pl-text-caution-dark: #a37402;
   --pl-text-brand: #15b1f1;
   --pl-text-brand-dark: #06435b;
-  --pl-text-brand-sub: #45b97c;
   --pl-text-positive: #45b97c;
   --pl-text-negative: #e04d52;
 
@@ -298,7 +297,6 @@
   --pl-bg-neutral-dark: #d4dce2;
   --pl-bg-positive-dark: #167d46;
   --pl-bg-negative: #e04d52;
-  --pl-bg-brand-sub: #45b97c;
   --pl-bg-default: #ffffff;
   --pl-bg-negative-light: #fef5f5;
 
@@ -325,7 +323,6 @@
   --pl-border-dark: #8c97a0;
   --pl-border-positive-dark: #167d46;
   --pl-border-brand-light: #8ddaf9;
-  --pl-border-brand-sub: #45b97c;
   --pl-border-caution-dark: #a37402;
   --pl-border-light: #d4dce2;
 
@@ -353,7 +350,6 @@
   --pl-icon-accent: #416df0;
   --pl-icon-accent-dark: #082271;
   --pl-icon-accent-light: #b7c8ff;
-  --pl-icon-brand-sub: #45b97c;
   --pl-icon-link: #9b6bf4;
   --pl-icon-link-sub: #8c97a0;
 
@@ -453,50 +449,11 @@
   --pl-alpha-brand-12: var(--pl-alpha-lightblue-12);
   --pl-alpha-brand-24: var(--pl-alpha-lightblue-24);
   --pl-alpha-brand-32: var(--pl-alpha-lightblue-32);
-  --pl-alpha-brand-48: var(--pl-alpha-lightblue-48);
-  /* Campaign tokens (overridden by campaign-*.css) */
-  --pl-campaign-primary: var(--pl-brand-main);
-  --pl-campaign-bg: var(--pl-bg-brand-light);
   /* Static white (Dark bg에서 텍스트/아이콘용) */
   --pl-static-white: var(--pl-neutral-0);
   /* Alpha white 72 (Figma JSON에 없는 단계 — 직접 정의) */
   --pl-alpha-white-72: rgba(255, 255, 255, 0.72);
 
-  /* ----------------------------------------
-     Component Tokens (Button)
-     ---------------------------------------- */
-  --comp-btn-radius: 999px;
-  --comp-btn-large-padding-hor: 32px;
-  --comp-btn-large-padding-ver: 16px;
-  --comp-btn-large-gap: 8px;
-  --comp-btn-medium-padding-hor: 24px;
-  --comp-btn-medium-padding-ver: 12px;
-  --comp-btn-medium-gap: 6px;
-  --comp-btn-small-padding-hor: 20px;
-  --comp-btn-small-padding-ver: 8px;
-  --comp-btn-small-gap: 4px;
-  --comp-btn-ghost-radius: 8px;
-  --comp-btn-ic-large-padding: 16px;
-  --comp-btn-ic-medium-padding: 12px;
-  --comp-btn-ic-small-padding: 8px;
-  --comp-btn-ic-radius: 999px;
-  --comp-btn-ic-ghost-large-padding: 8px;
-  --comp-btn-ic-ghost-medium-padding: 4px;
-  --comp-btn-ic-ghost-small-padding: 2px;
-  --comp-btn-ghost-small-padding-ver: 10px;
-  --comp-btn-ghost-large-padding-hor: 16px;
-  --comp-btn-ghost-large-padding-ver: 16px;
-  --comp-btn-ghost-medium-padding-hor: 10px;
-  --comp-btn-ghost-medium-padding-ver: 12px;
-  --comp-btn-ghost-small-padding-hor: 8px;
-  --comp-btn-xsmall-padding-ver: 6px;
-  --comp-btn-xsmall-gap: 4px;
-  --comp-btn-xsmall-padding-hor: 14px;
-  --comp-btn-ghost-xsmall-padding-ver: 4px;
-  --comp-btn-ghost-xsmall-padding-hor: 6px;
-  --comp-btn-max-width: 400px;
-  --comp-btn-group-max-width: 480px;
-  --comp-btn-ic-ghost-radius: 8px;
 }
 
 /* ============================================

@@ -14,7 +14,7 @@ tokens/
 ## 핵심 규칙
 
 - 색상은 반드시 `var(--pl-*)` 또는 `var(--brand-*)` / `var(--pl-campaign-*)` 토큰 사용
-- `sections.css` / `components.css` / `components.js` 수정 금지
+- `sections.css` / `sections/*.css` / `components.css` / `components.js` 수정 금지
 - 브랜드 색상 변경은 `brand-[project].css`에서만
 - 캠페인 색상 변경은 `campaign-[name].css`에서만
 - `base.css` 직접 수정 금지

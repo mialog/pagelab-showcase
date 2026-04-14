@@ -1,0 +1,115 @@
+/* ============================================
+   Caution Section (ETC - 유의사항)
+   Figma: 1920x475, bg #ffffff
+   ============================================ */
+.pl-caution {
+  width: 100%;
+  background: var(--pl-bg-default);
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom);
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-caution__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 68px; /* Figma: section title to list gap */
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+}
+
+/* Caution List */
+.pl-caution__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Figma: ~12px gap between items */
+  width: 880px; /* Figma: 880px */
+  max-width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pl-caution__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.pl-caution__bullet {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 12px; /* Figma: bullet container width */
+  height: 27px; /* Match text line-height */
+  flex-shrink: 0;
+}
+
+.pl-caution__bullet::before {
+  content: '';
+  width: 4px; /* Figma: 4x4 circle */
+  height: 4px;
+  background: var(--pl-text-tertiary); /* var(--pl-text-lowest) */
+  border-radius: 50%;
+}
+
+.pl-caution__text {
+  font-size: 19px; /* Figma: 19px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: 27.36px; /* Figma: 27.36px */
+  color: var(--pl-text-secondary); /* #394046 */
+}
+
+/* ============================================
+   Caution Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-caution {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  }
+
+  .pl-caution__container {
+    gap: var(--pl-spacing-9);
+    padding: 0 var(--pl-spacing-8);
+  }
+
+  .pl-caution__list {
+    width: 100%;
+    max-width: 656px;
+  }
+
+  .pl-caution__text {
+    font-size: 17px;
+    line-height: 24.48px;
+  }
+}
+
+/* ============================================
+   Caution Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-caution {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
+  }
+
+  .pl-caution__container {
+    gap: var(--pl-spacing-8);
+    padding: 0 var(--pl-spacing-6);
+  }
+
+  .pl-caution__list {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .pl-caution__bullet {
+    height: 23px; /* Match mobile text line-height */
+  }
+
+  .pl-caution__text {
+    font-size: 16px;
+    line-height: 23.04px;
+  }
+}

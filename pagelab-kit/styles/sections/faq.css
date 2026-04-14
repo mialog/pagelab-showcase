@@ -1,0 +1,240 @@
+/* ============================================
+   FAQ Section
+   Accordion-style Q&A section
+   Figma: 1920x870, bg #ffffff
+   ============================================ */
+.pl-faq {
+  width: 100%;
+  background: var(--pl-bg-default);
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom);
+  /* Container query support */
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-faq__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-section-title-gap); /* 68px */
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pl-faq__items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 960px; /* Figma: 960px */
+}
+
+/* Accordion Item */
+.pl-faq__item {
+  border-bottom: 1px solid var(--pl-border-light);
+}
+
+/* Accordion Header (Question) */
+.pl-faq__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pl-spacing-6) var(--pl-spacing-2); /* 24px 8px - Figma spec */
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.pl-faq__header:hover {
+  background: var(--pl-bg-neutral);
+}
+
+.pl-faq__question {
+  font-size: var(--pl-font-size-label-md); /* 19px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-default);
+  margin: 0;
+  padding-right: var(--pl-spacing-4);
+}
+
+.pl-faq__icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s;
+  color: var(--pl-text-secondary);
+}
+
+.pl-faq__item.is-open .pl-faq__icon {
+  transform: rotate(180deg);
+}
+
+/* Accordion Content (Answer) */
+.pl-faq__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.pl-faq__item.is-open .pl-faq__content {
+  max-height: 500px; /* 충분한 높이로 확장 */
+}
+
+.pl-faq__answer {
+  margin: var(--pl-spacing-5) var(--pl-spacing-2) var(--pl-spacing-5); /* 20px 8px 20px - Figma spec */
+  padding: var(--pl-spacing-8) var(--pl-spacing-6); /* 32px 24px - Figma spec */
+  background: var(--pl-bg-default); /* Figma: white background */
+  border: 1px solid var(--pl-border-default); /* Figma: answer box border */
+  border-radius: var(--pl-radius-3); /* 18px */
+}
+
+.pl-faq__answer-title {
+  font-size: var(--pl-font-size-label-sm); /* 17px */
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-default);
+  margin: 0 0 var(--pl-spacing-4) 0; /* 16px bottom - Figma spec */
+}
+
+.pl-faq__answer-text {
+  font-size: var(--pl-font-size-body-sm); /* 16px */
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body); /* 168% - Figma spec */
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ============================================
+   FAQ Responsive - Tablet
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-faq {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  }
+
+  .pl-faq__container {
+    gap: var(--pl-spacing-9); /* 42px - Figma: 60px between title and items */
+    padding: 0 var(--pl-spacing-8); /* 32px horizontal padding - Figma spec */
+  }
+
+  .pl-faq__items {
+    max-width: 100%;
+  }
+
+  .pl-faq__header {
+    padding: 22px var(--pl-spacing-2); /* 22px 8px - Figma spec */
+  }
+
+  .pl-faq__question {
+    font-size: 18px; /* Figma spec */
+    line-height: 25.92px; /* Figma spec */
+  }
+
+  .pl-faq__icon {
+    width: 32px; /* Figma spec */
+    height: 32px;
+  }
+
+  .pl-faq__answer {
+    margin: 18px var(--pl-spacing-2) var(--pl-spacing-5); /* 18px 8px 20px - Figma spec */
+    padding: 30px 22px; /* 30px 22px - Figma spec */
+    border-radius: 16px; /* Figma spec */
+  }
+
+  .pl-faq__answer-title {
+    font-size: 16px; /* Figma spec */
+    line-height: 23.04px; /* Figma spec */
+    margin: 0 0 14px 0; /* 14px bottom gap - Figma spec */
+  }
+
+  .pl-faq__answer-text {
+    font-size: 16px; /* Figma spec */
+    line-height: 26.88px; /* Figma spec */
+  }
+}
+
+/* ============================================
+   FAQ Responsive - Mobile
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-faq {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
+  }
+
+  .pl-faq__container {
+    gap: var(--pl-spacing-8); /* 32px - Figma: 52px between title and items */
+    padding: 0 var(--pl-spacing-5); /* 20px horizontal padding - Figma spec */
+  }
+
+  .pl-faq__header {
+    padding: var(--pl-spacing-5) 6px; /* 20px 6px - Figma spec */
+  }
+
+  .pl-faq__question {
+    font-size: 17px; /* Figma spec */
+    line-height: 24.48px; /* Figma spec */
+  }
+
+  .pl-faq__icon {
+    width: 32px; /* Figma spec */
+    height: 32px;
+  }
+
+  .pl-faq__answer {
+    margin: 16px 6px var(--pl-spacing-4); /* 16px 6px 16px - Figma spec */
+    padding: 24px var(--pl-spacing-5); /* 24px 20px - Figma spec */
+    border-radius: 16px; /* Figma spec */
+  }
+
+  .pl-faq__answer-title {
+    font-size: 15px; /* Figma spec */
+    line-height: 21.6px; /* Figma spec */
+    margin: 0 0 12px 0; /* 12px bottom gap - Figma spec */
+  }
+
+  .pl-faq__answer-text {
+    font-size: 16px; /* Figma spec */
+    line-height: 26.88px; /* Figma spec */
+  }
+}
+
+/* ============================================
+   FAQ - Dark Mode (data-theme="dark" 컨텍스트)
+   ============================================ */
+[data-theme="dark"] .pl-faq {
+  background: var(--pl-bg-default);
+}
+
+[data-theme="dark"] .pl-faq__item {
+  border-bottom-color: var(--pl-border-light);
+}
+
+[data-theme="dark"] .pl-faq__question {
+  color: var(--pl-text-primary);
+}
+
+[data-theme="dark"] .pl-faq__icon {
+  color: var(--pl-text-primary);
+}
+
+[data-theme="dark"] .pl-faq__header:hover {
+  background: var(--pl-bg-neutral);
+}
+
+[data-theme="dark"] .pl-faq__answer {
+  background: transparent;
+  border-color: var(--pl-border-light);
+}
+
+[data-theme="dark"] .pl-faq__answer-title {
+  color: var(--pl-text-primary);
+}
+
+[data-theme="dark"] .pl-faq__answer-text {
+  color: var(--pl-text-secondary);
+}

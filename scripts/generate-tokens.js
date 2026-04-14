@@ -482,14 +482,8 @@ lines.push(`  /* Alpha white 72 (Figma JSON에 없는 단계 — 직접 정의) 
 lines.push(`  --pl-alpha-white-72: rgba(255, 255, 255, 0.72);`);
 lines.push(``);
 
-// Component 버튼 토큰
-lines.push(`  /* ----------------------------------------`);
-lines.push(`     Component Tokens (Button)`);
-lines.push(`     ---------------------------------------- */`);
-for (const [key, vals] of Object.entries(json.Component)) {
-  const e = componentVar(key, vals.Pc);
-  if (e) lines.push(`  ${e.name}: ${e.value};`);
-}
+// Component 토큰은 styles/components.css에서 단독 관리
+// (base.css에 중복 정의하지 않음 — Token ↔ Component 레이어 분리)
 
 lines.push(`}`);
 lines.push(``);

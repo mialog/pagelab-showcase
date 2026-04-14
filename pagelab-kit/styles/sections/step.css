@@ -1,0 +1,564 @@
+/* ============================================
+   Step Section - Type A (Image)
+   Figma: 1920x781, bg #ffffff
+   3 step images with arrows
+   ============================================ */
+.pl-step {
+  width: 100%;
+  background: var(--pl-bg-default);
+  /* Container query support */
+  container-type: inline-size;
+  container-name: section;
+}
+
+.pl-step--img {
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom); /* 32px 0 100px */
+}
+
+.pl-step__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-section-title-gap); /* 68px - consistent with other sections */
+  max-width: var(--pl-container-default);
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+}
+
+/* Step Items Container */
+.pl-step__items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--pl-spacing-5); /* Figma: 20px */
+  max-width: 1400px; /* Figma: 1400px container width on PC */
+  width: 100%;
+  margin: 0 auto; /* Center container */
+}
+
+/* Step Item */
+.pl-step__item {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-5);
+}
+
+.pl-step__item--last {
+  gap: 0;
+}
+
+/* Step Image */
+.pl-step__image {
+  width: 320px; /* Figma: 320x320px */
+  height: 320px;
+  background: var(--pl-bg-neutral);
+  border-radius: var(--pl-radius-6); /* Figma: 32px */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pl-step__image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pl-step__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Step Arrow */
+.pl-step__arrow {
+  width: 48px; /* Figma: 48x48px */
+  height: 48px;
+  color: var(--pl-text-tertiary);
+  flex-shrink: 0;
+}
+
+.pl-step__arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   Step Type A - Tablet (Container Query)
+   Figma: 2+1 grid layout (2 top, 1 bottom center)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-step--img {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  }
+
+  .pl-step__container {
+    gap: var(--pl-spacing-9);
+    padding: 0 var(--pl-spacing-8); /* Figma: 32px left/right margin */
+  }
+
+  .pl-step__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    row-gap: var(--pl-spacing-4); /* Figma: ~18px vertical gap */
+    column-gap: var(--pl-spacing-4); /* Figma: ~18px horizontal gap */
+    max-width: 656px; /* Figma: container width for 2 items */
+  }
+
+  .pl-step__item {
+    gap: var(--pl-spacing-5); /* Figma: 20px gap */
+    flex: 0 0 auto;
+    max-width: 316px; /* Figma: 260px image + 56px spacing/arrow */
+  }
+
+  .pl-step__item:nth-child(1),
+  .pl-step__item:nth-child(2) {
+    /* First row: 2 items side by side */
+  }
+
+  .pl-step__item:nth-child(3) {
+    /* Second row: 1 item centered */
+    margin: 0 auto;
+    width: 278px; /* Figma: 260px image + 18px arrow space */
+  }
+
+  .pl-step__image {
+    width: 260px; /* Figma: 260x260px tablet size */
+    height: 260px;
+    border-radius: 28px; /* Figma: 28px */
+  }
+
+  .pl-step__arrow {
+    width: 48px; /* Figma: 48x48px */
+    height: 48px;
+  }
+
+  .pl-step__item--last .pl-step__arrow {
+    display: none;
+  }
+}
+
+/* ============================================
+   Step Type A - Mobile (Container Query)
+   Figma: vertical layout, 320x320 images
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-step--img {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
+  }
+
+  .pl-step__container {
+    gap: var(--pl-spacing-8);
+    padding: 0 var(--pl-spacing-6); /* Figma: 20px left/right margin */
+  }
+
+  .pl-step__items {
+    flex-direction: column;
+    gap: var(--pl-spacing-4); /* Figma: 16px */
+  }
+
+  .pl-step__item {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-3);
+  }
+
+  .pl-step__image {
+    width: 320px;
+    height: 320px;
+    max-width: 100%;
+    border-radius: 24px; /* Figma: 24px */
+  }
+
+  .pl-step__arrow {
+    width: 40px;
+    height: 40px;
+    transform: rotate(90deg);
+  }
+
+  .pl-step__item--last .pl-step__arrow {
+    display: none;
+  }
+}
+
+/* ============================================
+   Step Section - Type B (Text Card)
+   Figma: 1920x828, bg #ffffff
+   4 step cards with text + thumbnail
+   ============================================ */
+.pl-step--text {
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom); /* 32px 0 100px */
+}
+
+.pl-step--text .pl-step__container {
+  gap: var(--pl-section-title-gap); /* 68px gap between section title and items */
+  max-width: 1840px; /* Figma: 1840px (1920px - 40px*2) */
+}
+
+/* Step Text Items Container */
+.pl-step-text__items {
+  display: flex;
+  align-items: center; /* Center arrows with cards */
+  justify-content: center;
+  gap: var(--pl-spacing-5); /* Figma: 16px */
+  max-width: 1400px; /* Figma: 1400px container width on PC */
+  width: 100%;
+  margin: 0 auto; /* Center container */
+}
+
+/* Step Text Card */
+.pl-step-text__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Figma: left-aligned */
+  gap: var(--pl-spacing-5); /* Figma: 16px between label, thumb, content */
+  width: 284px; /* Figma: 284px card width */
+  flex-shrink: 0; /* Prevent shrinking */
+  padding: 0 var(--pl-spacing-3); /* Figma: 8px left/right padding */
+}
+
+/* Step Label Badge */
+.pl-step-text__label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--pl-spacing-1) var(--pl-spacing-3);
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-brand);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-text-brand);
+  border-radius: var(--pl-radius-1);
+}
+
+/* Step Thumbnail */
+.pl-step-text__thumb {
+  width: 268px; /* Figma: 268x202px */
+  height: 202px;
+  background: var(--pl-bg-default); /* White background */
+  border-radius: var(--pl-radius-2);
+  overflow: hidden;
+}
+
+.pl-step-text__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Step Text Content */
+.pl-step-text__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3); /* Figma: 8px between title and desc */
+  padding: 0 var(--pl-spacing-3); /* Figma: 8px left/right padding inside text container */
+  width: 268px; /* Figma: same as thumbnail width */
+}
+
+.pl-step-text__title {
+  font-size: var(--pl-font-size-title-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+.pl-step-text__desc {
+  font-size: var(--pl-font-size-body-lg);
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+/* Step Arrow */
+.pl-step-text__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; /* Figma: 48x48px */
+  height: 48px;
+  color: var(--pl-text-tertiary);
+  flex-shrink: 0;
+}
+
+.pl-step-text__arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   Step Type B - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-step--text {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  }
+
+  .pl-step--text .pl-step__container {
+    padding: 0 var(--pl-spacing-8); /* Figma: 32px left/right margin */
+  }
+
+  .pl-step-text__items {
+    display: grid;
+    grid-template-columns: 284px 48px 284px; /* Figma: card, arrow, card */
+    grid-template-rows: 370px 370px; /* Figma: card height 370px */
+    gap: var(--pl-spacing-5); /* Figma: 16px row & column gap */
+    justify-content: center;
+    align-items: center; /* Center all items vertically in cells */
+  }
+
+  /* Explicit grid placement for correct layout */
+  .pl-step-text__item:nth-child(1) { grid-row: 1; grid-column: 1; } /* Card 1 */
+  .pl-step-text__arrow:nth-child(2) { grid-row: 1; grid-column: 2; } /* Arrow 1 */
+  .pl-step-text__item:nth-child(3) { grid-row: 1; grid-column: 3; } /* Card 2 */
+  .pl-step-text__arrow:nth-child(4) { display: none; } /* Hide Arrow 2 */
+  .pl-step-text__item:nth-child(5) { grid-row: 2; grid-column: 1; } /* Card 3 */
+  .pl-step-text__arrow:nth-child(6) { grid-row: 2; grid-column: 2; } /* Arrow 3 */
+  .pl-step-text__item:nth-child(7) { grid-row: 2; grid-column: 3; } /* Card 4 */
+
+  .pl-step-text__item {
+    width: 284px; /* Figma: 284px */
+    align-self: stretch; /* Card takes full cell height */
+  }
+
+  .pl-step-text__thumb {
+    width: 268px; /* Figma: 268x202px */
+    height: 202px;
+    border-radius: var(--pl-radius-2);
+  }
+
+  .pl-step-text__title {
+    font-size: 22px; /* Figma: 22px */
+  }
+
+  .pl-step-text__desc {
+    font-size: var(--pl-font-size-body-md); /* Figma: 18px */
+  }
+
+  .pl-step-text__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ============================================
+   Step Type B - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-step--text {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
+  }
+
+  .pl-step--text .pl-step__container {
+    padding: 0 var(--pl-spacing-6); /* Figma: 20px left/right margin */
+  }
+
+  .pl-step-text__items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-5); /* Figma: 16px gap between cards and arrows */
+    width: 100%; /* Fill container width */
+    max-width: none;
+  }
+
+  .pl-step-text__item {
+    width: 100%; /* Fill container width for natural alignment */
+    max-width: 320px; /* Cap at Figma container width */
+  }
+
+  .pl-step-text__thumb {
+    width: 100%; /* Fill card width */
+    max-width: 272px; /* Figma: 272x202px */
+    height: 202px;
+    border-radius: var(--pl-radius-2);
+  }
+
+  .pl-step-text__content {
+    width: 100%; /* Fill card width */
+    max-width: 272px;
+  }
+
+  .pl-step-text__title {
+    font-size: 20px; /* Figma: 20px */
+  }
+
+  .pl-step-text__desc {
+    font-size: 16px; /* Figma: 16px */
+  }
+
+  /* Show all arrows in mobile (override tablet hide) */
+  .pl-step-text__arrow {
+    display: flex;
+    transform: rotate(90deg); /* Arrow pointing down */
+    margin-top: 0;
+  }
+
+  /* Force show Arrow 2 (between card 2-3) - override tablet hide with higher specificity */
+  .pl-step--text .pl-step-text__items .pl-step-text__arrow:nth-child(4) {
+    display: flex;
+  }
+}
+
+/* ============================================
+   Step Type B - Text Only (이미지 없는 버전)
+   ============================================ */
+
+/* PC Base */
+.pl-step--textonly {
+  padding: var(--pl-section-padding-top) 0 var(--pl-section-padding-bottom); /* 32px 0 100px */
+}
+
+.pl-step--textonly .pl-step__container {
+  gap: var(--pl-section-title-gap); /* 68px gap between section title and items */
+  max-width: 1840px; /* Figma: 1840px (1920px - 40px*2) */
+}
+
+/* Step Text Only Items Container */
+.pl-step-textonly__items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pl-spacing-5); /* Figma: 16px */
+  max-width: 1400px; /* Figma: 1400px container width on PC */
+  width: 100%;
+  margin: 0 auto; /* Center container */
+}
+
+/* Step Text Only Card */
+.pl-step-textonly__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Figma: left-aligned */
+  gap: var(--pl-spacing-5); /* Figma: 16px between label and content */
+  width: 284px; /* Figma: 284px card width */
+  height: 273px; /* Figma: 273px card height */
+  padding: 40px 20px 60px; /* Figma: 40px top, 20px left/right, 60px bottom */
+  background: var(--pl-bg-brand-light);
+  border-radius: 18px; /* Figma: 18px border radius */
+}
+
+/* Step Text Only Label Badge */
+.pl-step-textonly__label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--pl-spacing-1) var(--pl-spacing-3);
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-default);
+  color: var(--pl-text-brand);
+  background: var(--pl-bg-default);
+  border: 1px solid var(--pl-text-brand);
+  border-radius: var(--pl-radius-1);
+}
+
+/* Step Text Only Content */
+.pl-step-textonly__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3); /* Figma: 8px between title and desc */
+  padding: 0 var(--pl-spacing-2); /* Figma: 8px left/right padding */
+  width: 100%; /* Full width of parent */
+}
+
+.pl-step-textonly__title {
+  font-size: var(--pl-font-size-title-sm); /* 24px */
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+.pl-step-textonly__desc {
+  font-size: var(--pl-font-size-body-lg); /* 20px */
+  font-weight: var(--pl-font-weight-default);
+  line-height: var(--pl-line-height-default);
+  color: var(--pl-text-secondary);
+  margin: 0;
+}
+
+/* Step Text Only Arrow */
+.pl-step-textonly__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; /* Figma: 48x48px */
+  height: 48px;
+  color: var(--pl-text-tertiary);
+  flex-shrink: 0;
+}
+
+.pl-step-textonly__arrow svg {
+  width: 48px;
+  height: 48px;
+}
+
+/* ============================================
+   Step Type B Text Only - Tablet (Container Query)
+   ============================================ */
+@container section (max-width: 1199px) {
+  .pl-step--textonly {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-11);
+  }
+
+  .pl-step-textonly__items {
+    display: grid;
+    grid-template-columns: 284px 48px 284px; /* Figma: card, arrow, card */
+    grid-template-rows: auto auto; /* Auto height for rows */
+    gap: var(--pl-spacing-5); /* Figma: 16px row & column gap */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Explicit grid placement for 4-item layout */
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(1) { grid-row: 1; grid-column: 1; }
+  .pl-step--textonly-4 .pl-step-textonly__arrow:nth-child(2) { grid-row: 1; grid-column: 2; }
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(3) { grid-row: 1; grid-column: 3; }
+  .pl-step--textonly-4 .pl-step-textonly__arrow:nth-child(4) { display: none; }
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(5) { grid-row: 2; grid-column: 1; }
+  .pl-step--textonly-4 .pl-step-textonly__arrow:nth-child(6) { grid-row: 2; grid-column: 2; }
+  .pl-step--textonly-4 .pl-step-textonly__item:nth-child(7) { grid-row: 2; grid-column: 3; }
+
+  /* 3-item layout */
+  .pl-step--textonly-3 .pl-step-textonly__items {
+    grid-template-columns: 284px 48px 284px 48px 284px;
+    grid-template-rows: auto;
+  }
+
+  /* 2-item layout */
+  .pl-step--textonly-2 .pl-step-textonly__items {
+    grid-template-columns: 284px 48px 284px;
+    grid-template-rows: auto;
+  }
+}
+
+/* ============================================
+   Step Type B Text Only - Mobile (Container Query)
+   ============================================ */
+@container section (max-width: 639px) {
+  .pl-step--textonly {
+    padding: var(--pl-layout-body-top) 0 var(--pl-spacing-9);
+  }
+
+  .pl-step-textonly__items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pl-spacing-5); /* Figma: 16px gap */
+    max-width: none;
+    width: 100%;
+  }
+
+  .pl-step-textonly__item {
+    width: 100%;
+  }
+
+  .pl-step-textonly__arrow {
+    display: flex;
+    transform: rotate(90deg); /* Arrow pointing down */
+  }
+
+  /* Force show Arrow 2 (between card 2-3) - override tablet hide */
+  .pl-step--textonly-4 .pl-step-textonly__items .pl-step-textonly__arrow:nth-child(4) {
+    display: flex;
+  }
+}
