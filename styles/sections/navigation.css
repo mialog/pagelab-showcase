@@ -892,7 +892,7 @@
 /* ============================================
    GNB Responsive - Tablet
    ============================================ */
-@media (max-width: 1199px) {
+@container section (max-width: 1199px) {
   .pl-gnb {
     height: 60px;
   }
@@ -997,7 +997,7 @@
 /* ============================================
    GNB Responsive - Mobile
    ============================================ */
-@media (max-width: 639px) {
+@container section (max-width: 639px) {
   .pl-gnb {
     height: 66px; /* Figma: 66px */
   }
