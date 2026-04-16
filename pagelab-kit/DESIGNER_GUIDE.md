@@ -108,7 +108,7 @@ About 카드 이미지는 images/about-01.jpg, about-02.jpg, about-03.jpg로.
 ## 섹션 목록 참고
 
 PageLab Showcase에서 섹션 미리보기 확인:
-→ [섹션 갤러리 URL]
+→ https://mialog.github.io/pagelab-showcase/
 
 | 카테고리 | 타입 | JS 필요 |
 |---------|------|--------|
