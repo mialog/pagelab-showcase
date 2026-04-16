@@ -178,7 +178,7 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 80px var(--pl-spacing-7) var(--pl-spacing-7);
+      padding: 80px 0 var(--pl-spacing-7);
     }
 
     .preview-frame {
@@ -192,9 +192,21 @@
       height: fit-content;
     }
 
-    .preview-frame[data-device="pc"] {
-      width: 1920px;
+    .preview-container[data-device="pc"] {
+      padding-top: 60px;
     }
+
+    .preview-frame[data-device="pc"] {
+      width: 100%;
+      border-radius: 0 0 var(--pl-radius-3) var(--pl-radius-3);
+    }
+
+    .preview-container[data-device="tablet"],
+    .preview-container[data-device="mobile"] {
+      padding-left: var(--pl-spacing-7);
+      padding-right: var(--pl-spacing-7);
+    }
+
 
     .preview-frame[data-device="tablet"] {
       width: 720px;
@@ -275,7 +287,7 @@
   </header>
 
   <!-- Preview Container -->
-  <div class="preview-container">
+  <div class="preview-container" data-device="pc">
     <div class="preview-frame" data-device="pc">
       <div class="preview-content">
 
@@ -302,6 +314,7 @@
     // Device Switcher
     const deviceBtns = document.querySelectorAll('.device-btn');
     const previewFrame = document.querySelector('.preview-frame');
+    const previewContainer = document.querySelector('.preview-container');
 
     deviceBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -309,6 +322,7 @@
         btn.classList.add('is-active');
         const device = btn.dataset.device;
         previewFrame.dataset.device = device;
+        previewContainer.dataset.device = device;
       });
     });
 

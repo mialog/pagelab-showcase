@@ -170,8 +170,8 @@ button {
   background: var(--pl-neutral-5);
   padding: var(--pl-spacing-7) 0;
   position: sticky;
-  top: 65px; /* Stick below fixed header */
-  height: calc(100vh - 65px); /* Viewport height minus fixed header */
+  top: 48px; /* Stick below fixed header */
+  height: calc(100vh - 48px); /* Viewport height minus fixed header */
   overflow-y: auto;
   z-index: var(--pl-z-sticky); /* Below fixed header */
 }
