@@ -1409,14 +1409,15 @@
     background: var(--pl-campaign-primary);
     border-radius: 999px;
     padding: var(--pl-spacing-3) var(--pl-spacing-3); /* Figma: 8px horizontal padding */
-    width: 320px; /* Figma: 320px */
+    width: 100%;
+    max-width: 320px; /* Figma: 320px */
     height: 41px; /* Figma: 41px */
     box-sizing: border-box;
   }
 
   /* Second row: narrower (230px) */
   .pl-tab-nav-row--narrow {
-    width: 230px; /* Figma: 230px */
+    max-width: 230px; /* Figma: 230px */
   }
 
   /* Row 1 buttons: flexible width */

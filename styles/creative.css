@@ -1002,12 +1002,11 @@
 .pl-swipe-card:hover .creative__block-delete,
 .pl-slide-card:hover .creative__block-delete,
 .pl-benefit__card:hover .creative__block-delete,
-.pl-step-card:hover .creative__block-delete,
 .pl-step__image:hover .creative__block-delete,
 .pl-step__item:hover > .creative__block-delete,
 .pl-step-text__item:hover > .creative__block-delete,
 .pl-step-textonly__item:hover > .creative__block-delete,
-.pl-review__card:hover .creative__block-delete,
+.pl-review-card:hover .creative__block-delete,
 .pl-faq__item:hover .creative__block-delete,
 .pl-about__feature-item:hover > .creative__block-delete {
   display: flex;

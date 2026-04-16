@@ -260,7 +260,8 @@ class SectionCreative {
           cardCount: (type === 'benefit' && variant === 'type-a-plus') ? 4 : undefined,
           // Add card functionality for about card types and step image type
           hasAddCard: (type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe', 'type-g-feature-alt'].includes(variant)) ||
-                      (type === 'step' && variant === 'type-a-img'),
+                      (type === 'step' && variant === 'type-a-img') ||
+                      (type === 'review'),
           // Add card style selection for grid, swipe, tab types, floating CTA, and step-b-text
           hasStyleControl: (type === 'about' && ['type-b-grid', 'type-d-card-swipe', 'type-e-tab'].includes(variant)) ||
                            (type === 'cta' && variant === 'type-b-floating') ||
@@ -563,8 +564,7 @@ class SectionCreative {
       '.pl-swipe-card',
       '.pl-slide-card',
       '.pl-benefit__card',
-      '.pl-step-card',
-      '.pl-review__card',
+      '.pl-review-card',
       '.pl-faq__item',
       '.pl-about__feature-item'
     ];
@@ -663,8 +663,11 @@ class SectionCreative {
         e.preventDefault();
         e.stopPropagation();
         if (await this.showConfirmModal('이 카드를 삭제하시겠습니까?')) {
-          const parent = el.parentElement;
-          el.remove();
+          // review-card articles live inside <pl-review-card> custom elements — remove the wrapper too
+          const isInsideCustomEl = el.parentElement?.tagName?.toLowerCase() === 'pl-review-card';
+          const toRemove = isInsideCustomEl ? el.parentElement : el;
+          const parent = toRemove.parentElement;
+          toRemove.remove();
           this.recenterCardContainer(parent);
         }
       });
@@ -1983,6 +1986,51 @@ class SectionCreative {
       return;
     }
 
+    // Review card types — add new review card
+    if (section.type === 'review') {
+      let reviewContainer;
+
+      if (section.variant === 'type-b-card-grid') {
+        const rows = wrapper.querySelectorAll('.pl-review-grid__row');
+        reviewContainer = rows[rows.length - 1] || wrapper.querySelector('.pl-review-grid');
+      } else if (section.variant === 'type-c-card-slider') {
+        reviewContainer = wrapper.querySelector('.pl-review-slider__track');
+      } else if (section.variant === 'type-a-highlight') {
+        reviewContainer = wrapper.querySelector('.pl-review-track');
+      }
+
+      if (!reviewContainer) return;
+
+      // Clone the custom element (attributes only) and reset content
+      const tmplEl = reviewContainer.querySelector('pl-review-card');
+      if (tmplEl) {
+        const newEl = document.createElement('pl-review-card');
+        if (tmplEl.hasAttribute('variant')) newEl.setAttribute('variant', tmplEl.getAttribute('variant'));
+        newEl.setAttribute('stars', '5');
+        newEl.setAttribute('name', '이름');
+        newEl.setAttribute('info', '정보');
+        newEl.setAttribute('content', '후기 내용을 입력하세요.');
+        reviewContainer.appendChild(newEl);
+        const renderedCard = newEl.querySelector('.pl-review-card');
+        if (renderedCard) this.makeEditableCard(renderedCard);
+      } else {
+        // Fallback: clone a rendered article directly
+        const tmplCard = reviewContainer.querySelector('.pl-review-card');
+        if (!tmplCard) return;
+        const newCard = tmplCard.cloneNode(true);
+        newCard.querySelector('.creative__block-delete')?.remove();
+        const content = newCard.querySelector('.pl-review-card__content');
+        const name = newCard.querySelector('.pl-review-card__user-name, .pl-review-card__name');
+        const info = newCard.querySelector('.pl-review-card__user-info, .pl-review-card__info');
+        if (content) content.textContent = '후기 내용을 입력하세요.';
+        if (name) name.textContent = '이름';
+        if (info) info.textContent = '정보';
+        reviewContainer.appendChild(newCard);
+        this.makeEditableCard(newCard);
+      }
+      return;
+    }
+
     // Add the new card to container (for grid and swipe types)
     if (container && newCard) {
       container.appendChild(newCard);
@@ -2010,7 +2058,8 @@ class SectionCreative {
       e.preventDefault();
       e.stopPropagation();
       if (await this.showConfirmModal('이 카드를 삭제하시겠습니까?')) {
-        card.remove();
+        const isInsideCustomEl = card.parentElement?.tagName?.toLowerCase() === 'pl-review-card';
+        (isInsideCustomEl ? card.parentElement : card).remove();
       }
     });
 
