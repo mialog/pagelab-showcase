@@ -236,7 +236,7 @@ pagelab_showcase/
 | `--pl-bg-negative-light` | `#fef5f5` | `#a32428` |
 
 brand / accent / positive / caution / negative 5개 카테고리 × text, bg, border, icon 4개 접두사에 동일 패턴 적용.
-자세한 내용은 [AI_GUIDE.md](AI_GUIDE.md) 참고.
+자세한 내용은 [CLAUDE.md](CLAUDE.md) 참고.
 
 ### 간격
 
@@ -327,10 +327,10 @@ padding: var(--pl-spacing-8);
 
 ## 10. AI 개발 가이드
 
-AI 어시스턴트와 작업 시 **[AI_GUIDE.md](AI_GUIDE.md)** 참고
+AI 어시스턴트와 작업 시 **[CLAUDE.md](CLAUDE.md)** 참고
 
 ```
-"AI_GUIDE.md를 읽고 새 섹션을 표준에 맞게 추가해줘"
+"CLAUDE.md를 읽고 새 섹션을 표준에 맞게 추가해줘"
 ```
 
 ---

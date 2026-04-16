@@ -23,8 +23,7 @@ pagelab-kit/
 ├── scripts/
 │   └── components.js           ← pl-section-title Web Component (수정 금지)
 ├── images/                     ← 실제 프로젝트 이미지 여기에 넣기
-├── CLAUDE.md                   ← Claude Code 규칙 요약
-└── AI_GUIDE.md                 ← Claude Code 상세 규칙서
+└── CLAUDE.md                   ← Claude Code 규칙서
 ```
 
 > **sections.css, sections/*.css, components.css, components.js, base.css는 수정하지 않습니다.**
@@ -79,7 +78,7 @@ pagelab-showcase의 sections/ 폴더를 참고해서
 Hero type-a-split → Intro type-b-textgrid → About type-c-card-slide →
 Review type-b-card-grid → CTA type-a-finish 순서로
 index.html에 섹션 HTML을 조합해줘.
-AI_GUIDE.md 규칙 따라줘.
+CLAUDE.md 규칙 따라줘.
 ```
 
 **③ Figma MCP로 텍스트 주입 (선택)**
