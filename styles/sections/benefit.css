@@ -256,7 +256,7 @@
 }
 
 /* ----- Tablet (max-width: 1199px) ----- */
-@media (max-width: 1199px) {
+@container section (max-width: 1199px) {
   .pl-benefit__container {
     padding: var(--pl-layout-body-top) var(--pl-layout-padding) var(--pl-layout-body-bottom);
   }
@@ -382,7 +382,7 @@
 }
 
 /* ----- Mobile (max-width: 639px) ----- */
-@media (max-width: 639px) {
+@container section (max-width: 639px) {
   .pl-benefit__container {
     padding: var(--pl-layout-body-top) 20px var(--pl-layout-body-bottom);
   }

@@ -631,7 +631,7 @@
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: #e8eff4;
+  background: #e8eff4; /* Figma: e8eff4, 토큰 없음 */
 }
 
 .pl-footer__sns-icon--instagram { background: url('../images/footer/footer_sns_instagram.png') center/contain no-repeat; }

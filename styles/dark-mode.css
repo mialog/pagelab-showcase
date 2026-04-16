@@ -34,7 +34,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-list-card {
-  background: rgba(140, 152, 161, 0.96);
+  background: var(--pl-alpha-gray-96);
   border-color: var(--pl-bg-default);
 }
 
@@ -152,7 +152,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-benefit__image {
-  background: #0b0d11;
+  background: var(--pl-neutral-100);
 }
 
 /* ============================================
@@ -173,7 +173,7 @@
    Step - Type A Img & Type B Text
    ============================================ */
 .preview-content[data-theme="dark"] .pl-step {
-  background: #0b0d11;
+  background: var(--pl-neutral-100);
 }
 
 .preview-content[data-theme="dark"] .pl-step__arrow {
@@ -181,7 +181,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-step-text__label {
-  background: #0b0d11;
+  background: var(--pl-neutral-100);
   border-color: var(--pl-text-brand);
   color: var(--pl-text-brand);
 }
@@ -199,11 +199,11 @@
 }
 
 .preview-content[data-theme="dark"] .pl-step-textonly__item {
-  background: #394046;
+  background: var(--pl-neutral-80);
 }
 
 .preview-content[data-theme="dark"] .pl-step-textonly__label {
-  background: #0b0d11;
+  background: var(--pl-neutral-100);
   border-color: var(--pl-text-brand);
   color: var(--pl-text-brand);
 }
@@ -224,7 +224,7 @@
    Review - Type A Highlight
    ============================================ */
 .preview-content[data-theme="dark"] .pl-review-highlight__quote {
-  color: #416df0;
+  color: var(--pl-text-accent);
 }
 
 .preview-content[data-theme="dark"] .pl-review-highlight__desc {
@@ -235,7 +235,7 @@
    Review - Type A, B, C (Card)
    ============================================ */
 .preview-content[data-theme="dark"] .pl-review-card {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pl-alpha-white-12);
 }
 
 .preview-content[data-theme="dark"] .pl-review-card__user-name {
@@ -344,7 +344,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-footer__dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--pl-alpha-white-08);
 }
 
 /* ============================================
@@ -362,7 +362,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-faq__item {
-  border-bottom-color: #d4dce2;
+  border-bottom-color: var(--pl-neutral-20);
 }
 
 .preview-content[data-theme="dark"] .pl-faq__question {
@@ -374,7 +374,7 @@
 }
 
 .preview-content[data-theme="dark"] .pl-faq__header:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05); /* 토큰 없음 (white-05) */
 }
 
 .preview-content[data-theme="dark"] .pl-faq__answer {
@@ -394,7 +394,7 @@
    Etc - Caution
    ============================================ */
 .preview-content[data-theme="dark"] .pl-caution {
-  background: #0b0d11;
+  background: var(--pl-neutral-100);
 }
 
 .preview-content[data-theme="dark"] .pl-caution__bullet::before {
