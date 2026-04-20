@@ -632,7 +632,6 @@
 }
 
 .creative__layer-control--style {
-  flex-direction: column;
   gap: 6px;
   padding: var(--pl-spacing-3) 0 var(--pl-spacing-2) var(--pl-spacing-7);
 }
@@ -1117,6 +1116,19 @@
   height: 100%;
 }
 
+/* Step type-b 화살표: 썸네일 세로 중앙 정렬 (PC/Tablet 그리드) */
+@container section (min-width: 640px) {
+  .pl-step-text__arrow {
+    align-self: start;
+    margin-top: var(--_arrow-offset);
+  }
+}
+
+/* Step type-b 썸네일: overflow:hidden이 input을 clipping하지 않도록 */
+.pl-step-text__thumb:has(.creative__img-placeholder) {
+  overflow: visible;
+}
+
 /* Input inside full-background cards (slide, swipe full) — above overlay */
 .pl-slide-card .creative__img-placeholder-input,
 .pl-swipe-card--full .creative__img-placeholder-input {
@@ -1205,10 +1217,26 @@
   outline-offset: -2px;
 }
 
-/* Tab delete button positioning fix */
+/* Tab delete button */
 .creative__tab-delete {
-  pointer-events: auto !important;
-  z-index: 10 !important;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  background: var(--pl-static-red);
+  border: 2px solid var(--pl-bg-default);
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 /* Tab Style A - Default (Outline) */

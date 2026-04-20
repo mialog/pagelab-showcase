@@ -260,7 +260,7 @@ class SectionCreative {
           cardCount: (type === 'benefit' && variant === 'type-a-plus') ? 4 : undefined,
           // Add card functionality for about card types and step image type
           hasAddCard: (type === 'about' && ['type-b-grid', 'type-c-card-slide', 'type-d-card-swipe', 'type-g-feature-alt'].includes(variant)) ||
-                      (type === 'step' && variant === 'type-a-img') ||
+                      (type === 'step' && ['type-a-img', 'type-b-text'].includes(variant)) ||
                       (type === 'review'),
           // Add card style selection for grid, swipe, tab types, floating CTA, and step-b-text
           hasStyleControl: (type === 'about' && ['type-b-grid', 'type-d-card-swipe', 'type-e-tab'].includes(variant)) ||
@@ -527,6 +527,33 @@ class SectionCreative {
     });
   }
 
+  /** Step 아이템에 삭제 버튼 일괄 추가 헬퍼 */
+  _addStepDeleteBtns(wrapper, itemSelector, opts = {}) {
+    wrapper.querySelectorAll(itemSelector).forEach(item => {
+      if (item.querySelector('.creative__block-delete')) return;
+      item.style.position = 'relative';
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'creative__block-delete';
+      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+      deleteBtn.title = '단계 삭제';
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) return;
+        if (opts.siblingArrowClass) {
+          const next = item.nextElementSibling;
+          const prev = item.previousElementSibling;
+          if (next?.classList.contains(opts.siblingArrowClass)) next.remove();
+          else if (prev?.classList.contains(opts.siblingArrowClass)) prev.remove();
+        }
+        const container = item.parentElement;
+        item.remove();
+        opts.afterDelete?.(container);
+      });
+      item.appendChild(deleteBtn);
+    });
+  }
+
   makeEditable(wrapper) {
     // 복원된 HTML의 편집 흔적 먼저 제거
     this.stripEditableArtifacts(wrapper);
@@ -676,85 +703,30 @@ class SectionCreative {
     });
 
     // Step image items — deletable (type-a-img)
-    wrapper.querySelectorAll('.pl-step__item').forEach(item => {
-      if (item.querySelector('.creative__block-delete')) return; // already has delete btn
-      item.style.position = 'relative';
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'creative__block-delete';
-      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-      deleteBtn.title = '단계 삭제';
-      deleteBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) {
-          const itemsContainer = item.parentElement;
-          item.remove();
-          // Update last item: remove arrow, add --last class
-          const remaining = itemsContainer?.querySelectorAll('.pl-step__item');
-          if (remaining?.length) {
-            remaining.forEach((it, i) => {
-              if (i === remaining.length - 1) {
-                it.classList.add('pl-step__item--last');
-                it.querySelector('.pl-step__arrow')?.remove();
-              } else {
-                it.classList.remove('pl-step__item--last');
-              }
-            });
-          }
+    this._addStepDeleteBtns(wrapper, '.pl-step__item', {
+      afterDelete: (container) => {
+        const remaining = container?.querySelectorAll('.pl-step__item');
+        if (remaining?.length) {
+          remaining.forEach((it, i) => {
+            if (i === remaining.length - 1) {
+              it.classList.add('pl-step__item--last');
+              it.querySelector('.pl-step__arrow')?.remove();
+            } else {
+              it.classList.remove('pl-step__item--last');
+            }
+          });
         }
-      });
-      item.appendChild(deleteBtn);
+      }
     });
 
     // Step textonly items — deletable (type-b-text style B)
-    wrapper.querySelectorAll('.pl-step-textonly__item').forEach(item => {
-      if (item.querySelector('.creative__block-delete')) return;
-      item.style.position = 'relative';
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'creative__block-delete';
-      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-      deleteBtn.title = '단계 삭제';
-      deleteBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) {
-          const next = item.nextElementSibling;
-          const prev = item.previousElementSibling;
-          if (next?.classList.contains('pl-step-textonly__arrow')) {
-            next.remove();
-          } else if (prev?.classList.contains('pl-step-textonly__arrow')) {
-            prev.remove();
-          }
-          item.remove();
-        }
-      });
-      item.appendChild(deleteBtn);
+    this._addStepDeleteBtns(wrapper, '.pl-step-textonly__item', {
+      siblingArrowClass: 'pl-step-textonly__arrow'
     });
 
     // Step text items — deletable (type-b-text style A)
-    wrapper.querySelectorAll('.pl-step-text__item').forEach(item => {
-      if (item.querySelector('.creative__block-delete')) return;
-      item.style.position = 'relative';
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'creative__block-delete';
-      deleteBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-      deleteBtn.title = '단계 삭제';
-      deleteBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) {
-          // Remove adjacent arrow (prefer next sibling, fallback to prev)
-          const next = item.nextElementSibling;
-          const prev = item.previousElementSibling;
-          if (next?.classList.contains('pl-step-text__arrow')) {
-            next.remove();
-          } else if (prev?.classList.contains('pl-step-text__arrow')) {
-            prev.remove();
-          }
-          item.remove();
-        }
-      });
-      item.appendChild(deleteBtn);
+    this._addStepDeleteBtns(wrapper, '.pl-step-text__item', {
+      siblingArrowClass: 'pl-step-text__arrow'
     });
 
     // Make buttons editable + deletable
@@ -900,26 +872,6 @@ class SectionCreative {
       deleteBtn.className = 'creative__tab-delete';
       deleteBtn.innerHTML = `×`;
       deleteBtn.title = '탭 삭제';
-      deleteBtn.style.cssText = `
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        width: 20px;
-        height: 20px;
-        background: #ef4444;
-        border: 2px solid white;
-        border-radius: 50%;
-        color: white;
-        font-size: 14px;
-        font-weight: bold;
-        line-height: 1;
-        cursor: pointer;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-        pointer-events: auto;
-      `;
 
       deleteBtn.addEventListener('click', async (e) => {
         e.preventDefault();
@@ -1441,7 +1393,7 @@ class SectionCreative {
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            카드 추가
+            ${section.type === 'step' ? '단계 추가' : '카드 추가'}
           </button>
         </div>
         ` : ''}
@@ -1920,6 +1872,136 @@ class SectionCreative {
       return;
     }
 
+    // Step type-b-text — add new step item (style-a: 썸네일형, style-b: 텍스트형)
+    if (section.type === 'step' && section.variant === 'type-b-text') {
+      const isStyleA = (section.cardStyle || 'style-a') === 'style-a';
+      const dataStyle = isStyleA ? 'a' : 'b';
+      const activeSection = wrapper.querySelector(`.section-style[data-style="${dataStyle}"]`);
+      if (!activeSection) return;
+
+      const arrowSvg = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M10 24H38M38 24L26 12M38 24L26 36" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+      const mkDeleteBtn = (item, itemsContainer, arrowClass) => {
+        const btn = document.createElement('button');
+        btn.className = 'creative__block-delete';
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+        btn.title = '단계 삭제';
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault(); e.stopPropagation();
+          if (await this.showConfirmModal('이 단계를 삭제하시겠습니까?')) {
+            const next = item.nextElementSibling;
+            const prev = item.previousElementSibling;
+            if (next?.classList.contains(arrowClass)) next.remove();
+            else if (prev?.classList.contains(arrowClass)) prev.remove();
+            item.remove();
+          }
+        });
+        item.appendChild(btn);
+      };
+
+      if (isStyleA) {
+        const itemsContainer = activeSection.querySelector('.pl-step-text__items');
+        if (!itemsContainer) return;
+        const existingItems = itemsContainer.querySelectorAll('.pl-step-text__item');
+        const stepNum = String(existingItems.length + 1).padStart(2, '0');
+
+        // Add arrow before new item
+        const arrow = document.createElement('div');
+        arrow.className = 'pl-step-text__arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.innerHTML = arrowSvg;
+        itemsContainer.appendChild(arrow);
+
+        // Create new item
+        const newItem = document.createElement('div');
+        newItem.className = 'pl-step-text__item';
+        newItem.style.position = 'relative';
+
+        const label = document.createElement('span');
+        label.className = 'pl-step-text__label';
+        label.setAttribute('contenteditable', 'true');
+        label.style.cssText = 'outline:none;cursor:text;';
+        label.textContent = `Step ${stepNum}`;
+
+        const thumb = document.createElement('div');
+        thumb.className = 'pl-step-text__thumb';
+        const placeholder = document.createElement('div');
+        placeholder.className = 'creative__img-placeholder';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'creative__img-placeholder-input';
+        input.placeholder = '설명';
+        input.addEventListener('click', e => e.stopPropagation());
+        placeholder.appendChild(input);
+        thumb.appendChild(placeholder);
+
+        const content = document.createElement('div');
+        content.className = 'pl-step-text__content';
+        const title = document.createElement('h3');
+        title.className = 'pl-step-text__title';
+        title.setAttribute('contenteditable', 'true');
+        title.style.cssText = 'outline:none;cursor:text;';
+        title.textContent = '새 단계 제목';
+        const desc = document.createElement('p');
+        desc.className = 'pl-step-text__desc';
+        desc.setAttribute('contenteditable', 'true');
+        desc.style.cssText = 'outline:none;cursor:text;';
+        desc.textContent = '단계 설명을 입력하세요.';
+        content.appendChild(title);
+        content.appendChild(desc);
+
+        newItem.appendChild(label);
+        newItem.appendChild(thumb);
+        newItem.appendChild(content);
+        mkDeleteBtn(newItem, itemsContainer, 'pl-step-text__arrow');
+        itemsContainer.appendChild(newItem);
+      } else {
+        const itemsContainer = activeSection.querySelector('.pl-step-textonly__items');
+        if (!itemsContainer) return;
+        const existingItems = itemsContainer.querySelectorAll('.pl-step-textonly__item');
+        const stepNum = String(existingItems.length + 1).padStart(2, '0');
+
+        // Add arrow before new item
+        const arrow = document.createElement('div');
+        arrow.className = 'pl-step-textonly__arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.innerHTML = arrowSvg;
+        itemsContainer.appendChild(arrow);
+
+        // Create new item
+        const newItem = document.createElement('div');
+        newItem.className = 'pl-step-textonly__item';
+        newItem.style.position = 'relative';
+
+        const label = document.createElement('span');
+        label.className = 'pl-step-textonly__label';
+        label.setAttribute('contenteditable', 'true');
+        label.style.cssText = 'outline:none;cursor:text;';
+        label.textContent = `Step ${stepNum}`;
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'pl-step-textonly__content';
+        const title = document.createElement('h3');
+        title.className = 'pl-step-textonly__title';
+        title.setAttribute('contenteditable', 'true');
+        title.style.cssText = 'outline:none;cursor:text;';
+        title.textContent = '새 단계 제목';
+        const desc = document.createElement('p');
+        desc.className = 'pl-step-textonly__desc';
+        desc.setAttribute('contenteditable', 'true');
+        desc.style.cssText = 'outline:none;cursor:text;';
+        desc.textContent = '단계 설명을 입력하세요.';
+        contentDiv.appendChild(title);
+        contentDiv.appendChild(desc);
+
+        newItem.appendChild(label);
+        newItem.appendChild(contentDiv);
+        mkDeleteBtn(newItem, itemsContainer, 'pl-step-textonly__arrow');
+        itemsContainer.appendChild(newItem);
+      }
+      return;
+    }
+
     // Step image type — add new step item
     if (section.type === 'step' && section.variant === 'type-a-img') {
       const itemsContainer = wrapper.querySelector('.pl-step__items');
@@ -2363,7 +2445,8 @@ class SectionCreative {
 
   // Export as Image
   async exportImage() {
-    if (this.sections.length === 0) return;
+    const hasContent = this.sections.length > 0 || this.headerSection || this.footerSection || this.floatingCtaSection;
+    if (!hasContent) return;
 
     try {
       // Show loading
@@ -2608,7 +2691,10 @@ class SectionCreative {
         if (placeholder) placeholder.remove();
         slot.appendChild(wrapper);
         if (position === 'floating-cta') slot.style.display = '';
-        requestAnimationFrame(() => this.makeEditable(wrapper));
+        requestAnimationFrame(() => {
+          this.makeEditable(wrapper);
+          this.initSectionJS(wrapper, section.type);
+        });
       };
 
       if (state.headerSection?.html) {

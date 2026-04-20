@@ -194,19 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Section card click handler (navigate to detail)
-  sectionCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const type = card.dataset.type;
-      const name = card.querySelector('.section-card__name').textContent;
-      const slug = name.toLowerCase().replace(/\s+-\s+/g, '-').replace(/\s+/g, '-');
-
-      // Navigate to section detail page
-      // window.location.href = `sections/${type}/${slug}.html`;
-      console.log(`Navigate to: sections/${type}/${slug}.html`);
-    });
-  });
-
   // Initial filter and count update
   filterCards();
 
