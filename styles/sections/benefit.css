@@ -607,3 +607,225 @@
     border-radius: var(--pl-radius-4); /* Figma: 20px (mobile token) */
   }
 }
+
+/* ============================================
+   Benefit Section - Type C (Pricing)
+   3열 가격표 카드
+   ============================================ */
+.pl-benefit--pricing {
+  background: var(--pl-neutral-5);
+  padding: var(--pl-spacing-14) 0;
+}
+
+.pl-pricing__container {
+  max-width: var(--pl-container-wide);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-11);
+}
+
+/* Pricing Grid */
+.pl-pricing {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--pl-spacing-7);
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Pricing Card */
+.pl-pricing__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--pl-bg-default);
+  border: var(--pl-border-1) solid var(--pl-border-light);
+  border-radius: var(--pl-radius-3);
+  padding: var(--pl-spacing-9);
+  gap: var(--pl-spacing-6);
+  position: relative;
+  box-shadow: var(--pl-shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pl-pricing__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pl-shadow-lg);
+}
+
+.pl-pricing__card--popular {
+  border-color: var(--pl-border-brand);
+  border-width: var(--pl-border-2);
+  box-shadow: var(--pl-shadow-brand);
+}
+
+.pl-pricing__card--popular:hover {
+  box-shadow: var(--pl-shadow-brand), var(--pl-shadow-lg);
+}
+
+/* 인기 뱃지 */
+.pl-pricing__badge {
+  position: absolute;
+  top: calc(-1 * var(--pl-spacing-4));
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-brand);
+  padding: var(--pl-spacing-2) var(--pl-spacing-5);
+  border-radius: var(--pl-radius-circle);
+  white-space: nowrap;
+}
+
+/* Card Header */
+.pl-pricing__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-2);
+  text-align: center;
+}
+
+.pl-pricing__name {
+  font-size: var(--pl-font-size-title-lg);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+}
+
+.pl-pricing__desc {
+  font-size: var(--pl-font-size-body-sm);
+  color: var(--pl-text-tertiary);
+  line-height: var(--pl-line-height-body);
+}
+
+/* Price */
+.pl-pricing__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--pl-spacing-2);
+}
+
+.pl-pricing__amount {
+  font-size: var(--pl-font-size-display-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: 1;
+  letter-spacing: var(--pl-letter-spacing-narrow);
+}
+
+.pl-pricing__card--popular .pl-pricing__amount {
+  color: var(--pl-text-brand);
+}
+
+.pl-pricing__unit {
+  font-size: var(--pl-font-size-body-sm);
+  color: var(--pl-text-tertiary);
+  font-weight: var(--pl-font-weight-default);
+}
+
+/* Divider */
+.pl-pricing__divider {
+  height: 1px;
+  background: var(--pl-border-light);
+}
+
+/* Feature List */
+.pl-pricing__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+  flex: 1;
+}
+
+.pl-pricing__feature {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-spacing-3);
+  font-size: var(--pl-font-size-body-sm);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-default);
+}
+
+.pl-pricing__feature--disabled {
+  color: var(--pl-text-lowest);
+}
+
+.pl-pricing__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.pl-pricing__icon--check {
+  color: var(--pl-static-green);
+}
+
+.pl-pricing__card--popular .pl-pricing__icon--check {
+  color: var(--pl-text-brand);
+}
+
+.pl-pricing__icon--x {
+  color: var(--pl-text-lowest);
+}
+
+/* Action */
+.pl-pricing__action {
+  margin-top: auto;
+}
+
+.pl-pricing__action .pl-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Pricing Responsive ── */
+@container section (max-width: 1199px) {
+  .pl-benefit--pricing {
+    padding: var(--pl-spacing-13) 0;
+  }
+
+  .pl-pricing__container {
+    padding: 0 var(--pl-spacing-8);
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-pricing__card {
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-pricing__amount {
+    font-size: var(--pl-font-size-header-lg);
+  }
+}
+
+@container section (max-width: 639px) {
+  .pl-benefit--pricing {
+    padding: var(--pl-spacing-11) 0;
+  }
+
+  .pl-pricing__container {
+    padding: 0 var(--pl-spacing-6);
+    gap: var(--pl-spacing-8);
+  }
+
+  .pl-pricing {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .pl-pricing__card {
+    padding: var(--pl-spacing-7);
+    gap: var(--pl-spacing-5);
+  }
+
+  .pl-pricing__amount {
+    font-size: var(--pl-font-size-header-md);
+  }
+}

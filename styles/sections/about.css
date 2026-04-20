@@ -1843,3 +1843,176 @@
     padding: var(--pl-spacing-2) var(--pl-spacing-4);
   }
 }
+
+/* ============================================
+   About/Feature Section - Type H (Compare)
+   2열 비교 카드 레이아웃
+   ============================================ */
+.pl-about--compare {
+  background: var(--pl-neutral-5);
+  padding: var(--pl-spacing-14) 0;
+}
+
+.pl-about__compare-container {
+  max-width: var(--pl-container-wide);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--pl-layout-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pl-spacing-11);
+}
+
+/* Compare Grid */
+.pl-compare {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--pl-spacing-7);
+  width: 100%;
+  max-width: 920px;
+}
+
+/* Compare Card */
+.pl-compare__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--pl-bg-default);
+  border: var(--pl-border-1) solid var(--pl-border-light);
+  border-radius: var(--pl-radius-3);
+  padding: var(--pl-spacing-9);
+  gap: var(--pl-spacing-7);
+  box-shadow: var(--pl-shadow-sm);
+}
+
+.pl-compare__card--highlight {
+  border-color: var(--pl-border-brand);
+  border-width: var(--pl-border-2);
+  box-shadow: var(--pl-shadow-brand);
+}
+
+/* Card Header */
+.pl-compare__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-3);
+}
+
+.pl-compare__badge {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: var(--pl-font-size-label-sm);
+  font-weight: var(--pl-font-weight-bold);
+  padding: var(--pl-spacing-2) var(--pl-spacing-4);
+  border-radius: var(--pl-radius-circle);
+  color: var(--pl-text-secondary);
+  background: var(--pl-bg-neutral);
+}
+
+.pl-compare__card--highlight .pl-compare__badge {
+  color: var(--pl-text-invert);
+  background: var(--pl-bg-brand);
+}
+
+.pl-compare__title {
+  font-size: var(--pl-font-size-header-sm);
+  font-weight: var(--pl-font-weight-bold);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-title);
+}
+
+.pl-compare__subtitle {
+  font-size: var(--pl-font-size-body-md);
+  color: var(--pl-text-secondary);
+  line-height: var(--pl-line-height-body);
+}
+
+/* Divider */
+.pl-compare__divider {
+  height: 1px;
+  background: var(--pl-border-light);
+}
+
+/* Feature List */
+.pl-compare__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-spacing-4);
+  flex: 1;
+}
+
+.pl-compare__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pl-spacing-3);
+  font-size: var(--pl-font-size-body-sm);
+  color: var(--pl-text-primary);
+  line-height: var(--pl-line-height-body);
+}
+
+.pl-compare__check {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--pl-static-green);
+  margin-top: 2px;
+}
+
+.pl-compare__card--highlight .pl-compare__check {
+  color: var(--pl-text-brand);
+}
+
+/* Action */
+.pl-compare__action {
+  margin-top: auto;
+}
+
+.pl-compare__action .pl-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Compare Responsive ── */
+@container section (max-width: 1199px) {
+  .pl-about--compare {
+    padding: var(--pl-spacing-13) 0;
+  }
+
+  .pl-about__compare-container {
+    padding: 0 var(--pl-spacing-8);
+    gap: var(--pl-spacing-9);
+  }
+
+  .pl-compare__card {
+    padding: var(--pl-spacing-8);
+  }
+
+  .pl-compare__title {
+    font-size: var(--pl-font-size-title-lg);
+  }
+}
+
+@container section (max-width: 639px) {
+  .pl-about--compare {
+    padding: var(--pl-spacing-11) 0;
+  }
+
+  .pl-about__compare-container {
+    padding: 0 var(--pl-spacing-6);
+    gap: var(--pl-spacing-8);
+  }
+
+  .pl-compare {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-compare__card {
+    padding: var(--pl-spacing-7);
+    gap: var(--pl-spacing-5);
+  }
+
+  .pl-compare__title {
+    font-size: var(--pl-font-size-title-md);
+  }
+}

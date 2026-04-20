@@ -23,13 +23,25 @@ const DEVICE_SCALE_FACTOR = 2; // Retina 품질 (2x)
 // AI가 생성한 섹션만 대상 (수동으로 관리하는 썸네일 제외)
 const AI_SECTIONS = [
   { filePath: 'sections/about/type-g-feature-alt.html', outputName: 'about G.png' },
+  { filePath: 'sections/about/type-h-compare.html',     outputName: 'about H.png' },
+  { filePath: 'sections/benefit/type-c-pricing.html',    outputName: 'benefit C.png' },
   { filePath: 'sections/hero/type-d-video.html',        outputName: 'hero D.png'  },
+  { filePath: 'sections/cta/type-d-banner.html',           outputName: 'cta D.png', device: 'mobile' },
   { filePath: 'sections/intro/type-d-product-split.html', outputName: 'intro D.png' },
 ];
 
-async function screenshotSection(page, filePath) {
+async function screenshotSection(page, filePath, device) {
   const url = `file://${path.join(ROOT, filePath)}`;
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 15000 });
+
+  // 디바이스 전환 (mobile/tablet 지정 시 프리뷰 프레임 너비 변경)
+  if (device && device !== 'pc') {
+    await page.evaluate((d) => {
+      const frame = document.querySelector('.preview-frame');
+      if (frame) frame.dataset.device = d;
+    }, device);
+    await new Promise((r) => setTimeout(r, 300)); // 리사이즈 transition 대기
+  }
 
   await page.evaluate(() => {
     const header = document.querySelector('.preview-header');
@@ -83,10 +95,10 @@ async function main() {
   let success = 0;
   let fail = 0;
 
-  for (const { filePath, outputName } of targets) {
+  for (const { filePath, outputName, device } of targets) {
     const outputPath = path.join(OUTPUT_DIR, outputName);
     try {
-      const element = await screenshotSection(page, filePath);
+      const element = await screenshotSection(page, filePath, device);
       if (!element) {
         console.warn(`  ⚠️  섹션 요소 없음: ${outputName}`);
         fail++;
@@ -95,7 +107,7 @@ async function main() {
 
       const box = await element.boundingBox();
       const clipWidth = Math.min(box.width, VIEWPORT_WIDTH);
-      const clipHeight = Math.round(clipWidth / 2); // 2:1 고정
+      const clipHeight = Math.min(Math.round(clipWidth / 2), Math.round(box.height)); // 2:1 또는 섹션 높이 중 작은 값
 
       await page.screenshot({
         path: outputPath,

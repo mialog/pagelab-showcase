@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTA - Type D Banner | PageLab</title>
+  <link rel="stylesheet" href="./../../tokens/base.css">
+  <link rel="stylesheet" href="./../../tokens/campaign.css">
+  <link rel="stylesheet" href="./../../styles/components.css">
+  <link rel="stylesheet" href="./../../styles/dark-mode.css">
+  <link rel="stylesheet" href="./../../styles/sections.css">
+
+  <link rel="stylesheet" href="./../../tokens/fonts.css">
+  <script src="./../../scripts/components.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--pl-font-main);
+      background: var(--pl-neutral-10);
+      min-height: 100vh;
+    }
+
+    /* Preview Header */
+    .preview-header {
+      background: var(--pl-bg-default);
+      border-bottom: 1px solid var(--pl-border-light);
+      padding: var(--pl-spacing-4) var(--pl-spacing-7);
+      display: flex; align-items: center; justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    }
+    .preview-header__left { display: flex; align-items: center; gap: var(--pl-spacing-5); }
+    .preview-header__back {
+      display: flex; align-items: center; gap: var(--pl-spacing-2);
+      font-size: var(--pl-font-size-label-md); color: var(--pl-text-tertiary);
+      text-decoration: none; padding: var(--pl-spacing-2) var(--pl-spacing-3);
+      border-radius: var(--pl-radius-1); transition: all 0.2s;
+    }
+    .preview-header__back:hover { color: var(--pl-text-primary); background: var(--pl-bg-neutral); }
+    .preview-header__info { display: flex; align-items: center; gap: var(--pl-spacing-3); }
+    .preview-header__tag {
+      font-size: var(--pl-font-size-label-sm); font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-static-red); background: var(--pl-red-5);
+      padding: 3px 10px; border-radius: var(--pl-radius-1);
+    }
+    .preview-header__title {
+      font-size: var(--pl-font-size-body-md); font-weight: var(--pl-font-weight-bold);
+      color: var(--pl-text-primary);
+    }
+    .preview-header__right { display: flex; align-items: center; gap: var(--pl-spacing-3); }
+
+    .device-switcher, .theme-switcher {
+      display: flex; align-items: center; gap: var(--pl-spacing-2);
+      background: var(--pl-bg-neutral); padding: 4px; border-radius: var(--pl-radius-2);
+    }
+    .device-btn, .theme-btn {
+      display: flex; align-items: center; justify-content: center; gap: var(--pl-spacing-2);
+      padding: var(--pl-spacing-3) var(--pl-spacing-5);
+      font-size: var(--pl-font-size-label-sm); font-weight: var(--pl-font-weight-default);
+      color: var(--pl-text-tertiary); background: transparent;
+      border: none; border-radius: var(--pl-radius-1); cursor: pointer; transition: all 0.2s;
+    }
+    .device-btn:hover, .theme-btn:hover { color: var(--pl-text-primary); }
+    .device-btn.is-active, .theme-btn.is-active {
+      color: var(--pl-text-primary); background: var(--pl-bg-default);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); font-weight: var(--pl-font-weight-bold);
+    }
+    .device-btn__size { color: var(--pl-text-lowest); font-weight: var(--pl-font-weight-default); }
+
+    .preview-container {
+      min-height: 100vh; display: flex; justify-content: center;
+      padding: 80px 0 var(--pl-spacing-7);
+    }
+    .preview-frame {
+      background: var(--pl-bg-default); box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      border-radius: var(--pl-radius-3); overflow: hidden;
+      transition: width 0.3s ease; width: 1920px; max-width: 100%; height: fit-content;
+    }
+    .preview-container[data-device="pc"] { padding-top: 60px; }
+    .preview-frame[data-device="pc"] {
+      width: 100%; border-radius: 0 0 var(--pl-radius-3) var(--pl-radius-3);
+    }
+    .preview-container[data-device="tablet"],
+    .preview-container[data-device="mobile"] {
+      padding-left: var(--pl-spacing-7); padding-right: var(--pl-spacing-7);
+    }
+    .preview-frame[data-device="tablet"] { width: 720px; }
+    .preview-frame[data-device="mobile"] { width: 360px; }
+    .preview-content { width: 100%; container-type: inline-size; container-name: section; }
+
+    /* AI Badge */
+    .preview-ai-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; color: #fff;
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      padding: 3px 10px 3px 8px; border-radius: 20px; white-space: nowrap;
+    }
+    .preview-ai-badge__help {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 15px; height: 15px; background: rgba(255,255,255,0.25);
+      border-radius: 50%; font-size: 9px; font-weight: 700;
+      cursor: pointer; border: none; color: #fff; padding: 0;
+      position: relative; flex-shrink: 0;
+    }
+    .preview-ai-badge__help:focus { outline: none; }
+    .preview-ai-tooltip {
+      display: none; position: absolute; top: calc(100% + 10px); left: 0;
+      width: 260px; background: #1e1b4b; color: #e9d5ff;
+      font-size: 12px; font-weight: 400; line-height: 1.6;
+      padding: 10px 12px; border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      text-align: left; pointer-events: none; z-index: 2000; white-space: normal;
+    }
+    .preview-ai-tooltip::after {
+      content: ''; position: absolute; top: -5px; left: 12px;
+      border: 5px solid transparent; border-top: none; border-bottom-color: #1e1b4b;
+    }
+    .preview-ai-badge__help:hover .preview-ai-tooltip,
+    .preview-ai-badge__help:focus .preview-ai-tooltip { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Preview Header -->
+  <header class="preview-header">
+    <div class="preview-header__left">
+      <a href="../../index.html" class="preview-header__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        갤러리
+      </a>
+      <div class="preview-header__info">
+        <span class="preview-header__tag">전환 유도</span>
+        <h1 class="preview-header__title">띠 배너형</h1>
+        <span class="preview-ai-badge">
+          ✦ AI 생성
+          <button class="preview-ai-badge__help" aria-label="AI 생성 섹션 설명">
+            ?
+            <span class="preview-ai-tooltip" role="tooltip">
+              PageLab 컴포넌트와 디자인 토큰을 학습한 AI가 자동으로 생성한 섹션입니다. 토큰 규칙과 구조 표준을 준수합니다.
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="preview-header__right">
+      <div class="theme-switcher">
+        <button class="theme-btn is-active" data-theme="light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Light
+        </button>
+        <button class="theme-btn" data-theme="dark" disabled style="opacity:0.35;cursor:not-allowed;" title="이 섹션은 다크모드를 지원하지 않습니다">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          Dark
+        </button>
+      </div>
+      <div class="device-switcher">
+        <button class="device-btn is-active" data-device="pc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          PC <span class="device-btn__size">1920</span>
+        </button>
+        <button class="device-btn" data-device="tablet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+          Tablet <span class="device-btn__size">720</span>
+        </button>
+        <button class="device-btn" data-device="mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+          Mobile <span class="device-btn__size">360</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Preview Container -->
+  <div class="preview-container" data-device="pc">
+    <div class="preview-frame" data-device="pc">
+      <div class="preview-content">
+
+        <!-- ========== CTA - Type D: Banner ========== -->
+        <section class="pl-section pl-cta pl-cta--banner" data-section="cta" aria-label="프로모션 배너">
+          <div class="pl-section__container pl-cta-banner__container">
+            <div class="pl-cta-banner__text">
+              <span class="pl-cta-banner__label">4월 한정</span>
+              <h2 class="pl-cta-banner__title">봄맞이 특별 할인 전 과목 <strong>40% OFF</strong></h2>
+              <p class="pl-cta-banner__desc">신규 가입 시 첫 달 무료 체험 · 4월 30일 마감</p>
+            </div>
+            <div class="pl-cta-banner__action">
+              <pl-button variant="outline" size="small" href="#">지금 신청하기 →</pl-button>
+            </div>
+          </div>
+        </section>
+        <!-- ========== //CTA - Type D: Banner ========== -->
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const deviceBtns = document.querySelectorAll('.device-btn');
+    const previewFrame = document.querySelector('.preview-frame');
+    const previewContainer = document.querySelector('.preview-container');
+    deviceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        deviceBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        previewFrame.dataset.device = btn.dataset.device;
+      });
+    });
+
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const previewContent = document.querySelector('.preview-content');
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        themeBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        if (btn.dataset.theme === 'dark') {
+          previewContent.setAttribute('data-theme', 'dark');
+        } else {
+          previewContent.removeAttribute('data-theme');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -33,6 +33,7 @@ class SectionCreative {
       'about-type-f-image': 'sections/about/type-f-image.html',
       'benefit-type-a-plus': 'sections/benefit/type-a-plus.html',
       'benefit-type-b-img': 'sections/benefit/type-b-img.html',
+      'benefit-type-c-pricing': 'sections/benefit/type-c-pricing.html',
       'step-type-a-img': 'sections/step/type-a-img.html',
       'step-type-b-text': 'sections/step/type-b-text.html',
       'review-type-a-highlight': 'sections/review/type-a-highlight.html',
@@ -42,9 +43,11 @@ class SectionCreative {
       'hero-type-d-video': 'sections/hero/type-d-video.html',
       'intro-type-d-product-split': 'sections/intro/type-d-product-split.html',
       'about-type-g-feature-alt': 'sections/about/type-g-feature-alt.html',
+      'about-type-h-compare': 'sections/about/type-h-compare.html',
       'cta-type-a-finish': 'sections/cta/type-a-finish.html',
       'cta-type-b-floating': 'sections/cta/type-b-floating.html',
       'cta-type-c-floating-b': 'sections/cta/type-c-floating-b.html',
+      'cta-type-d-banner': 'sections/cta/type-d-banner.html',
     };
 
     // Section display names

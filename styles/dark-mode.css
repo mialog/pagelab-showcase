@@ -404,3 +404,43 @@
 .preview-content[data-theme="dark"] .pl-caution__text {
   color: var(--pl-text-secondary);
 }
+
+/* ============================================
+   About - Type H Compare
+   ============================================ */
+.preview-content[data-theme="dark"] .pl-about--compare {
+  background: var(--pl-bg-default);
+}
+
+.preview-content[data-theme="dark"] .pl-compare__card {
+  background: var(--pl-neutral-90);
+  border-color: var(--pl-neutral-80);
+}
+
+.preview-content[data-theme="dark"] .pl-compare__card--highlight {
+  border-color: var(--pl-border-brand);
+}
+
+.preview-content[data-theme="dark"] .pl-compare__divider {
+  background: var(--pl-neutral-80);
+}
+
+/* ============================================
+   Benefit - Type C Pricing
+   ============================================ */
+.preview-content[data-theme="dark"] .pl-benefit--pricing {
+  background: var(--pl-bg-default);
+}
+
+.preview-content[data-theme="dark"] .pl-pricing__card {
+  background: var(--pl-neutral-90);
+  border-color: var(--pl-neutral-80);
+}
+
+.preview-content[data-theme="dark"] .pl-pricing__card--popular {
+  border-color: var(--pl-border-brand);
+}
+
+.preview-content[data-theme="dark"] .pl-pricing__divider {
+  background: var(--pl-neutral-80);
+}
